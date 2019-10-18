@@ -1,0 +1,76 @@
+% Chapter 1
+
+\chapter{Genomic prediction of phenotypic values of quantitative traits using Artificial nerual networks}
+
+\label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+
+
+\section{Introduction}
+Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
+and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant}, \cite{crossa2017genomic}
+as well as in medical applications, since it was first reported  \cite{hayes2001}. Since then the repertoire of
+methods for predicting phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} , \cite{crossa2017}. The most commonly applied methods include GBLUP and a set of related algorithms known as the bayesian alphabet \cite{gianola2009}. 
+Genomic prediction in general has repeatedly been shown to outperform pedigree-based methods \cite{crossa2010},
+\cite{albrecht2011} and is nowadays used in many plant and animal breeding shemes. 
+It has also been shown that using whole-genome information is superior to using only feature-selected markers
+with known QTLs for a given trait \cite{bernardo2007}, \cite{heffner2011} in some cases. A more recent study
+\cite{azodi2019} compared 11 different genomic prediction algorithms with a variety of data sets and found
+contradicting results, indicating that feature selection can be use ull in some cases the when the whole
+genome regression is performed by neural nets 
+While every new method is a valuable addition to the tool-kits for genomic selection, some fundamental
+problems remain unsolved, of which the n>>p problematic stands out. Usually in genomic selection settings
+the size of the training population (TRN) with n phenotypes is substantially smaller than the number of
+markers (p) \cite{fan2014challenges}. Making the number of features immensely large,  even when SNP-SNP
+interactions are not considered.  Furthermore each marker is treated as an independent observation
+neglecting collinearity and linkage disequilibrium (LD). 
+Further difficulties arise through non-additive, epistatic and dominance marker effects. The main problem
+with epistasis issue quantitative genetics is the almost infinite amount of different marker combinations,
+that cannot be represented within the size of TRN in the thousands, the same problems arises for example
+in GWA studies \cite{korte2013}. With already large p the number of possible additive SNP-SNP interactions
+potentiates to $p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced
+epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015}, \cite{martini2017genomic}.
+
+In the past 10 years, due to increasing availability of high performance computational hardware with decreasing
+costs and parallel development of free easy-to-use software, most prominent being googles library TensorFlow
+\cite{TF2016} and Keras \cite{keras2015}, machine learning (ML) has experienced a renaissance.
+ML is a set of methods and algorithms used widely for regression and classification problems. popular
+among those are e.g. support vector machines, multi-layer perceptrons (MLP) and convolutional neural
+networks. The machine learning mimics the architecture of neural networks and are therefore commonly
+referred to as artificial neural networks (ANN). Those algorithms have widely been applied in many
+biological fields \cite{min2017deep} , \cite{lan2018survey}, \cite{mamoshina2016applications},
+\cite{angermueller2016} , \cite{webb2018deep}, \cite{rampasek2016tensorflow}. 
+
+A variety of studies assessed the usability of ML in genomic prediction \cite{gonzalez2018applications},
+\cite{gonza2016}, \cite{ogutu2011comparison}, \cite{montesinos2019benchmarking}, \cite{grinberg2018evaluation}
+, \cite{cuevas2019deep}, \cite{montesinos2019new}, \cite{ma2017deepgs}, \cite{qiu2016application},
+\cite{gonza2012} \cite{li2018genomic}.
+Through all those studies the common denominator is that there is no such thing as a gold standard
+for genomic prediction. No single algorithm was able to outperform all the others tested in a single
+of those studies, let alone in all. While the generally aptitude of ML for genomic selection has been
+repeatedly shown, how no evidence exists that neural networks can outperform or in many cases perform
+on that same level as mixed-model approaches as GBLUP \cite{hayes2001prediction}. While in other fields
+like image classification neural networks have up to 100s of hidden layers \cite{he2016deep} the commonly
+used fully-connected networks in genomic prediction of 1 - 3 hidden layers. 
+With 1 layer networks often being the most successful among those. Contradicting to the idea behind machine
+learning in genomic selection 1 hidden layer networks will be inapt to capture interactions between loci and
+thus only account for additive effects. As shown in \cite{azodi2019} convolutional networks perform worse
+than fully-connected networks in genomic selection, which again is contradicting to other fields where
+convolutional layers are applied successfully, e.g natural language processing \cite{dos2014deep} or
+medical image analysis  \cite{litjens2017survey}. Instead of using convolutional layers and fully-connected
+layers only, as show in Pook et al 2019, we also propose to use locally-connected layer in combination with
+fully-connected layers. While CL and LCL are closely related they have a significant difference. While in CL
+weights are shared between neurons in LCLs each neuron as its own weight. This leads to a reduced number of
+parameters to be trained in the following FCLs, and should therefore theoretically lead to a decrease in
+overfitting a common problem in machine learning. 
+To evaluate the results of Pook et al. 2019 accomplished with simulated data we used the data sets
+generated in the scope of the 1001 genome project of \textit{Arabidopsis thaliana} \cite{1001genome}
+
+
+\section{Material}
+\section{Methods}
+\section{Results}
+\section{Disucssion}
+

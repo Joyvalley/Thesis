@@ -1,0 +1,94 @@
+% Chapter 1
+
+\chapter{Benchmarking of Chloroplast Genome Assembly tools } % Main chapter title
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+Here I will but the introduction to from the paper
+%----------------------------------------------------------------------------------------
+\section{Material and Methods}
+\section{Results}
+
+\begin{equation}
+score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contigs} }\right) \cdot 100 
+\label{eqn:score_ass}
+\end{equation}
+
+\subsection{Performance metrics}
+
+
+\begin{figure}[th]
+\centering
+\includegraphics{Figures/Electron}
+\decoRule
+\caption[An Electron]{An electron (artist's impression).}
+\label{fig:Electron}
+\end{figure}
+
+
+\subsection{Qualitative}
+\begin{table}
+\caption{The effects of treatments X and Y on the four groups studied.}
+\label{tab:treatments}
+\centering
+\begin{tabular}{l l l}
+\toprule
+\tabhead{Groups} & \tabhead{Treatment X} & \tabhead{Treatment Y} \\
+\midrule
+1 & 0.2 & 0.8\\
+2 & 0.17 & 0.7\\
+3 & 0.24 & 0.75\\
+4 & 0.68 & 0.3\\
+\bottomrule\\
+\end{tabular}
+\end{table}
+
+\subsection{Simulated data}
+\subsection{Real data sets}
+\subsection{Consistency}
+\section{Disucssion}
+
+
+
+% ----------------------------------------------------------------------------------------
+
+% \section{What this Template Includes}
+
+% \subsection{Folders}
+
+% This template comes as a single zip file that expands out to several files and folders. The folder names are mostly self-explanatory:
+
+% \keyword{Appendices} -- this is the folder where you put the appendices. Each appendix should go into its own separate \file{.tex} file. An example and template are included in the directory.
+
+% \keyword{Chapters} -- this is the folder where you put the thesis chapters. A thesis usually has about six chapters, though there is no hard rule on this. Each chapter should go in its own separate \file{.tex} file and they can be split as:
+% \begin{itemize}
+% \item Chapter 1: Introduction to the thesis topic
+% \item Chapter 2: Background information and theory
+% \item Chapter 3: (Laboratory) experimental setup
+% \item Chapter 4: Details of experiment 1
+% \item Chapter 5: Details of experiment 2
+% \item Chapter 6: Discussion of the experimental results
+% \item Chapter 7: Conclusion and future directions
+% \end{itemize}
+% This chapter layout is specialised for the experimental sciences, your discipline may be different.
+
+% \keyword{Figures} -- this folder contains all figures for the thesis. These are the final images that will go into the thesis document.
+
+
+% \subsubsection{A Note on bibtex}
+
+% The bibtex backend used in the template by default does not correctly handle unicode character encoding (i.e. "international" characters). You may see a warning about this in the compilation log and, if your references contain unicode characters, they may not show up correctly or at all. The solution to this is to use the biber backend instead of the outdated bibtex backend. This is done by finding this in \file{main.tex}: \option{backend=bibtex} and changing it to \option{backend=biber}. You will then need to delete all auxiliary BibTeX files and navigate to the template directory in your terminal (command prompt). Once there, simply type \code{biber main} and biber will compile your bibliography. You can then compile \file{main.tex} as normal and your bibliography will be updated. An alternative is to set up your LaTeX editor to compile with biber instead of bibtex, see \href{http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations/}{here} for how to do this for various editors.
+

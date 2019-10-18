@@ -1,0 +1,312 @@
+% Appendix A
+
+\chapter{Source code GWAS-Flow} % Main appendix title
+
+\label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
+
+
+\linespread{1.5} 
+\section{gwas.py}
+\begin{lstlisting}[language=Python]
+import os
+import sys
+import time
+import numpy as np
+import pandas as pd
+import main
+import h5py
+
+# set defaults 
+mac_min = 1
+batch_size =  500000 
+out_file = "results.csv"
+m = 'phenotype_value'
+perm = 1
+mac_min= 6
+
+X_file = 'gwas_sample_data/AT_geno.hdf5'
+Y_file = 'gwas_sample_data/phenotype.csv'
+K_file = 'gwas_sample_data/kinship_ibs_binary_mac5.h5py'
+
+
+
+for i in range (1,len(sys.argv),2):
+    if sys.argv[i] == "-x" or sys.argv[i] == "--genotype":
+        X_file = sys.argv[i+1]
+    elif sys.argv[i] == "-y" or sys.argv[i] == "--phenotype":
+        Y_file = sys.argv[i+1]
+    elif sys.argv[i] == "-k" or sys.argv[i] == "--kinship":
+        K_file = sys.argv[i+1]
+    elif sys.argv[i] == "-m":
+        m = sys.argv[i+1]
+    elif sys.argv[i] == "-a" or sys.argv[i] == "--mac_min":
+        mac_min = int(sys.argv[i+1])
+    elif sys.argv[i] == "-bs" or sys.argv[i] == "--batch-size":
+        batch_size = int(sys.argv[i+1])
+    elif sys.argv[i] == "-p" or sys.argv[i] == "--perm":
+        perm  = int(sys.argv[i+1])
+    elif sys.argv[i] == "-o" or sys.argv[i] == "--out":
+        out_file = sys.argv[i+1]
+    elif sys.argv[i] == "-h" or sys.argv[i] == "--help":
+        print("-x , --genotype :file containing marker information in csv or hdf5 format of size")
+        print("-y , --phenotype: file container phenotype information in csv format"  )
+        print("-k , --kinship : file containing kinship matrix of size k X k in csv or hdf5 format")
+        print("-m : name of columnn containing the phenotype : default m = phenotype_value")
+        print("-a , --mac_min : integer specifying the minimum minor allele count necessary for a marker to be included. Default a = 1" )
+        print("-bs, --batch-size : integer specifying the number of markers processed at once. Default -bs 500000" )
+        print("-p , --perm : single integer specifying the number of permutations. Default 1 == no perm ")
+        print("-o , --out : name of output file. Default -o results.csv  ")
+        print("-h , --help : prints help and command line options")
+        quit()
+    else:
+        print('unknown option ' + str(sys.argv[i]))
+        quit()
+
+
+
+print("parsed commandline args")
+
+start = time.time()
+
+X,K,Y_,markers = main.load_and_prepare_data(X_file,Y_file,K_file,m)
+
+
+## MAF filterin
+markers_used , X , macs = main.mac_filter(mac_min,X,markers)
+
+## prepare
+print("Begin performing GWAS on ", Y_file)
+
+if perm == 1:
+    output = main.gwas(X,K,Y_,batch_size)   
+    if( X_file.split(".")[-1] == 'csv'):
+        chr_pos = np.array(list(map(lambda x : x.split("- "),markers_used)))
+    else: 
+        chr_reg = h5py.File(X_file,'r')['positions'].attrs['chr_regions']
+        mk_index= np.array(range(len(markers)),dtype=int)[macs >= mac_min]
+        chr_pos = np.array([list(map(lambda x: sum(x > chr_reg[:,1]) + 1, mk_index)), markers_used]).T
+        my_time = np.repeat((time.time()-start),len(chr_pos))
+    pd.DataFrame({
+        'chr' : chr_pos[:,0] ,
+        'pos' : chr_pos[:,1] , 
+        'pval': output[:,0] ,
+        'mac' : np.array(macs[macs >= mac_min],dtype=np.int) ,
+        'eff_size': output[:,1] ,
+        'SE' : output[:,2]}).to_csv(out_file,index=False)
+elif perm > 1:
+    min_pval = []
+    perm_seeds = []
+    my_time = []
+    for i in range(perm):
+        start_perm = time.time()
+        print("Running permutation ", i+1, " of ",perm)
+        my_seed  = np.asscalar(np.random.randint(9999,size=1))
+        perm_seeds.append(my_seed)
+        np.random.seed(my_seed)
+        Y_perm = np.random.permutation(Y_)
+        output = main.gwas(X,K,Y_perm,batch_size)
+        min_pval.append(np.min(output[:,0]))
+        print("Elapsed time for permuatation",i+1 ," with p_min", min_pval[i]," is",": ", round(time.time() - start_perm,2))
+        my_time.append(time.time()-start_perm)
+    pd.DataFrame({
+        'time': my_time ,
+        'seed': perm_seeds ,
+        'min_p': min_pval }).to_csv(out_file,index=False)
+
+print("done")
+ 
+end = time.time()
+eltime = np.round(end -start,2)
+
+if eltime <= 59:
+    print("Total time elapsed",  eltime, "seconds")
+elif eltime > 59 and eltime <= 3600:
+    print("Total time elapsed",  np.round(eltime / 60,2) , "minutes")
+elif eltime > 3600 :
+    print("Total time elapsed",  np.round(eltime / 60 / 60,2), "hours")
+
+  \end{lstlisting}
+
+
+
+  \section{main.py}
+  \begin{lstlisting}[language=Python]
+    import pandas as pd 
+import numpy as np
+from scipy.stats import f
+import tensorflow as tf
+import limix
+import herit
+import h5py
+import limix
+import multiprocessing as mlt
+
+def load_and_prepare_data(X_file,Y_file,K_file,m):
+    type_K = K_file.split(".")[-1]
+    type_X = X_file.split(".")[-1]
+    
+    ## load and preprocess genotype matrix 
+    Y = pd.read_csv(Y_file,engine='python').sort_values(['accession_id']).groupby('accession_id').mean()
+    Y = pd.DataFrame({'accession_id' :  Y.index, 'phenotype_value' : Y[m]})
+    if type_X == 'hdf5' or type_X == 'h5py'  :
+        SNP = h5py.File(X_file,'r')
+        markers= np.asarray(SNP['positions'])
+        acc_X =  np.asarray(SNP['accessions'][:],dtype=np.int)
+    elif type_X == 'csv' :
+        X = pd.read_csv(X_file,index_col=0)
+        markers = X.columns.values
+        acc_X = X.index
+        X = np.asarray(X,dtype=np.float32)/2
+    else :
+        sys.exit("Only hdf5, h5py and csv files are supported")
+      
+    if type_K == 'hdf5' or type_K == 'h5py':
+        k = h5py.File(K_file,'r')
+        acc_K = np.asarray(k['accessions'][:],dtype=np.int)
+    elif type_K == 'csv':
+        k = pd.read_csv(K_file,index_col=0)
+        acc_K = k.index
+        k = np.array(k, dtype=np.float32)
+
+    acc_Y =  np.asarray(Y[['accession_id']]).flatten()
+    acc_isec = [isec for isec in acc_X if isec in acc_Y]
+        
+    idx_acc = list(map(lambda x: x in acc_isec, acc_X))
+    idy_acc = list(map(lambda x: x in acc_isec, acc_Y))
+    idk_acc = list(map(lambda x: x in acc_isec, acc_K))
+
+    Y_ = np.asarray(Y.drop('accession_id',1),dtype=np.float32)[idy_acc,:]
+
+    if type_X == 'hdf5' or type_X == 'h5py' :
+        X = np.asarray(SNP['snps'][0:(len(SNP['snps'])+1),],dtype=np.float32)[:,idx_acc].T
+        X = X[np.argsort(acc_X[idx_acc]),:]
+        k1 = np.asarray(k['kinship'][:])[idk_acc,:]
+        K  = k1[:,idk_acc]
+        K = K[np.argsort(acc_X[idx_acc]),:]
+        K = K[:,np.argsort(acc_X[idx_acc])]
+    else:
+        X  = X[idx_acc,:]
+        k1 = k[idk_acc,:]
+        K  = k1[:,idk_acc]
+        
+       
+    print("data has been imported")
+    return X,K,Y_,markers
+
+
+def mac_filter(mac_min, X, markers):
+    ac1 = np.sum(X,axis=0)
+    ac0 = X.shape[0] - ac1
+    macs = np.minimum(ac1,ac0)
+    markers_used  = markers[macs >= mac_min]
+    X = X[:,macs >= mac_min]
+    return markers_used, X, macs
+
+def gwas(X,K,Y,batch_size):
+    n_marker = X.shape[1]
+    n = len(Y)
+    ## REML   
+    K_stand = (n-1)/np.sum((np.identity(n) - np.ones((n,n))/n) * K) * K
+    vg, delta, ve  = herit.estimate(Y,"normal",K_stand,verbose = False)
+    print(" Pseudo-heritability is " , vg / (ve + vg + delta))
+    print(" Performing GWAS on ", n , " phenotypes and ", n_marker ,"markers")
+    ## Transform kinship-matrix, phenotypes and estimate intercpt
+    Xo = np.ones(K.shape[0]).flatten()
+    M = np.transpose(np.linalg.inv(np.linalg.cholesky(vg * K_stand + ve  * np.identity(n)))).astype(np.float32)
+    Y_t = np.sum(np.multiply(np.transpose(M),Y),axis=1).astype(np.float32)
+    int_t = np.sum(np.multiply(np.transpose(M),np.ones(n)),axis=1).astype(np.float32)
+    ## EMMAX Scan
+    RSS_env = (np.linalg.lstsq(np.reshape(int_t,(n,-1)) , np.reshape(Y_t,(n,-1)))[1]).astype(np.float32)
+    ## calculate betas and se of betas 
+    def stderr(a,M,Y_t2d,int_t):
+         x = tf.stack((int_t,tf.squeeze(tf.matmul(M.T,tf.reshape(a,(n,-1))))),axis=1)
+         coeff = tf.matmul(tf.matmul(tf.linalg.inv(tf.matmul(tf.transpose(x),x)),tf.transpose(x)),Y_t2d)
+         SSE = tf.reduce_sum(tf.math.square(tf.math.subtract(Y_t,tf.math.add(tf.math.multiply(x[:,1],coeff[0,0]),tf.math.multiply(x[:,1],coeff[1,0])))))
+         SE = tf.math.sqrt(SSE/(471-(1+2)))
+         StdERR = tf.sqrt(tf.linalg.diag_part(tf.math.multiply(SE , tf.linalg.inv(tf.matmul(tf.transpose(x),x)))))[1]
+         return tf.stack((coeff[1,0],StdERR))
+    ## calculate residual sum squares 
+    def rss(a,M,y,int_t):
+         x_t = tf.reduce_sum(tf.math.multiply(M.T,a),axis=1)
+         lm_res = tf.linalg.lstsq(tf.transpose(tf.stack((int_t,x_t),axis=0)),Y_t2d)
+         lm_x = tf.concat((tf.squeeze(lm_res),x_t),axis=0)
+         return tf.reduce_sum(tf.math.square(tf.math.subtract(tf.squeeze(Y_t2d),tf.math.add(tf.math.multiply(lm_x[1],lm_x[2:]), tf.multiply(lm_x[0],int_t)))))
+    ## loop over the batches 
+    for i in range(int(np.ceil(n_marker/batch_size))):
+        tf.reset_default_graph()
+        if n_marker < batch_size:
+            X_sub = X
+        else:
+            lower_limit = batch_size * i 
+            upper_limit = batch_size * i + batch_size
+            if upper_limit <= n_marker :
+                X_sub = X[:,lower_limit:upper_limit]
+                print("Working on markers ", lower_limit , " to ", upper_limit, " of ", n_marker )    
+            else:
+                X_sub = X[:,lower_limit:]
+                print("Working on markers ", lower_limit , " to ", n_marker, " of ", n_marker )    
+        config = tf.ConfigProto()
+        n_cores = mlt.cpu_count()
+        config.intra_op_parallelism_threads = n_cores
+        config.inter_op_parallelism_threads = n_cores
+        sess = tf.Session(config=config)                                             
+        Y_t2d = tf.cast(tf.reshape(Y_t,(n,-1)),dtype=tf.float32)                     
+        y_tensor =  tf.convert_to_tensor(Y_t,dtype = tf.float32)                                      
+        StdERR = tf.map_fn(lambda a : stderr(a,M,Y_t2d,int_t), X_sub.T)              
+        R1_full = tf.map_fn(lambda a: rss(a,M,Y_t2d,int_t), X_sub.T)
+        F_1 = tf.divide(tf.subtract(RSS_env, R1_full),tf.divide(R1_full,(n-3)))
+        if i == 0 :
+            output = sess.run(tf.concat([tf.reshape(F_1,(X_sub.shape[1],-1)),StdERR],axis=1))
+        else :
+            tmp = sess.run(tf.concat([tf.reshape(F_1,(X_sub.shape[1],-1)),StdERR],axis=1))
+            output = np.append(output,tmp,axis=0)
+        sess.close()
+        F_dist = output[:,0]
+    pval  = 1 - f.cdf(F_dist,1,n-3)
+    output[:,0] = pval
+    return output 
+
+
+  \end{lstlisting}
+
+\section{herit.py}
+\begin{lstlisting}[language=Python]
+  
+def estimate(y, lik, K, M=None, verbose=True):
+    from numpy_sugar.linalg import economic_qs
+    from numpy import pi, var, diag
+    from glimix_core.glmm import GLMMExpFam
+    from glimix_core.lmm import LMM
+    from limix._data._assert import assert_likelihood
+    from limix._data import normalize_likelihood, conform_dataset 
+    from limix.qtl._assert import assert_finite
+    from limix._display import session_block, session_line
+    lik = normalize_likelihood(lik)
+    lik_name = lik[0]
+    with session_block("Heritability analysis", disable=not verbose):
+        with session_line("Normalising input...", disable=not verbose):
+            data = conform_dataset(y, M=M, K=K)
+        y = data["y"]
+        M = data["M"]
+        K = data["K"]
+        assert_finite(y, M, K)
+        if K is not None:
+           # K = K / diag(K).mean()
+            QS = economic_qs(K)
+        else:
+            QS = None
+        if lik_name == "normal":
+            method = LMM(y.values, M.values, QS, restricted=True)
+            method.fit(verbose=verbose)
+        else:
+            method = GLMMExpFam(y, lik, M.values, QS, n_int=500)
+            method.fit(verbose=verbose, factr=1e6, pgtol=1e-3)
+        g = method.scale * (1 - method.delta)
+        e = method.scale * method.delta
+        if lik_name == "bernoulli":
+            e += pi * pi / 3
+        v = var(method.mean())
+        return g , v , e 
+
+
+\end{lstlisting}
