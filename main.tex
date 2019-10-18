@@ -42,7 +42,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{mathpazo} % Use the Palatino font by default
 \usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
-\addbibresource{example.bib} % The filename of the bibliography
+\addbibresource{example.bib} % The filename of the bibiography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 \usepackage{listings}
@@ -101,13 +101,8 @@ headsepline, % Uncomment to get a line under the header
 \university{\href{http://www.university.com}{University Name}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{http://department.university.com}{Department or School Name}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
-
-\AtBeginDocument{
-\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
-\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
-\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
-}
+\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with
+\usepackage{amsmath}
 
 \begin{document}
 
@@ -118,10 +113,11 @@ headsepline, % Uncomment to get a line under the header
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
-%----------------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------------
 
 \begin{titlepage}
-\begin{center}
+  \begin{center}
+   
 
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
@@ -258,9 +254,9 @@ The acknowledgments and the people to thank go here, don't forget to include you
   \textbf{DNA} & \textbf{D}eoxyribo\textbf{N}ucleic \textbf{A}cid \\
   \textbf{DNA} & \textbf{R}ibo\textbf{N}ucleic \textbf{A}cid \\
   \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
+  \textbf{BP} & \textbf{B}ase \textbf{Pair} \\
   
-  
-\end{abbreviations}
+ \end{abbreviations}
 
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
@@ -272,7 +268,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 % \begin{symbols}{lll} % Include a list of Symbols (a three column table)
 
-% $a$ & distance & \si{\meter} \\
+% $a$ & distance & \si{\meter} \\ 
 % $P$ & power & \si{\watt} (\si{\joule\per\second}) \\
 % %Symbol & Name & Unit \\
 

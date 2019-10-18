@@ -1,6 +1,5 @@
-% Chapter 1
 
-\chapter{Genomic prediction of phenotypic values of quantitative traits using Artificial nerual networks}
+\chapter{Genomic prediction of phenotypic values of quantitative traits using Artificial neural networks}
 
 \label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
@@ -9,16 +8,45 @@
 
 
 \section{Introduction}
+\subsection{A brief history of machine learning }
+
+While machine learning, neural networks, deep learning became essential tools for many applications in more recent years,
+their mathematical principals date back to the early 1950s and 1960s. Figure \ref{fig:perceptron} schematically  show the
+basic perceptron model as proposed by Rosenblatt, which was designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}
+
+\begin{figure}[th]
+\centering
+\includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png}
+\decoRule
+\caption[Basic perceptron model]{Basic perceptron model as proposed by Rosenblatt}
+\label{fig:perceptron}
+\end{figure}
+
+This basic perceptron, which contrary to perceptrons used nowadays does not have an activation function, takes n binary
+inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$ after being processed by the perceptron or neuron.
+To achieve this Rosenblatt introduced the concept of weights which indicated a certain relative importance to the outcome of the
+output. $w_1 , w_2 ... w_n$. The output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain threshold value is met  the neuron is either activated and outputs 1 or not and outputs 0. This is algebraically represented in \ref{eqn:weights}
+\begin{subequations}
+  \begin{align}
+    0  = \mbox{if } \sum_i^n w_j x_i - \theta \leq 0 \\
+    1 =  \mbox{if } \sum_i^n w_i x_i - \theta > 0
+  \end{align}
+  \label{eqn:weights}
+\end{subequations}
+
+Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation \ref{eqn:weights} which represents the activation threshold in per definition is negative. A single perceptron is a linear classifier and can only be trained on linearly seperable functions and can used as shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not. The simple perceptron fails, due to non-linearity, to perfrom XOR operations as shown by \cite{marvin1969}. This discoverey let to a near stillstance in the research of artificial neural networks in the 1970s.
+      
+\subsection{Genomic selection using artificial neural networks }
 Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
 and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant}, \cite{crossa2017genomic}
 as well as in medical applications, since it was first reported  \cite{hayes2001}. Since then the repertoire of
 methods for predicting phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} , \cite{crossa2017}. The most commonly applied methods include GBLUP and a set of related algorithms known as the bayesian alphabet \cite{gianola2009}. 
 Genomic prediction in general has repeatedly been shown to outperform pedigree-based methods \cite{crossa2010},
-\cite{albrecht2011} and is nowadays used in many plant and animal breeding shemes. 
+\cite{albrecht2011} and is nowadays used in many plant and animal breeding schemes. 
 It has also been shown that using whole-genome information is superior to using only feature-selected markers
 with known QTLs for a given trait \cite{bernardo2007}, \cite{heffner2011} in some cases. A more recent study
 \cite{azodi2019} compared 11 different genomic prediction algorithms with a variety of data sets and found
-contradicting results, indicating that feature selection can be use ull in some cases the when the whole
+contradicting results, indicating that feature selection can be usefull in some cases the when the whole
 genome regression is performed by neural nets 
 While every new method is a valuable addition to the tool-kits for genomic selection, some fundamental
 problems remain unsolved, of which the n>>p problematic stands out. Usually in genomic selection settings
@@ -72,5 +100,5 @@ generated in the scope of the 1001 genome project of \textit{Arabidopsis thalian
 \section{Material}
 \section{Methods}
 \section{Results}
-\section{Disucssion}
+\section{Discussion}
 
