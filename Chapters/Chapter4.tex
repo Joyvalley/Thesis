@@ -45,7 +45,7 @@ a near stillstance in the research of artificial neural networks in the 1970s.
 
 
 
-\subsection{Of the nature of quantitative traits}
+\subsection{On the nature of quantitative traits}
 According to the omnigenic model which is an extension of the polygenic model proposed by \cite{boyle2017expanded} and
 thoroughly reviewed in \cite{timpson2018} all traits or phenotypic values are influenced
 by a great number or all genes in the genome. Therefore resulting in traits following certain gradual statistical distributions
@@ -62,7 +62,87 @@ traits not following its own law's,
 as well as being aware of the quantitative nature of traits such as the constitution of surfaces of peas or the color of petals. But being the
 pioneer of a then rather unexplored field of science, some of which big questions we fail to satisfactory answer today, he did not have the
 resources or the knowledge to explain behavior's not ``mendeling'', that were only able to be deciphered in later decades and centuries
-based on his ground-breaking work. 
+based on his ground-breaking work.  \\
+Initially thought to be contradicting to Mendel's ideas Darwin proposed the concept's of evolution due to natural selection which also
+introduce the idea of traits following a gradual distribution \cite{darwin1859}. This contrast led to a long lasting debate in the
+scientific community in the early 1900s, between the Mendelians and the biometricians who believed in the quantitative nature of continuous
+traits. This conflict has eventually been solved by Fisher's fundamental work published in 1918 \cite{fisher1919xv}. His theroies combined the
+then in all fields of science popular research of distributions with genomics. He he mathematically proved that traits influenced by many
+genes, with randomly-sampled alleles follow a continous normal distrubition in a population. While this combined the indeas of Mendel and the
+biometricans it opened an other long debated queston of effect size and the overall architecture of complex traits. While in the theory of
+monogenic traits the effect size of the single gene on the trait is 1 or 100 \% with an increasing number of genes influecning a complex
+traits the \textit{per sè} contribution of single gene has to decrease with an increasing number of loci determining the value a given
+trait. In the 1990s it has been thought, that complex traits are predominantly controlled from few genes with a large to medium effect size,
+while others had a minimal influence \cite{zhang2018esti}. \\
+With the upcomming popularity of GWAS as the favored method to decipher genetic archtitectures of traits, or having pioneered in human
+genetics in became clear that the majority of the effect sizes are tiny < 1 \% while there are very few loci which have a moderate
+effect on the phenotypic variance of a population with around 10 \% or less \cite{korte2013advantages}, \cite{stringer2011}.
+This nature of quantitative traits present greate challenges to animal \cite{goddard2009} and plant breeding \cite{wurschum2012},
+in further improving crop or livestock performances, as well complicating the decomposition of genomic causes for diseases like shiozphrania
+or autism in human medicine \cite{de2014}, \cite{purcell2014}. \\
+While the complex nature of the architecture of quantitave traits provide enough challanges as is, all traits will also be influenced
+by the evironment from which an induvidual originates.
+Therefore the distribution of trait valaues in a given population can be expressed as the addition of the variances of its genetic and the
+environemtnal effects \ref{eqn:PGE}.
+
+\begin{equation}
+  \sigma_{P} = \sigma_{G} + \sigma_{E}
+  \label{eqn:PGE}
+\end{equation}
+
+The genomic and the evironmental effects not only influnce the phenotypic variance directly, but the environment also has an influnce
+on gene expression methylation of DNA bases etc. and therefore the equation \ref{eqn:PGE} needs to be extend by the variance of the gene-
+environment interactions $\sigma_{GxE}$  \ref{eqn:PGEGE} , \cite{lynch1998}, \cite{walsh2018}.
+                                                               
+\begin{equation}
+  \sigma_{P} = \sigma_{G} + \sigma_{E} + \sigma_{GxE}
+  \label{eqn:PGGE}
+\end{equation}
+
+
+Equation \ref{eqn:PGGE} shows the decomposition of the phenotypic variance, to thoroughly understand complex genetic archiectures of traits
+the genetic variance needs to be decomposed further in its additve, dominance and epistatic components \ref{eqn:GAD}
+
+\begin{equation}
+  \sigma_{G} = \sigma_{A} + \sigma_{D} + \sigma_{I}
+  \label{eqn:GAD}
+\end{equation}
+
+The addivte effects are caused by single, for this model mostly homozygous, loci while the variance caused by dominance effcts, is caused by
+heterozygous loci and their resulting interactions being full-, over- , co- or underdominant. And lastely the interaction effects  that are a
+result of two or more genes only having an impact if the involved genes cooccur in a certain state. The resulting variance is commonly known
+as gene-gene interactions and/or epistasis \cite{falconer1996}. \\
+Since possible interactions in a genome can happen between additve or dominant or a combinaton of those loci. The variance due to interaction
+effects $\sigma_{I}$ can be further dissembled in the variance resulting from additive-addtive $\sigma_{AA}$ domiant-dominant $\sigma{DD}$ and
+additive-dominant $sigma{AD}$ terms as represented in equation \ref{eqn:IAA}.
+
+
+\begin{equation}
+  \sigma_{I} = \sigma_{AxA} + \sigma_{DxD} + \sigma_{AxD}
+  \label{eqn:IAA}
+\end{equation}
+
+Knowledge of the variace components involved in the expression of a trait in population, lead up to the estimation of the total influnce
+of all genetic variances and the environmental variance one the phentypic distrubition. This concept if called heritabilty.
+The heritabilty of a trait $h^2$ accounts for the proportion of the pheotyping variace controlled by the total phenotypic variance.
+
+
+
+
+\begin{equation}
+  h^2 = \frac{\sigma_{G}}{\sigma_{P}}
+  \label{eqn:h2G}
+\end{equation}
+
+
+\begin{equation}
+  h^2 = \frac{\sigma_{A}}{\sigma_{P}}
+  \label{eqn:h2a}
+\end{equation}
+
+
+
+
 
 
 
