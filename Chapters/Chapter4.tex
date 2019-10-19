@@ -12,7 +12,8 @@
 
 While machine learning, neural networks, deep learning became essential tools for many applications in more recent years,
 their mathematical principals date back to the early 1950s and 1960s. Figure \ref{fig:perceptron} schematically  show the
-basic perceptron model as proposed by Rosenblatt, which was designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}
+basic perceptron model as proposed by Rosenblatt, which was designed to mimic the information flow in biological nervous systems
+\cite{rosenblatt1961}
 
 \begin{figure}[th]
 \centering
@@ -25,7 +26,9 @@ basic perceptron model as proposed by Rosenblatt, which was designed to mimic th
 This basic perceptron, which contrary to perceptrons used nowadays does not have an activation function, takes n binary
 inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$ after being processed by the perceptron or neuron.
 To achieve this Rosenblatt introduced the concept of weights which indicated a certain relative importance to the outcome of the
-output. $w_1 , w_2 ... w_n$. The output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain threshold value is met  the neuron is either activated and outputs 1 or not and outputs 0. This is algebraically represented in \ref{eqn:weights}
+output. $w_1 , w_2 ... w_n$. The output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain
+threshold value is met  the neuron is either activated and outputs 1 or not and outputs 0. This is algebraically represented in
+\ref{eqn:weights}
 \begin{subequations}
   \begin{align}
     0  = \mbox{if } \sum_i^n w_j x_i - \theta \leq 0 \\
@@ -34,13 +37,41 @@ output. $w_1 , w_2 ... w_n$. The output $y$ is determined by the weighted sum of
   \label{eqn:weights}
 \end{subequations}
 
-Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation \ref{eqn:weights} which represents the activation threshold in per definition is negative. A single perceptron is a linear classifier and can only be trained on linearly seperable functions and can used as shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not. The simple perceptron fails, due to non-linearity, to perfrom XOR operations as shown by \cite{marvin1969}. This discoverey let to a near stillstance in the research of artificial neural networks in the 1970s.
-      
+Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation \ref{eqn:weights} which represents
+the activation threshold in per definition is negative. A single perceptron is a linear classifier and can only be trained on
+linearly seperable functions and can used as shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not.
+The simple perceptron fails, due to non-linearity, to perfrom XOR operations as shown by \cite{marvin1969}. This discoverey let to
+a near stillstance in the research of artificial neural networks in the 1970s.
+
+
+
+\subsection{Of the nature of quantitative traits}
+According to the omnigenic model thouroughly reviewd in \cite{timpson2018} all traits or phenotypic values are influenced
+by a great number or all genes in the genome. Therefore resulting in traits following certain gradual statistical distributions
+insetead of being binned in classes or even binary. Intiutivly this might be contradicting with the foundation of modern Genetics -
+Mendel's three laws. That where derived from observations with where mainly influenced by one locus. But staying with one of
+Mendel's exampels the round or wrinkeled surfaces of  peas \textit{Pisum sativum}, an assessment of a couple of thousands peas, would
+most likely inevitably
+lead to the conclusion that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those is possible and obersable.
+Mendel's third law of independent segregation also only holds true under certain assumptions. The most simplest one being that the traits
+under investigation have to be located on different linkage groups. Otherwise for the 7 traits used in Mendel's inital studies would not have
+segregated independently. The odds of 7 randomly selected traits being on 7 different linkage groups are rather small, espacially taking
+into account, that the genome of the \textit{P. sativum} consists of only 7 chromosomes itself \cite{kalo2004}. Mendel probably new about
+traits not following its own law's,
+as well as being aware of the qunatitave nature of traits suchs as the constitution of surfaces of peas or the color of petals. But being the
+pioneer of a then rather unexplored field of science, some of whose big questions we fail to satisfactory answer today, he did not have the
+resources or the knowledge to exlpain behavior's not ``mendeling'', that were only able to be deciphered in later decades and centueries
+based on his ground-breaking work. 
+
+
+
 \subsection{Genomic selection using artificial neural networks }
 Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
 and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant}, \cite{crossa2017genomic}
 as well as in medical applications, since it was first reported  \cite{hayes2001}. Since then the repertoire of
-methods for predicting phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} , \cite{crossa2017}. The most commonly applied methods include GBLUP and a set of related algorithms known as the bayesian alphabet \cite{gianola2009}. 
+methods for predicting phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} ,
+\cite{crossa2017}. The most commonly applied methods include GBLUP and a set of related algorithms known as the bayesian alphabet
+\cite{gianola2009}. 
 Genomic prediction in general has repeatedly been shown to outperform pedigree-based methods \cite{crossa2010},
 \cite{albrecht2011} and is nowadays used in many plant and animal breeding schemes. 
 It has also been shown that using whole-genome information is superior to using only feature-selected markers
@@ -95,6 +126,11 @@ parameters to be trained in the following FCLs, and should therefore theoretical
 overfitting a common problem in machine learning. 
 To evaluate the results of Pook et al. 2019 accomplished with simulated data we used the data sets
 generated in the scope of the 1001 genome project of \textit{Arabidopsis thaliana} \cite{1001genome}
+
+
+
+\section{Proof of concept}
+
 
 
 \section{Material}
