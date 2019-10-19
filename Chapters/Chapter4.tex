@@ -39,28 +39,29 @@ threshold value is met  the neuron is either activated and outputs 1 or not and 
 
 Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation \ref{eqn:weights} which represents
 the activation threshold in per definition is negative. A single perceptron is a linear classifier and can only be trained on
-linearly seperable functions and can used as shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not.
-The simple perceptron fails, due to non-linearity, to perfrom XOR operations as shown by \cite{marvin1969}. This discoverey let to
+linearly separable functions and can used as shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not.
+The simple perceptron fails, due to non-linearity, to perform XOR operations as shown by \cite{marvin1969}. This discovery let to
 a near stillstance in the research of artificial neural networks in the 1970s.
 
 
 
 \subsection{Of the nature of quantitative traits}
-According to the omnigenic model thouroughly reviewd in \cite{timpson2018} all traits or phenotypic values are influenced
+According to the omnigenic model which is an extension of the polygenic model proposed by \cite{boyle2017expanded} and
+thoroughly reviewed in \cite{timpson2018} all traits or phenotypic values are influenced
 by a great number or all genes in the genome. Therefore resulting in traits following certain gradual statistical distributions
-insetead of being binned in classes or even binary. Intiutivly this might be contradicting with the foundation of modern Genetics -
+instead of being binned in classes or even binary. Intuitively this might be contradicting with the foundation of modern Genetics -
 Mendel's three laws. That where derived from observations with where mainly influenced by one locus. But staying with one of
-Mendel's exampels the round or wrinkeled surfaces of  peas \textit{Pisum sativum}, an assessment of a couple of thousands peas, would
+Mendel's examples the round or wrinkled surfaces of  peas \textit{Pisum sativum}, an assessment of a couple of thousands peas, would
 most likely inevitably
-lead to the conclusion that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those is possible and obersable.
+lead to the conclusion that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those is possible and observable.
 Mendel's third law of independent segregation also only holds true under certain assumptions. The most simplest one being that the traits
-under investigation have to be located on different linkage groups. Otherwise for the 7 traits used in Mendel's inital studies would not have
-segregated independently. The odds of 7 randomly selected traits being on 7 different linkage groups are rather small, espacially taking
+under investigation have to be located on different linkage groups. Otherwise for the 7 traits used in Mendel's initial studies would not have
+segregated independently. The odds of 7 randomly selected traits being on 7 different linkage groups are rather small, especially taking
 into account, that the genome of the \textit{P. sativum} consists of only 7 chromosomes itself \cite{kalo2004}. Mendel probably new about
 traits not following its own law's,
-as well as being aware of the qunatitave nature of traits suchs as the constitution of surfaces of peas or the color of petals. But being the
-pioneer of a then rather unexplored field of science, some of whose big questions we fail to satisfactory answer today, he did not have the
-resources or the knowledge to exlpain behavior's not ``mendeling'', that were only able to be deciphered in later decades and centueries
+as well as being aware of the quantitative nature of traits such as the constitution of surfaces of peas or the color of petals. But being the
+pioneer of a then rather unexplored field of science, some of which big questions we fail to satisfactory answer today, he did not have the
+resources or the knowledge to explain behavior's not ``mendeling'', that were only able to be deciphered in later decades and centuries
 based on his ground-breaking work. 
 
 
@@ -70,7 +71,7 @@ Genomic selection (GS) has been successfully applied in animal \cite{gianola2015
 and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant}, \cite{crossa2017genomic}
 as well as in medical applications, since it was first reported  \cite{hayes2001}. Since then the repertoire of
 methods for predicting phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} ,
-\cite{crossa2017}. The most commonly applied methods include GBLUP and a set of related algorithms known as the bayesian alphabet
+\cite{crossa2017}. The most commonly applied methods include GULP and a set of related algorithms known as the bayesian alphabet
 \cite{gianola2009}. 
 Genomic prediction in general has repeatedly been shown to outperform pedigree-based methods \cite{crossa2010},
 \cite{albrecht2011} and is nowadays used in many plant and animal breeding schemes. 
@@ -88,7 +89,7 @@ neglecting collinearity and linkage disequilibrium (LD).
 Further difficulties arise through non-additive, epistatic and dominance marker effects. The main problem
 with epistasis issue quantitative genetics is the almost infinite amount of different marker combinations,
 that cannot be represented within the size of TRN in the thousands, the same problems arises for example
-in GWA studies \cite{korte2013}. With already large p the number of possible additive SNP-SNP interactions
+in GWA studies \cite{korte2013advantages}. With already large p the number of possible additive SNP-SNP interactions
 potentiates to $p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced
 epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015}, \cite{martini2017genomic}.
 
