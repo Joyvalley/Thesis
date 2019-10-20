@@ -45,6 +45,16 @@ a near stillstance in the research of artificial neural networks in the 1970s.
 
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/neuralnet}
+\decoRule
+\caption[Schematic layout of a simple mulit-layer perceptron]{Schematic layout of a simple multi-layer perceptron}
+\label{fig:nn}
+\end{figure}
+
+
+
 \subsection{On the nature of quantitative traits}
 According to the omnigenic model which is an extension of the polygenic model proposed by \cite{boyle2017expanded} and
 thoroughly reviewed in \cite{timpson2018} all traits or phenotypic values are influenced
@@ -66,31 +76,31 @@ based on his ground-breaking work.  \\
 Initially thought to be contradicting to Mendel's ideas Darwin proposed the concept's of evolution due to natural selection which also
 introduce the idea of traits following a gradual distribution \cite{darwin1859}. This contrast led to a long lasting debate in the
 scientific community in the early 1900s, between the Mendelians and the biometricians who believed in the quantitative nature of continuous
-traits. This conflict has eventually been solved by Fisher's fundamental work published in 1918 \cite{fisher1919xv}. His theroies combined the
+traits. This conflict has eventually been solved by Fisher's fundamental work published in 1918 \cite{fisher1919xv}. His theories combined the
 then in all fields of science popular research of distributions with genomics. He he mathematically proved that traits influenced by many
-genes, with randomly-sampled alleles follow a continous normal distrubition in a population. While this combined the indeas of Mendel and the
-biometricans it opened an other long debated queston of effect size and the overall architecture of complex traits. While in the theory of
-monogenic traits the effect size of the single gene on the trait is 1 or 100 \% with an increasing number of genes influecning a complex
+genes, with randomly-sampled alleles follow a continuous normal distribution in a population. While this combined the ideas of Mendel and the
+biometricians it opened an other long debated question of effect size and the overall architecture of complex traits. While in the theory of
+monogenic traits the effect size of the single gene on the trait is 1 or 100 \% with an increasing number of genes influencing a complex
 traits the \textit{per sè} contribution of single gene has to decrease with an increasing number of loci determining the value a given
 trait. In the 1990s it has been thought, that complex traits are predominantly controlled from few genes with a large to medium effect size,
 while others had a minimal influence \cite{zhang2018esti}. \\
-With the upcomming popularity of GWAS as the favored method to decipher genetic archtitectures of traits, or having pioneered in human
+With the upcoming popularity of GWAS as the favored method to decipher genetic architectures of traits, or having pioneered in human
 genetics in became clear that the majority of the effect sizes are tiny < 1 \% while there are very few loci which have a moderate
 effect on the phenotypic variance of a population with around 10 \% or less \cite{korte2013advantages}, \cite{stringer2011}.
-This nature of quantitative traits present greate challenges to animal \cite{goddard2009} and plant breeding \cite{wurschum2012},
-in further improving crop or livestock performances, as well complicating the decomposition of genomic causes for diseases like shiozphrania
+This nature of quantitative traits present great challenges to animal \cite{goddard2009} and plant breeding \cite{wurschum2012},
+in further improving crop or livestock performances, as well complicating the decomposition of genomic causes for diseases like schizophrenia
 or autism in human medicine \cite{de2014}, \cite{purcell2014}. \\
-While the complex nature of the architecture of quantitave traits provide enough challanges as is, all traits will also be influenced
-by the evironment from which an induvidual originates.
-Therefore the distribution of trait valaues in a given population can be expressed as the addition of the variances of its genetic and the
-environemtnal effects \ref{eqn:PGE}.
+While the complex nature of the architecture of quantitative traits provide enough challenges as is, all traits will also be influenced
+by the environment from which an individual originates.
+Therefore the distribution of trait values in a given population can be expressed as the addition of the variances of its genetic and the
+environmental effects \ref{eqn:PGE}.
 
 \begin{equation}
   \sigma_{P} = \sigma_{G} + \sigma_{E}
   \label{eqn:PGE}
 \end{equation}
 
-The genomic and the evironmental effects not only influnce the phenotypic variance directly, but the environment also has an influnce
+The genomic and the environmental effects not only influence the phenotypic variance directly, but the environment also has an influence
 on gene expression methylation of DNA bases etc. and therefore the equation \ref{eqn:PGE} needs to be extend by the variance of the gene-
 environment interactions $\sigma_{GxE}$  \ref{eqn:PGEGE} , \cite{lynch1998}, \cite{walsh2018}.
                                                                
@@ -100,20 +110,20 @@ environment interactions $\sigma_{GxE}$  \ref{eqn:PGEGE} , \cite{lynch1998}, \ci
 \end{equation}
 
 
-Equation \ref{eqn:PGGE} shows the decomposition of the phenotypic variance, to thoroughly understand complex genetic archiectures of traits
-the genetic variance needs to be decomposed further in its additve, dominance and epistatic components \ref{eqn:GAD}
+Equation \ref{eqn:PGGE} shows the decomposition of the phenotypic variance, to thoroughly understand complex genetic architectures of traits
+the genetic variance needs to be decomposed further in its additive, dominance and epistatic components \ref{eqn:GAD}
 
 \begin{equation}
   \sigma_{G} = \sigma_{A} + \sigma_{D} + \sigma_{I}
   \label{eqn:GAD}
 \end{equation}
 
-The addivte effects are caused by single, for this model mostly homozygous, loci while the variance caused by dominance effcts, is caused by
-heterozygous loci and their resulting interactions being full-, over- , co- or underdominant. And lastely the interaction effects  that are a
-result of two or more genes only having an impact if the involved genes cooccur in a certain state. The resulting variance is commonly known
+The additive effects are caused by single, for this model mostly homozygous, loci while the variance caused by dominance effects, is caused by
+heterozygous loci and their resulting interactions being full-, over- , co- or underdominant. And lastly the interaction effects  that are a
+result of two or more genes only having an impact if the involved genes co-occur in a certain state. The resulting variance is commonly known
 as gene-gene interactions and/or epistasis \cite{falconer1996}. \\
-Since possible interactions in a genome can happen between additve or dominant or a combinaton of those loci. The variance due to interaction
-effects $\sigma_{I}$ can be further dissembled in the variance resulting from additive-addtive $\sigma_{AA}$ domiant-dominant $\sigma{DD}$ and
+Since possible interactions in a genome can happen between additive or dominant or a combination of those loci. The variance due to interaction
+effects $\sigma_{I}$ can be further dissembled in the variance resulting from additive-additive $\sigma_{AA}$ dominant-dominant $\sigma{DD}$ and
 additive-dominant $sigma{AD}$ terms as represented in equation \ref{eqn:IAA}.
 
 
@@ -122,17 +132,24 @@ additive-dominant $sigma{AD}$ terms as represented in equation \ref{eqn:IAA}.
   \label{eqn:IAA}
 \end{equation}
 
-Knowledge of the variace components involved in the expression of a trait in population, lead up to the estimation of the total influnce
-of all genetic variances and the environmental variance one the phentypic distrubition. This concept if called heritabilty.
-The heritabilty of a trait $h^2$ accounts for the proportion of the pheotyping variace controlled by the total phenotypic variance.
-
-
+Knowledge of the variance components involved in the expression of a trait in population, lead up to the estimation of the total
+influence of all genetic variances and the environmental variance one the phenotypic distribution. This concept if called heritability.
+The heritability of a trait $H^2$ accounts for the proportion of the phenotypic variance controlled by the total genetic variance
+as shown in equation \ref{eqn:h2G}. This is also referred to as broad sense heritability, because all genetic effects including
+additive, dominance and epistatic effects are included \cite{brooker1999genetics}.
 
 
 \begin{equation}
-  h^2 = \frac{\sigma_{G}}{\sigma_{P}}
+  H^2 = \frac{\sigma_{A} + \sigma_{D} + \sigma_{I}}{\sigma_{P}}
   \label{eqn:h2G}
 \end{equation}
+
+The concept of narrow-sense heritability \ref{eqn:h2a} is similar to the broad-sense heritability, but only the additive genetic
+effects are included in the genetic part of the equation. This differentiation is import for natural and artificial selection and
+thus is commonly used in evolutionary genomics and breeding. Because in diploid species each parent only passes down on a single a
+allele of a give locus. Dominance effects or interaction effects are not commonly inherited from one parent. Therefore the it is
+mainly the additive genetic effects of a parent that influences its offspring. While the dominance and epistatic variances are
+controlled by the combination of the parents \cite{falconer1996}, \cite{walsh2018}.
 
 
 \begin{equation}
@@ -142,9 +159,19 @@ The heritabilty of a trait $h^2$ accounts for the proportion of the pheotyping v
 
 
 
+\subsection{Artificial selection in plant and animal breeding in the genomics era}
 
-
-
+Genomic prediction has been applied to almost all relevent crop and model spcies. Including \textit{A. thaliana} \cite{hu2015}, \cite{shen2013novel}, barly \cite{neyhart2019}, \cite{oakey2016} , \cite{zhong2009factors} ;
+cassava (\textit{Manihot esculenta}) \cite{elias2018}, \cite{elias2018improving} ;
+cauliflower (\textit{Brassica olearacea spp})   \cite{thorwarth2018genomic} ;
+cotton (\textit{Gossiypium spp.}  \cite{gapare2018} ;
+maze (\textit{Zea mays}) \cite{moeinizade2019} , \cite{allier2019usefulness} , \cite{brauner2018genomic},
+\cite{schrag2018beyond}, \cite{schopp2017genomic}, \cite{e2017genomic}, \cite{schopp2017accuracy},
+\cite{kadam2016genomic}, \cite{bustos2016improvement}, \cite{montesinos2015threshold}, \cite{owens2014foundation},
+\cite{lehermeier2014usefulness},
+\cite{technow2014genome}, \cite{peiffer2014genetic} , \cite{riedelsheimer2013genomic}, \cite{guo2013accuracy},
+\cite{technow2013genomic}, \cite{windhausen2012} , \cite{rincent2012} ;
+potato (\cite{Solanum tuberosum}),  \cite{enciso2018genomic}
 
 \subsection{Genomic selection using artificial neural networks }
 Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
@@ -210,12 +237,50 @@ generated in the scope of the 1001 genome project of \textit{Arabidopsis thalian
 
 
 
-\section{Proof of concept}
+\section{Proof of concept on ANN-based genomic selection}
 
+\begin{table}[H]
+\caption{The effects of treatments X and Y on the four groups studied.}
+\label{tab:treatments}
+\centering
+\begin{tabular}{ l c c | c c c c c c  }
+  \toprule
+  & $M_1$ & $M_2$ &  $Y_{ADD}$ & $Y_{AND}$ & $Y_{OR}$ & $Y_{XOR}$\\
+\midrule
+  \hline 
+  $G_1$ & 0 & 0 & 0 & 0 &  0 & 0 \\
+  $G_2$ & 0 & 1 & 1 & 0 &  1 & 1 \\
+  $G_3$ & 1 & 0 & 1 & 0 &  1 & 1 \\
+  $G_4$ & 1 & 1 & 2 & 1 &  1 & 0 \\
+  \bottomrule
+\end{tabular}
+\end{table}
 
+\begin{table}[H]
+\caption{The effects of treatments X and Y on the four groups studied.}
+\label{tab:treatments}
+\centering
+\begin{tabular}{ l c c | c c c c c c }
+  \toprule
+  & $M_1$ & $M_2$ &  $\hat{Y}_{ADD}$ & $\hat{Y}_{AND}$ & $\hat{Y}_{OR}$ & $\hat{Y}_{XOR}$\\
+\midrule
+  \hline 
+  $G_1$ & 0 & 0 & 0.01 & 0.00 &  0.00 & 0.01 \\
+  $G_2$ & 0 & 1 & 0.99 & 0.01 &  0.99 & 0.98 \\
+  $G_3$ & 1 & 0 & 0.99 & 0.00 &  0.99 & 1.01 \\
+  $G_4$ & 1 & 1 & 1.99 & 0.98 &  1.01 & 0.02 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Material}
+\subsection{DH populations derived from MAZE landraces}
+\subsection{A. thaliana}
 \section{Methods}
+\subsection{ANN}
+\subsection{GBLUP}
+
+
 \section{Results}
 \section{Discussion}
 

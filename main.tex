@@ -20,7 +20,8 @@
 
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+% --------------------------------------------------------------------------------------
+
 
 \documentclass[
 12pt, % The default document font size, options: 10pt, 11pt, 12pt
@@ -46,9 +47,10 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 \usepackage{listings}
-
+\usepackage{float}
 \usepackage{xcolor}
- 
+
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -67,16 +69,17 @@ headsepline, % Uncomment to get a line under the header
     keepspaces=true,                 
     numbers=left,                    
     numbersep=5pt,                  
-    showspaces=false,                
+    showspaces=false ,                
     showstringspaces=false,
     showtabs=false,                  
     tabsize=2
 }
 \lstset{style=mystyle}
 
-%----------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
 %	MARGIN SETTINGS
-%--------------------------------------------------------------------------------------
+% -------------------------------------------------------------------------------
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
 	inner=2.5cm, % Inner margin
@@ -191,9 +194,9 @@ headsepline, % Uncomment to get a line under the header
 
 \vspace*{0.2\textheight}
 
-\noindent\enquote{\itshape Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism.}\bigbreak
+\noindent\enquote{\itshape Wit beyond messure is men's greatest treassure}\bigbreak
 
-\hfill Dave Barry
+\hfill Rawenclaw
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -229,7 +232,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
   \textbf{ANN} & \textbf{A}rtificial \textbf{N}eural \textbf{N}etwork \\
-  \textbf{BLUB} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
+  \textbf{BLUP} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
   \textbf{BLUE} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator \\
   \textbf{CPU} & \textbf{C}ore \textbf{P}rocessing \textbf{U}nit \\
   \textbf{EMMA} & \textbf{E}fficient \textbf{M}ixed \textbf{M}odel \textbf{A}ssociations \\
@@ -259,24 +262,24 @@ The acknowledgments and the people to thank go here, don't forget to include you
   \textbf{DNA} & \textbf{R}ibo\textbf{N}ucleic \textbf{A}cid \\
   \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
   \textbf{BP} & \textbf{B}ase \textbf{Pair} \\
+  \textbf{DH} & \textbf{D}oubled \textbf{H}aploid \\
+  \textbf{GBLUP} & \textbf{G}enomic  \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
+
   
  \end{abbreviations}
-
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS
-%----------------------------------------------------------------------------------------
-
-%----------------------------------------------------------------------------------------
-%	SYMBOLS
+%---------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------
+%	SYMBOL
 %----------------------------------------------------------------------------------------
 
 % \begin{symbols}{lll} % Include a list of Symbols (a three column table)
-
 % $a$ & distance & \si{\meter} \\ 
 % $P$ & power & \si{\watt} (\si{\joule\per\second}) \\
 % %Symbol & Name & Unit \\
 
-% \addlinespace % Gap to separate the Roman symbols from the Greek
+% \addlinespace % Gap to separate the Roman symbols frm the Greek
 
 % $\omega$ & angular frequency & \si{\radian} \\
 
@@ -303,7 +306,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/Chapter2} 
 \include{Chapters/Chapter3}
 \include{Chapters/Chapter4} 
-%\include{Chapters/Chapter5} 
+\include{Chapters/Chapter5} 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
