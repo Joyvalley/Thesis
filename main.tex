@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Masters/Doctoral Thesis 
 % LaTeX Template
 % Version 2.5 (27/8/17)
@@ -72,17 +72,16 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
     showstringspaces=false,
     showtabs=false,                  
     tabsize=2
-}
+  }
 \lstset{style=mystyle}
-
-
-%------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 % -------------------------------------------------------------------------------
+
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
 	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
+	outer=2.5cm, % Outer margin
 	bindingoffset=.5cm, % Binding offset
 	top=1.5cm, % Top margin
 	bottom=1.5cm, % Bottom margin
@@ -99,7 +98,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
 
 \subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
-\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\keywords{} % Keywords for your thesis, this is not currently used anywhre in the template, print it elsewhere with \keywordnames
 \university{\href{http://www.university.com}{Julius-Maximilians Universi\"{a}t W\"{u}rzburg}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{http://department.university.com}{GSLS}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{http://researchgroup.university.com}{Research group for evolutionary genomics}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
@@ -263,6 +262,8 @@ The acknowledgments and the people to thank go here, don't forget to include you
   \textbf{BP} & \textbf{B}ase \textbf{Pair} \\
   \textbf{DH} & \textbf{D}oubled \textbf{H}aploid \\
   \textbf{GBLUP} & \textbf{G}enomic  \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
+  \textbf{XOR} & e\textbf{X}clusive \textbf{OR} \\
+  \textbf{ReLU} & \textbf{Re}ctified \textbf{L}inear \textbf{U}nits \\
 
   
  \end{abbreviations}
@@ -274,18 +275,15 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %----------------------------------------------------------------------------------------
 
 % \begin{symbols}{lll} % Include a list of Symbols (a three column table)
-% $a$ & distance & \si{\meter} \\ 
+% $a$ & distce & \si{\meter} \\ 
 % $P$ & power & \si{\watt} (\si{\joule\per\second}) \\
 % %Symbol & Name & Unit \\
 
 % \addlinespace % Gap to separate the Roman symbols frm the Greek
 
-% $\omega$ & angular frequency & \si{\radian} \\
-
+% $\omega$ & angular frequency & \si{\radian} \
 % \end{symbols}
 
-%----------------------------------------------------------------------------------------
-%	DEDICATION
 %----------------------------------------------------------------------------------------
 
 \dedicatory{For/Dedicated to/To my\ldots} 
@@ -294,7 +292,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %	THESIS CONTENT - CHAPTERS
 %----------------------------------------------------------------------------------------
 
-\mainmatter % Begin numeric (1,2,3...) page numbering
+\mainmatter % Begin numeric(1,2,3...) page numbering
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
@@ -304,7 +302,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/Chapter1}
 \include{Chapters/Chapter2} 
 \include{Chapters/Chapter3}
-\include{Chapters/Chapter4} 
+\include{Chapters/Chapter4}
 \include{Chapters/Chapter5} 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
@@ -315,11 +313,9 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Appendices/AppendixA}
 % \include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
-%----------------------------------------------------------------------------------------
-%	BIBLIOGRAPHY%------------- ---- --------------------------------------------------------------------
+%---------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY%------------- ---- -----------------------------------------------------------------
 
 \printbibliography[heading=bibintoc]
 
-
 \end{document}
-

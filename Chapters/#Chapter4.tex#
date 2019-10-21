@@ -133,8 +133,11 @@ equation \ref{eqn:tanh}, when $x \rightarrow \infty$ or $x \rightarrow -\infty$ 
 \end{equation}
 
 
-ReLU (equation \ref{eqn:relu}) and the softplus (equation \ref{eqn:softplus}) share similar properties as well, the latter one being a smoothed
-version of ReLU. Rectfiers as activation functions have been introduced in 2000s  \cite{hahnloser2000digital} and have since then overtaken all others as the most popular activations functions in neural networks and deep learning today \cite{lecun2015deep} and they have proven to be superior in deep-learning algorithms that sigmoid or logistic functions \cite{glorot2011deep}.
+ReLU (equation \ref{eqn:relu}) and the softplus (equation \ref{eqn:softplus}) share similar properties as well, the latter one
+being a smoothed version of ReLU. Rectfiers as activation functions have been introduced in 2000s  \cite{hahnloser2000digital} and have
+since then overtaken all others as the most popular activations functions in neural networks and deep learning today
+\cite{lecun2015deep} and they have proven to be superior in deep-learning algorithms that sigmoid or logistic functions
+\cite{glorot2011deep}.
 
 
 

@@ -20,26 +20,77 @@
 Here I will but the introduction to from the paper
 %----------------------------------------------------------------------------------------
 \section{Material and Methods}
-\section{Results}
-
+\subsection{Methods}
+\subsection{Tools}
+\subsection{Evaluation}
+\subsubsection{Quantitative}
 \begin{equation}
 score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contigs} }\right) \cdot 100 
 \label{eqn:score_ass}
 \end{equation}
 
-\subsection{Performance metrics}
+\subsubsection{Qualitative}
+\subsubsection{Consisteny}
 
 
-\begin{figure}[th]
+\subsection{Data}
+\subsubsection{Simulated}
+\subsubsection{Real data set}
+\subsubsection{Novel data set}
+
+
+\section{Results}
+\subsection{Qualitative}
+
+\subsection{Quantitatve}
+\subsubsection{Simulated data}
+\begin{figure}[H]
 \centering
-\includegraphics{Figures/Electron}
+\includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/sim_tiles}
 \decoRule
-\caption[An Electron]{An electron (artist's impression).}
-\label{fig:Electron}
+\caption[Score of assemblies of simulated data sets]{Results of assemblies exectuted with simulated data sets.}
+\label{fig:sim_tiles}
+\end{figure}
+
+\subsubsection{Real data sets}
+\begin{figure}[H]
+\centering
+\includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/swarm}
+\decoRule
+\caption[Scores of assemblies from real data sets]{Box and swarm plots depict the resluts from the scoring shown in \ref{eqn:score_ass}}
+\label{fig:swarm}
 \end{figure}
 
 
-\subsection{Qualitative}
+
+
+\subsubsection{Consistency}
+
+\subsubsection{Real data sets}
+\begin{figure}[H]
+\centering
+\includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/repro}
+\decoRule
+\caption[Comparison between two uns with the same assembler for consistency testing ]{Swarm plots depict the resluts from the scoring shown in \ref{eqn:score_ass for two independet runs for each assembler on each of the datasets}}
+\label{fig:consisplot}
+\end{figure}
+
+
+\subsubsection{Novel}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/upset_novel}
+\decoRule
+\caption[Upset plot comparing the success rates for novel data sets]{nls}
+\label{fig:upset_novel}
+\end{figure}
+
+
+
+
+
 \begin{table}
 \caption{The effects of treatments X and Y on the four groups studied.}
 \label{tab:treatments}
@@ -56,11 +107,16 @@ score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{
 \end{tabular}
 \end{table}
 
-\subsection{Simulated data}
-\subsection{Real data sets}
-\subsection{Consistency}
+
 \section{Disucssion}
 
+\begin{figure}[H]
+\centering
+\includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/upset}
+\decoRule
+\caption[Upset plot comparing the success rates of of all assemblers]{Upset plot showing the intersections of sucess rates between assemblers. A successful assembly was defined with a score > 99 according to equation \ref{eqn:score_ass}}
+\label{fig:upset}
+\end{figure}
 
 
 % ----------------------------------------------------------------------------------------
