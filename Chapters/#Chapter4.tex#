@@ -8,6 +8,7 @@
 
 \section{Introduction}
 \subsection{A brief history of machine learning }
+\subsubsection{Basic perceptron model}
 
 While machine learning, neural networks, deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
@@ -63,6 +64,8 @@ the the neurons on the second layer. In this case all neurons on the first layer
 on the second layer, such layers are referred to fully-connected layers (FLC) , and their resulting networks
 are often called multi-layer perceptrons (MLP). This architecture enables the network to perform more complex
 calculations and result in more abstract decisions than single neurons or single layer architectures.
+
+\subsubsection{Activation functions}
 
 The neurons discussed so far are only capable of outputting binary results. Either 0 or 1, depending on the
 threshold values being met or not.  For more complex estimations it is desirable that small changes in the
@@ -152,6 +155,7 @@ weight will result in small changes in the output, while a small change of the i
 function leads to either no or a complete change of the output.  This property is, as described below, is an
 important prerequisite for networks being able to learn. \\
 
+\subsubsection{Gradient descent algorithm}
 
 Let the network shown in \ref{fig:nn} be for the classification of a arbitrary phenotype like blue petals with
 $x_1 ... x_4$ on the input layers being genetic markers as features. And the output layer displaying a value
@@ -191,16 +195,41 @@ biases and repeatedly move them in direction $\Delta w$ and $\Delta b$. This res
 \label{eqn:deltaL}   
 \end{equation}
 
-Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a reduction of the loss.  To simplify this problem let $\Delta v$ be the vector of changes: $\Delta v = (\Delta w ,  \Delta b)^T $ and $\nabla C$ the vector of the partial derivatives: equation \ref{eqn:nabla}
+Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a reduction of the loss. To simplify this problem let $\Delta d$ be the vector of changes: $\Delta d = (\Delta w ,  \Delta b)^T $ and $\nabla C$ the vector of the partial derivatives: equation \ref{eqn:nabla}
 
 \begin{equation}
  \nabla C = \left(\frac{\partial L}{\partial w}, \frac{\partial L}{\partial w}\right)^T
 \label{eqn:nabla}
 \end{equation}
 
+Having defined $\nabla C$ and $\Delta d$ the term \ref{eqn:deltaL} can be simplified as equation \ref{eqn:cd}
 
+\begin{equation}
+\Delta C = \nabla C * \Delta d
+  \label{eqn:cd}
+\end{equation}
+
+\begin{equation}
+  \Delta d = -\eta \nabla C
+  \label{eqn:eta}
+\end{equation}
+
+
+\begin{eqnarray}
+  \nabla C = \left(\frac{\partial L}{\partial w_1}, \ldots,
+  \frac{\partial L}{\partial w_n}\right)^T
+  \label{eqn:gd}
+\end{eqnarray}
+
+
+\subsubsection{Stochastic gradient descent}
+
+\subsubsection{Backpropagation}
 
 Backpropagation \cite{rumelhart1988learning}
+
+\subsubsection{Regularization parameters}
+
 
 
 
@@ -318,6 +347,8 @@ controlled by the combination of the parents \cite{falconer1996}, \cite{walsh201
   h^2 = \frac{\sigma_{A}}{\sigma_{P}}
  \label{eqn:h2a}
 \end{equation}
+
+
 
 
 
