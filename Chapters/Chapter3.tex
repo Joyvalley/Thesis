@@ -1,11 +1,13 @@
+% -*- TeX-master: "main.tex" -*-
 % Chapter 1
 
-\chapter{GWAS Flow a gpu-accelerated software for large-scale genome-wide association studies}
+\chapter{GWAS-Flow a gpu-accelerated software for large-scale genome-wide association studies}
 
 \label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 %----------------------------------------------------------------------------------------
 
+The following chapter is written by the author and has been published on bio$\chi$iv preprint server \cite{Freudenthal_2019}
 
 
 \section{Introduction}
@@ -21,8 +23,7 @@ Albeit commonly SNPs are used for association studies, standard GWAS models are 
 as input. The \textit{Arabidopsis} 1001 genomes project features for example 1135 sequenced \textit{Arabidopsis thaliana}
 accessions with over 10 million genomic markers that segregate in the population \cite{1001genome}. Other genome projects
 also yielded large amounts of genomic data for a substantial amount of individuals, as exemplified in the 1000 genomes
-project for humans \cite{1000genome}, the 2000 yeast genomes project or the 3000 rice genomes project \cite{3000genome}.
-Thus, there is an increasing demand for GWAS models that can analyze these data in a reasonable time frame. 
+project for humans \cite{1000genome}, the 2000 yeast genomes project or the 3000 rice genomes project \cite{3000genome}. Thus, there is an increasing demand for GWAS models that can analyze these data in a reasonable time frame. 
 One critical step of GWAS is to determine the threshold at which an association is termed significant. Classically the
 conservative Bonferroni threshold is used, which accounts for the number of statistical tests that are performed, while many
 recent studies try to use significance thresholds that are based on the false-discovery rate (FDR) \cite{Storey9440}.
@@ -187,3 +188,7 @@ the full pairwise interaction matrix of all SNPs. Although this might be a stati
 \caption[Computational time of GWA Analyses on real \textit{A. thaliana} data sets]{Comparison of the computational time for the analyses of $>$ 200 phenotypes from \textit{Arabidopsis thaliana} as a function of the number of accessions for \textit{GEMMA} and the CPU- and GPU-based version of \texttt{GWAS-Flow}. GWAS was performed with a fully imputed genotype matrix containing 10.7 M markers and a minor allele filter of MAC $>$ 5}
 \label{fig:real_data_gwas}
 \end{figure}
+
+
+
+

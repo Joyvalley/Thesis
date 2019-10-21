@@ -132,16 +132,16 @@ elif eltime > 3600 :
   \section{main.py}
   \begin{lstlisting}[language=Python]
     import pandas as pd 
-import numpy as np
-from scipy.stats import f
-import tensorflow as tf
-import limix
-import herit
-import h5py
-import limix
-import multiprocessing as mlt
+    import numpy as np
+    from scipy.stats import f
+    import tensorflow as tf
+    import limix
+    import herit
+    import h5py
+    import limix
+    import multiprocessing as mlt
 
-def load_and_prepare_data(X_file,Y_file,K_file,m):
+    def load_and_prepare_data(X_file,Y_file,K_file,m):
     type_K = K_file.split(".")[-1]
     type_X = X_file.split(".")[-1]
     
