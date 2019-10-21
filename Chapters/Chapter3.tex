@@ -11,57 +11,61 @@ The following chapter is written by the author and has been published on bio$\ch
 
 
 \section{Introduction}
-Genome-wide association studies, pioneered in human genetics \cite{Hirschhorn2005} in the last decade,
-have become the predominant method to detect associations between phenotypes and the genetic variations
-present in a population. Understanding the genetic architecture of traits and mapping the underlying genomic
+Genome-wide association studies, pioneered in human genetics \cite{Hirschhorn2005} in the last decade, have
+become the predominant method to detect associations between phenotypes and the genetic variations present in
+a population. Understanding the genetic architecture of traits and mapping the underlying genomic
 polymorphisms is of paramount importance for successful breeding both in plants and animals, as well as for
-studying the genetic risk factors of diseases. 
-Over the last decades, the cost for genotyping have been reduced dramatically.
-Early GWAS consisted of a few hundred individuals which have been phenotyped and genotyped on a couple of hundreds to
-thousands of genomic markers. Nowadays, marker density for many species easily exceed millions of genomic polymorphisms.
-Albeit commonly SNPs are used for association studies, standard GWAS models are flexible to handle different genomic features
-as input. The \textit{Arabidopsis} 1001 genomes project features for example 1135 sequenced \textit{Arabidopsis thaliana}
-accessions with over 10 million genomic markers that segregate in the population \cite{1001genome}. Other genome projects
-also yielded large amounts of genomic data for a substantial amount of individuals, as exemplified in the 1000 genomes
-project for humans \cite{1000genome}, the 2000 yeast genomes project or the 3000 rice genomes project \cite{3000genome}. Thus, there is an increasing demand for GWAS models that can analyze these data in a reasonable time frame. 
-One critical step of GWAS is to determine the threshold at which an association is termed significant. Classically the
-conservative Bonferroni threshold is used, which accounts for the number of statistical tests that are performed, while many
-recent studies try to use significance thresholds that are based on the false-discovery rate (FDR) \cite{Storey9440}.
-An alternative approach are permutation-based thresholds \cite{che2014adaptive}. Permutation-based thresholds estimate th
-e significance by shuffling phenotypes and genotypes before each GWAS run, thus any signal left in the data should not have
-a genetic cause, but might represent model mis-specifications or uneven phenotypic distributions. Typically this process is
-repeated hundreds to thousands of times and will lead to a distinct threshold for each phenotype analyzed \cite{togninalli2017aragwas}.
-The computational demand of permutation-based thresholds is immense, as per analysis not one, but at least hundreds of GWAS need
-to be performed. Here the main limitation is the pure computational demand. Thus, faster GWAS models could easily make the
-estimation of permutation-based thresholds the default choice.
+studying the genetic risk factors of diseases.  Over the last decades, the cost for genotyping have been
+reduced dramatically.  Early GWAS consisted of a few hundred individuals which have been phenotyped and
+genotyped on a couple of hundreds to thousands of genomic markers. Nowadays, marker density for many species
+easily exceed millions of genomic polymorphisms.  Albeit commonly SNPs are used for association studies,
+standard GWAS models are flexible to handle different genomic features as input. The \textit{Arabidopsis} 1001
+genomes project features for example 1135 sequenced \textit{Arabidopsis thaliana} accessions with over 10
+million genomic markers that segregate in the population \cite{1001genome}. Other genome projects also yielded
+large amounts of genomic data for a substantial amount of individuals, as exemplified in the 1000 genomes
+project for humans \cite{1000genome}, the 2000 yeast genomes project or the 3000 rice genomes project
+\cite{3000genome}. Thus, there is an increasing demand for GWAS models that can analyze these data in a
+reasonable time frame.  One critical step of GWAS is to determine the threshold at which an association is
+termed significant. Classically the conservative Bonferroni threshold is used, which accounts for the number
+of statistical tests that are performed, while many recent studies try to use significance thresholds that are
+based on the false-discovery rate (FDR) \cite{Storey9440}.  An alternative approach are permutation-based
+thresholds \cite{che2014adaptive}. Permutation-based thresholds estimate th e significance by shuffling
+phenotypes and genotypes before each GWAS run, thus any signal left in the data should not have a genetic
+cause, but might represent model mis-specifications or uneven phenotypic distributions. Typically this process
+is repeated hundreds to thousands of times and will lead to a distinct threshold for each phenotype analyzed
+\cite{togninalli2017aragwas}.  The computational demand of permutation-based thresholds is immense, as per
+analysis not one, but at least hundreds of GWAS need to be performed. Here the main limitation is the pure
+computational demand. Thus, faster GWAS models could easily make the estimation of permutation-based
+thresholds the default choice.
 
 \section{Methods}
 
 \subsubsection{GWAS Model}
-The GWAS model used for \texttt{GWAS-Flow} is based on a fast approximation of the linear-mixed-model described in
-\cite{kang2010variance,Zhang2010}, which estimates the variance components $\sigma$\textsubscript{g} and $\sigma$\textsubscript{e}
-only once in a null model that includes the genetic relationship matrix, but no distinct genetic markers. These components are
-thereafter used for the tests of each specific marker. Here, the underlying assumption is, that the ratio of these components
-stays constant, even if distinct genetic markers are included into the GWAS model. This holds true for nearly all markers and
-only markers which posses a big effect will alter this ratio slightly, where now $\sigma$\textsubscript{g} would become smaller
-compared to the null model. Thus, the p-values calculated by the approximation might be a little higher (less significant) for
-strongly associated markers. 
+The GWAS model used for \texttt{GWAS-Flow} is based on a fast approximation of the linear-mixed-model
+described in \cite{kang2010variance,Zhang2010}, which estimates the variance components
+$\sigma$\textsubscript{g} and $\sigma$\textsubscript{e} only once in a null model that includes the genetic
+relationship matrix, but no distinct genetic markers. These components are thereafter used for the tests of
+each specific marker. Here, the underlying assumption is, that the ratio of these components stays constant,
+even if distinct genetic markers are included into the GWAS model. This holds true for nearly all markers and
+only markers which posses a big effect will alter this ratio slightly, where now $\sigma$\textsubscript{g}
+would become smaller compared to the null model. Thus, the p-values calculated by the approximation might be a
+little higher (less significant) for strongly associated markers.
 
 \subsubsection{The GWAS-Flow Software}
-The \texttt{GWAS-Flow} software was designed to provide a fast and robust GWAS implementation that can easily handle large
-data and allows to perform permutations in a reasonable time frame. Traditional GWAS implementations that are implemented
-using Python \cite{van1995python} or R \cite{R} cannot always meet these demands.
-We tried to overcome those limitations by using TensorFlow \cite{tensorflow2015-whitepaper}, a multi-language machine
-learning framework published and developed by Google. GWAS calculations are composed of a series of matrix computations
-that can be highly parallelized, and easily integrated into the architecture provided by TensorFlow. Our implementation
-allows both, the classical parallelization of code on multiple processors (CPUs) and the use of graphical processing units
-(GPUs). \texttt{GWAS-Flow} is written using the Python TensorFlow API. 
-Data import is done with \textit{pandas} \cite{mckinney-proc-scipy-2010} and/or \textit{HDF5} for Python \cite{hdf5_2014}.
-Preprocessing of the data (e.g filtering by minor Allele count (MAC)) is performed with \textit{numpy} \cite{oliphant2006guide}.
-Variance components for residual and genomic effects are estimated with a slightly altered function based on the Python package
-\textit{limix} \cite{Lippert003905}. 
-The GWAS model is based on the following linear mixed model that takes into account the effect of every marker with respect to
-the kinship:
+The \texttt{GWAS-Flow} software was designed to provide a fast and robust GWAS implementation that can easily
+handle large data and allows to perform permutations in a reasonable time frame. Traditional GWAS
+implementations that are implemented using Python \cite{van1995python} or R \cite{R} cannot always meet these
+demands.  We tried to overcome those limitations by using TensorFlow \cite{tensorflow2015-whitepaper}, a
+multi-language machine learning framework published and developed by Google. GWAS calculations are composed of
+a series of matrix computations that can be highly parallelized, and easily integrated into the architecture
+provided by TensorFlow. Our implementation allows both, the classical parallelization of code on multiple
+processors (CPUs) and the use of graphical processing units (GPUs). \texttt{GWAS-Flow} is written using the
+Python TensorFlow API.  Data import is done with \textit{pandas} \cite{mckinney-proc-scipy-2010} and/or
+\textit{HDF5} for Python \cite{hdf5_2014}.  Preprocessing of the data (e.g filtering by minor Allele count
+(MAC)) is performed with \textit{numpy} \cite{oliphant2006guide}.  Variance components for residual and
+genomic effects are estimated with a slightly altered function based on the Python package \textit{limix}
+\cite{Lippert003905}.  The GWAS model is based on the following linear mixed model that takes into account the
+effect of every marker with respect to the kinship:
 
 \begin{equation}
 Y = \beta_{0} + X_i\beta_i + u + \epsilon, u \sim N(0,\sigma_gK), \epsilon \sim N(0,\sigma_e I )
@@ -80,8 +84,8 @@ RSS_{i} =  \sum{Y - (X_{i}\beta_{0}   + I_{i}\beta_{1})}
 
 
 \noindent
-The residuals are used to calculate a p-value for each marker according to an overall F-test that compares the model including a
-distinct genetic effect to a model without this genetic effect: 
+The residuals are used to calculate a p-value for each marker according to an overall F-test that compares the
+model including a distinct genetic effect to a model without this genetic effect:
 \begin{equation}
   F = \frac{RSS_{env} - R1_{full} }{\frac{R1_{full}}{n-3}}
   \label{F_test}
@@ -91,49 +95,56 @@ Apart from the p-values that derive from the F-distribution, \texttt{GWAS-Flow} 
 effect size ($\beta_i$) and its standard error for each marker.
 \subsubsection{Calculation of permutation-based thresholds for GWAS}
 
-To calculate a permuation-based threshold, we essentially perform \textit{n} repetitions (\textit{n} $>$ 100) of the GWAS on the
-same data with the sole difference that before each GWAS we randomize the phenotypic values. Thus any correlation between the
-phenotype and the genotype will be broken and indeed for over 90\% of these analyses the estimated pseudo-heritability is close
-to zero. On the other hand, the phenotypic distribution will stay unaltered by this randomization. Hence, any remaining signal
-in the GWAS has to be of a non-genetic origin and could be caused by e.g. model mis-specifications. Now we take the lowest p-value
-(after filtering for the desired minor allele count) for each permutation and take the 5\% lowest value as the permutation-based
-threshold for the GWAS.
+To calculate a permuation-based threshold, we essentially perform \textit{n} repetitions (\textit{n} $>$ 100)
+of the GWAS on the same data with the sole difference that before each GWAS we randomize the phenotypic
+values. Thus any correlation between the phenotype and the genotype will be broken and indeed for over 90\% of
+these analyses the estimated pseudo-heritability is close to zero. On the other hand, the phenotypic
+distribution will stay unaltered by this randomization. Hence, any remaining signal in the GWAS has to be of a
+non-genetic origin and could be caused by e.g. model mis-specifications. Now we take the lowest p-value (after
+filtering for the desired minor allele count) for each permutation and take the 5\% lowest value as the
+permutation-based threshold for the GWAS.
 
 \subsubsection{Benchmarking}
-For benchmarking of \texttt{GWAS-Flow} we used data from the \textit{Arabidopsis} 1001 Genomes Project \cite{1001genome}. The
-genomic data we used were subsets between 10,000 and 100,000 markers. We chose not to include subsets that exceed 100,000 markers,
-because there is a linear relationship between the number of markers and the computational time demanded, as all markers are tested
-independently. We used phenotypic data for flowering time at ten degrees (FT10) for \textit{A. thaliana}, published and downloaded
-from the AraPheno database \cite{seren2016arapheno}. We down- and up-sampled sets to generate phenotypes for sets between 100 and 5000
-accessions.
-For each set of phenotypes and markers we ran 10 permutations to assess the computational time needed. All analyses have been performed
-with a custom R script that has been used previously \cite{togninalli2017aragwas}, \texttt{GWAS-Flow} using either a CPU or a GPU
-architecture and \textit{GEMMA} \cite{Zhou2012}. \textit{GEMMA} is a fast and efficient implementation of the mixed model that is
-broadly used to perform GWAS.
-All calculations were run on the same machine using 16 i9 virtual CPUs. The GPU version ran on an NVIDIA Tesla P100 graphic card.
-Additionally to the analyses of the simulated data, we compared the times required by \textit{GEMMA} and both \texttt{GWAS-Flow}
-implementations for $>$ 200 different real datasets from \textit{A. thaliana} that have been downloaded from the AraPheno
-\cite{seren2016arapheno} database and have been analyzed with the available fully imputed genomic dataset of ca. 10 million markers,
-filtered for a minor allele count greater five. 
+For benchmarking of \texttt{GWAS-Flow} we used data from the \textit{Arabidopsis} 1001 Genomes Project
+\cite{1001genome}. The genomic data we used were subsets between 10,000 and 100,000 markers. We chose not to
+include subsets that exceed 100,000 markers, because there is a linear relationship between the number of
+markers and the computational time demanded, as all markers are tested independently. We used phenotypic data
+for flowering time at ten degrees (FT10) for \textit{A. thaliana}, published and downloaded from the AraPheno
+database \cite{seren2016arapheno}. We down- and up-sampled sets to generate phenotypes for sets between 100
+and 5000 accessions.  For each set of phenotypes and markers we ran 10 permutations to assess the
+computational time needed. All analyses have been performed with a custom R script that has been used
+previously \cite{togninalli2017aragwas}, \texttt{GWAS-Flow} using either a CPU or a GPU architecture and
+\textit{GEMMA} \cite{Zhou2012}. \textit{GEMMA} is a fast and efficient implementation of the mixed model that
+is broadly used to perform GWAS.  All calculations were run on the same machine using 16 i9 virtual CPUs. The
+GPU version ran on an NVIDIA Tesla P100 graphic card.  Additionally to the analyses of the simulated data, we
+compared the times required by \textit{GEMMA} and both \texttt{GWAS-Flow} implementations for $>$ 200
+different real datasets from \textit{A. thaliana} that have been downloaded from the AraPheno
+\cite{seren2016arapheno} database and have been analyzed with the available fully imputed genomic dataset of
+ca. 10 million markers, filtered for a minor allele count greater five.
 
 \section{Results}
 
-The two main factors influencing the computational time for GWAS are the number of markers incorporated in such an analysis and
-the number of different accessions, while the latter has an approximate quadratic effect in classical GWAS implementations \cite{Zhou2012}.  
-Figure 1A shows the time demand as a function of the number of accessions used in the analysis with 10,000 markers. The quadratic increase
-in time demand is clearly visible for the custom R implementation, as well as for the CPU-based \texttt{GWAS-Flow} implementation and
-\textit{GEMMA}. The \texttt{GWAS-Flow} implementation and \textit{GEMMA} clearly outperforms the R implementation in general, while
-for a small number of accessions \texttt{GWAS-Flow} is slightly faster then \textit{GEMMA}. For the GPU-based implementation the increase
-in run-time with larger sample sizes is much less pronounced. While for small ($<$ 1,000 individuals) data, there is no benefit compared
-to running \texttt{GWAS-Flow} on CPUs or running \textit{GEMMA}, the GPU-version clearly outperforms the other implementations if the
-number of accessions increases. Figure 1B shows the computational time in relation to the number of markers and a fixed amount of 2000
-accessions for the two different \texttt{GWAS-Flow} implementations. Here, a linear relationship is visible in both cases.
-To show the performance of \texttt{GWAS-Flow} not only for simulated data, we also run both implementations on more than 200 different
-real datasets downloaded from the AraPheno database. Figure 1C shows the computational time demands for all analyses comparing both
-\texttt{GWAS-Flow} implementation to \textit{GEMMA}. Here, the CPU-based \texttt{GWAS-Flow} performs comparable to \textit{GEMMA},
-while the GPU-based implementation outperforms both, if the number of accessions is above 500. Importantly all obtained GWAS results
-(p-values, beta estimates and standard errors of the beta estimates) are nearly (apart from some mathematical inaccuracies) identical
-between the three different implementations.
+The two main factors influencing the computational time for GWAS are the number of markers incorporated in
+such an analysis and the number of different accessions, while the latter has an approximate quadratic effect
+in classical GWAS implementations \cite{Zhou2012}.  Figure 1A shows the time demand as a function of the
+number of accessions used in the analysis with 10,000 markers. The quadratic increase in time demand is
+clearly visible for the custom R implementation, as well as for the CPU-based \texttt{GWAS-Flow}
+implementation and \textit{GEMMA}. The \texttt{GWAS-Flow} implementation and \textit{GEMMA} clearly
+outperforms the R implementation in general, while for a small number of accessions \texttt{GWAS-Flow} is
+slightly faster then \textit{GEMMA}. For the GPU-based implementation the increase in run-time with larger
+sample sizes is much less pronounced. While for small ($<$ 1,000 individuals) data, there is no benefit
+compared to running \texttt{GWAS-Flow} on CPUs or running \textit{GEMMA}, the GPU-version clearly outperforms
+the other implementations if the number of accessions increases. Figure 1B shows the computational time in
+relation to the number of markers and a fixed amount of 2000 accessions for the two different
+\texttt{GWAS-Flow} implementations. Here, a linear relationship is visible in both cases.  To show the
+performance of \texttt{GWAS-Flow} not only for simulated data, we also run both implementations on more than
+200 different real datasets downloaded from the AraPheno database. Figure 1C shows the computational time
+demands for all analyses comparing both \texttt{GWAS-Flow} implementation to \textit{GEMMA}. Here, the
+CPU-based \texttt{GWAS-Flow} performs comparable to \textit{GEMMA}, while the GPU-based implementation
+outperforms both, if the number of accessions is above 500. Importantly all obtained GWAS results (p-values,
+beta estimates and standard errors of the beta estimates) are nearly (apart from some mathematical
+inaccuracies) identical between the three different implementations.
+
 \begin{figure}[th]
 \centering
 \includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/time_markers_gwas}
@@ -157,35 +168,43 @@ between the three different implementations.
 
 \section{Disucssion}
 
-We made use of recent developments of computational architecture and software to cope with the increasing computational demand
-in analyzing large GWAS datasets. With \texttt{GWAS-Flow} we implemented both, a CPU- and a GPU-based version of the classical
-linear mixed model commonly used for GWAS. Both implementations outperform custom R scripts on simulated and real data. While
-the CPU-based version performs nearly identical compared to \textit{GEMMA}, a commonly used GWAS implementation, the GPU-based
-implementation outperforms both, if the number of individuals, which have been phenotyped, increases. For analyzing big data, here
-the main limitation would be the RAM of the GPU, but as the individual test for each marker are independent, this can be easily
-overcome programmatically. The presented \texttt{GWAS-Flow} implementations are markedly faster compared to custom GWAS scripts
-and even outperform efficient fast implementations like \textit{GEMMA} in terms of speed. This readily enables the use of permutation-based
-thresholds, as with \texttt{GWAS-Flow} hundred permutations can be performed in a reasonable time even for big data. Thus, it is possible
-for each analyzed phenotype to create a specific, permutation-based threshold that might present a more realistic scenario. Importantly
-the permutation-based threshold can be easily adjusted to different minor allele counts, generating different significance thresholds
-depending on the allele count. This could help to distinguish false and true associations even for rare alleles. \texttt{GWAS-Flow}
-is a versatile and fast software package. Currently \texttt{GWAS-Flow} is and will remain under active development to make the
-software more versatile. This will e.g. include the compatibility with TensorFlow v2.0.0 and enable data input formats, such as
-PLINK \cite{purcell2007plink}.
-The whole framework is flexible, so it is easy to include predefined co-factors e.g to enable multi-locus models
-\cite{segura2012efficient} or account for multi-variate models like the multi-trait mixed model \cite{korte2012mixed}.
-Standard GWAS are good in detecting additive effects with comparably large effect sizes, but lack the ability to detect
-epistatic interactions and their influence on complex traits  \cite{mckinney2012six,korte2013advantages}. To catch the effects
-of these gene-by-gene or SNP-by-SNP interactions, a variety of genome-wide association interaction studies (GWAIS) have been
-developed, thoroughly reviewed in \cite{ritchie2018GWAIS}. Here, \texttt{GWAS-Flow} might provide a tool that enables to test
-the full pairwise interaction matrix of all SNPs. Although this might be a statistic nightmare, it now would be computationally feasible.
+We made use of recent developments of computational architecture and software to cope with the increasing
+computational demand in analyzing large GWAS datasets. With \texttt{GWAS-Flow} we implemented both, a CPU- and
+a GPU-based version of the classical linear mixed model commonly used for GWAS. Both implementations
+outperform custom R scripts on simulated and real data. While the CPU-based version performs nearly identical
+compared to \textit{GEMMA}, a commonly used GWAS implementation, the GPU-based implementation outperforms
+both, if the number of individuals, which have been phenotyped, increases. For analyzing big data, here the
+main limitation would be the RAM of the GPU, but as the individual test for each marker are independent, this
+can be easily overcome programmatically. The presented \texttt{GWAS-Flow} implementations are markedly faster
+compared to custom GWAS scripts and even outperform efficient fast implementations like \textit{GEMMA} in
+terms of speed. This readily enables the use of permutation-based thresholds, as with \texttt{GWAS-Flow}
+hundred permutations can be performed in a reasonable time even for big data. Thus, it is possible for each
+analyzed phenotype to create a specific, permutation-based threshold that might present a more realistic
+scenario. Importantly the permutation-based threshold can be easily adjusted to different minor allele counts,
+generating different significance thresholds depending on the allele count. This could help to distinguish
+false and true associations even for rare alleles. \texttt{GWAS-Flow} is a versatile and fast software
+package. Currently \texttt{GWAS-Flow} is and will remain under active development to make the software more
+versatile. This will e.g. include the compatibility with TensorFlow v2.0.0 and enable data input formats, such
+as PLINK \cite{purcell2007plink}.  The whole framework is flexible, so it is easy to include predefined
+co-factors e.g to enable multi-locus models \cite{segura2012efficient} or account for multi-variate models
+like the multi-trait mixed model \cite{korte2012mixed}.  Standard GWAS are good in detecting additive effects
+with comparably large effect sizes, but lack the ability to detect epistatic interactions and their influence
+on complex traits \cite{mckinney2012six,korte2013advantages}. To catch the effects of these gene-by-gene or
+SNP-by-SNP interactions, a variety of genome-wide association interaction studies (GWAIS) have been developed,
+thoroughly reviewed in \cite{ritchie2018GWAIS}. Here, \texttt{GWAS-Flow} might provide a tool that enables to
+test the full pairwise interaction matrix of all SNPs. Although this might be a statistic nightmare, it now
+would be computationally feasible.
 
 
 \begin{figure}[th]
 \centering
 \includegraphics[height=.6\textheight, width=1.1\textwidth]{Figures/gwas_real_data}
 \decoRule
-\caption[Computational time of GWA Analyses on real \textit{A. thaliana} data sets]{Comparison of the computational time for the analyses of $>$ 200 phenotypes from \textit{Arabidopsis thaliana} as a function of the number of accessions for \textit{GEMMA} and the CPU- and GPU-based version of \texttt{GWAS-Flow}. GWAS was performed with a fully imputed genotype matrix containing 10.7 M markers and a minor allele filter of MAC $>$ 5}
+\caption[Computational time of GWA Analyses on real \textit{A. thaliana} data sets]{Comparison of the
+  computational time for the analyses of $>$ 200 phenotypes from \textit{Arabidopsis thaliana} as a function
+  of the number of accessions for \textit{GEMMA} and the CPU- and GPU-based version of
+  \texttt{GWAS-Flow}. GWAS was performed with a fully imputed genotype matrix containing 10.7 M markers and a
+  minor allele filter of MAC $>$ 5}
 \label{fig:real_data_gwas}
 \end{figure}
 

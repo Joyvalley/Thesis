@@ -191,7 +191,7 @@ biases and repeatedly move them in direction $\Delta w$ and $\Delta b$. This res
 \label{eqn:deltaL}   
 \end{equation}
 
-Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a reduction of the loss.  To simplify this problem let $\Delta v$ be the vector of changes: $\Delta v = (\Delta w ,  \Delta b)^T $ and $\nabla C$ the vector of the partial derivatives. Equation \ref{eqn:nabla}
+Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a reduction of the loss.  To simplify this problem let $\Delta v$ be the vector of changes: $\Delta v = (\Delta w ,  \Delta b)^T $ and $\nabla C$ the vector of the partial derivatives: equation \ref{eqn:nabla}
 
 \begin{equation}
  \nabla C = \left(\frac{\partial L}{\partial w}, \frac{\partial L}{\partial w}\right)^T
@@ -347,7 +347,6 @@ Genomic prediction has been applied to almost all relevant crop and model specie
 ,\cite{Krause_2019}, \cite{Rincent_2018}, \cite{Norman_2018}, \cite{Belamkar_2018}, \cite{Ovenden_2018},
 \cite{Sukumaran_2016}, \cite{Bustos_Korts_2016}, \cite{Gianola_2016_wheat}, \cite{Crossa_2016_wheat},
 \cite{Thavamanikumar_2015}, \cite{Lopez_Cruz_2015},
-
 and various tree species \cite{deAlmeidaFilho2019,}, \cite{Rincent_2018}, \cite{Kainer_2018}, \cite{Ratcliffe_2017},
 \cite{GamalElDien_2016},
 \cite{Kumar_2015}, \cite{Jaramillo_Correa_2014}, \cite{Zapata_Valenzuela_2013}, \cite{Holliday_2012}, \cite{Resende_2012}
