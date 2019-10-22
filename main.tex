@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Masters/Doctoral Thesis 
 % LaTeX Template
 % Version 2.5 (27/8/17)
@@ -11,15 +11,14 @@
 % This template is based on a template by:
 % Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
 % Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
-% Template license:
-% CC B-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-% -------------------------------------------------------------------------------------
+% -------------------------------------------------------------------
 
 
 \documentclass[
@@ -55,23 +54,23 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
  
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false ,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-  }
+  backgroundcolor=\color{backcolour},  
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,     
+  breaklines=true,         
+  captionpos=b,          
+  keepspaces=true,         
+  numbers=left,          
+  numbersep=5pt,         
+  showspaces=false ,        
+  showstringspaces=false,
+  showtabs=false,         
+  tabsize=2
+ }
 \lstset{style=mystyle}
 % ------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -90,7 +89,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
 \thesistitle{Quantitative genetics - from genome assemlbies to neural network aided omics based prediction of quantitative traits} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
-\supervisor{Prof. Arthur  \textsc{Korte}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\supervisor{Prof. Arthur \textsc{Korte}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
 \examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
 \degree{Ph.D.} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
 \author{Jan Alexander \textsc{Freudenthal}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
@@ -116,8 +115,8 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 
 
 \begin{titlepage}
-  \begin{center}
-   
+ \begin{center}
+  
 
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
@@ -136,7 +135,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \begin{minipage}[t]{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\href{http://www.jamessmith.com}{\supname} % Supervisor name - remove the \href bracket to remove the link 
 \end{flushright}
 \end{minipage}\\[3cm]
 
@@ -174,7 +173,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
 \item I have acknowledged all main sources of help.
 \item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
-\end{itemize}   
+\end{itemize}  
 \noindent Signed:\\
 \rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
 \noindent Date:\\
@@ -226,43 +225,50 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %----------------------------------------------------------------------------------------
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-  \textbf{ANN} & \textbf{A}rtificial \textbf{N}eural \textbf{N}etwork \\
-  \textbf{BLUP} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
-  \textbf{BLUE} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator \\
-  \textbf{CPU} & \textbf{C}ore \textbf{P}rocessing \textbf{U}nit \\
-  \textbf{EMMA} & \textbf{E}fficient \textbf{M}ixed \textbf{M}odel \textbf{A}ssociations \\
-  \textbf{FCL} & \textbf{F}ully \textbf{C}onnected \textbf{L}ayer \\
-  \textbf{GP} & \textbf{G}enomic \textbf{P}redicton \\
-  \textbf{GPU} & \textbf{G}raphical \textbf{P}rocessing \textbf{U}nit \\
-  \textbf{GS} & \textbf{G}enomic \textbf{S}election \\
-  \textbf{GWAIS} & \textbf{G}enome \textbf{W}ide \textbf{I}nteraction \textbf{A}ssociation \textbf{S}tudies \\
-  \textbf{GWAS} & \textbf{G}enome \textbf{W}ide \textbf{A}ssociation \textbf{S}tudies \\
-  \textbf{HDF} & \textbf{H}ierarchical \textbf{D}ata \textbf{F}ormat \\
-  \textbf{LCL} & \textbf{L}ocally \textbf{C}onnected \textbf{L}ayer \\
-  \textbf{LD} & \textbf{L}inkage \textbf{D}isequilibrium \\
-  \textbf{LMM} & \textbf{L}inear \textbf{M}ixed \textbf{M}odel\\
-  \textbf{MLP} & \textbf{M}ulti \textbf{L}ayer \textbf{P}erceptron \\
-  \textbf{ML}  & \textbf{M}achine \textbf{L}earning \\
-  \textbf{QTL} & \textbf{Q}uantitative \textbf{T}rait \textbf{L}ocus \\
-  \textbf{RKHS} & \textbf{R}erproducing \textbf{K}ernel \textbf{H}ilbert \textbf{S}paces \\
-  \textbf{RSS} & \textbf{R}esidual \textbf{S}um of \textbf{S}quares \\
-  \textbf{SNP} & \textbf{S}ingle \textbf{N}ucleotide \textbf{P}olymorphism \\
-  \textbf{TRN} & \textbf{TR}ai\textbf{N}ing subset \\
-  \textbf{TST} & \textbf{T}e\textbf{ST}ing subset \\
-  \textbf{WGS} & \textbf{W}hole \textbf{G}enome \textbf{S}equencing \\
-  \textbf{LSC} & \textbf{L}arge \textbf{S}ingle \textbf{C}opy \\
-  \textbf{SSC} & \textbf{S}mall \textbf{S}ingle \textbf{C}opy \\
-  \textbf{IR} & \textbf{I}nverted \textbf{R}epeat \\
-  \textbf{DNA} & \textbf{D}eoxyribo\textbf{N}ucleic \textbf{A}cid \\
-  \textbf{DNA} & \textbf{R}ibo\textbf{N}ucleic \textbf{A}cid \\
-  \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
-  \textbf{BP} & \textbf{B}ase \textbf{Pair} \\
-  \textbf{DH} & \textbf{D}oubled \textbf{H}aploid \\
-  \textbf{GBLUP} & \textbf{G}enomic  \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
-  \textbf{XOR} & e\textbf{X}clusive \textbf{OR} \\
-  \textbf{ReLU} & \textbf{Re}ctified \textbf{L}inear \textbf{U}nits \\
-  \textbf{MSE} & \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
-  \textbf{RMSE} & \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
+ \textbf{ANN} & \textbf{A}rtificial \textbf{N}eural \textbf{N}etwork \\
+ \textbf{BLUP} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
+ \textbf{BLUE} & \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{E}stimator \\
+ \textbf{CPU} & \textbf{C}ore \textbf{P}rocessing \textbf{U}nit \\
+ \textbf{EMMA} & \textbf{E}fficient \textbf{M}ixed \textbf{M}odel \textbf{A}ssociations \\
+ \textbf{FCL} & \textbf{F}ully \textbf{C}onnected \textbf{L}ayer \\
+ \textbf{GP} & \textbf{G}enomic \textbf{P}redicton \\
+ \textbf{GPU} & \textbf{G}raphical \textbf{P}rocessing \textbf{U}nit \\
+ \textbf{GS} & \textbf{G}enomic \textbf{S}election \\
+ \textbf{GWAIS} & \textbf{G}enome \textbf{W}ide \textbf{I}nteraction \textbf{A}ssociation \textbf{S}tudies \\
+ \textbf{GWAS} & \textbf{G}enome \textbf{W}ide \textbf{A}ssociation \textbf{S}tudies \\
+ \textbf{HDF} & \textbf{H}ierarchical \textbf{D}ata \textbf{F}ormat \\
+ \textbf{LCL} & \textbf{L}ocally \textbf{C}onnected \textbf{L}ayer \\
+ \textbf{LD} & \textbf{L}inkage \textbf{D}isequilibrium \\
+ \textbf{LMM} & \textbf{L}inear \textbf{M}ixed \textbf{M}odel\\
+ \textbf{MLP} & \textbf{M}ulti \textbf{L}ayer \textbf{P}erceptron \\
+ \textbf{ML} & \textbf{M}achine \textbf{L}earning \\
+ \textbf{QTL} & \textbf{Q}uantitative \textbf{T}rait \textbf{L}ocus \\
+ \textbf{RKHS} & \textbf{R}erproducing \textbf{K}ernel \textbf{H}ilbert \textbf{S}paces \\
+ \textbf{RSS} & \textbf{R}esidual \textbf{S}um of \textbf{S}quares \\
+ \textbf{SNP} & \textbf{S}ingle \textbf{N}ucleotide \textbf{P}olymorphism \\
+ \textbf{TRN} & \textbf{TR}ai\textbf{N}ing subset \\
+ \textbf{TST} & \textbf{T}e\textbf{ST}ing subset \\
+ \textbf{WGS} & \textbf{W}hole \textbf{G}enome \textbf{S}equencing \\
+ \textbf{LSC} & \textbf{L}arge \textbf{S}ingle \textbf{C}opy \\
+ \textbf{SSC} & \textbf{S}mall \textbf{S}ingle \textbf{C}opy \\
+ \textbf{IR} & \textbf{I}nverted \textbf{R}epeat \\
+ \textbf{DNA} & \textbf{D}eoxyribo\textbf{N}ucleic \textbf{A}cid \\
+ \textbf{DNA} & \textbf{R}ibo\textbf{N}ucleic \textbf{A}cid \\
+ \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
+ \textbf{BP} & \textbf{B}ase \textbf{Pair} \\
+ \textbf{DH} & \textbf{D}oubled \textbf{H}aploid \\
+ \textbf{GBLUP} & \textbf{G}enomic \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
+ \textbf{XOR} & e\textbf{X}clusive \textbf{OR} \\
+ \textbf{ReLU} & \textbf{Re}ctified \textbf{L}inear \textbf{U}nits \\
+ \textbf{MSE} & \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
+ \textbf{RMSE} & \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
+ \textbf{GD} & \textbf{GD} \textbf{G}radient \textbf{D}escent \\
+ \textbf{Adam} \textbf{Ada}aptive \textbf{M}oment estimation \\
+ \textbf{Adagrad} & \textbf{Ada}ptive \textbf{Grad}ient Algorithm \\
+ \textbf{RMSProp} \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{Prop}agation \\
+ \textbf{Adadelta} & \textbf{Ada}ptive \textbf{delta} \\
+ \textbf{Nadam} & \textbf{N}esterov-\textbf{a}ccelerated \textbf{A}daptive \textbf{M}oment \textbf{E}stimation \\
+ 
 \end{abbreviations}
 %----------------------------------------------------------------------------------------
 %	PHYSICAL CONSTANTS/OTHER DEFINITIONS

@@ -230,7 +230,9 @@ In this case $\eta$ is a small positive decimal number, commonly referred to as 
 \end{eqnarray}
 
 
-\subsubsection{More optimizers }
+\subsubsection{Optimizers}
+The previous section introduced the concept of gradient descent, an algorithm to minimize the loss function of the
+weights and biases of a neural network. All other optimizers introduced here, are either variations or extensions of the basic gradient descent algorithm (GD)
 
 
 RMSprop \cite{hinton2012neural}
