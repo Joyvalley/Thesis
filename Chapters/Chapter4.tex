@@ -583,7 +583,6 @@ hidden layers with 10 and 5 nodes, was trained for the prediction of each phenot
 possible, no regularization parameters, dropout etc. was included. The activation function was ReLU (\ref{eqn:relu})
 with an Adam optimizer. The results of the prediction are shown in table \ref{tab:simgpres}.
 
-
 \begin{table}[H]
 \caption{Results of genomic prediction from phenotypes and genotypes in table \ref{tab:simmarker}}
 \label{tab:simgpres}
@@ -600,6 +599,15 @@ with an Adam optimizer. The results of the prediction are shown in table \ref{ta
   \bottomrule
 \end{tabular}
 \end{table}
+
+
+Not surprisingly, the simple network is able to solve all four phenotypes and predicting the phenotypes accurately. The
+task was rather easy because the training data set and the testing data set were the same, but it served the purpose of
+showing that neural networks a generally apt to solve different marker interactions. \textit{In natura} those
+interactions and the overall genetic architecture is much more complex. Effect sizes are not constant and epistasis may
+be caused be interactions my more than just two markers, and with an increasing number of markers $n$ the number of
+possible two-way interactions increases even more so to $2^{n-1}$. Smaller interaction effects could be obscured under
+larger additive effects, gene-environment might have a significant influence leading to a model that does not converge.
 
 
 \section{Material}
