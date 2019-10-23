@@ -11,8 +11,6 @@
 % This template is based on a template by:
 % Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
 % Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -39,7 +37,18 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 \usepackage{mathpazo} % Use the Palatino font by default
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+
+
+%%author year style
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtexy
+\renewcommand{\mkbibnamelast}[1]{\mkbibemph{#1}}
+
+%% numerics numbered by appearance 
+%\usepackage[backend=bibtex, style=numeric,sorting=none]{biblatex} % Use the bibtex
+
+
+%\usepackage[backend=bibtex,style=alphabetic]{biblatex}
 
 \addbibresource{example.bib} % The filename of the bibiography
 
@@ -104,11 +113,9 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \usepackage{amsmath}
 
 \begin{document}
-
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 
 \pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
-
 %---------------------------------------------------------------------------------------
 %	TITLE PAGE
 % -----------------------------------------------------------------------------------
@@ -262,45 +269,48 @@ The acknowledgments and the people to thank go here, don't forget to include you
  \textbf{ReLU} & \textbf{Re}ctified \textbf{L}inear \textbf{U}nits \\
  \textbf{MSE} & \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
  \textbf{RMSE} & \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
- \textbf{GD} & \textbf{GD} \textbf{G}radient \textbf{D}escent \\
+ \textbf{GD} & \textbf{G}radient \textbf{D}escent \\
+ \textbf{SGD} &  \textbf{S}tochastic \textbf{G}radient \textbf{D}escent \\
  \textbf{Adam} \textbf{Ada}aptive \textbf{M}oment estimation \\
  \textbf{Adagrad} & \textbf{Ada}ptive \textbf{Grad}ient Algorithm \\
  \textbf{RMSProp} \textbf{R}oot \textbf{M}ean \textbf{S}quare \textbf{Prop}agation \\
  \textbf{Adadelta} & \textbf{Ada}ptive \textbf{delta} \\
- \textbf{Nadam} & \textbf{N}esterov-\textbf{a}ccelerated \textbf{A}daptive \textbf{M}oment \textbf{E}stimation \\
- 
+ \textbf{Nadam} & \textbf{N}esterov-\textbf{a}ccelerated \textbf{A}daptive  \textbf{M}oment \textbf{E}stimation \\
+ \textbf{NAG} & \textbf{N}esterov \textbf{A}ccelerated \textbf{M}omentum \\
+ \textbf{AUC} & \textbf{A}rea \textbf{U}nder the \textbf{C}urve \\
+ \textbf{ROC} & \textbf{R}eceiver \textbf{O}perating \textbf{C}haracteristics \\
 \end{abbreviations}
-%----------------------------------------------------------------------------------------
-%	PHYSICAL CONSTANTS/OTHER DEFINITIONS
-%---------------------------------------------------------------------------------------
-%--------------------------------------------------------------------------------
-%	SYMBOL
-%----------------------------------------------------------------------------------------
+% ----------------------------------------------------------------------------------------
+% PHYSICAL CONSTANTS/OTHER DEFINITIONS
+% --------------------------------------------------------------------------------------
+% -------------------------------------------------------------------------------
+% SYMBOL
+% ---------------------------------------------------------------------------------------
 
-% \begin{symbols}{lll} % Include a list of Symbols (a three column table)
-% $a$ & distce & \si{\meter} \\ 
-% $P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+% \begin{symbols}{lll} % Include aist of Symbols (a three column table)
+%   $a$ & distce & \si{\meter} \\
+%   $P$ & power & \si{\watt} (\si{\joule\per\second}) \\
 % %Symbol & Name & Unit \\
 
-% \addlinespace % Gap to separate the Roman symbols frm the Greek
+% \addlinespace % Gap to separate the Roman symbols from the Greek
 
 % $\omega$ & angular frequency & \si{\radian} \
-% \end{symbols}
 
-%----------------------------------------------------------------------------------------
+% \end{symbols}
+%---------------------------------------------------------------------- --------------
 
 \dedicatory{For/Dedicated to/To my\ldots} 
 
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
-%----------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------
 
 \mainmatter % Begin numeric(1,2,3...) page numbering
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
 % Include the chapters of the thesis as separate files from the Chapters folder
-% Uncomment the lines as you write the chapters
+% uncomment the lines as you write the chapters
 
 \include{Chapters/Chapter1}
 \include{Chapters/Chapter2} 
