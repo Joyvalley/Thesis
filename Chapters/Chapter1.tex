@@ -52,7 +52,66 @@ score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{
 \label{fig:sim_tiles}
 \end{figure}
 
+
+
+\begin{table}[h!]
+\caption{\textbf{Scores of assemblies of simulated data}}
+\label{tab:scores_simulated}
+\centering
+\begin{tabular}{rlrrrrrrr}
+  \hline
+ & data set & CAP & CE & Fast-Plast & GetOrganelle & IOGA & NOVOPlasty & org.ASM \\ 
+  \hline
+ 1 & sim\_150bp.0-1 & 79.10 & 100.00 & 99.48 & 100.00 &  & 91.52 & 100.00 \\ 
+  2 & sim\_150bp.0-1.2M & 79.10 & 100.00 & 99.72 & 100.00 & 79.10 & 91.52 & 91.50 \\ 
+  3 & sim\_150bp.1-10 &  & 56.44 & 100.00 & 76.98 &  & 91.52 & 78.00 \\ 
+  4 & sim\_150bp.1-10.2M &  &  & 99.97 & 100.00 &  & 91.52 & 82.72 \\ 
+  5 & sim\_150bp.1-100 & 75.72 & 100.00 & 99.48 & 100.00 & 66.09 & 91.52 & 91.50 \\ 
+  6 & sim\_150bp.1-100.2M &  & 100.00 & 99.47 & 100.00 &  & 100.00 & 100.00 \\ 
+  7 & sim\_150bp.1-1000 & 79.10 &  & 99.72 & 100.00 &  & 91.52 & 100.00 \\ 
+  8 & sim\_150bp.1-1000.2M & 79.10 & 100.00 & 99.72 & 100.00 &  & 91.52 & 100.00 \\ 
+  9 & sim\_250bp.0-1 & 79.10 & 100.00 & 93.82 & 100.00 &  & 91.52 & 91.50 \\ 
+  10 & sim\_250bp.0-1.2M & 79.10 & 100.00 & 93.83 & 100.00 &  & 91.52 & 91.50 \\ 
+  11 & sim\_250bp.1-10 &  & 54.98 & 68.45 & 78.89 & 52.71 & 91.52 & 40.20 \\ 
+  12 & sim\_250bp.1-10.2M &  &  & 93.00 & 100.00 & 52.67 & 87.40 & 40.20 \\ 
+  13 & sim\_250bp.1-100 & 72.81 & 100.00 & 93.82 & 100.00 &  & 87.40 & 100.00 \\ 
+  14 & sim\_250bp.1-100.2M &  & 100.00 & 93.83 & 100.00 &  & 87.40 & 100.00 \\ 
+  15 & sim\_250bp.1-1000 & 79.10 & 21.30 & 93.83 & 100.00 & 76.96 & 91.52 & 91.50 \\ 
+  16 & sim\_250bp.1-1000.2M & 79.10 & 100.00 & 93.83 & 100.00 & 67.55 & 87.40 & 100.00 \\
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
 \subsubsection{Real data sets}
+\begin{table}[h!]
+\caption{\textbf{Mean scores of chloroplast genome assemblers}}
+\label{tab:scores_real}
+\centering
+\begin{tabular}{rlrrrr}
+  \hline
+ & assembler & Median & IQR & N\_perfect & N\_tot \\ 
+  \hline
+1 & CAP & 45.25 & 50.19 &   0 & 369 \\ 
+  2 & CE & 56.55 & 71.50 &  14 & 369 \\ 
+  3 & Fast-Plast & 92.80 & 23.59 & 113 & 369 \\ 
+  4 & GetOrganelle & 99.83 & 20.94 & 210 & 360 \\ 
+  5 & IOGA & 71.10 & 11.21 &  0 & 338 \\ 
+  6 & NOVOPlasty & 75.95 & 48.69 &  58 & 369 \\ 
+  7 & org.ASM & 67.35 & 91.69 &  46 & 348 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
 \begin{figure}[H]
 \centering
 \includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/swarm}
@@ -71,7 +130,7 @@ score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{
 \centering
 \includegraphics[height=.45\textheight, width=.95\textwidth]{Figures/repro}
 \decoRule
-\caption[Comparison between two uns with the same assembler for consistency testing ]{Swarm plots depict the resluts from the scoring shown in \ref{eqn:score_ass for two independet runs for each assembler on each of the datasets}}
+\caption[Comparison between two uns with the same assembler for consistency testing ]{Swarm plots depict the resluts from the scoring shown in \ref{eqn:score_ass} for two independet runs for each assembler on each of the datasets}
 \label{fig:consisplot}
 \end{figure}
 
@@ -87,27 +146,6 @@ score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{
 \label{fig:upset_novel}
 \end{figure}
 
-
-
-
-
-\begin{table}
-\caption{The effects of treatments X and Y on the four groups studied.}
-\label{tab:treatments}
-\centering
-\begin{tabular}{l l l}
-\toprule
-\tabhead{Groups} & \tabhead{Treatment X} & \tabhead{Treatment Y} \\
-\midrule
-1 & 0.2 & 0.8\\
-2 & 0.17 & 0.7\\
-3 & 0.24 & 0.75\\
-4 & 0.68 & 0.3\\
-\bottomrule\\
-\end{tabular}
-\end{table}
-
-
 \section{Disucssion}
 
 \begin{figure}[H]
@@ -118,33 +156,4 @@ score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{
 \label{fig:upset}
 \end{figure}
 
-
-% ----------------------------------------------------------------------------------------
-
-% \section{What this Template Includes}
-
-% \subsection{Folders}
-
-% This template comes as a single zip file that expands out to several files and folders. The folder names are mostly self-explanatory:
-
-% \keyword{Appendices} -- this is the folder where you put the appendices. Each appendix should go into its own separate \file{.tex} file. An example and template are included in the directory.
-
-% \keyword{Chapters} -- this is the folder where you put the thesis chapters. A thesis usually has about six chapters, though there is no hard rule on this. Each chapter should go in its own separate \file{.tex} file and they can be split as:
-% \begin{itemize}
-% \item Chapter 1: Introduction to the thesis topic
-% \item Chapter 2: Background information and theory
-% \item Chapter 3: (Laboratory) experimental setup
-% \item Chapter 4: Details of experiment 1
-% \item Chapter 5: Details of experiment 2
-% \item Chapter 6: Discussion of the experimental results
-% \item Chapter 7: Conclusion and future directions
-% \end{itemize}
-% This chapter layout is specialised for the experimental sciences, your discipline may be different.
-
-% \keyword{Figures} -- this folder contains all figures for the thesis. These are the final images that will go into the thesis document.
-
-
-% \subsubsection{A Note on bibtex}
-
-% The bibtex backend used in the template by default does not correctly handle unicode character encoding (i.e. "international" characters). You may see a warning about this in the compilation log and, if your references contain unicode characters, they may not show up correctly or at all. The solution to this is to use the biber backend instead of the outdated bibtex backend. This is done by finding this in \file{main.tex}: \option{backend=bibtex} and changing it to \option{backend=biber}. You will then need to delete all auxiliary BibTeX files and navigate to the template directory in your terminal (command prompt). Once there, simply type \code{biber main} and biber will compile your bibliography. You can then compile \file{main.tex} as normal and your bibliography will be updated. An alternative is to set up your LaTeX editor to compile with biber instead of bibtex, see \href{http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations/}{here} for how to do this for various editors.
 
