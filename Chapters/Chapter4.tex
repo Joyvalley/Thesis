@@ -10,10 +10,10 @@
 \subsection{A brief history of machine learning} \label{introml}
 \subsubsection{Basic perceptron model}
 
-While machine learning, neural networks, deep learning became essential tools for many applications in more recent
-years, their mathematical principals date back to the early 1950s and 1960s. Figure \ref{fig:perceptron} schematically
-show the basic perceptron model as proposed by Rosenblatt, which was designed to mimic the information flow in
-biological nervous systems \cite{rosenblatt1961}
+While machine learning, neural networks, deep learning became essential tools for many applications in more
+recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
+\ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, which was
+designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}
 
 \begin{figure}[th]
  \centering \includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png} \decoRule
@@ -21,12 +21,12 @@ biological nervous systems \cite{rosenblatt1961}
 \label{fig:perceptron}
 \end{figure}
 
-This basic perceptron, which contrary to perceptrons used nowadays does not have an activation function, takes n binary
-inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$ after being processed by the perceptron
-or neuron. To achieve this Rosenblatt introduced the concept of weights which indicated a certain relative importance to
-the outcome of the output. $w_1 , w_2 ... w_n$. The output $y$ is determined by the weighted sum of the weights and
-biases $\sum_i w_ix_i $. If a certain threshold value is met the neuron is either activated and outputs 1 or not and
-outputs 0. This is algebraically represented in \ref{eqn:weights}
+This basic perceptron, which contrary to perceptrons used nowadays does not have an activation function, takes
+n binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$ after being processed
+by the perceptron or neuron. To achieve this Rosenblatt introduced the concept of weights which indicated a
+certain relative importance to the outcome of the output.  $w_1 , w_2 ... w_n$. The output $y$ is determined
+by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain threshold value is met the neuron
+is either activated and outputs 1 or not and outputs 0. This is algebraically represented in \ref{eqn:weights}
 
 \begin{subequations}
  \begin{align}

@@ -2,7 +2,8 @@
 
 \chapter{Benchmarking of Chloroplast Genome Assembly tools } % Main chapter title
 
-\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1}
+This chapter orientates on \cite{freudenthal2019landscape} only the chapters from the publication which the author majorly contributed to are included. 
 
 %----------------------------------------------------------------------------------------
 
@@ -17,7 +18,13 @@
 
 \section{Introduction}
 
-Here I will but the introduction to from the paper
+Circular DNA of a size between 120 kBP to 160 kBP \cite{palmer_1985}.  First choloroplast sequenced as early
+as 1986 \textit{Marchantia polymorpha} and \textit{Nico} \cite{ohyama_chloroplast_1986}; \cite{shinozaki_complete_1986}.
+Review  genome structure \cite{green_chloroplast_2011}; \cite{wicke_evolution_2011}.
+Chloroplast genomes widely used in evolutionary studies \cite{martin_evolutionary_2002}; \cite{xiao-ming_inferring_2017}.
+Chloroplast genomes are small through endosymbiotic gene transfer \cite{martin_evolutionary_2002}; \cite{deiner_environmental_2017}. Up to 14 \% of the the core genome of \textit{Arabidopsis thaliana} is made up of genes previously from the chloroplast (fancy citation), while 100-120 genes remain on the chloroplast \cite{wicke_evolution_2011}.
+
+
 %----------------------------------------------------------------------------------------
 \section{Material and Methods}
 \subsection{Methods}
@@ -25,7 +32,7 @@ Here I will but the introduction to from the paper
 \subsection{Evaluation}
 \subsubsection{Quantitative}
 \begin{equation}
-score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contigs} }\right) \cdot 100 
+  score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contigs} }\right) \cdot 100 
 \label{eqn:score_ass}
 \end{equation}
 
