@@ -70,14 +70,14 @@ There is a variety of databases containing short read data for species without a
 
 \subsection{Extraction of chloroplast reads from whole genome data and general assembly workflow}
 There is a variety of strategies to assemble chloroplast genomes from raw sequencing data \cite{twyford_strategies_2017}. In general the process involves three steps: (i) extraction of plastid reads from the WGS data, (ii) assembly of the plastid genome, (iii) solving the circular structure of the chromosome with the IRs. There are two distinct ways to tackle step (i): The first one is to map all the reads to a reference chloroplast \cite{Vinga2012}, which works reasonably well if there is one available for the same, or at least a closely related species. The second is to make use of the much larger coverage of chloroplast DNA compared to core DNA, with a k-mer analysis \cite{Chan2013}, this is for example done by \ce \cite{j_ankenbrand_chloroextractor:_2018}. The third way to accomplish this is to combine as done by \np  \cite{dierckxsens_novoplasty:_2017}.
-Figure \ref{fig:cpast_worklow} shows the general workflow of chloroplast assembly too. 
+Figure \ref{fig:cpast_workflow} shows the general workflow of chloroplast assembly too. 
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[height=.65\textheight, width=.95\textwidth]{Figures/CE_workflow}
 \decoRule
-\caption[Chloroplast genom assembly workflow]{Graphic from \cite{j_ankenbrand_chloroextractor:_2018} }
+\caption[Chloroplast genome assembly workflow]{Standard workflow of chloroplast genome assembly. Graphic from \cite{j_ankenbrand_chloroextractor:_2018} }
 \label{fig:cpast_workflow}
 \end{figure}
 
@@ -85,29 +85,110 @@ Figure \ref{fig:cpast_worklow} shows the general workflow of chloroplast assembl
 \subsubsection{Purpose and scope of benchmarking the landscape of chloroplast assembly tools}
 
 The purpose of this study is to provide insights into the landscape of chloroplast assembly tools, to recommend best practices for organelle genome assemblies and to provide \textit{de novo} assemblies for many species and family's without a reference chloroplast available so far.
-To be included into this study the software, including the source code must be publicly available and published under the terms of a liberal free open source software e.g. GPL or MIT-license. The study was also limited to paired-end Illumina data sets as their sole input source, because they are abundantly available for this benchmark.  The seven tools that me the requirements and were therefore included in this study were: \ce,  \oa,  \fp,  \ioga,  \np,  \go and  \cassp. As later thoroughly described in section \ref{results:ca}, there are huge differences between those tools and some will not be recommend to be used in scientific applications, while others outstand for most but not all cases.
+To be included into this study the software including the source code must be publicly available and published under the terms of a liberal free open source software e.g. GPL or MIT-license. The study was also limited to paired-end Illumina data sets as their sole input source, because they are abundantly available for this benchmark.The seven tools that me the requirements and were therefore included in this study were: \ce, \oa, \fp, \ioga, \np, \go and \cassp. As later thoroughly described in section \ref{results:ca}, there are huge differences between those tools and some will not be recommend to be used in scientific applications, while others outstand for most but not all cases.
 
 
 %----------------------------------------------------------------------------------------
 \section{Material and Methods}
 \subsection{Methods}
-\subsection{Tools}
-\subsection{Evaluation}
-\subsubsection{Quantitative}
-\begin{equation}
-  score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contiguous} }\right) \cdot 100 
-\label{eqn:score_ass}
-\end{equation}
+\subsubsection{Data and code availability}
+All the source code and data used in the scope of this study is publicly available under the terms of the MIT-License. The source code has been published on github \cite{github-benchmark-repo} and archived on zenodo \cite{zenodorepo} . The docker images are available on dockerhub \cite{dockerhub-benchmark}
 
-\subsubsection{Qualitative}
-\subsubsection{Consistency}
+\subsubsection{Tools}
+There were certain requirements to be met to be included into the study as aforementioned. The only technical
+requirements was, being able to assemble chloroplast genomes from paired-end Illumina reads. The other
+requirements were due to reproducibility. (i) The software must be open-source and available under the terms
+of a liberal software license. In the authors opinion obscuring reproducibility under paywalls cannot be
+considered good scientific practice. (ii) It must be a command line tool, GUI-only tools are not suited for
+highly repetitive automated analyses.  In total there were 7 tools that met those requirements: (i)
+\hspace{0.5ex} \ce \hspace{0.5ex} \cite{j_ankenbrand_chloroextractor:_2018}; (ii) \hspace{0.5ex} \cassp
+\hspace{0.5ex} \cite{sancho_comparative_2018}; (iii)\hspace{0.5ex} \go \hspace{0.5ex}
+\cite{jin_getorganelle:_2018}; (iv) \hspace{0.5ex} \oa \hspace{0.5ex} \cite{coissac_barcodes_2016}; (v)
+\hspace{0.5ex} \ioga \hspace{0.5ex} \cite{bakker_herbarium_2016}; (vi) \hspace{0.5ex} \fp \hspace{0.5ex}
+\cite{mckain__fast-plast_2017}; (vii) \hspace{0.5ex} \np \hspace{0.5ex} \cite{dierckxsens_novoplasty:_2017}.
+There are other tools available, that did not meet the requirements.
+
+\subsubsection{Standardization and reproducibility}
+
+The main goal of the study was to provided deep insights into the landscape of chloroplast assembly tools. To
+accomplish that we tried to use the highest standards in bioinformatics when it comes to standardization and
+reproducibility. Along the study we also wanted to publish easy and ready-to-use versions of all the involved
+programs, working with standardized input. To accomplish that we decided to make us of containerization in
+form of docker containers \cite{merkel2014docker} to work with the containers in a closed HPC environments we
+decided a related software - singularity \cite{kurtzer2017singularity}. Therefore users do not have anything
+else to do than provide two files one for the forward reads (\texttt{forward.fq}) and one for the reverse
+reads (\texttt{reverse.fq}). Both files are required to be in FASTQ format. If docker or singularity are
+installed no further setup is requirement, because all dependencies and packages are installed and run from
+the containers on any given environment. Besides the individual output files, recording the process of the
+respective program, all programs write the assembly products in to files called \texttt{output.fa} in FASTA
+format.  For the quantitative and consistency measurements the singularity containers were run on the Julia
+HPC-Cluster of the University of W\"{u}rzburg using the SLURM workload manager \cite{Jette02slurm}.
 
 
 \subsection{Data}
-\subsubsection{Simulated}
-\subsubsection{Real data set}
-\subsubsection{Novel data set}
+Three different data sets were used for this study. (i) Simulated data from \textit{A. thaliana}
+chloroplasts. (ii) real data with known reference chloroplast to rate the success of the assemblies. (iii)
+Novel data sets from NCBI's SRA without a know reference chloroplast to apply the gained knowledge for the
+\textit{de novo} assembly of more than 100 chloroplasts.
 
+\subsubsection{Simulated}
+
+For first steps in any benchmarking process it is always useful to start with simulated data, where the investigators have full control over all the parameters involved. In the case of the present study the data's input parameters thought to be influential on the outcome where: The read length, the ratio between chloroplast and core genome reads. The simulations were based on data from the TAIR10 genome \cite{tair10} and performed using \texttt{seqkit} \cite{seqkit}. Ratios simulated were: 0:1, 1:10, 1:1000 and 1:1000, with read length of 150 and 250 bp. The simulated data consisted either of 2 million read pairs or the full data available. The simulation process is documented and the code and the data is available on github and zenodo \cite{zenododataset}
+
+\subsubsection{Real data set}
+
+Real data was selected from the SRA database table \ref{tab:sra_real} lists the search terms that had to be met according to the aforementioned search terms.
+
+
+\begin{table}[H]
+\caption{Data selection criteria for real data sets from SRA}
+\label{tab:sra_real}
+\centering
+\begin{tabular}{ccl}
+ \hline
+  choice & option & explanation \\
+ \hline
+  green plants & Organism & include only photosynthetic plants e.g. no algae  \\
+  wgs & Strategy & only data from wgs projects included \\
+  Illumina & Platform & include only paired-en Illumina reads \\
+  biomol DNA & Properties & include only biomol. DNA samples (e.g. no RNA) \\
+  paired & Layout & exclude single-end reads  \\
+  random & Selection & \\
+  public & Access & Only publicly available data included \\
+  \hline                                         
+\end{tabular}
+\end{table}
+
+In total this resulted in 369 data sets representing a broad variety of the plant kingdom with many different families and genera included. 
+
+\subsubsection{Novel data sets}
+
+To assess the performance on assemblies without a published chloroplast on \texttt{CpBase} \cite{cpbase} 105 data sets were selected from SRA, it was emphasized that such data sets were selected, with the next relatives with a reference chloroplast as distantly related as possible in taxonomic terms according to NCBI \cite{ncbitaxonomy}
+
+
+\subsection{Evaluation}
+\subsubsection{Quantitative}
+
+Each assembly from each assembler was compared to their respective reference genome by alignment using
+minimap2 \cite{li2018minimap2} and based on those alignments scores were calculated following equation
+\ref{eqn:score_ass} from 0 to 100 with 100 being a perfect score. Four different metrics contributed equally
+to the final score. (i) The coverage of the assembled genome compared to the reference genome ($cov_{ref}$) as
+an estimate for the completeness. (ii) The vice versa case ($cov_{qry}$) as a measure for the correctness of
+the assembly. (iii) The success of resolving the IR correct, estimated from the size difference from the
+reference and the newly assembled genome is:
+$min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\}$.  (iv) The number of total
+contigs were weighted as $\frac{1}{n_{contigs}}$ giving a chloroplast with 1 contig the optimal score.
+
+\begin{equation}
+score = \frac{1}{4} \cdot \left( cov_{ref} +  cov_{qry} + min\left\{ \frac{cov_{qry}}{cov_{ref}}, \frac{cov_{ref}}{cov_{qry}}\right\} + \frac{1}{n_{contigs} }\right) \cdot 100
+  \label{eqn:score_ass}
+\end{equation}
+  
+  
+  
+  
+  \subsubsection{Consistency}
+  
 
 \section{Results} \label{results:ca}
 \subsection{Qualitative}
@@ -129,26 +210,26 @@ To be included into this study the software, including the source code must be p
 \label{tab:scores_simulated}
 \centering
 \begin{tabular}{rlrrrrrrr}
-  \hline
-  & data set & CAP & CE & Fast-Plast & GetOrganelle & IOGA & NOVOPlasty & org.ASM \\ 
-  \hline
-  1 & sim\_150bp.0-1 & 79.10 & 100.00 & 99.48 & 100.00 &  & 91.52 & 100.00 \\ 
-  2 & sim\_150bp.0-1.2M & 79.10 & 100.00 & 99.72 & 100.00 & 79.10 & 91.52 & 91.50 \\ 
-  3 & sim\_150bp.1-10 &  & 56.44 & 100.00 & 76.98 &  & 91.52 & 78.00 \\ 
-  4 & sim\_150bp.1-10.2M &  &  & 99.97 & 100.00 &  & 91.52 & 82.72 \\ 
-  5 & sim\_150bp.1-100 & 75.72 & 100.00 & 99.48 & 100.00 & 66.09 & 91.52 & 91.50 \\ 
-  6 & sim\_150bp.1-100.2M &  & 100.00 & 99.47 & 100.00 &  & 100.00 & 100.00 \\ 
-  7 & sim\_150bp.1-1000 & 79.10 &  & 99.72 & 100.00 &  & 91.52 & 100.00 \\ 
-  8 & sim\_150bp.1-1000.2M & 79.10 & 100.00 & 99.72 & 100.00 &  & 91.52 & 100.00 \\ 
-  9 & sim\_250bp.0-1 & 79.10 & 100.00 & 93.82 & 100.00 &  & 91.52 & 91.50 \\ 
-  10 & sim\_250bp.0-1.2M & 79.10 & 100.00 & 93.83 & 100.00 &  & 91.52 & 91.50 \\ 
-  11 & sim\_250bp.1-10 &  & 54.98 & 68.45 & 78.89 & 52.71 & 91.52 & 40.20 \\ 
-  12 & sim\_250bp.1-10.2M &  &  & 93.00 & 100.00 & 52.67 & 87.40 & 40.20 \\ 
-  13 & sim\_250bp.1-100 & 72.81 & 100.00 & 93.82 & 100.00 &  & 87.40 & 100.00 \\ 
-  14 & sim\_250bp.1-100.2M &  & 100.00 & 93.83 & 100.00 &  & 87.40 & 100.00 \\ 
-  15 & sim\_250bp.1-1000 & 79.10 & 21.30 & 93.83 & 100.00 & 76.96 & 91.52 & 91.50 \\ 
-  16 & sim\_250bp.1-1000.2M & 79.10 & 100.00 & 93.83 & 100.00 & 67.55 & 87.40 & 100.00 \\
-  \hline
+ \hline
+ & data set & CAP & CE & Fast-Plast & GetOrganelle & IOGA & NOVOPlasty & org.ASM \\ 
+ \hline
+ 1 & sim\_150bp.0-1 & 79.10 & 100.00 & 99.48 & 100.00 & & 91.52 & 100.00 \\ 
+ 2 & sim\_150bp.0-1.2M & 79.10 & 100.00 & 99.72 & 100.00 & 79.10 & 91.52 & 91.50 \\ 
+ 3 & sim\_150bp.1-10 & & 56.44 & 100.00 & 76.98 & & 91.52 & 78.00 \\ 
+ 4 & sim\_150bp.1-10.2M & & & 99.97 & 100.00 & & 91.52 & 82.72 \\ 
+ 5 & sim\_150bp.1-100 & 75.72 & 100.00 & 99.48 & 100.00 & 66.09 & 91.52 & 91.50 \\ 
+ 6 & sim\_150bp.1-100.2M & & 100.00 & 99.47 & 100.00 & & 100.00 & 100.00 \\ 
+ 7 & sim\_150bp.1-1000 & 79.10 & & 99.72 & 100.00 & & 91.52 & 100.00 \\ 
+ 8 & sim\_150bp.1-1000.2M & 79.10 & 100.00 & 99.72 & 100.00 & & 91.52 & 100.00 \\ 
+ 9 & sim\_250bp.0-1 & 79.10 & 100.00 & 93.82 & 100.00 & & 91.52 & 91.50 \\ 
+ 10 & sim\_250bp.0-1.2M & 79.10 & 100.00 & 93.83 & 100.00 & & 91.52 & 91.50 \\ 
+ 11 & sim\_250bp.1-10 & & 54.98 & 68.45 & 78.89 & 52.71 & 91.52 & 40.20 \\ 
+ 12 & sim\_250bp.1-10.2M & & & 93.00 & 100.00 & 52.67 & 87.40 & 40.20 \\ 
+ 13 & sim\_250bp.1-100 & 72.81 & 100.00 & 93.82 & 100.00 & & 87.40 & 100.00 \\ 
+ 14 & sim\_250bp.1-100.2M & & 100.00 & 93.83 & 100.00 & & 87.40 & 100.00 \\ 
+ 15 & sim\_250bp.1-1000 & 79.10 & 21.30 & 93.83 & 100.00 & 76.96 & 91.52 & 91.50 \\ 
+ 16 & sim\_250bp.1-1000.2M & 79.10 & 100.00 & 93.83 & 100.00 & 67.55 & 87.40 & 100.00 \\
+ \hline
 \end{tabular}
 \end{table}
 
@@ -161,17 +242,17 @@ To be included into this study the software, including the source code must be p
 \label{tab:scores_real}
 \centering
 \begin{tabular}{rlrrrr}
-  \hline
+ \hline
  & assembler & Median & IQR & N\_perfect & N\_tot \\ 
+ \hline
+ 1 & CAP & 45.25 & 50.19 &  0 & 369 \\ 
+ 2 & CE & 56.55 & 71.50 & 14 & 369 \\ 
+ 3 & Fast-Plast & 92.80 & 23.59 & 113 & 369 \\ 
+ 4 & GetOrganelle & 99.83 & 20.94 & 210 & 360 \\ 
+ 5 & IOGA & 71.10 & 11.21 & 0 & 338 \\ 
+ 6 & NOVOPlasty & 75.95 & 48.69 & 58 & 369 \\ 
+ 7 & org.ASM & 67.35 & 91.69 & 46 & 348 \\ 
   \hline
-1 & CAP & 45.25 & 50.19 &   0 & 369 \\ 
-  2 & CE & 56.55 & 71.50 &  14 & 369 \\ 
-  3 & Fast-Plast & 92.80 & 23.59 & 113 & 369 \\ 
-  4 & GetOrganelle & 99.83 & 20.94 & 210 & 360 \\ 
-  5 & IOGA & 71.10 & 11.21 &  0 & 338 \\ 
-  6 & NOVOPlasty & 75.95 & 48.69 &  58 & 369 \\ 
-  7 & org.ASM & 67.35 & 91.69 &  46 & 348 \\ 
-   \hline
 \end{tabular}
 \end{table}
 
