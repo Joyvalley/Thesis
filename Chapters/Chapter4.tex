@@ -456,8 +456,9 @@ offspring. While the dominance and epistatic variances are controlled by the com
 
 
 \subsection{Artificial selection in plant and animal breeding in the genomics era}
+\subsubsection{Genomic BLUP}
 
-Genomic prediction has been applied to almost all relevant crop and model species. Including: \textit{A. thaliana}
+Genomic prediction has been applied to almost all relevant crop and model species. Including: \textit{A.thaliana}
 \cite{hu2015}; \cite{shen2013novel}. Alfalfa (\textit{Medicago sativa}) \cite{li2012applied};
 \cite{annicchiarico2015accuracy}; \cite{li2015genomical}; \cite{biazzi2017genome}; \cite{hawkins2018recent}. Barley
 \cite{neyhart2019}; \cite{oakey2016}; \cite{zhong2009factors}. Cassava (\textit{Manihot esculenta}) \cite{elias2018};
@@ -479,32 +480,41 @@ Genomic prediction has been applied to almost all relevant crop and model specie
 \cite{Bustos_Korts_2016}; \cite{Gianola_2016_wheat}; \cite{Crossa_2016_wheat}; \cite{Thavamanikumar_2015};
 \cite{Lopez_Cruz_2015}. As well as various tree species \cite{deAlmeidaFilho2019}; \cite{Rincent_2018};
 \cite{Kainer_2018}; \cite{Ratcliffe_2017}; \cite{GamalElDien_2016}; \cite{Kumar_2015}; \cite{Jaramillo_Correa_2014};
-\cite{Zapata_Valenzuela_2013}; \cite{Holliday_2012}; \cite{Resende_2012}.
+\cite{Zapata_Valenzuela_2013}; \cite{Holliday_2012}; \cite{Resende_2012}.\\
+Even though GS finds broad application in plant breeding it has been originally developed for the use in animal breeding
+\cite{hayes2010genome}; \cite{goddard2011using}. The gold standard is method known as genomic BLUP
+\cite{vanraden2008efficient} which utilizes a relationship matrix based on the co-occurrence of genetic markers. This
+method is derived from the pre-genomic era in animal breeding where the relationship matrix was constructed after
+pedigrees according to the best linear unbiased predictors based linear mixed models developed by
+\cite{henderson1975best}.
 
 
 \subsection{Genomic selection using artificial neural networks }
-Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome} and plant
-breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant}, \cite{crossa2017genomic} as well as in
-medical applications, since it was first reported \cite{hayes2001}. Since then the repertoire of methods for predicting
-phenotypic values has increased rapidly e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} ,
-\cite{crossa2017}. The most commonly applied methods include GULP and a set of related algorithms known as the bayesian
-alphabet \cite{gianola2009}. Genomic prediction in general has repeatedly been shown to outperform pedigree-based
-methods \cite{crossa2010}, \cite{albrecht2011} and is nowadays used in many plant and animal breeding schemes. It has
-also been shown that using whole-genome information is superior to using only feature-selected markers with known QTLs
-for a given trait \cite{bernardo2007}, \cite{heffner2011} in some cases. A more recent study \cite{azodi2019} compared
-11 different genomic prediction algorithms with a variety of data sets and found contradicting results, indicating that
-feature selection can be usefull in some cases the when the whole genome regression is performed by neural nets 1 While
-every new method is a valuable addition to the tool-kits for genomic selection, some fundamental problems remain
-unsolved, of which the n>>p problematic stands out. Usually in genomic selection settings the size of the training
-population (TRN) with n phenotypes is substantially smaller than the number of markers (p)
-\cite{fan2014challenges}. Making the number of features immensely large, even when SNP-SNP interactions are not
-considered. Furthermore each marker is treated as an independent observation neglecting collinearity and linkage
-disequilibrium (LD). Further difficulties arise through non-additive, epistatic and dominance marker effects. The main
-problem with epistasis issue quantitative genetics is the almost infinite amount of different marker combinations, that
-cannot be represented within the size of TRN in the thousands, the same problems arises for example in GWA studies
-\cite{korte2013advantages}. With already large p the number of possible additive SNP-SNP interactions potentiates to
-$p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced epistatic kinship matrix and
-reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015}, \cite{martini2017genomic}.
+Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
+and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant},
+\cite{crossa2017genomic} as well as in medical applications, since it was first reported
+\cite{hayes2001}. Since then the repertoire of methods for predicting phenotypic values has increased rapidly
+e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} , \cite{crossa2017}. The most commonly applied
+methods include GULP and a set of related algorithms known as the bayesian alphabet
+\cite{gianola2009}. Genomic prediction in general has repeatedly been shown to outperform pedigree-based
+methods \cite{crossa2010}, \cite{albrecht2011} and is nowadays used in many plant and animal breeding
+schemes. It has also been shown that using whole-genome information is superior to using only feature-selected
+markers with known QTLs for a given trait \cite{bernardo2007}, \cite{heffner2011} in some cases. A more recent
+study \cite{azodi2019} compared 11 different genomic prediction algorithms with a variety of data sets and
+found contradicting results, indicating that feature selection can be usefull in some cases the when the whole
+genome regression is performed by neural nets 1 While every new method is a valuable addition to the tool-kits
+for genomic selection, some fundamental problems remain unsolved, of which the n>>p problematic stands
+out. Usually in genomic selection settings the size of the training population (TRN) with n phenotypes is
+substantially smaller than the number of markers (p) \cite{fan2014challenges}. Making the number of features
+immensely large, even when SNP-SNP interactions are not considered. Furthermore each marker is treated as an
+independent observation neglecting collinearity and linkage disequilibrium (LD). Further difficulties arise
+through non-additive, epistatic and dominance marker effects. The main problem with epistasis issue
+quantitative genetics is the almost infinite amount of different marker combinations, that cannot be
+represented within the size of TRN in the thousands, the same problems arises for example in GWA studies
+\cite{korte2013advantages}. With already large p the number of possible additive SNP-SNP interactions
+potentiates to $p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced
+epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015},
+\cite{martini2017genomic}.
 
 In the past 10 years, due to increasing availability of high performance computational hardware with decreasing costs
 and parallel development of free easy-to-use software, most prominent being googles library TensorFlow \cite{TF2016} and
@@ -536,7 +546,6 @@ to a reduced number of parameters to be trained in the following FCLs, and shoul
 decrease in overfitting a common problem in machine learning. To evaluate the results of Pook et al. 2019 accomplished
 with simulated data we used the data sets generated in the scope of the 1001 genome project of \textit{Arabidopsis
   thaliana} \cite{1001genome}
-
 
 
 \section{Proof of concept for ANN-based genomic selection} \label{POC}
@@ -615,7 +624,9 @@ larger additive effects, gene-environment might have a significant influence lea
 \subsection{A. thaliana}
 \section{Methods}
 \subsection{ANN}
+
 \subsection{GBLUP}
+
 
 
 \section{Results}
