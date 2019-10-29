@@ -543,32 +543,32 @@ Y = X \beta  +  Za + \varepsilon
 where $Y$ is and $nx1$ vector of phenotypic observations, $X$ the matrix of the fixed effects and $\beta$ the
 vector of the fixed effects. $Z$ the incidence matrix for the combined marker effects and $a$ a $(nx1)$ vector
 of the additive genetic effect the vector of the residuals $\varepsilon$.  To construct the model lets assume
-a matrix $M$ containing marker information for 3 individuals and 4 markers of size $3x4$. The 4 markers of matrix \ref{arr:M} can take values of $-1$, $0$ and $1$ translating into minor allele, heterozygous locus and major allele. The following example calculation has been adapted from \cite{isik2013}.
+a matrix of size $(n x m)$ with $n$ individuals and $m$ loci $M$ containing marker information for 3 individuals on 4 loci, thus being of size $3x4$. The 4 markers of matrix \ref{arr:M} can take values of $-1$, $0$ and $1$ translating into minor allele, heterozygous locus and major allele. The following example calculation has been adapted from \cite{isik2013}.
 
 \begin{equation}
   M = 
   \begin{pmatrix}[r]
-    -1 &  0 & -1 &  0 \\
-    -1 &  0 &  0 & -1 \\
-     1 & -1 & -1 & -1 
+    -1 & 0 &  1 & -1 \\
+    -1 & 0 &  0 &  0 \\
+     0 & 1 &  1 & -1 
   \end{pmatrix}
   \label{arr:M}
 \end{equation}
 
-The $M$ matrix is all the information that is necessary for the computation of the K matrix and other viable genetic paramters. The $MM'$ matrix (\ref{MM'}) additional parameters.
+The $M$ matrix contains all the information that is necessary for the computation of the K matrix and other viable genetic parameters. The $MM'$ matrix of size $n x n$ (\ref{MM'}) bears additional parameters.
 
 \begin{equation}
   MM' = 
   \begin{pmatrix}[r]
-    2 &  1 & 0 \\
-    1 &  2 & 0 \\
-    0 &  0 & 4 
+    3 &  1 & 2 \\
+   -1 &  1 & 0 \\
+    2 &  0 & 3 
   \end{pmatrix}
   \label{arr:MM'}
 \end{equation}
 
 
-The diagonal shows the number of homozygous loci per individual, while the other elements of the matrix
+The diagonal show the number of homozygous loci per individual, while the other elements of the matrix
 indicate the number of markers shared by related individuals and is an indicator for the distance of the
 relationship as defined by identity-by-descent \cite{vanraden2008efficient}; \cite{misztal2013methods}.
 While matrix \ref{arr:MM'} calculates the metrics per individual the $M'M$ matrix (\ref{arr:M'M}) counts those metrics per marker. Likewise the diagonal contains the number of homozygous individuals per marker.
@@ -584,6 +584,76 @@ While matrix \ref{arr:MM'} calculates the metrics per individual the $M'M$ matri
   \label{arr:M'M}
 \end{equation}
 
+The next step is to obtain a matrix of the allele frequencies at each locus of the size ($n x m$) as matrix
+M. For the design of matrix P (\ref{arr:P}) let the minor allele frequencies $p_1 \dots p_4$ be
+$\{0.3, 0.2, 0.1, 0.15\}$. The allele frequency of the $i^{th}$ column of $P$ is expressed, according the $,^{th}$ marker of matrix $M$ as $P_i = 2(p_i - 0.5)$ resulting in: 
+
+\begin{equation}
+  P = 
+  \begin{pmatrix}[r]
+   -0.4 & -0.6 & -0.8 & -0.7 \\
+   -0.4 & -0.6 & -0.8 & -0.7 \\
+   -0.4 & -0.6 & -0.8 & -0.7
+  \end{pmatrix}
+  \label{arr:P}
+\end{equation}
+
+The allele frequencies as in this simulated example should be taken from the entire population and not the
+subsample used in this calculation \cite{vanraden2008efficient}.  The final step to obtain the Z matrix of
+equation \ref{eqn:blup} is to subtract the P matrix from the M matrix $Z= M - P$ resulting in:
+
+\begin{equation}
+  Z = 
+  \begin{pmatrix}[r]
+    1.4 & 0.6 & 1.8 & -0.3 \\
+   -0.6 & 0.6 & 0.8 & 0.7 \\
+    0.4 & 1.6 & 1.8 & -0.3 \\
+
+  \end{pmatrix}
+  \label{arr:Z}
+\end{equation}
+
+In $Z$ the mean values of the allele effects are set to 0 and the subtraction of $P$ emphasizes the effect of
+rare variants \cite{vanraden2008efficient}.  There is a large variety of methods to generate the genomic
+relationship matrices and here lies the major difference between different genomic BLUP methods. But they all
+have in common that K is always of size $n x n$.
+
+(i) The naive is approach to iterate over each individual and count the common markers with every other
+individual. This approach is not uncommon and suited for inbred or doubled-haploid populations, less so for
+outcrossed populations with high degrees of heterozygosity because in the sample implementation it does only
+account for homozygous loci. This method becomes computationally intense when the data sets grow larger as
+common today (personal observation).
+
+(ii) Probably the most popular method in GS is to obtain $K$ as proposed by \cite{vanraden2008efficient} designed after Wrigth's \cite{wright1922coefficients} equations for the covariance in structured populations, as described by equation \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
+
+\begin{equation}
+  G = \frac{ZZ'}{2 \Sigma p_i (1-p_i)} 
+\label{eqn:vanraden}
+\end{equation}
+
+(iii) The unified additive relationship $G_{UAR}$ according to \cite{yang2010common} and equation \ref{eqn:uar}
+
+\begin{equation}
+  G_{UAR} =  A_{jk} = \frac{1}{N} \Sigma_i{A_{ijk}} = \left\{
+    \!\begin{aligned}
+      \frac{1}{N} \Sigma_{i} \frac{(x_{ij} - 2p_i)(x_{ik} - 2p_i)}{2p_i  (1-p_i)}, j \ne k \\
+      1 + \frac{1}{N} \Sigma_i \frac{x_{ij}^2 (1+2p_i) x_{ij} + 2p_i^2 }{2p_i (1-p_i)}, j = k     
+    \end{aligned}
+  \right.
+  \label{eqn:uar}
+\end{equation}
+
+where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for the $j^{th}$ individual at the $i^th$ locus.  
+
+\begin{equation}
+  G_{UARadj} = \left\{
+    \!\begin{aligned}
+      \beta A_{jk}, \;\; j \ne k \\
+      1 + \beta (A_{jk}-1 ), \;\; j = k      
+    \end{aligned}
+    \right.
+  \label{eqn:uaradj}
+\end{equation}
 
 
 
