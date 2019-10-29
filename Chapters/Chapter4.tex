@@ -643,7 +643,7 @@ common today (personal observation).
   \label{eqn:uar}
 \end{equation}
 
-where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for the $j^{th}$ individual at the $i^th$ locus.  
+where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for the $j^{th}$ individual at the $i^th$ locus. Another method also proposed by \cite{yang2010common} is to adjust $G_{UAR}$ with $\beta$ as in equation \ref{uaradj}
 
 \begin{equation}
   G_{UARadj} = \left\{
@@ -655,14 +655,36 @@ where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for t
   \label{eqn:uaradj}
 \end{equation}
 
+(iv) Another approach is to weigh marker by the reciprocals of their expected variance according to the model
+\ref{eqn:ZDZ} originally designed to investigate population structures in human data
+\cite{leutenegger2003estimation}; \cite{amin2007genomic}.
+
+\begin{equation}
+  \!\begin{aligned}
+    G = ZDZ' , with \\
+    D_{ii} = \frac{1}{m | 2p_i(1-p_i) | }
+  \end{aligned}
+  \label{eqn:ZDZ}
+\end{equation}
 
 
+(v) gaussian kernel
+ \begin{equation}
+   \!\begin{aligned}
+     K(x_i,x_j) = exp (- \theta d_{ij}^2) \\
+     = \prod_{k=1}^m exp (- \theta(x_{ik} - x_{jk})^2)
+   \end{aligned}
+   \label{eqn:gauss}
+ \end{equation}
+
+with $d_{ij} = \sqrt{(x_{i1} - x_{j1})^2 + \dots +  (x_{ik} - x_{jk})^2 + \dots +  (x_{im} - x_{j,a})^2 }$ and $ x_{ik}(i,j = 1, \dots , n,k = 1, \dots , m)$ and $x_{ik}$ as the $i^{th}$ individual at SNP $k$ \cite{morota2014kernel}.
+ 
 \subsection{Genomic selection using artificial neural networks }
 Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}; \cite{hayes2010genome}
 and plant breeding \cite{crossa2010}; \cite{desta2014genomic}; \cite{heffner2010plant};
 \cite{crossa2017genomic} as well as in medical applications, since it was first reported
 \cite{hayes2001}. Since then the repertoire of methods for predicting phenotypic values has increased rapidly
-e.g.\cite{dlc2009}; \cite{habier2011}; \cite{gianola2013} ; \cite{crossa2017}. The most commonly applied
+e.g.\cite{dlc2009}; \cite{habier2011}; \cite{gianola2013}; \cite{crossa2017}. The most commonly applied
 methods include GULP and a set of related algorithms known as the bayesian alphabet
 \cite{gianola2009}. Genomic prediction in general has repeatedly been shown to outperform pedigree-based
 methods \cite{crossa2010}; \cite{albrecht2011} and is nowadays used in many plant and animal breeding
@@ -673,7 +695,7 @@ found contradicting results, indicating that feature selection can be usefull in
 genome regression is performed by neural nets 1 While every new method is a valuable addition to the tool-kits
 for genomic selection, some fundamental problems remain unsolved, of which the n>>p problematic stands
 out. Usually in genomic selection settings the size of the training population (TRN) with n phenotypes is
-substantially smaller than the number of markers (p) \cite{fan2014challenges}. Making the number of features
+substantially smaller than the number of markers ($p$) \cite{fan2014challenges}. Making the number of features
 immensely large, even when SNP-SNP interactions are not considered. Furthermore each marker is treated as an
 independent observation neglecting collinearity and linkage disequilibrium (LD). Further difficulties arise
 through non-additive, epistatic and dominance marker effects. The main problem with epistasis issue
@@ -690,8 +712,7 @@ TensorFlow \cite{TF2016} and Keras \cite{keras2015}, machine learning (ML) has e
 is a set of methods and algorithms used widely for regression and classification problems. popular among those
 are e.g. support vector machines, multi-layer perceptrons (MLP) and convolutional neural networks. The machine
 learning mimics the architecture of neural networks and are therefore commonly referred to as artificial
-neural networks (ANN). Those algorithms have widely been applied in many biological fields \cite{min2017deep}
-, \cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016} ; \cite{webb2018deep};
+neural networks (ANN). Those algorithms have widely been applied in many biological fields \cite{min2017deep}; \cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016}; \cite{webb2018deep};
 \cite{rampasek2016tensorflow}.
 
 A variety of studies assessed the usability of ML in genomic prediction \cite{gonzalez2018applications};
