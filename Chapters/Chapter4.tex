@@ -511,29 +511,93 @@ became popular, basically differing in the degree of shrinkage of the assumed ma
 
 \subsubsection{Genomic BLUP and Bayesian methods}
 
-All methods share a common statistical obstacle which is commonly referred to as the $n\ >> p$ problematic, which
-arises because the number $n$ marker is usually significantly larger than the number of observations $p$. In
-practical applications it is not uncommon the have more than 100 000 markers while the number of phenotypes is
-no larger than 100. This does not allow to obtain genomic estimated breeding values (GEBV) by single marker
-regression as done by GWAS, which have highly inflated over all SNP-effects \cite{korte2013advantages}. One
-possible is to include effect sizes as random effects and make prior assumptions about their distribution. The
-difference in prior distribution is the main distinction between the methods of the Bayesian alphabet
-\cite{gianola2013}. Methods as Bayes A, Bayes B and Bayes C allow 
- 
+All methods share a common statistical obstacle which is commonly referred to as the $n\ >> p$ problematic,
+which arises because the number $n$ marker is usually significantly larger than the number of observations
+$p$. In practical applications it is not uncommon the have more than 100 000 markers while the number of
+phenotypes is no larger than 100. This does not allow to obtain genomic estimated breeding values (GEBV) by
+single marker regression as done by GWAS, which have highly inflated over all SNP-effects
+\cite{korte2013advantages}. One possible is to include effect sizes as random effects and make prior
+assumptions about their distribution. The difference in prior distribution is the main distinction between the
+methods of the Bayesian alphabet
+\cite{gianola2013}.\\
+
+\textbf{Genomic BLUP} \newline
+In the early years of research on genomic prediction algorithms they were not solely benchmarked against each
+other, but had to compete with the previously popular pedigree methods. Quickly in the course of the first
+decade of this millennium the superiority of the genomic method became elucidated in livestock and plant
+breeding \cite{habier2007impact}; \cite{vanraden2008efficient}; \cite{vanraden2008reliability};
+\cite{harris2009genomic}.  While the genomic methods are superior to non-genomic methods, there is no clear
+evidence that either of the genomic methods are suerior to each other and there is lack of empirical evidence
+that the Bayesian methods generally outperform GBLUP \cite{moser2009comparison} ; \cite{bernardo2010breeding};
+\cite{azodi2019}.  Alike in the pedigree BLUP in genomic BLUP the covariance between related individuals is
+used for the prediction. In the later case it is constructed from marker information. In the GWAS terminology
+the relationship matrix is referred to as $K$ for kinship. In GS circumstances it is also called GRM (genomic
+relationship matrix) for consistency considerations it will be referred to as $K$ in this study. The general
+genomic prediction model \ref{eqn:blup} is derived from the mixed model \cite{henderson1975best}; \cite{vanraden2008efficient} and implemented as:
+
+\begin{equation}
+Y = X \beta  +  Za + \varepsilon
+  \label{eqn:blup}
+\end{equation}
+
+where $Y$ is and $nx1$ vector of phenotypic observations, $X$ the matrix of the fixed effects and $\beta$ the
+vector of the fixed effects. $Z$ the incidence matrix for the combined marker effects and $a$ a $(nx1)$ vector
+of the additive genetic effect the vector of the residuals $\varepsilon$.  To construct the model lets assume
+a matrix $M$ containing marker information for 3 individuals and 4 markers of size $3x4$. The 4 markers of matrix \ref{arr:M} can take values of $-1$, $0$ and $1$ translating into minor allele, heterozygous locus and major allele. The following example calculation has been adapted from \cite{isik2013}.
+
+\begin{equation}
+  M = 
+  \begin{pmatrix}[r]
+    -1 &  0 & -1 &  0 \\
+    -1 &  0 &  0 & -1 \\
+     1 & -1 & -1 & -1 
+  \end{pmatrix}
+  \label{arr:M}
+\end{equation}
+
+The $M$ matrix is all the information that is necessary for the computation of the K matrix and other viable genetic paramters. The $MM'$ matrix (\ref{MM'}) additional parameters.
+
+\begin{equation}
+  MM' = 
+  \begin{pmatrix}[r]
+    2 &  1 & 0 \\
+    1 &  2 & 0 \\
+    0 &  0 & 4 
+  \end{pmatrix}
+  \label{arr:MM'}
+\end{equation}
+
+
+The diagonal shows the number of homozygous loci per individual, while the other elements of the matrix
+indicate the number of markers shared by related individuals and is an indicator for the distance of the
+relationship as defined by identity-by-descent \cite{vanraden2008efficient}; \cite{misztal2013methods}.
+While matrix \ref{arr:MM'} calculates the metrics per individual the $M'M$ matrix (\ref{arr:M'M}) counts those metrics per marker. Likewise the diagonal contains the number of homozygous individuals per marker.
+
+\begin{equation}
+  M'M = 
+  \begin{pmatrix}[r]
+    3 & -1 & 0 & 0 \\
+   -1 &  1 & 1 & 1 \\
+    0 &  1 & 2 & 1 \\
+    0 &  1 & 1 & 2 
+  \end{pmatrix}
+  \label{arr:M'M}
+\end{equation}
+
 
 
 
 \subsection{Genomic selection using artificial neural networks }
-Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}, \cite{hayes2010genome}
-and plant breeding \cite{crossa2010}, \cite{desta2014genomic}, \cite{heffner2010plant},
+Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}; \cite{hayes2010genome}
+and plant breeding \cite{crossa2010}; \cite{desta2014genomic}; \cite{heffner2010plant};
 \cite{crossa2017genomic} as well as in medical applications, since it was first reported
 \cite{hayes2001}. Since then the repertoire of methods for predicting phenotypic values has increased rapidly
-e.g.\cite{dlc2009}, \cite{habier2011}, \cite{gianola2013} , \cite{crossa2017}. The most commonly applied
+e.g.\cite{dlc2009}; \cite{habier2011}; \cite{gianola2013} ; \cite{crossa2017}. The most commonly applied
 methods include GULP and a set of related algorithms known as the bayesian alphabet
 \cite{gianola2009}. Genomic prediction in general has repeatedly been shown to outperform pedigree-based
-methods \cite{crossa2010}, \cite{albrecht2011} and is nowadays used in many plant and animal breeding
+methods \cite{crossa2010}; \cite{albrecht2011} and is nowadays used in many plant and animal breeding
 schemes. It has also been shown that using whole-genome information is superior to using only feature-selected
-markers with known QTLs for a given trait \cite{bernardo2007}, \cite{heffner2011} in some cases. A more recent
+markers with known QTLs for a given trait \cite{bernardo2007}; \cite{heffner2011} in some cases. A more recent
 study \cite{azodi2019} compared 11 different genomic prediction algorithms with a variety of data sets and
 found contradicting results, indicating that feature selection can be usefull in some cases the when the whole
 genome regression is performed by neural nets 1 While every new method is a valuable addition to the tool-kits
@@ -547,7 +611,7 @@ quantitative genetics is the almost infinite amount of different marker combinat
 represented within the size of TRN in the thousands, the same problems arises for example in GWA studies
 \cite{korte2013advantages}. With already large p the number of possible additive SNP-SNP interactions
 potentiates to $p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced
-epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015},
+epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015};
 \cite{martini2017genomic}.
 
 In the past 10 years, due to increasing availability of high performance computational hardware with
@@ -557,12 +621,12 @@ is a set of methods and algorithms used widely for regression and classification
 are e.g. support vector machines, multi-layer perceptrons (MLP) and convolutional neural networks. The machine
 learning mimics the architecture of neural networks and are therefore commonly referred to as artificial
 neural networks (ANN). Those algorithms have widely been applied in many biological fields \cite{min2017deep}
-, \cite{lan2018survey}, \cite{mamoshina2016applications}, \cite{angermueller2016} , \cite{webb2018deep},
+, \cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016} ; \cite{webb2018deep};
 \cite{rampasek2016tensorflow}.
 
-A variety of studies assessed the usability of ML in genomic prediction \cite{gonzalez2018applications},
-\cite{gonza2016}, \cite{ogutu2011comparison}, \cite{montesinos2019benchmarking}, \cite{grinberg2018evaluation}
-, \cite{cuevas2019deep}, \cite{montesinos2019new}, \cite{ma2017deepgs}, \cite{qiu2016application},
+A variety of studies assessed the usability of ML in genomic prediction \cite{gonzalez2018applications};
+\cite{gonza2016}; \cite{ogutu2011comparison}; \cite{montesinos2019benchmarking}; \cite{grinberg2018evaluation}
+; \cite{cuevas2019deep}; \cite{montesinos2019new}; \cite{ma2017deepgs}; \cite{qiu2016application};
 \cite{gonza2012} \cite{li2018genomic}. Through all those studies the common denominator is that there is no
 such thing as a gold standard for genomic prediction. No single algorithm was able to outperform all the
 others tested in a single of those studies, let alone in all. While the generally aptitude of ML for genomic
@@ -611,23 +675,24 @@ simulation the effect sizes for each marker $\beta_1$ and $\beta_2$ are constant
 \end{tabular}
 \end{table}
 
-The four phenotypes $Y_{ADD}$, $Y_{AND}$, $Y_{OR}$ and $Y_{XOR}$ , which were derived from their respective marker
-effects. $Y_{ADD}$ is a phenotype with purely additive effects. So in the nomenclature introduced in chapter \ref{quan}
-$\sigma_A = \sigma_G$ and $\sigma_{I} = 0$. Since the hypothetical organism is haploid there are dominance effects to be
-accounted for $\sigma_D = 0$. Since all the genetic effects are caused by additive effects and there are now
-environmental effects $\sigma_E$, the narrow sense heritability $h^2$ - equation \ref{eqn:h2a} - and the broad sense
-heritability $H^2$ - equation \ref{eqn:h2G} - are equally 1. The other three phenotypes are base on epistatic effects
-$\sigma_I$ generated by passing the markers $M_1$ and $M_2$ through their respective logic gates. This theoretically in
-results in $h^2 = 0$ and $H^2 = 1$, because there are no additive effects. For $y_{AND}$ however $h \approx 0.5$,
-because there is a correlation between $Y_{ADD}$ and $Y_{AND}$. In practical applications this allows methods like
-GBLUP, designed to account for additive genetic effects to capture some of the epistatic effects of $\sigma_I$
-\cite{vieira2017assessing}.
+The four phenotypes $Y_{ADD}$, $Y_{AND}$, $Y_{OR}$ and $Y_{XOR}$ , which were derived from their respective
+marker effects. $Y_{ADD}$ is a phenotype with purely additive effects. So in the nomenclature introduced in
+chapter \ref{quan} $\sigma_A = \sigma_G$ and $\sigma_{I} = 0$. Since the hypothetical organism is haploid
+there are dominance effects to be accounted for $\sigma_D = 0$. Since all the genetic effects are caused by
+additive effects and there are now environmental effects $\sigma_E$, the narrow sense heritability $h^2$ -
+equation \ref{eqn:h2a} - and the broad sense heritability $H^2$ - equation \ref{eqn:h2G} - are equally 1. The
+other three phenotypes are base on epistatic effects $\sigma_I$ generated by passing the markers $M_1$ and
+$M_2$ through their respective logic gates. This theoretically in results in $h^2 = 0$ and $H^2 = 1$, because
+there are no additive effects. For $y_{AND}$ however $h \approx 0.5$, because there is a correlation between
+$Y_{ADD}$ and $Y_{AND}$. In practical applications this allows methods like GBLUP, designed to account for
+additive genetic effects to capture some of the epistatic effects of $\sigma_I$ \cite{vieira2017assessing}.
 
-According to chapter \ref{introml} a single perceptron would fail to solve $xor$ gates. While a network with multiple
-nodes and layers should be able to overcome that deficit. A relatively simple neural network with two fully-connected
-hidden layers with 10 and 5 nodes, was trained for the prediction of each phenotypes. To keep the simulation as
-possible, no regularization parameters, dropout etc. was included. The activation function was ReLU (\ref{eqn:relu})
-with an Adam optimizer. The results of the prediction are shown in table \ref{tab:simgpres}.
+According to chapter \ref{introml} a single perceptron would fail to solve $xor$ gates. While a network with
+multiple nodes and layers should be able to overcome that deficit. A relatively simple neural network with two
+fully-connected hidden layers with 10 and 5 nodes, was trained for the prediction of each phenotypes. To keep
+the simulation as possible, no regularization parameters, dropout etc. was included. The activation function
+was ReLU (\ref{eqn:relu}) with an Adam optimizer. The results of the prediction are shown in table
+\ref{tab:simgpres}.
 
 \begin{table}[H]
 \caption{Results of genomic prediction from phenotypes and genotypes in table \ref{tab:simmarker}}
@@ -647,13 +712,14 @@ with an Adam optimizer. The results of the prediction are shown in table \ref{ta
 \end{table}
 
 
-Not surprisingly, the simple network is able to solve all four phenotypes and predicting the phenotypes accurately. The
-task was rather easy because the training data set and the testing data set were the same, but it served the purpose of
-showing that neural networks a generally apt to solve different marker interactions. \textit{In natura} those
-interactions and the overall genetic architecture is much more complex. Effect sizes are not constant and epistasis may
-be caused be interactions my more than just two markers, and with an increasing number of markers $n$ the number of
-possible two-way interactions increases even more so to $2^{n-1}$. Smaller interaction effects could be obscured under
-larger additive effects, gene-environment might have a significant influence leading to a model that does not converge.
+Not surprisingly, the simple network is able to solve all four phenotypes and predicting the phenotypes
+accurately. The task was rather easy because the training data set and the testing data set were the same, but
+it served the purpose of showing that neural networks a generally apt to solve different marker
+interactions. \textit{In natura} those interactions and the overall genetic architecture is much more
+complex. Effect sizes are not constant and epistasis may be caused be interactions my more than just two
+markers, and with an increasing number of markers $n$ the number of possible two-way interactions increases
+even more so to $2^{n-1}$. Smaller interaction effects could be obscured under larger additive effects,
+gene-environment might have a significant influence leading to a model that does not converge.
 
 
 \section{Material}

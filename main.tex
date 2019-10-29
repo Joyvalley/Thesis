@@ -47,6 +47,17 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \usepackage{listings}
 \usepackage{float}
 \usepackage{xcolor}
+\usepackage{mathtools}
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{*\c@MaxMatrixCols #1}}
+\makeatother
+
+
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -271,6 +282,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
  \textbf{GPL} & \textbf{G}eneral \textbf{P}ublic \textbf{L}icense \\
  \textbf{HPC} & \textbf{H}igh \textbf{P}erformance \textbf{C}omputing \\ 
  \textbf{GEBC} & \textbf{G}enomic \textbf{E}stimated \textbf{B}reeding \textbf{V}alues \\
+ \textbf{GRM} & \textbf{G}enomic \textbf{R}elationship \textbf{M}atrix \\
 \end{abbreviations}
 % -------------------------------------------------------------------------------
 % PHYSICAL CONSTANTS/OTHER DEFINITIONS
