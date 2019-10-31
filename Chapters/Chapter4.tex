@@ -707,8 +707,8 @@ The mixed model can be solved to obtain genomic estimated breeding values as:
   \end{pmatrix}
   \begin{pmatrix}[r]
     \hat{b} \\ 
-    \hat{g}_1 \\ 
-    \hat{g}_2 \\ 
+    \hat{y}_1 \\ 
+    \hat{y}_2 \\ 
   \end{pmatrix}
   =
   \begin{pmatrix}[r]
@@ -722,19 +722,66 @@ The mixed model can be solved to obtain genomic estimated breeding values as:
 with $G^{12}$ as the part of $G^{-1}$ containing individuals \underline{with} phenotypic data.
 with $G^{22}$ as the part of $G^{-1}$ containing individuals \underline{without} phenotypic data and just SNP  information. 
 
-The GEBV of the unknow phenotypes $\hat{g}_2$ can thus be predicted as:
+The GEBV of the unknown phenotypes $\hat{y}_2$ can thus be predicted as:
 
 \begin{equation}
-\hat{g}_2 = -\left( G^{22}\right)^{-1}G^{21}\hat{g}_1
+\hat{y}_2 = -\left( G^{22}\right)^{-1}G^{21}\hat{y}_1
 \label{eqn:gpred}
 \end{equation}
 
-% E[u]=[e]=0
-% Cov(u,e) = 0
-% Var(u) = Aσ 2A = G
-% Var(e) = Iσ 2e = R
-% Var(y) = ZGZ’ + R = V
- 
+GBLUP is fairly easy compared to more complex Bayesian methods and be quickly implemented in any programming
+language capable of solving liner equations. Computational as the the number of phenotypes in the study
+increases in numbers the timed demand grows exponentially, because the kinship matrix quadruples in size and
+it becomes more complicated to compute the inverse of $G$ (personal observations). \\
+
+\textbf{Bayesian methods} \newline 
+
+Next to the universal GBLUP a set of related algorithms became popular for solving the mixed models involved in genomic selection, known as the Bayesian alphabet \cite{gianola2009}; \cite{gianola2013}. They are all based on Bayes' fundamental theorem in equation \ref{eqn:bayes}
+
+\begin{equation}
+P(\theta | y) = \frac{P(\theta )P(y | \theta)}{P(y)}  
+\label{eqn:bayes}
+\end{equation}
+
+with $P(\theta )$ as the prior distribution, $P(y|\theta )$ as the likelihood and $P(y)$ as the marginal density of $y$. The prior distribution in GS assume that $y$ was drawn from a certain distribution. Infinitesimal models assume that the genetic effects follow a normal distribution \cite{legarra2018}. The Bayesian frameworks however will assume non-normal distributed marker effects. This can be explained by a two-step hierarchical distribution.
+Stage one  assumes that every marker has \textit{a priori} a different variance \cite{legarra2018}.
+
+\begin{equation}
+p(a_i|\sigma_{ai}^2) = N (0,\sigma^1_{ai})
+  \label{eqn:stageonbayes}
+\end{equation}
+
+The second stage assumes prior distributions for the variances.
+
+\begin{equation}
+p(a_i| variable ) = P(\dots )
+  \label{eqn:stagetwobayes}
+\end{equation}
+
+with $variable$ standing for the large variety of prior distribution. In total there are more than >20
+different Bayesian models known to the authors with unknown number of different methods proposed. Their main
+difference ``simply'' lies in the a priori assumptions. This change can make some methods mathematically much
+more advanced then others. And as shown in later chapters none of the methods is completely superior over
+others in terms of prediction accuracy. Approximation to the solution of the linear equations is usually performed by Gipp's sampling using Markov Chain Monte Carlo (MCMC) simulations \cite{dlc2009}; \cite{BGLR}.
+Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomic prediction indicating the key differences between them. 
+
+\begin{table}[H]
+\caption{Overview of properties of a variety of commonly applied Bayesian methods for genomic prediction. Table altered after \cite{karkkainen2012back}}
+\label{tab:bayesABC}
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccccc}
+  \toprule
+  Name      & Reference & Prior & Indicator & Hierarchy & Hyperprior & Estimation \\
+  \midrule
+  \hline 
+  BayesA       & \cite{hayes2001}           & Student & No  & Yes & No  & MCMC \\
+  BayesB       & \cite{hayes2001}           & Student & Yes & Yes & No  & MCMC \\
+  BayesC       & \cite{verbyla2009accuracy} & Student & Yes & Yes & No  & MCMC \\
+  BL           & \cite{xu2010expectation}   & Laplace & No  & Yes & No  & EM   \\
+  BayesD$\pi$  & \cite{habier2011}          & Student & Yes & Yes & Yes & MCMC \\
+\end{tabular}}
+\caption*{The name is given by the author. The prior column tells which shrinkage prior is used. }
+\end{table}
 
 
 
