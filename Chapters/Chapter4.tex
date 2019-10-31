@@ -513,9 +513,103 @@ became popular, basically differing in the degree of shrinkage of the assumed ma
 \cite{hayes2001}; \cite{gianola2009}; \cite{habier2011}; \cite{gianola2013}; \cite{crossa2017};
 \cite{azodi2019}.
 
-\subsubsection{Genomic BLUP and Bayesian methods}
+\subsubsection{Genomic selection in recurrent selection and the breeders equation}
 
-All methods share a common statistical obstacle which is commonly referred to as the $n\ >> p$ problematic,
+While the quantitative genetic methods breeders utilize are complex their goals can be defined in one
+sentence: To genetically improve plant germplasms for agriculture. The breeding process started at the same
+time as farming was first practiced ~ 10.000 BC in the region between the Euphrat and Tigris rivers known as
+the fertile crescent. This changed the phenotypic appearance of the early crops dramatically to the point that
+they share little external traits with their wild ancestors. Those changes have also been deeply carved into
+the genomes, that underwent serious alterations, including hybridization, duplications etc. Leading to most
+crop plants not having any wild ancestors with whom they could naturally mate. For example wheat
+(\textit{Triticum aestivum}), one of the three most important sources of food on a global scale underwent
+multiple hybridization steps \cite{ozkan2001allopolyploidy}. Wheat is a hybrid from either the diplod emmer
+(\textit{T. diccoides}) or durum wheat (\textit{T. durum}) and \textit{{Aegilops tauschii}}, while emmer and
+durum are hybrids derived from wild emmer which is a hybrid of wild grass of the genus of \textit{Aegilops}
+and \textit{T. urata} \cite{friebe2000development}; \cite{feldman2012genome}. While being ignorant of modern
+genetics early ``plant breeders'' must have had an intuitive, yet naive, understanding of the general concept
+of heritability in a way that they must have established that offsprings share properties of their parent
+generation, which lead to regrowing individuals with desired traits generations after generation. This lead to
+many changes including that artificial selected plants are commonly largely inbred. This process could be
+considered an early form of recurrent truncation selection. Truncation selection on a normal distributed
+phenotype is shown in figure \ref{fig:trunSel}.
+ 
+\begin{figure}[H]
+   \centering \includegraphics[height=.25\textheight, width=0.6\textwidth]{Figures/truncSel} \decoRule
+   \caption[Truncation selection of a normal distributed phenotype]{Truncation selection from a normal distributed phenotype with a threshold value of $T$, $\mu$ as the mean of the total population and $\mu^{\ast}$ as the mean of the selected phenotypes. Graphic from \cite{walsh2018short}}
+ \label{fig:trunSel}
+\end{figure}
+
+
+Like the early breeders modern breeders of to determine the selection threshold $T$ to divide the total population with the mean $\mu$ into two groups: the individuals culled and the ones allowed to reproduce with the mean $\mu^{\ast}$. The difference between those two is the selection differential $S$:
+
+\begin{equation}
+  S =  \mu^{\ast} - \mu
+\label{eqn:S}
+\end{equation}
+
+which in the case of normal distributed data as depicted in figure \ref{trunSel} can be expressed as:
+
+\begin{equation}
+S = \varphi (\frac{T - \mu}{\sigma}) \frac{\sigma}{p}
+\end{equation}
+
+From which we can obtain the selection intensity $i$, which makes $i$ solely a function of $p$ 
+
+\begin{equation}
+i = \frac{S}{\sigma} = \frac{\varphi (z_{|1-p|})}{p}
+\end{equation}
+
+
+With recurrent truncation selection over many generations the population mean of the trait $\mu$ will change
+(hopefully in the desired direction), if the heritability (in this case the narrow sense heritability) $h^2$ >
+0. It is impossible to breed for traits that do not contain any genetic components in its architecture
+\cite{walsh2018}.  Next to $i$ the intensity and $h^2$ the additive portion of the heritability the accuracy
+of the selection $r_{uA}$ is important for the success of a breeding program. Those three terms can be applied
+to compute the gain of selection $R$ over one generation (equation \ref{eqn:Breeders}). Due to its importance
+in the evaluation of breeding schemes it is known as the breeder's equation \cite{mousseau1987natural};
+\cite{falconer1996}; \cite{kingsolver2001strength}.
+
+\begin{equation}
+  R = i r_{uA} \sigma_A
+\label{eqn:Breeders}
+\end{equation}
+
+The accuracy $r_{uA}$ of equation \ref{eqn:Breeders} in cases only phenotypic selection is conducted the
+heritability and in cases where the selection process is aided by genomic prediction it is the prediction
+accuracy.  According to breeder's equation there are three parameters which can be influenced through genomic
+prediction. \newline (i) The prediction accuracy, which is usually smaller than the heritability, varies for
+different prediction equations and an increase in the accuracy will lead to an proportional increase in $R$
+the gain per generation cycle. For this reasons since 2001 in quantitative genetics one very active field of
+research was and still is to find new algorithms that are superior to others as presented in the next chapter
+(\ref{blup:bayes}.  As later evaluated on more than 150 phenotypes in chapter \ref{gp:res} $h^2$ is always
+larger than $r_{uA}$.  Which if it was the only variable factor in equation \ref{eqn:Breeders} make genomic
+selection inferior to phenotypic selection. Which from a certain point of view it is. Phenotypic trials are
+better approximation for phenotypic appearance as GEBVs. However as the cost of genotyping have decreased
+dramatically in the last 20 years. Phenotyping in the field remains tedious, laborious and mostly vastly
+expensive. Taking into account that field trials have to be repeated in several years and locations to produce
+reliable accounts it becomes clear that genotyping 10th of thousands of accessions is much cheaper than
+conducting field trials with 1000 of them. \newline (ii) The selection intensity can much stricter if the
+total population that is selected from is larger and in genomic prediction settings they are, because it
+allows selection from two pools. The first the pool of plants with known phenotyped \underline{and} known
+genotype and from those were just genomic data is available. When selecting from a pool of 1000 with $p=0.05$
+with the goal to keep 50 plants in the next breeding cycle, the same goal can be reached when genomically
+selecting from a pool of 10000 with and intensity of $p=0.05$. \newline (iii) The decreased time per
+generation is probably the largest advantage of genomic selection when applied to breeding. While in field
+trials it is only possible to have one generation per year. Genomic selection does not require the plants to
+be grown in the field. For selection it is only necessary to grow enough so that DNA can be extracted from the
+tissue and evaluated. After selection only the ones above the threshold are grown until they bear seats (or
+any other reproductive organ) and be used for the next selection cycle, allowing up to ten generations per
+year. This development hast lead to the rise to a new branch of breeding: speed breeding
+\cite{ghosh2018speed}; \cite{watson2018speed}.  In practical, company-level genomic prediction as largely
+contributed to an increase by a factor of 2 of the gain in selection in recent years (Viktor personal
+communiation)
+
+
+
+\subsubsection{Genomic BLUP and Bayesian methods}\label{blup:bayes}
+
+All methods share a common statistical obstacle which is commonly referred to as the $n >> p$ problematic,
 which arises because the number $n$ marker is usually significantly larger than the number of observations
 $p$. In practical applications it is not uncommon the have more than 100k markers while the number of
 phenotypes is no larger than 100. This does not allow to obtain genomic estimated breeding values (GEBV) by
@@ -536,8 +630,10 @@ and there is lack of empirical evidence that the Bayesian methods generally outp
 genomic BLUP the covariance between related individuals is used for the prediction. In the later case it is
 constructed from marker information. In the GWAS terminology the relationship matrix is referred to as $K$ for
 kinship in GWAS literature, while in GS circumstances it is also called GRM (genomic relationship matrix) or
-simply abbreviated as $G$. This study will remain consistent with the circumstantial literature and therfore purposely inconsistent within itself. In the chapter addressing GWAS the it will be called $K$ for kinship matrix and it the following chapter elucidating GBLUP it will be referred to as $G$.
-The general genomic prediction model \ref{eqn:blup} is derived from the mixed model \cite{henderson1975best};
+simply abbreviated as $G$. This study will remain consistent with the circumstantial literature and therefore
+purposely inconsistent within itself. In the chapter addressing GWAS the it will be called $K$ for kinship
+matrix and it the following chapter elucidating GBLUP it will be referred to as $G$.  The general genomic
+prediction model \ref{eqn:blup} is derived from the mixed model \cite{henderson1975best};
 \cite{vanraden2008efficient} and implemented as:
 
 \begin{equation}
@@ -784,6 +880,8 @@ Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomi
 \end{table}
 
 
+\subsubsection{cross validation}
+
 
 
 \subsection{Genomic selection using artificial neural networks }
@@ -930,5 +1028,5 @@ gene-environment might have a significant influence leading to a model that does
 
 
 
-\section{Results}
+\section{Results} \label{res:gp}
 \section{Discussion}
