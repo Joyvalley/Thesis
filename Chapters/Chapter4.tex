@@ -13,7 +13,7 @@
 While machine learning, neural networks, deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
 \ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, which was
-designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}
+designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}.
 
 \begin{figure}[th]
  \centering \includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png} \decoRule
@@ -21,12 +21,13 @@ designed to mimic the information flow in biological nervous systems \cite{rosen
 \label{fig:perceptron}
 \end{figure}
 
-This basic perceptron, which contrary to perceptrons used nowadays does not have an activation function, takes
-n binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$ after being processed
-by the perceptron or neuron. To achieve this Rosenblatt introduced the concept of weights which indicated a
-certain relative importance to the outcome of the output.  $w_1 , w_2 ... w_n$. The output $y$ is determined
-by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain threshold value is met the neuron
-is either activated and outputs 1 or not and outputs 0. This is algebraically represented in \ref{eqn:weights}
+This basic perceptron, which contrary to perceptrons used nowadays does not have an embedded activation
+function, takes $n$ binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$
+after being processed by the perceptron or neuron. To achieve this Rosenblatt introduced the concept of
+weights which indicated a certain relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The
+output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain
+threshold value is met the neuron is either activated and outputs 1 or not activated resulting in and output
+of 0. This is algebraically represented in equation \ref{eqn:weights}:
 
 \begin{subequations}
  \begin{align}
@@ -37,19 +38,19 @@ is either activated and outputs 1 or not and outputs 0. This is algebraically re
 \end{subequations}
 
 Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation
-\ref{eqn:weights} which represents the activation threshold in per definition is negative. A single perceptron
-is a linear classifier and can only be trained on linearly separable functions and can used as shown by
-\cite{rosenblatt1961} to solve simple logical operations as AND, OR and not. The simple perceptron fails, due
-to non-linearity, to perform XOR operations as shown by \cite{marvin1969}. This discovery let to a near still
-stance in the research of artificial neural networks in the 1970s. This time period as now often referred to
-as the first AI-winter. Another reason that massively hindered the applications and research of machine
-learning during that time, was the compared to
-modern times incredibly small amount of computational power available \cite{nguyen1990truck}. \\
+\ref{eqn:weights} which represents the activation threshold and per definition is a negative value. A single
+perceptron is a linear classifier and can only be trained on linearly separable functions and can used as
+shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not. The simple perceptron
+fails, due to non-linearity, to perform XOR operations as shown by \cite{marvin1969}. This discovery let to a
+near stillstance in the research of artificial neural networks in the 1970s. This time period is now often
+referred to as the first AI-winter. Another reason that massively hindered the applications and research of
+machine learning during that time, was the compared to
+modern times the incredibly small amount of computational power available \cite{nguyen1990truck}. \\
 More complex decision making, like solving XOR problems, requires more complex structures than a single
 perceptron. Continuing the trend of mimicking human neural networks, multiple artificial neurons are stacked
 into layers and these layers, are connected to each other allowing communication between the many perceptrons
 in a such generated network. Figure \ref{fig:nn} shows schematically the basic structure of such a network,
-now container three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii) one output
+now harboring three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii) one output
 layer, which in this case only consists of one neuron.
 
 \begin{figure}[H]
@@ -61,18 +62,21 @@ layer, which in this case only consists of one neuron.
 \end{figure}
 
 In the sample layout of figure \ref{fig:nn} the neurons in the first column weigh the inputs and pass those
-the the neurons on the second layer. In this case all neurons on the first layer or connected to all neurons
+the the neurons in the second layer. In this case all neurons on the first layer or connected to all neurons
 on the second layer, such layers are referred to fully-connected layers (FLC) , and their resulting networks
 are often called multi-layer perceptrons (MLP). This architecture enables the network to perform more complex
-calculations and result in more abstract decisions than single neurons or single layer architectures.
+calculations and result in more abstract decisions than single neurons or single layer architectures. There
+are also layers were neurons in the previous layer are only connected with neighboring neurons in the
+succeeding layers. Those are known as locally-connected layers (LCL) or related to them are convolutional
+layers which shared weights between selected neurons, building convolutional neural networks (CNN) \cite{lecun1999object} .
 
 \subsubsection{Activation functions}
 
-The neurons discussed so far are only capable of outputting binary results. Either 0 or 1, depending on the
-threshold values being met or not. For more complex estimations it is desirable that small changes in the
-input also result in small changes of the output. This requirement can not be met with binary
-outputs. Activation functions for a given node provides rules for the output in accordance to the inputs
-\cite{vzilinskas2006practical}.
+The neurons discussed so far are only capable of outputting binary results. Either 0 or 1, depending on
+whether threshold values are being reached or not. For more complex estimations it is desirable that small
+changes in the input also result in small changes of the output. This requirement can not be met with binary
+outputs. Activation functions for a given node provide more sophisticated rules for the output in accordance
+to their inputs \cite{vzilinskas2006practical}.
 
 \begin{figure}[H]
 \centering
@@ -88,12 +92,12 @@ outputs. Activation functions for a given node provides rules for the output in 
 \label{fig:activation}
 \end{figure}
 
-Figure \ref{fig:activation} \textbf{A} shows six of the most commonly used activation functions
-\cite{warner1996understanding}. The simplest one was introduced, is the binary step activation function
+Figure \ref{fig:activation} shows six of the most commonly used activation functions
+\cite{warner1996understanding}. The simplest one was introduced , is the binary step activation function \textbf{A} in
 equation \ref{eqn:binary}, which properties have been discussed along the perceptron model. All other
-activation produce continuous outputs from any given input. Basically any mathematical function can serve as
+activation produce continuous outputs from any given input. Any mathematical function can serve as
 an activation function in neural nets, starting with a simple identity function \ref{eqn:ident} ,
-\ref{fig:activation} \textbf{B}. Sigmoid figure \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}
+\ref{fig:activation} \textbf{B}.  The sigmoid functions \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}
 and tanh figure \ref{fig:activation} \textbf{D}, equation \ref{eqn:tanh}, when $x \rightarrow \infty$ or
 $x \rightarrow -\infty$ they have similar properties to the binary function, but produce continuous output
 around 0.
@@ -142,8 +146,8 @@ ReLU (equation \ref{eqn:relu}) and the softplus (equation \ref{eqn:softplus}) sh
 well, the latter one being a smoothed version of ReLU. Rectifiers as activation functions have been introduced
 in 2000s \cite{hahnloser2000digital} and have since then overtaken all others as the most popular activations
 functions in neural networks and deep learning today \cite{lecun2015deep} and they have proven to be superior
-in deep-learning algorithms that sigmoid or logistic functions. One of the advantages leading to the
-superiority of ReLUs is that with randomly initialized weights only half of the ReLU neurons are activated,
+in many deep-learning applications over sigmoid or logistic functions. One of the advantages leading to the
+superiority of ReLUs is that with randomly initialized weights only half of the ReLU neurons are activated at start,
 compared to tanh and sigmoid activation \cite{glorot2011deep}. All activation functions shown in figure
 \ref{fig:activation}, but the binary step function, share one common property: a small change of the input
 weight will result in small changes in the output, while a small change of the input for the binary step
@@ -153,14 +157,14 @@ important prerequisite for networks being able to learn. \\
 \subsubsection{Gradient descent algorithm}
 
 Let the network shown in \ref{fig:nn} be for the classification of a arbitrary phenotype like blue petals with
-$x_1 ... x_4$ on the input layers being genetic markers as features. And the output layer displaying a value
+$x_1 \dots x_4$ on the input layers being genetic markers as features. And the output layer displaying a value
 from 0 to 1, meaning yes: blue petals from 0 - 0.5 and no blue petals from 0.5 to 1. To quantify how well the
 network performs on achieving that goal a loss function is applied \cite{schmidhuber2015deep}. There is a
 large variety of different loss functions available for neural networks like mean squared error (MSE), root
-mean squared error (RMSE), cross-entropy and many others. In general MSE, MSE are commonly used for regression
-problems, with the latter being less popular and cross-entropy also called log loss is used for binary or
-multi-class classification problems \cite{janocha2017loss}. Since all problems presented in due course or
-regression problems, that use MSE as their loss function, this will be the only one emphasized.
+mean squared error (RMSE), cross-entropy and many others. In general MSE and RMSE are commonly used for regression
+problems, with the latter being less popular and cross-entropy also called log-loss is used for binary or
+multi-class classification problems \cite{janocha2017loss}. Since all problems presented in due course are
+regression problems, that use MSE as their loss function, this will be the only loss function used.
 
 \begin{equation}
  MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \widetilde{y})^2
@@ -602,9 +606,11 @@ tissue and evaluated. After selection only the ones above the threshold are grow
 any other reproductive organ) and be used for the next selection cycle, allowing up to ten generations per
 year. This development hast lead to the rise to a new branch of breeding: speed breeding
 \cite{ghosh2018speed}; \cite{watson2018speed}.  In practical, company-level genomic prediction as largely
-contributed to an increase by a factor of 2 of the gain in selection in recent years (Viktor personal
-communication).\newline
-The last term in equation \ref{eqn:Breeders} the additive genetic variance $\sigma_A$ is not directly yet heavily influenced by the described breeding scheme. Artificial selection has similar effects on the genetic variance as bottlenecks in natural selection have: it decreases, thus making it harder to increase $R$ in later selection cycles \cite{walsh2018}.
+contributed to an increase by a factor of 2 of the gain in selection in recent years  (personal
+communication with breeding company employees ).\newline The last term in equation \ref{eqn:Breeders} the additive genetic variance $\sigma_A$
+is not directly yet heavily influenced by the described breeding scheme. Artificial selection has similar
+effects on the genetic variance as bottlenecks in natural selection have: it decreases, thus making it harder
+to increase $R$ in later selection cycles \cite{walsh2018}.
 
 
 \subsubsection{Genomic BLUP and Bayesian methods}\label{blup:bayes}
@@ -875,7 +881,8 @@ Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomi
   BayesC       & \cite{verbyla2009accuracy} & Student & Yes & Yes & No  & MCMC \\
   BL           & \cite{xu2010expectation}   & Laplace & No  & Yes & No  & EM   \\
   BayesD$\pi$  & \cite{habier2011}          & Student & Yes & Yes & Yes & MCMC \\
-\end{tabular}}
+                            \bottomrule                                                   
+                          \end{tabular}}
 \caption*{The name is given by the author. The prior column tells which shrinkage prior is used. }
 \end{table}
 
