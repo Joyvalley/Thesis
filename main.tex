@@ -48,7 +48,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{mathtools}
-
+\usepackage{longtable}
 
 \makeatletter
 \renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
@@ -213,8 +213,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %----------------------------------------------------------------------------------------
 
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
-  
- \textbf{Adadelta} & \textbf{Ada}ptive \textbf{delta} \\
+  \textbf{Adadelta} & \textbf{Ada}ptive \textbf{delta} \\
  \textbf{Adagrad} & \textbf{Ada}ptive \textbf{Grad}ient Algorithm \\
  \textbf{Adam} & \textbf{Ada}ptive \textbf{M}oment estimation \\
  \textbf{ANN} & \textbf{A}rtificial \textbf{N}eural \textbf{N}etwork \\
@@ -230,23 +229,31 @@ The acknowledgments and the people to thank go here, don't forget to include you
  \textbf{FCL} & \textbf{F}ully \textbf{C}onnected \textbf{L}ayer \\
  \textbf{GBLUP} & \textbf{G}enomic \textbf{B}est \textbf{L}inear \textbf{U}nbiased \textbf{P}redictor \\
  \textbf{GD} & \textbf{G}radient \textbf{D}escent \\
+ \textbf{GEBC} & \textbf{G}enomic \textbf{E}stimated \textbf{B}reeding \textbf{V}alues \\
+ \textbf{GPL} & \textbf{G}eneral \textbf{P}ublic \textbf{L}icense \\
  \textbf{GP} & \textbf{G}enomic \textbf{P}rediction \\
  \textbf{GPU} & \textbf{G}raphical \textbf{P}rocessing \textbf{U}nit \\
+ \textbf{GRM} & \textbf{G}enomic \textbf{R}elationship \textbf{M}atrix \\
  \textbf{GS} & \textbf{G}enomic \textbf{S}election \\
  \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
  \textbf{GWAIS} & \textbf{G}enome \textbf{W}ide \textbf{I}nteraction \textbf{A}ssociation \textbf{S}tudies \\
  \textbf{GWAS} & \textbf{G}enome \textbf{W}ide \textbf{A}ssociation \textbf{S}tudies \\
  \textbf{HDF} & \textbf{H}ierarchical \textbf{D}ata \textbf{F}ormat \\
+ \textbf{HPC} & \textbf{H}igh \textbf{P}erformance \textbf{C}omputing \\ 
  \textbf{IR} & \textbf{I}nverted \textbf{R}epeat \\
  \textbf{LCL} & \textbf{L}ocally \textbf{C}onnected \textbf{L}ayer \\
  \textbf{LD} & \textbf{L}inkage \textbf{D}isequilibrium \\
  \textbf{LMM} & \textbf{L}inear \textbf{M}ixed \textbf{M}odel\\
  \textbf{LSC} & \textbf{L}arge \textbf{S}ingle \textbf{C}opy \\
+ \textbf{MAF} & \textbf{M}inor \textbf{A}llele \textbf{F}requncy \\
+ \textbf{MBP} & \textbf{M}ega \textbf{B}ase \textbf{P}air \\
+ \textbf{MCMC} & \textbf{M}arkov \textbf{C}hain \textbf{M}onte \textbf{C}arlo \\
  \textbf{MLP} & \textbf{M}ulti \textbf{L}ayer \textbf{P}erceptron \\
  \textbf{ML} & \textbf{M}achine \textbf{L}earning \\
  \textbf{MSE} & \textbf{M}ean \textbf{S}quare \textbf{E}rror \\
  \textbf{Nadam} & \textbf{N}esterov-\textbf{a}ccelerated \textbf{A}daptive \textbf{M}oment \textbf{E}stimation \\
  \textbf{NAG} & \textbf{N}esterov \textbf{A}ccelerated \textbf{M}omentum \\
+ \textbf{NCBI} & \textbf{N}ational \textbf{C}enter for \textbf{B}iotechnological \textbf{I}nformation \\
  \textbf{QTL} & \textbf{Q}uantitative \textbf{T}rait \textbf{L}ocus \\
  \textbf{ReLU} & \textbf{Re}ctified \textbf{L}inear \textbf{U}nits \\
  \textbf{RKHS} & \textbf{R}eproducing \textbf{K}ernel \textbf{H}ilbert \textbf{S}paces \\
@@ -256,20 +263,12 @@ The acknowledgments and the people to thank go here, don't forget to include you
  \textbf{RSS} & \textbf{R}esidual \textbf{S}um of \textbf{S}quares \\
  \textbf{SGD} & \textbf{S}tochastic \textbf{G}radient \textbf{D}escent \\
  \textbf{SNP} & \textbf{S}ingle \textbf{N}ucleotide \textbf{P}olymorphism \\
+ \textbf{SRA} & \textbf{S}equence  \textbf{R}ead \textbf{A}rchive \\
  \textbf{SSC} & \textbf{S}mall \textbf{S}ingle \textbf{C}opy \\
  \textbf{TRN} & \textbf{TR}ai\textbf{N}ing subset \\
  \textbf{TST} & \textbf{T}e\textbf{ST}ing subset \\
  \textbf{WGS} & \textbf{W}hole \textbf{G}enome \textbf{S}equencing \\
  \textbf{XOR} & e\textbf{X}clusive \textbf{OR} \\
- \textbf{MBP} & \textbf{M}ega \textbf{B}ase \textbf{P}air \\
- \textbf{SRA} & \textbf{S}equence  \textbf{R}ead \textbf{A}rchive \\
- \textbf{NCBI} & \textbf{N}ational \textbf{C}enter for \textbf{B}iotechnological \textbf{I}nformation \\
- \textbf{GPL} & \textbf{G}eneral \textbf{P}ublic \textbf{L}icense \\
- \textbf{HPC} & \textbf{H}igh \textbf{P}erformance \textbf{C}omputing \\ 
- \textbf{GEBC} & \textbf{G}enomic \textbf{E}stimated \textbf{B}reeding \textbf{V}alues \\
- \textbf{GRM} & \textbf{G}enomic \textbf{R}elationship \textbf{M}atrix \\
- \textbf{MCMC} & \textbf{M}arkov \textbf{C}hain \textbf{M}onte \textbf{C}arlo \\
- 
 \end{abbreviations}
 % -------------------------------------------------------------------------------
 % PHYSICAL CONSTANTS/OTHER DEFINITIONS
@@ -299,7 +298,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \pagestyle{thesis} % Return the page headers back to the "thesis" style2
 
 % Include the chapters of the thesis as separate files from the Chapters folder
-% uncomment the lines as you write the chapters
+% uncomment the lines as yo write the chapters
 
 \include{Chapters/Chapter1}
 \include{Chapters/Chapter2} 
@@ -312,9 +311,9 @@ The acknowledgments and the people to thank go here, don't forget to include you
 %----------------------------------------------------------------------------------------
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 % Include the appendices of the thesis as separate files from the Appendices folder
-% Uncomment the lines as you write the Appendices
+% Uncomment the lines as you writethe Appendices
 \include{Appendices/AppendixA}
-% \include{Appendices/AppendixB}
+\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 %--------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY%------------- --- -----------------------------------------------------------------

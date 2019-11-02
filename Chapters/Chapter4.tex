@@ -527,7 +527,7 @@ they share little external traits with their wild ancestors. Those changes have 
 the genomes, that underwent serious alterations, including hybridization, duplications etc. Leading to most
 crop plants not having any wild ancestors with whom they could naturally mate. For example wheat
 (\textit{Triticum aestivum}), one of the three most important sources of food on a global scale underwent
-multiple hybridization steps \cite{ozkan2001allopolyploidy}. Wheat is a hybrid from either the diplod emmer
+multiple hybridization steps \cite{ozkan2001allopolyploidy}. Wheat is a hybrid from either the diploid emmer
 (\textit{T. diccoides}) or durum wheat (\textit{T. durum}) and \textit{{Aegilops tauschii}}, while emmer and
 durum are hybrids derived from wild emmer which is a hybrid of wild grass of the genus of \textit{Aegilops}
 and \textit{T. urata} \cite{friebe2000development}; \cite{feldman2012genome}. While being ignorant of modern
@@ -630,10 +630,10 @@ solely benchmarked against each other, but had to compete with the previously po
 methods. Quickly in the course of the first decade of this millennium the superiority of the genomic method
 became elucidated in livestock and plant breeding \cite{habier2007impact}; \cite{vanraden2008efficient};
 \cite{vanraden2008reliability}; \cite{harris2009genomic}.  While the genomic methods are superior to
-non-genomic methods, there is no clear evidence that either of the genomic methods are suerior to each other
+non-genomic methods, there is no clear evidence that either of the genomic methods are superior to each other
 and there is lack of empirical evidence that the Bayesian methods generally outperform GBLUP
 \cite{moser2009comparison} ; \cite{bernardo2010breeding}; \cite{azodi2019}.  Alike in the pedigree BLUP in
-genomic BLUP the covariance between related individuals is used for the prediction. In the later case it is
+genomic BLUP the co-variance between related individuals is used for the prediction. In the later case it is
 constructed from marker information. In the GWAS terminology the relationship matrix is referred to as $K$ for
 kinship in GWAS literature, while in GS circumstances it is also called GRM (genomic relationship matrix) or
 simply abbreviated as $G$. This study will remain consistent with the circumstantial literature and therefore
@@ -735,7 +735,7 @@ outcrossed populations with high degrees of heterozygosity because in the sample
 account for homozygous loci. This method becomes computationally intense when the data sets grow larger as
 common today (personal observation).
 
-(ii) Probably the most popular method in GS is to obtain $K$ as proposed by \cite{vanraden2008efficient} designed after Wrigth's \cite{wright1922coefficients} equations for the covariance in structured populations, as described by equation \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
+(ii) Probably the most popular method in GS is to obtain $K$ as proposed by \cite{vanraden2008efficient} designed after Wright's \cite{wright1922coefficients} equations for the covariance in structured populations, as described by equation \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
 
 \begin{equation}
   G = \frac{ZZ'}{2 \Sigma p_i (1-p_i)} 
@@ -864,7 +864,7 @@ with $variable$ standing for the large variety of prior distribution. In total t
 different Bayesian models known to the authors with unknown number of different methods proposed. Their main
 difference ``simply'' lies in the a priori assumptions. This change can make some methods mathematically much
 more advanced then others. And as shown in later chapters none of the methods is completely superior over
-others in terms of prediction accuracy. Approximation to the solution of the linear equations is usually performed by Gipp's sampling using Markov Chain Monte Carlo (MCMC) simulations \cite{dlc2009}; \cite{BGLR}.
+others in terms of prediction accuracy. Approximation to the solution of the linear equations is usually performed by Gibb's sampling using Markov Chain Monte Carlo (MCMC) simulations \cite{dlc2009}; \cite{BGLR}.
 Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomic prediction indicating the key differences between them. 
 
 \begin{table}[H]
@@ -1034,7 +1034,7 @@ A set of maze doubled-haploid (DH) populations, derived from MAZE landraces. And
 The DH populations were produced, propagated and phenotyped in the scope of the MAZE project phase I, funded
 by the Federal Ministry of Education and Research (BMBF) (Funding ID: 031B0195, project “MAZE”) as well as the
 KWS SAAT SE, by various project partners at the Technical University of Munich, University of Hohenheim and
-the KWS. A thorough description of the germplasm selection and phentyping was recently published by
+the KWS. A thorough description of the germplasm selection and phenotyping was recently published by
 \cite{holker2019european}. \newline Modern maize cultivars are almost exclusively high-performing hybrids from
 two inbreed lines from different heterotic pools. Commonly hybrids are derived from the cross European Flint x
 American Dent \cite{dos2004priori}; \cite{brauner2019testcross}. Before hybrid breeding became the predominant
@@ -1043,11 +1043,11 @@ locally highly-adapted populations. That did not derive from modern breeding but
 selection and adaption by farmers to often very specific needs \cite{arteaga2016genomic}. They hybrids grown
 today are derived from just a few landraces as founder lines, while the majority of landraces has been nearly
 forgotten. This and high intensity selection over many generation has led to a loss of genetic diversity
-$\sigma_G$ in modern maize culitvars. Therefore the landrace germplasm present a important, essential stock of
+$\sigma_G$ in modern maize cultivars. Therefore the landrace germplasm present a important, essential stock of
 genetic variability for continuous success in maize breeding. The utilization of those germplasms would be
 impossible without the invaluable work of institutions as the IPK Gartersleben whose goal as genebanks is to
 maintain and store genetic material for long time periods.  Of those landraces three, representing large
-phenotypic heterogentiy were chosen: (i) Kemater Landmais Gelb (KE, Austria), Petkused Ferdinand Rot (PE,
+phenotypic heterogentiy were chosen: (i) Kemater Landmais Gelb (KE, Austria), Petkuser Ferdinand Rot (PE,
 Germany) and Lalin (LL, Spain). They represent 95 \% of the molecular variance if a set of
 35 landraces analyzed in a preceding project by \cite{mayer2017there}.\newline
 In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in vivo} haploid induction with an inducer line as described in \cite{roeber2005vivo}.
@@ -1057,24 +1057,47 @@ In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in viv
 (The genomic data was provided by the TUM as described by \cite{holker2019european}!) \newline Genotyping was
 performed with the 600k Affymetrix\textsuperscript{\textregistered} Axiom\textsuperscript{\textregistered}
 Maize array \cite{unterseer2014powerful}. The markers were quality filters and missing values were imputed
-individually for each landrace population using Beagle 5.0 \cite{browning2007rapid}; \cite{browning2018one}. After LD pruning and futher
-quality control 29833 markers remained and 471 Kemater DHs and 403 PE DHs. LL was excluded from further
-analyses due to insufficient amounts of genotypes.
+individually for each landrace population using Beagle 5.0 \cite{browning2007rapid};
+\cite{browning2018one}. After LD pruning and further quality control 29833 markers remained and 471 Kemater DHs
+and 403 PE DHs. LL was excluded from further analyses due to insufficient amounts of genotypes.
 
 \subsubsection{Phenotypic maze data}
-(The phenotype data was provided by the TUM ass described by \cite{holker2019european}!) \newline
-The traits were evaluated with lattice design in 7 different locations across Europe.
-Those traits were: Early Vigor (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till Silking (DtSILK)) and root lodging (RL).
-To account for GxE best linear unbiased estimators were calculated according to Henderson's model \cite{henderson1975best} and use for further prediction. 
+(The phenotype data was provided by the TUM ass described by \cite{holker2019european}!) \newline The traits
+were evaluated with lattice design in 7 different locations across Europe.  Those traits were: Early Vigor
+(EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant
+height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till
+Silking (DtSILK)) and root lodging (RL).  To account for GxE best linear unbiased estimators were calculated
+according to Henderson's model \cite{henderson1975best} and use for further prediction.
 
 
 \subsection{A. thaliana}
 
+\subsubsection{Genomic data}
 
+The genomic data was generated during the course of the 1001 genome project of \textit{A. thaliana}
+\cite{1001genome} producing completed sequenced and assembled genomes from 1035 genomes, along 600k marker
+data for 1307 accessions with a overlap between those groups resulting in a total of 2029 genotyped
+accessions. With more than 10 mio. SNPs and Indels on the 5 chromosomes of e \textit{A. thaliana}. Imputation
+of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}.  For
+every one of the 164 phenotypes used subsets were sampled and LD pruned and MAF filtered.  LD pruning was
+executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$
+and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each phenotype.
+
+\subsubsection{Phenotypic data}
+A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the according study
+references.  The phenotypic trials ranged from 100 to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{strauch2015}; \cite{me2014}.
 
 
 \section{Methods}
+
+The theoretical backgrounds of the methods used for genomic prediction were described in section \ref{introml}
+for the ANNs and section\ref{blup:bayes} for the Bayesian methods and GBLUP. The next sections are devoted to
+explaining who those methods were adapted and implemented for the prediction of maize and \textit{Arabidopsis}
+traits.
+
 \subsection{ANN}
+
+
 
 \subsection{GBLUP}
 
