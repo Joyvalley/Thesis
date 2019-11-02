@@ -311,15 +311,15 @@ Backpropagation \cite{rumelhart1988learning}
 \subsubsection{Regularization parameters}
 
 When applying the combined aforementioned algorithms and optimizers to find global minima of a loss function
-of a neural network a problem arises, because optimizers like Adam work ``too'' well. This issues is due to
-the fact that neural networks have 100s of thousand of free parameters to be trained, deep neural networks
-have billions and trillions of parameters. If training of the neural net continues for enough epochs
-eventually. The loss function will approach a minimum and as $ L(w,b)\rightarrow 0 $ the initial conclusion
-could be that the training was quite successful, but when trying to apply the network trained on the training
-data set (TRN) to a testing data set (TST). The loss and accuracy of the prediction of TST and TST are very
-large or accordingly small. This phenomenon is know as overfitting and a lot of fine tuning of hyperparameters
-is devoted to minimizing this effect \cite{tetko1995neural}. Figure \ref{fig:overfitting} visualizes the
-effects of overfitting during training \cite{goodfellow2016deep}.
+of a neural network the problem of overfitting arises, because optimizers like Adam work ``too'' well. This
+issue is due to the fact that neural networks have 100s of thousand of free parameters to be trained, deep
+neural networks have billions and trillions of parameters. If training of the neural net continues for enough
+epochs eventually the loss function will approach a minimum and as $ L(w,b)\rightarrow 0 $ the initially drawn
+conclusion could mislead to assuming that training was quite successful, but when trying to apply the network trained on
+the training data set (TRN) to a testing data set (TST) the loss and accuracy of the prediction of TST and
+TST are very large or accordingly small. This phenomenon is know as overfitting and a lot of fine tuning of
+hyperparameters is devoted to minimizing this effect \cite{tetko1995neural}. Figure \ref{fig:overfitting}
+visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
 
 \begin{figure}[H]
    \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
@@ -1026,8 +1026,53 @@ gene-environment might have a significant influence leading to a model that does
 
 
 \section{Material}
-\subsection{DH populations derived from MAZE landraces}
+Two different data sets were used for the genomic prediction trials.
+A set of maze doubled-haploid (DH) populations, derived from MAZE landraces. And \textit{A. thaliana} data sets, with genomic data procured along the 1001 genomic project \cite{1001genome} and various phenotypic trials.
+
+
+\subsection{DH populations derived from maize  landraces}
+The DH populations were produced, propagated and phenotyped in the scope of the MAZE project phase I, funded
+by the Federal Ministry of Education and Research (BMBF) (Funding ID: 031B0195, project “MAZE”) as well as the
+KWS SAAT SE, by various project partners at the Technical University of Munich, University of Hohenheim and
+the KWS. A thorough description of the germplasm selection and phentyping was recently published by
+\cite{holker2019european}. \newline Modern maize cultivars are almost exclusively high-performing hybrids from
+two inbreed lines from different heterotic pools. Commonly hybrids are derived from the cross European Flint x
+American Dent \cite{dos2004priori}; \cite{brauner2019testcross}. Before hybrid breeding became the predominant
+method in maze breeding in the 1960s landraces were grown by farmers. Landraces are dynamic, open-pollinated,
+locally highly-adapted populations. That did not derive from modern breeding but from locally confined
+selection and adaption by farmers to often very specific needs \cite{arteaga2016genomic}. They hybrids grown
+today are derived from just a few landraces as founder lines, while the majority of landraces has been nearly
+forgotten. This and high intensity selection over many generation has led to a loss of genetic diversity
+$\sigma_G$ in modern maize culitvars. Therefore the landrace germplasm present a important, essential stock of
+genetic variability for continuous success in maize breeding. The utilization of those germplasms would be
+impossible without the invaluable work of institutions as the IPK Gartersleben whose goal as genebanks is to
+maintain and store genetic material for long time periods.  Of those landraces three, representing large
+phenotypic heterogentiy were chosen: (i) Kemater Landmais Gelb (KE, Austria), Petkused Ferdinand Rot (PE,
+Germany) and Lalin (LL, Spain). They represent 95 \% of the molecular variance if a set of
+35 landraces analyzed in a preceding project by \cite{mayer2017there}.\newline
+In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in vivo} haploid induction with an inducer line as described in \cite{roeber2005vivo}.
+
+
+\subsubsection{Genomic maize data}
+(The genomic data was provided by the TUM as described by \cite{holker2019european}!) \newline Genotyping was
+performed with the 600k Affymetrix\textsuperscript{\textregistered} Axiom\textsuperscript{\textregistered}
+Maize array \cite{unterseer2014powerful}. The markers were quality filters and missing values were imputed
+individually for each landrace population using Beagle 5.0 \cite{browning2007rapid}; \cite{browning2018one}. After LD pruning and futher
+quality control 29833 markers remained and 471 Kemater DHs and 403 PE DHs. LL was excluded from further
+analyses due to insufficient amounts of genotypes.
+
+\subsubsection{Phenotypic maze data}
+(The phenotype data was provided by the TUM ass described by \cite{holker2019european}!) \newline
+The traits were evaluated with lattice design in 7 different locations across Europe.
+Those traits were: Early Vigor (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till Silking (DtSILK)) and root lodging (RL).
+To account for GxE best linear unbiased estimators were calculated according to Henderson's model \cite{henderson1975best} and use for further prediction. 
+
+
 \subsection{A. thaliana}
+
+
+
+
 \section{Methods}
 \subsection{ANN}
 
