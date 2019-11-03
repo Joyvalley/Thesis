@@ -1079,7 +1079,7 @@ The genomic data was generated during the course of the 1001 genome project of \
 data for 1307 accessions with a overlap between those groups resulting in a total of 2029 genotyped
 accessions. With more than 10 mio. SNPs and Indels on the 5 chromosomes of e \textit{A. thaliana}. Imputation
 of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}.  For
-every one of the 164 phenotypes used subsets were sampled and LD pruned and MAF filtered.  LD pruning was
+every one of the 164 phenotypes used subsets were sampled and LD pruned and MAF filtered. LD pruning was
 executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$
 and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each phenotype.
 
@@ -1095,13 +1095,195 @@ for the ANNs and section\ref{blup:bayes} for the Bayesian methods and GBLUP. The
 explaining who those methods were adapted and implemented for the prediction of maize and \textit{Arabidopsis}
 traits.
 
+\subsubsection{CV} \label{cv}
+
 \subsection{ANN}
+The scripts for ANN based GS were written in python using the lower level API TensorFlow \cite{TF2016} and the
+higher level API Keras \cite{keras2015}. Both are very versatile, well-documented and are capable of
+performing a large variety of machine learning applications. For those reasons they are the most used ML
+libraries. Another advantage is that they work well on GPUs, which allows ML algorithms to run a reasonable
+amount of time compared to CPU-based calculations. Prior to training the data was split into TRN and TST. The
+markers of TRN served as the input layer for the network while the phenotypes were trained upon in the output
+layer, which in the present cases consisted of only one node, because GS in the cases applied here is a
+regression problem.  Preliminary trials showed Adam is the superior optimizer for GS and hence was the only
+one further used. Likewise relu was the activation of choice being superior to sigmoid or other non
+rectifiers. All the weights and the biases of the kernel were initialized with truncated normal distributed
+values. The loss function used was always MSE. \newline Having a few hyperparameters fixed, the other ones
+were optimized via grid search.  For each TRN multiple networks were trained to fine tune the input
+parameters. Those were the number of layers, the nodes per layer, the magnitude of the dropout, the type of
+dropout used, whether the first layer was locally-connected for fully-connected and the duration of training
+via the training epochs. This amount to a total of a little shy of 260000 trained networks for the 146
+\textit{A. thaliana} data sets alone. \newline After another set preliminary runs LCL as the first layer
+seamed to result in higher accuracies then FLC as the first layer and where henceforth exclusively used and
+applied with a stride length of 7. The stride length determines how many node of the input layer, in this case
+markers, where combined in the first hidden layer.  The type of drop out used (alpha dropout, Gaussian noise
+or normal dropout) did not show an effect therefore the normal dropout function was used.  The network
+training was iterated over the different number epochs, architecture, drop out values the the cross validation
+cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$ to $60$ in steps $5$
+and several 1, 2 or 3 Layer architectures following the locally-connected layer.
 
 
+ 
+ 
 
 \subsection{GBLUP}
 
+\cite{BGLR}
 
-
+\singlespacing
 \section{Results} \label{res:gp}
+\ref{AC:gp_res}
+\begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
+  \hline
+  Phenotype & GBLUP & ANN & Architecture & Epochs \\
+  \hline
+  YEL  & 0.9259 & 0.891 & 20, 10 & 20 \\
+  FT16 & 0.8237 & 0.8215 & 100 & 10 \\
+  2W & 0.8156 & \color{red}{0.8205} & 50, 30 & 35 \\
+  FT10 & 0.8249 & 0.8191 & 48 & 50 \\
+  LD & 0.8128 & \color{red}{0.8159} & 150 & 30 \\
+  DTF sweden 2009 (1st experiment) & 0.8063 & \color{red}{0.8141} & 48 & 30 \\
+  DTF sweden 2009 (2nd experiment) & 0.8035 & \color{red}{0.8091} & 50, 30 & 20 \\
+  DTF sweden 2008 (2nd experiment) & 0.7986 & \color{red}{0.8057} & 150 & 25 \\
+  4W & 0.795 & \color{red}{0.8052} & 50, 35, 15 & 30 \\
+  FT22 & 0.8009 & \color{red}{0.8043} & 150 & 15 \\
+  DTF spain 2008 (2nd experiment) & 0.7975 & \color{red}{0.8032} & 150 & 40 \\
+  LN16 & 0.7996 & \color{red}{0.7999} & 50, 30 & 20 \\
+  DTF spain 2009 (2nd experiment) & 0.7917 & \color{red}{0.7988} & 150 & 55 \\
+  LDV & 0.8158 & 0.7975 & 150 & 15 \\
+  0W GH FT & 0.7873 & \color{red}{0.7942} & 50, 30 & 15 \\
+  DTFmainEffect2009 & 0.7794 & \color{red}{0.7855} & 50, 35, 15 & 35 \\
+  SD & 0.7905 & 0.7848 & 48 & 30 \\
+  DTFplantingSummer2008 & 0.75 & \color{red}{0.7746} & 50, 30 & 20 \\
+  FT GH & 0.7693 & \color{red}{0.7702} & 50, 30 & 15 \\
+  DTFlocSweden2009 & 0.7595 & \color{red}{0.7626} & 50, 30 & 60 \\
+  DTFplantingSummer2009 & 0.7521 & \color{red}{0.7584} & 50, 30 & 50 \\
+  0W & 0.7488 & 0.7473 & 48 & 40 \\
+  DTF spain 2009 (1st experiment) & 0.7691 & 0.7425 & 48 & 40 \\
+  DTF sweden 2008 (1st experiment) & 0.727 & \color{red}{0.728} & 50, 30 & 20 \\
+  DTFlocSweden2008 & 0.7161 & \color{red}{0.7271} & 50, 30 & 55 \\
+  Seed Dormancy & 0.7014 & \color{red}{0.7241} & 50, 30 & 35 \\
+  DTFmainEffect2008 & 0.7102 & \color{red}{0.7142} & 50, 30 & 20 \\
+  8W & 0.7259 & 0.7083 & 150 & 50 \\
+  LN22 & 0.7004 & \color{red}{0.7069} & 50, 30 & 20 \\
+  Size sweden 2009 (1st experiment) & 0.6905 & \color{red}{0.6994} & 48 & 50 \\
+  LN10 & 0.6934 & \color{red}{0.698} & 50, 30 & 20 \\
+  DTF spain 2008 (1st experiment) & 0.6944 & 0.677 & 150 & 25 \\
+  SDV & 0.6775 & 0.6728 & 150 & 15 \\
+  8W GH FT & 0.7001 & 0.6546 & 48 & 40 \\
+  0W GH LN & 0.6568 & 0.654 & 50, 30 & 20 \\
+  Storage 7 days & 0.6496 & \color{red}{0.65} & 50, 30 & 25 \\
+  Storage 28 days & 0.6627 & 0.6483 & 50, 30 & 55 \\
+  8W GH LN & 0.671 & 0.6434 & 48 & 70 \\
+  Size sweden 2009 (2nd experiment) & 0.6114 & \color{red}{0.6268} & 48 & 50 \\
+  SizeLocSweden2009 & 0.6144 & \color{red}{0.619} & 150 & 35 \\
+  FLC & 0.6118 & \color{red}{0.6161} & 50, 30 & 30 \\
+  LFS GH & 0.6178 & 0.6136 & 150 & 35 \\
+  FT Field & 0.7324 & 0.6112 & 150 & 60 \\
+  LY  & 0.6072 & \color{red}{0.6088} & 150 & 60 \\
+  Storage 56 days & 0.6085 & 0.5788 & 150 & 15 \\
+  LES & 0.56 & \color{red}{0.5764} & 150 & 50 \\
+  M216T665 & 0.5155 & \color{red}{0.5674} & 50, 30 & 50 \\
+  LC Duration GH & 0.5799 & 0.5664 & 150 & 55 \\
+  M172T666 & 0.5165 & \color{red}{0.5487} & 150 & 60 \\
+  Trichome avg JA & 0.588 & 0.5343 & 150 & 55 \\
+  Secondary Dormancy & 0.5184 & \color{red}{0.5264} & 150 & 30 \\
+  SizeMainEffect2009 & 0.52 & 0.5171 & 48 & 50 \\
+  DSDS50 & 0.4754 & \color{red}{0.5006} & 50, 30 & 60 \\
+  avrPphB & 0.5054 & 0.4942 & 150 & 60 \\
+  Hypocotyl length & 0.4934 & 0.4807 & 150 & 50 \\
+  Size spain 2009 (1st experiment) & 0.5121 & 0.4751 & 150 & 50 \\
+  Yield spain 2009 (1st experiment) & 0.5205 & 0.4719 & 50, 30 & 50 \\
+  Leaf serr 10 & 0.4636 & \color{red}{0.4683} & 150 & 55 \\
+  Size spain 2009 (2nd experiment) & 0.471 & 0.4623 & 48 & 50 \\
+  Trichome avg C & 0.4617 & 0.4385 & 48 & 40 \\
+  Germ in dark & 0.4447 & 0.4382 & 150 & 15 \\
+  YieldMainEffect2009 & 0.505 & 0.4345 & 150 & 30 \\
+  FT Diameter Field & 0.5004 & 0.4274 & 150 & 15 \\
+  Bacterial titer & 0.5406 & 0.417 & 150 & 55 \\
+  FRI & 0.4011 & \color{red}{0.4119} & 48 & 30 \\
+  Rosette Erect 22 & 0.3973 & 0.3934 & 48 & 30 \\
+  Area sweden 2009 (1st experiment) & 0.4203 & 0.3895 & 50, 35, 15 & 30 \\
+  Width 10 & 0.3932 & 0.3784 & 50, 30 & 60 \\
+  Silique 22 & 0.4339 & 0.377 & 50, 30 & 50 \\
+  avrRpt2 & 0.3757 & 0.3737 & 50, 30 & 30 \\
+  M130T666 & 0.4381 & 0.3733 & 150 & 60 \\
+  SizePlantingSummer2009 & 0.3769 & 0.3615 & 150 & 5 \\
+  Area sweden 2009 (2nd experiment) & 0.359 & 0.3542 & 48 & 45 \\
+  FW  & 0.3397 & \color{red}{0.3522} & 50, 30 & 25 \\
+  P31 & 0.3632 & 0.3419 & 50, 30 & 45 \\
+  MT GH & 0.4016 & 0.3397 & 150 & 50 \\
+  avrB & 0.3304 & \color{red}{0.3384} & 50, 30 & 30 \\
+  avrRpm1 & 0.361 & 0.3368 & 50, 30 & 20 \\
+  Seed bank 133-91 & 0.3446 & 0.3334 & 150 & 5 \\
+  Mg25 & 0.5321 & 0.3288 & 50, 30 & 60 \\
+  Leaf roll 10 & 0.3558 & 0.3272 & 48 & 40 \\
+  Yield spain 2009 (2nd experiment) & 0.4184 & 0.3197 & 20, 10 & 40 \\
+  Noco2 & 0.3051 & \color{red}{0.3174} & 48 & 30 \\
+  Emwa1 & 0.3226 & 0.3124 & 50, 30 & 30 \\
+  FT Duration GH & 0.2659 & \color{red}{0.3123} & 48 & 5 \\
+  Leaf serr 22 & 0.3021 & \color{red}{0.3108} & 150 & 60 \\
+  Anthocyanin 10 & 0.3198 & 0.3107 & 50, 35, 15 & 60 \\
+  Cd114 & 0.3345 & 0.3069 & 50, 30 & 50 \\
+  Leaf serr 16 & 0.2895 & \color{red}{0.3011} & 48 & 40 \\
+  Fe56 & 0.2802 & \color{red}{0.3006} & 150 & 35 \\
+  YieldLocSweden2009 & 0.3431 & 0.2993 & 150 & 60 \\
+  Width 16 & 0.3463 & 0.2983 & 150 & 50 \\
+  Co59 & 0.2738 & \color{red}{0.2953} & 50, 35, 15 & 25 \\
+  K39 & 0.3036 & 0.2952 & 50, 30 & 60 \\
+  Leaf roll 16 & 0.3072 & 0.2886 & 150 & 15 \\
+  DTFplantingLoc2008 & 0.2971 & 0.275 & 50, 30 & 5 \\
+  SizePlantingSummerLocSweden2009 & 0.2803 & 0.2704 & 50, 30 & 60 \\
+  Mn55 & 0.2775 & 0.2662 & 50, 30 & 20 \\
+  Anthocyanin 22 & 0.2731 & 0.2635 & 150 & 15 \\
+  As75 & 0.254 & \color{red}{0.2619} & 50, 30 & 35 \\
+  Na23 & 0.2564 & \color{red}{0.2598} & 50, 30 & 15 \\
+  Ni60 & 0.2894 & 0.2539 & 150 & 25 \\
+  Mo98 & 0.2765 & 0.2537 & 50, 30 & 35 \\
+  Chlorosis 22 & 0.2622 & 0.2453 & 50, 35, 15 & 10 \\
+  Hiks1 & 0.2441 & \color{red}{0.2452} & 20, 10 & 20 \\
+  Zn66 & 0.2553 & 0.2444 & 150 & 35 \\
+  B11 & 0.2891 & 0.2392 & 48 & 40 \\
+  Germ 16 & 0.2987 & 0.2356 & 50, 30 & 41 \\
+  At2 & 0.2147 & \color{red}{0.216} & 150 & 15 \\
+  Emco5 & 0.166 & \color{red}{0.2101} & 150, 30 & 20 \\
+  Se82 & 0.2192 & 0.2075 & 150 & 25 \\
+  Mature cell length & 0.1987 & \color{red}{0.2052} & 150 & 45 \\
+  DW  & 0.2878 & 0.2048 & 50, 30 & 60 \\
+  Yield sweden 2009 (1st experiment) & 0.2274 & 0.2033 & 150 & 55 \\
+  As2 & 0.1774 & \color{red}{0.1962} & 150 & 15 \\
+  Meristem zone length & 0.1976 & 0.195 & 150 & 50 \\
+  Germ 10 & 0.2073 & 0.1873 & 20, 10 & 40 \\
+  Anthocyanin 16 & 0.2433 & 0.1867 & 20, 10 & 10 \\
+  Width 22 & 0.2224 & 0.1856 & 50, 30 & 50 \\
+  YieldPlantingSummerLocSweden2009 & 0.2146 & 0.18 & 150 & 55 \\
+  DTFplantingSummerLocSweden2009 & 0.2032 & 0.1775 & 150 & 55 \\
+  Bs & 0.2161 & 0.1656 & 50, 30 & 60 \\
+  Bs CFU2 & 0.1672 & 0.1584 & 50, 35, 15 & 15 \\
+  Germ 22 & 0.1267 & \color{red}{0.1533} & 50, 30 & 35 \\
+  Leaf roll 22 & 0.1135 & \color{red}{0.1511} & 48 & 45 \\
+  RP GH & 0.1755 & 0.1458 & 150 & 15 \\
+  Cu65 & 0.1543 & 0.1315 & 150 & 5 \\
+  Li7 & 0.1611 & 0.1297 & 150 & 60 \\
+  As & 0.1089 & \color{red}{0.1227} & 100 & 20 \\
+  At1 & 0.1473 & 0.1197 & 48 & 40 \\
+  S34 & 0.1045 & \color{red}{0.11} & 50, 30 & 60 \\
+  YieldPlantingSummer2009 & 0.1265 & 0.0984 & 150 & 50 \\
+  Silique 16 & 0.2366 & 0.0884 & 50, 30 & 60 \\
+  Chlorosis 10 & 0.0243 & \color{red}{0.088} & 50, 35, 15 & 55 \\
+  Ca43 & 0.3333 & 0.0732 & 50, 35, 15 & 55 \\
+  Seedling Growth & 0.0813 & 0.0636 & 48 & 30 \\
+  Vern Growth & -0.0096 & \color{red}{0.0422} & 150 & 15 \\
+  At2 CFU2 & 0.0694 & 0.0378 & 150 & 25 \\
+  Yield sweden 2009 (2nd experiment) & 0.0536 & 0.0355 & 150 & 25 \\
+  As CFU2 & 0.0312 & \color{red}{0.035} & 150 & 5 \\
+  At1 CFU2 & 0.0818 & 0.0319 & 50, 30 & 50 \\
+  Aphid number & -0.0246 & \color{red}{0.029} & 50, 35, 15 & 10 \\
+  After Vern Growth & -0.1433 & \color{red}{0.0057} & 50, 35, 15 & 5 \\
+  Chlorosis 16 & -0.0313 & \color{red}{-0.0121} & 150 & 5 \\
+  As2 CFU2 & 0.0504 & -0.0325 & 50, 30 & 60 \\
+\end{longtable}
+
+\doublespacing
+
 \section{Discussion}
