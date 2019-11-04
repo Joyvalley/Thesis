@@ -1054,15 +1054,15 @@ In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in viv
 
 
 \subsubsection{Genomic maize data}
-(The genomic data was provided by the TUM as described by \cite{holker2019european}!) \newline Genotyping was
+(The genomic data was provided by the TUM as described by \cite{holker2019european}) \newline Genotyping was
 performed with the 600k Affymetrix\textsuperscript{\textregistered} Axiom\textsuperscript{\textregistered}
 Maize array \cite{unterseer2014powerful}. The markers were quality filters and missing values were imputed
 individually for each landrace population using Beagle 5.0 \cite{browning2007rapid};
-\cite{browning2018one}. After LD pruning and further quality control 29833 markers remained and 471 Kemater DHs
+\cite{browning2018one}. After LD pruning and further quality control 29833 markers remained for 471 Kemater
 and 403 PE DHs. LL was excluded from further analyses due to insufficient amounts of genotypes.
 
 \subsubsection{Phenotypic maze data}
-(The phenotype data was provided by the TUM ass described by \cite{holker2019european}!) \newline The traits
+(The phenotype data was provided by the TUM as described by \cite{holker2019european}) \newline The traits
 were evaluated with lattice design in 7 different locations across Europe.  Those traits were: Early Vigor
 (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant
 height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till
@@ -1076,12 +1076,13 @@ according to Henderson's model \cite{henderson1975best} and use for further pred
 
 The genomic data was generated during the course of the 1001 genome project of \textit{A. thaliana}
 \cite{1001genome} producing completed sequenced and assembled genomes from 1035 genomes, along 600k marker
-data for 1307 accessions with a overlap between those groups resulting in a total of 2029 genotyped
+data for 1307 accessions with a small overlap between those groups resulting in a total of 2029 genotyped
 accessions. With more than 10 mio. SNPs and Indels on the 5 chromosomes of e \textit{A. thaliana}. Imputation
 of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}.  For
-every one of the 164 phenotypes used subsets were sampled and LD pruned and MAF filtered. LD pruning was
-executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$
-and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each phenotype.
+every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned and MAF filtered. LD
+pruning was executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD
+threshold of $0.65$ and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
+phenotype.
 
 \subsubsection{Phenotypic data}
 A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the according study
@@ -1128,10 +1129,13 @@ and several 1, 2 or 3 Layer architectures following the locally-connected layer.
 
 \subsection{GBLUP}
 
-\cite{BGLR}
+The evaluation of the genomic BLUP was performed with the R-package BGLR \cite{BGLR}. To allow pairwise
+comparison of the individual validation runs the same validation scheme as for the ANNs was used with the same
+TST and TRN sets. 
 
 \singlespacing
 \section{Results} \label{res:gp}
+\subsubsection{Results of \textit{A. thaliana} prediction}
 \ref{AC:gp_res}
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
   \hline
@@ -1282,8 +1286,57 @@ and several 1, 2 or 3 Layer architectures following the locally-connected layer.
   After Vern Growth & -0.1433 & \color{red}{0.0057} & 50, 35, 15 & 5 \\
   Chlorosis 16 & -0.0313 & \color{red}{-0.0121} & 150 & 5 \\
   As2 CFU2 & 0.0504 & -0.0325 & 50, 30 & 60 \\
+\bottomrule
 \end{longtable}
-
 \doublespacing
 
+
+
+\begin{figure}[H]
+ \centering \includegraphics[height=.59\textheight, width=1.0\textwidth]{ ann_vs_gblup} \decoRule
+\caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the methods}
+\label{fig:annblup}
+\end{figure}
+
+\subsection{Results of maize prediction}
+
+
+\begin{figure}[H]
+  \centering \includegraphics[height=.5\textheight, width=1.0\textwidth]{gp_kemater}
+  \decoRule
+\caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP }
+\label{fig:ke_ann}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \centering \includegraphics[height=.5\textheight, width=1.0\textwidth]{gp_petkuser}
+  \decoRule
+  \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
+\label{fig:pe_ann}
+\end{figure}
+
+
+
 \section{Discussion}
+
+\singlespacing
+\begin{table}[H]
+  \centering
+  \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN architectures resulting in highest prediction accuracies, with number of hidden layer (HL) and the total count (n)}
+  \begin{tabular}{cccc}
+  \toprule
+    LCL & Architecture & HL & n \\ 
+   \midrule
+    True &  150        & 2 &  56  \\ 
+    True &  50, 30     & 3 &  47  \\ 
+    True &  48         & 2 &  23  \\ 
+    True &  50, 35, 15 & 4 &  11  \\ 
+    True &  20, 10     & 3 &   5  \\ 
+    True &  100        & 2 &   2  \\ 
+    True &  150, 30    & 3 &   1  \\ 
+   \bottomrule
+\end{tabular}
+\end{table}
+\doublespacing

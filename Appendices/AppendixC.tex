@@ -5,9 +5,10 @@
 
 \label{AppendixC} % For referencing this appendix elsewhere, use \ref{AppendixA}
 
-\section{GP Scripts}
+\section{GP ANN}
 \begin{lstlisting}[language=Python]
-import os,sys,gc
+
+  import os,sys,gc
 import pandas as pd
 import numpy as np
 import timeit
@@ -181,10 +182,130 @@ for k in range(1,51):
     #config.gpu_options.per_process_gpu_memory_fraction = 0.1
     config.gpu_options.allow_growth = True
     set_session(tf.Session(config=config))
-  \end{lstlisting}
+\end{lstlisting}
 
-  \section{Results of GP} \label{AC:gp_res}
+\section{GBLUP script}
+\begin{lstlisting}[language=R]
+    geno_pred <- function(phenocsv,genocsv,cvfcsv,cvf=1,mod = "BRR",label,phe)
+{
+    my_phe <- phe
+    depends<- c("BGLR","doBy","doParallel",'R.utils',"BBmisc","dplyr")
+    foo <- sapply(depends,
+                  function(X){if(!suppressPackageStartupMessages(require(X,character.only = T))){install.packages(X)}})
+    foo <- sapply(depends,function(X){suppressPackageStartupMessages(library(X,character.only=TRUE))})
+    rm(foo)
+    
+        
+    maze <- read.csv(genocsv, row.names = 1)
+    phe <- read.csv(phenocsv, row.names = 1)
+    cvffolds <- read.csv(cvfcsv,row.names=1)
+    
+    X <- scale(maze)
+    y <- phe[[label]]
+    if(any(is.na(y))){
+        rms <- which(is.na(y))
+        y <- y[-rms]
+        X <- X[-rms,]
+    }
+    for(i in 1:50){
+        cvf = i
+        n=length(y)
+        seed <- sample(1:100,1)
+                                        #set.seed(seed)
+                                        #folds=sample(1:cvf,size=n,replace=T)
+        folds = cvffolds[,cvf]
+        yHatCV=rep(NA,n)
+        
+        for(i in 1:max(folds)){
+            cat("Predicting cv-fold ",i," of ", max(folds))
+            tst=which(folds==i)
+            yNA=y
+            yNA[tst]=NA
+            fm=BGLR(y=yNA,ETA=list(list(X=X,model=mod)),verbose =F ,nIter=7000,burnIn=1000)
+            yHatCV[tst]=fm$yHat[tst]
+            cat("   done\n")
+        }
+        
+        my_cor <- cor(yHatCV,y,use = "complete.obs")
+        print(c("Corrleation of GP", mod, my_cor))
+        filename = paste0(my_phe,"_gp_results.csv")
+        print(filename)
+        if(!any(dir() == filename)){
+            res <- matrix(ncol=8, nrow = 1) %>%
+                setColNames(c("geno","pheno","cv_folds","seed","label", "cor","method","nmark"))
+            res[1,] <- c(as.character(genocsv),as.character(phenocsv),as.character(cvf),as.character(seed),
+                         as.character(label),as.character(my_cor),as.character(mod),dim(X)[2])
+            print("#################")
+	    print(res)
+	    print("############")
+            write.csv(res,filename)
+        }else{
+            res <- read.csv(filename,row.names = 1)
+            for(i in 1:7){
+                res[,i] <- as.character(res[,i])
+            }
+            res[dim(res)[1]+1,] <- c(as.character(genocsv),phenocsv,cvf,seed,as.character(label),my_cor,mod,dim(X)[2])
+            write.csv(res,filename)
+        }
+    }
+    
+  }
+## execute this script with: Rscript ex.gblup.r -x genofile -y phenofile -c cv file
+source("~/PHD/Projects/gblup/bglr.r")
 
+
+my.args <- commandArgs(trailingOnly = TRUE)
+#my.args <- c("-x", "gent_geno.csv","-y" , "gent_pheno.csv")
+### set defaults 
+#cvf.name = NA
+
+## parsing the command line options 
+all.opts <- c("-x","-y","-label","-h","-cv","-phe")
+for(i in 1:length(my.args)){
+    if( i %% 2 == 1){
+        if(!my.args[i] %in%  all.opts){
+            cat("unknown option", my.args[i], "Use only", all.opts , "\n")
+            cat("use -h for help \n")
+            quit()
+        }
+    }    
+    if(my.args[i] == "-x"){
+        geno.name <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-y") {
+        pheno.name <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-label") {
+        my_ph <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-cv"){
+        cv.name = as.character(my.args[i+1])
+    } else if(my.args[i] == "-phe"){
+        my_phe <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-h") {
+        print(" This script takes as a minimum two intputs\n")
+        print(" -x genotypefile")
+        print(" -y phenotypefile ")
+        print(" -cv cross-valiadtion file : is optional if none is specified random 5 fold cv will be used")
+        print(" -JobID : specify column number to use in your cross validation file")
+        print(" -label : use header of phenotype file column you want to use")
+        quit()
+    }
+}
+
+
+#pheno.name <- my.args[1]
+#geno.name <- my.args[2]
+#cvf.name <- my.args[3]
+
+geno_pred(phenocsv = pheno.name,genocsv=geno.name, cvfcsv = cv.name, label=my_ph,mod = "BRR", phe =my_phe)
+
+
+
+\end{lstlisting}
+
+%$
+
+
+\section{Results of GP} \label{AC:gp_res}
+  
 \begin{figure}[H]
   \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_0}
   \decoRule

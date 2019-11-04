@@ -25,7 +25,7 @@ doublespacing, % Single line spacing, alternatives: onehalfspacing or dBoublespa
 %parskip, % Uncomment to add space between paragraphs
 %nohyperref, % Uncomment to not load the hyperref package
 headsepline, % Uncomment to get a line under the header
-chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
 % consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
 ]{MastersDoctoralThesis} % The class file specifyingthe document structure
 \usepackage[utf8]{inputenc} % Required for inputting international characters
@@ -49,14 +49,13 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \usepackage{xcolor}
 \usepackage{mathtools}
 \usepackage{longtable}
-
 \makeatletter
 \renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
   \let\@ifnextchar\new@ifnextchar
   \array{*\c@MaxMatrixCols #1}}
 \makeatother
 
-
+\pagenumbering{alph}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -87,13 +86,13 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 % -----------------------------------------------------------------------------
 
 \geometry{
-	paper=a4paper, % Change to letterpaper for US letter
-	inner=3cm, % Inner margin
-	outer=2.5cm, % Outer margin
-	bindingoffset=.5cm, % Binding offset
-	top=1.5cm, % Top margin
-	bottom=1.5cm, % Bottom margin
-	%showframe, % Uncomment to show how the type block is set on the page
+  paper=a4paper, % Change to letterpaper for US letter
+  inner=3cm, % Inner margin
+  outer=2.5cm, % Outer margin
+  bindingoffset=.5cm, % Binding offset
+  top=1.5cm, % Top margin
+  bottom=1.5cm, % Bottom margin
+  % showframe, % Uncomment to show how the type block is set on the page
 }
 %----------------------------------------------------------------------------------------
 %	THESIS INFORMATION
@@ -239,6 +238,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
  \textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface \\
  \textbf{GWAIS} & \textbf{G}enome \textbf{W}ide \textbf{I}nteraction \textbf{A}ssociation \textbf{S}tudies \\
  \textbf{GWAS} & \textbf{G}enome \textbf{W}ide \textbf{A}ssociation \textbf{S}tudies \\
+ \textbf{HL} & \textbf{H}idden \textbf{L}ayer \\
  \textbf{HDF} & \textbf{H}ierarchical \textbf{D}ata \textbf{F}ormat \\
  \textbf{HPC} & \textbf{H}igh \textbf{P}erformance \textbf{C}omputing \\ 
  \textbf{IR} & \textbf{I}nverted \textbf{R}epeat \\
@@ -296,10 +296,18 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \mainmatter % Begin numeric(1,2,3...) page numbering
 
-\pagestyle{thesis} % Return the page headers back to the "thesis" style2
 
+\pagestyle{thesis} % Return the page headers back to the "thesis" style2
 % Include the chapters of the thesis as separate files from the Chapters folder
 % uncomment the lines as yo write the chapters
+% \cfoot*{\pagemark}
+\clearscrheadfoot
+\ohead{\rightmark}
+\cfoot[\pagemark]{\pagemark}
+\providepairofpagestyles[thesisSimple]{thesis}{%
+	\automark*[section]{}%
+}
+
 
 \include{Chapters/Chapter1}
 \include{Chapters/Chapter2} 
