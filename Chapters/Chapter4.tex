@@ -1293,7 +1293,7 @@ TST and TRN sets.
 
 
 \begin{figure}[H]
- \centering \includegraphics[height=.59\textheight, width=1.0\textwidth]{ ann_vs_gblup} \decoRule
+ \centering\includegraphics[height=.59\textheight, width=1.0\textwidth]{ ann_vs_gblup} \decoRule
 \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the methods}
 \label{fig:annblup}
 \end{figure}
@@ -1302,7 +1302,7 @@ TST and TRN sets.
 
 
 \begin{figure}[H]
-  \centering \includegraphics[height=.5\textheight, width=1.0\textwidth]{gp_kemater}
+  \centering \includegraphics[angle=90,height=.95\textheight, width=1.0\textwidth]{gp_kemater}
   \decoRule
 \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP }
 \label{fig:ke_ann}
@@ -1311,17 +1311,38 @@ TST and TRN sets.
 
 
 \begin{figure}[H]
-  \centering \includegraphics[height=.5\textheight, width=1.0\textwidth]{gp_petkuser}
+  \centering \includegraphics[angle=90,height=.95\textheight, width=1.0\textwidth]{gp_petkuser}
   \decoRule
   \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
 \label{fig:pe_ann}
 \end{figure}
 
 
+\onehalfspacing
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc|cc}
+  \toprule
+  & \multicolumn{2}{c}{\textbf{Kemater}}  & \multicolumn{2}{c}{\textbf{Petkuser}} \\
+  Phenotype & GBLUP & ANN & GBLUP & ANN \\ 
+  \midrule
+  EV\_V3 & 0.44 & 0.46 & 0.31 & 0.25 \\ 
+  EV\_V4 & 0.47 & 0.49 & 0.31 & 0.25 \\ 
+  EV\_V6 & 0.43 & 0.44 & 0.38 & 0.33 \\ 
+  DtTAS & 0.47 & 0.44 &  &  \\ 
+  PH\_V4\_mean & 0.54 & 0.56 & 0.46 & 0.44 \\ 
+  PH\_V6\_mean & 0.53 & 0.56 & 0.51 & 0.48 \\ 
+  PH\_final & 0.69 & 0.70 & 0.68 & 0.67 \\ 
+  DtSILK & 0.57 & 0.53 & 0.54 & 0.52 \\ 
+  \bottomrule
+\end{tabular}
+\end{table}
+\doublespacing
+
 
 \section{Discussion}
 
-\singlespacing
+\onehalfspacing
 \begin{table}[H]
   \centering
   \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN architectures resulting in highest prediction accuracies, with number of hidden layer (HL) and the total count (n)}
