@@ -2,9 +2,6 @@
 
 \label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
-%----------------------------------------------------------------------------------------
-
-
 
 \section{Introduction}
 \subsection{A brief history of machine learning} \label{introml}
@@ -68,7 +65,7 @@ are often called multi-layer perceptrons (MLP). This architecture enables the ne
 calculations and result in more abstract decisions than single neurons or single layer architectures. There
 are also layers were neurons in the previous layer are only connected with neighboring neurons in the
 succeeding layers. Those are known as locally-connected layers (LCL) or related to them are convolutional
-layers which shared weights between selected neurons, building convolutional neural networks (CNN) \cite{lecun1999object} .
+layers which shared weights between selected neurons, building convolutional neural networks (CNN) \cite{lecun1999object}.
 
 \subsubsection{Activation functions}
 
@@ -1063,11 +1060,39 @@ and 403 PE DHs. LL was excluded from further analyses due to insufficient amount
 
 \subsubsection{Phenotypic maze data}
 (The phenotype data was provided by the TUM as described by \cite{holker2019european}) \newline The traits
-were evaluated with lattice design in 7 different locations across Europe.  Those traits were: Early Vigor
+were evaluated with lattice design in 6 different locations across Europe.  Those traits were: Early Vigor
 (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant
 height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till
 Silking (DtSILK)) and root lodging (RL).  To account for GxE best linear unbiased estimators were calculated
 according to Henderson's model \cite{henderson1975best} and use for further prediction.
+
+\subsubsection{Single environment prediction}
+Next to the across environment BLUEs used for prediction the single environment BLUEs were used for prediction
+to able to gain insights of the structure of $\sigma_{GxE}$ of the maize traits. This resulted in 2246
+genotype x environment combinations for Kemater and 1975 for Petkuser with at least one data point.  This
+number is lower than the maximum number of n DHs per populations times the 6 environments, because naturally
+not all genotypes yielded reliable data in the environments. Each DH x environment was treated as an
+individual in for the across environment prediction. The marker matrix was enhanced with the environmental
+origin as cofactors as show in table \ref{tab:envmarker} with one-hot encoded markers.
+
+\onehalfspacing
+\begin{table}[H]
+  \centering
+  \caption{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
+  \label{tab:envmarker}
+  \begin{tabular}{l|cccc}
+    \toprule
+           & M-1 & M-2 & E-1 & E-2 \\
+    \midrule
+    DH1-E1 & 0   & 1   & 1   & 0   \\
+    DH2-E1 & 1   & 0   & 1   & 0   \\
+    DH1-E2 & 0   & 1   & 0   & 1   \\
+    DH2-E2 & 1   & 0   & 0   & 1   \\                                           
+    \bottomrule
+  \end{tabular}
+\end{table}
+\doublespacing
+
 
 
 \subsection{A. thaliana}
@@ -1299,10 +1324,10 @@ TST and TRN sets.
 \end{figure}
 
 \subsection{Results of maize prediction}
-
+\subsubsection{Across environments}
 
 \begin{figure}[H]
-  \centering \includegraphics[angle=90,height=.95\textheight, width=1.0\textwidth]{gp_kemater}
+  \centering \includegraphics[angle=0,height=.49\textheight, width=1.1\textwidth]{gp_kemater}
   \decoRule
 \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP }
 \label{fig:ke_ann}
@@ -1311,7 +1336,7 @@ TST and TRN sets.
 
 
 \begin{figure}[H]
-  \centering \includegraphics[angle=90,height=.95\textheight, width=1.0\textwidth]{gp_petkuser}
+  \centering \includegraphics[angle=0,height=.495\textheight, width=1.1\textwidth]{gp_petkuser}
   \decoRule
   \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
 \label{fig:pe_ann}
@@ -1338,6 +1363,9 @@ TST and TRN sets.
 \end{tabular}
 \end{table}
 \doublespacing
+
+\subsubsection{Single environments}
+
 
 
 \section{Discussion}
