@@ -5,6 +5,22 @@
 \label{Chapter5} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 %----------------------------------------------------------------------------------------
+\section{Introduction}
+Chapter 2 or 3 introduced a new framework for high throughout GWAS. GWAS-Flow enables to execute GWAS analysis
+on GPU and thus gains an incredible performance advantage compared to other state of the art GWAS
+technologies. This enabled the research group of evolutionary genomics at the CCTB to evaluate 462 (oder so)
+data sets from Arapheno with the full 10 mio data set originally imputed with Beagle version 3.  Those GWAS
+have been repeated 100 times with shuffled phenotypes to estimate permutation based thresholds. Additionally
+all phenotypes were re-evaluated with a recently generated data set which based the imputation on the more
+recent Beagle version 5, which supposingly is more accurate (Pook et al). In the scope of this chapter it will
+be assessed if this does influence the outcome of the GWAS. Furthermore was GWAS-Flow used to evaluate some of
+the common practices in GWAS, that a prior do not seam relevant to the author. Sometimes yet uncommon in the
+literature it is recommend to use transformations for the pheonotypic values prior to performing GWAS to
+account for non-normal distributed data, transformations or calculated with the log, square root or
+boxcox. Another common practice is to use principal components from PCA to account for population
+structure. This however should be covered sufficiently by the K matrix which is part of basically any mixed
+linear model based GWAS approach.
+
 
 \section{Reevalulation of 463 phenotypes from the AraPheno database}
 
