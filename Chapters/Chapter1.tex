@@ -184,7 +184,7 @@ available. The simulation process is documented and the code and the data is ava
 Real data was selected from the SRA database table \ref{tab:sra_real} lists the search terms that had to be
 met according to the aforementioned search terms.
 
-
+\onehalfspacing
 \begin{table}[H]
 \caption{Data selection criteria for real data sets from SRA}
 \label{tab:sra_real}
@@ -203,6 +203,7 @@ met according to the aforementioned search terms.
   \hline                                         
 \end{tabular}
 \end{table}
+\doublespacing
 
 In total this resulted in 369 data sets representing a broad variety of the plant kingdom with many different
 families and genera included.
@@ -285,9 +286,10 @@ assemblers. For the fields with no entry the respective assembler failed to prov
 \caption{Scores of assemblies of simulated data}
 \label{tab:scores_simulated}
 \centering
-\resizebox{\textwidth}{!}{\begin{tabular}{rlrrrrrrr}
+%\resizebox{\textwidth}{!}{
+  \begin{tabular}{rlrrrrrrr}
  \hline
- & data set & CAP & CE & Fast-Plast & GetOrganelle & IOGA & NOVOPlasty & org.ASM \\ 
+ & data set & CAP & CE & FP & GP & IOGA & NP & oA \\ 
  \hline
  1 & sim\_150bp.0-1 & 79.10 & 100.00 & 99.48 & 100.00 & & 91.52 & 100.00 \\ 
  2 & sim\_150bp.0-1.2M & 79.10 & 100.00 & 99.72 & 100.00 & 79.10 & 91.52 & 91.50 \\ 
@@ -306,7 +308,7 @@ assemblers. For the fields with no entry the respective assembler failed to prov
  15 & sim\_250bp.1-1000 & 79.10 & 21.30 & 93.83 & 100.00 & 76.96 & 91.52 & 91.50 \\ 
  16 & sim\_250bp.1-1000.2M & 79.10 & 100.00 & 93.83 & 100.00 & 67.55 & 87.40 & 100.00 \\
  \hline
-\end{tabular}}
+\end{tabular}%}
 \end{table}
 
 
