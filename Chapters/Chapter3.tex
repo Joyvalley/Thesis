@@ -9,8 +9,9 @@
 
 The following chapter has been published in a similar version on the bio$\chi$iv preprint server
 \cite{Freudenthal_2019} and has been submitted for publication to Oxford Bioinformatics. The experiments and
-the software have been designed and conducted author. The manuscript has been prepared by the author, with
-minor corrections from Prof. Arthur Korte \& Dominik Grimm. All authors approved of the final manuscript.
+the software were designed and conducted by the author. The manuscript has been prepared by the author, with
+minor corrections from Prof. Arthur Korte \& Prof. Dominik Grimm. All authors approved of the final
+manuscript. 
 
 
 \section{Introduction}
@@ -75,6 +76,7 @@ Y = \beta_{0} + X_i\beta_i + u + \epsilon, u \sim N(0,\sigma_gK), \epsilon \sim 
 \label{eqn:LMM GWAS}
 \end{equation}
 
+\noindent
 From this LMM the residual sum of squares for marker i are calcucated as descirebed in \ref{eqn:RSS_GWAS}
 
 
@@ -83,16 +85,15 @@ RSS_{i} = \sum{Y - (X_{i}\beta_{0}  + I_{i}\beta_{1})}
 \label{eqn:RSS_GWAS}
 \end{equation}
 
-
-
-
 \noindent
 The residuals are used to calculate a p-value for each marker according to an overall F-test that compares the
 model including a distinct genetic effect to a model without this genetic effect:
+
 \begin{equation}
  F = \frac{RSS_{env} - R1_{full} }{\frac{R1_{full}}{n-3}}
  \label{F_test}
- \end{equation}
+\end{equation}
+
 \noindent
 Apart from the p-values that derive from the F-distribution, \texttt{GWAS-Flow} also report summary statistics, such as the estimated
 effect size ($\beta_i$) and its standard error for each marker.
@@ -130,33 +131,15 @@ ca. 10 million markers, filtered for a minor allele count greater five.
 
 The two main factors influencing the computational time for GWAS are the number of markers incorporated in
 such an analysis and the number of different accessions, while the latter has an approximate quadratic effect
-in classical GWAS implementations \cite{Zhou2012}. Figure 1A shows the time demand as a function of the
-number of accessions used in the analysis with 10,000 markers. The quadratic increase in time demand is
-clearly visible for the custom R implementation, as well as for the CPU-based \texttt{GWAS-Flow}
+in classical GWAS implementations \cite{Zhou2012}. Figure \ref{fig:time_accessions} shows the time demand as a
+function of the number of accessions used in the analysis with 10,000 markers. The quadratic increase in time
+demand is clearly visible for the custom R implementation, as well as for the CPU-based \texttt{GWAS-Flow}
 implementation and \textit{GEMMA}. The \texttt{GWAS-Flow} implementation and \textit{GEMMA} clearly
 outperforms the R implementation in general, while for a small number of accessions \texttt{GWAS-Flow} is
 slightly faster then \textit{GEMMA}. For the GPU-based implementation the increase in run-time with larger
 sample sizes is much less pronounced. While for small ($<$ 1,000 individuals) data, there is no benefit
 compared to running \texttt{GWAS-Flow} on CPUs or running \textit{GEMMA}, the GPU-version clearly outperforms
-the other implementations if the number of accessions increases. Figure 1B shows the computational time in
-relation to the number of markers and a fixed amount of 2000 accessions for the two different
-\texttt{GWAS-Flow} implementations. Here, a linear relationship is visible in both cases. To show the
-performance of \texttt{GWAS-Flow} not only for simulated data, we also run both implementations on more than
-200 different real datasets downloaded from the AraPheno database. Figure 1C shows the computational time
-demands for all analyses comparing both \texttt{GWAS-Flow} implementation to \textit{GEMMA}. Here, the
-CPU-based \texttt{GWAS-Flow} performs comparable to \textit{GEMMA}, while the GPU-based implementation
-outperforms both, if the number of accessions is above 500. Importantly all obtained GWAS results (p-values,
-beta estimates and standard errors of the beta estimates) are nearly (apart from some mathematical
-inaccuracies) identical between the three different implementations.
-
-\begin{figure}[th]
-\centering
-\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/time_markers_gwas}
-\decoRule
-\caption[Computation time vs number of markers]{Computational time as a function of the number of genetic markers with constantly 2000 accessions for both \texttt{GWAS-Flow} versions}
-\label{fig:time_marker}
-\end{figure}
-
+the other implementations if the number of accessions increases. 
 
 \begin{figure}[th]
 \centering
@@ -166,6 +149,23 @@ inaccuracies) identical between the three different implementations.
 \label{fig:time_accessions}
 \end{figure}
 
+Figure \ref{time:markers} shows the computational time in relation to the number of markers and a fixed amount
+of 2000 accessions for the two different \texttt{GWAS-Flow} implementations. Here, a linear relationship is
+visible in both cases. To show the performance of \texttt{GWAS-Flow} not only for simulated data, we also run
+both implementations on more than 200 different real datasets downloaded from the AraPheno database. Figure 1C
+shows the computational time demands for all analyses comparing both \texttt{GWAS-Flow} implementation to
+\textit{GEMMA}. Here, the CPU-based \texttt{GWAS-Flow} performs comparable to \textit{GEMMA}, while the
+GPU-based implementation outperforms both, if the number of accessions is above 500. Importantly all obtained
+GWAS results (p-values, beta estimates and standard errors of the beta estimates) are nearly (apart from some
+mathematical inaccuracies) identical between the three different implementations.
+
+\begin{figure}[th]
+\centering
+\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/time_markers_gwas}
+\decoRule
+\caption[Computation time vs number of markers]{Computational time as a function of the number of genetic markers with constantly 2000 accessions for both \texttt{GWAS-Flow} versions}
+\label{fig:time_marker}
+\end{figure}
 
 \section{Disucssion}
 

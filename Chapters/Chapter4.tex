@@ -7,10 +7,11 @@
 \subsection{A brief history of machine learning} \label{introml}
 \subsubsection{Basic perceptron model}
 
-While machine learning, neural networks, deep learning became essential tools for many applications in more
+While machine learning, neural networks and deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
-\ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, which was
-designed to mimic the information flow in biological nervous systems \cite{rosenblatt1961}.
+\ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, a founder of
+machine learning as it would be defined today,  which was designed to mimic the information flow in biological
+nervous systems \cite{rosenblatt1961}.
 
 \begin{figure}[th]
  \centering \includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png} \decoRule
@@ -21,8 +22,8 @@ designed to mimic the information flow in biological nervous systems \cite{rosen
 This basic perceptron, which contrary to perceptrons used nowadays does not have an embedded activation
 function, takes $n$ binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$
 after being processed by the perceptron or neuron. To achieve this Rosenblatt introduced the concept of
-weights which indicated a certain relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The
-output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $. If a certain
+weights, which indicated a certain input's relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The
+output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $ and iff a certain
 threshold value is met the neuron is either activated and outputs 1 or not activated resulting in and output
 of 0. This is algebraically represented in equation \ref{eqn:weights}:
 
@@ -34,21 +35,22 @@ of 0. This is algebraically represented in equation \ref{eqn:weights}:
  \label{eqn:weights}
 \end{subequations}
 
+\noindent
 Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation
-\ref{eqn:weights} which represents the activation threshold and per definition is a negative value. A single
-perceptron is a linear classifier and can only be trained on linearly separable functions and can used as
-shown by \cite{rosenblatt1961} to solve simple logical operations as AND, OR and not. The simple perceptron
-fails, due to non-linearity, to perform XOR operations as shown by \cite{marvin1969}. This discovery let to a
-near stillstance in the research of artificial neural networks in the 1970s. This time period is now often
-referred to as the first AI-winter. Another reason that massively hindered the applications and research of
-machine learning during that time, was the compared to
-modern times the incredibly small amount of computational power available \cite{nguyen1990truck}. \\
+\ref{eqn:weights} which represents the activation threshold and per definition is of negative value. A single
+perceptron is a linear classifier and can only be trained on linearly separable functions and can applied, as
+shown by \cite{rosenblatt1961}, to solve simple logical operations as AND, OR and NOT. The simple perceptron
+fails, however, due to non-linearity, to perform XOR operations, proven by \cite{marvin1969}. This discovery
+let to a near stillstance in the research of artificial neural networks in the 1970s. This time period is now
+often referred to as the first AI-winter. Another reason that massively hindered the applications and research
+of machine learning during that span was the, compared to
+modern times, incredibly small amount of computational power available \cite{nguyen1990truck}. \\
 More complex decision making, like solving XOR problems, requires more complex structures than a single
-perceptron. Continuing the trend of mimicking human neural networks, multiple artificial neurons are stacked
-into layers and these layers, are connected to each other allowing communication between the many perceptrons
-in a such generated network. Figure \ref{fig:nn} shows schematically the basic structure of such a network,
+perceptron. Continuing the trend of mimicking human neural networks, multiple artificial neurons were stacked
+into layers and these layers were connected to each other allowing communication between the many perceptrons
+in such a network. Figure \ref{fig:nn} shows schematically the basic structure of an artificial neural network,
 now harboring three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii) one output
-layer, which in this case only consists of one neuron.
+layer, which in this case only consists of one only neuron.
 
 \begin{figure}[H]
 \centering
@@ -1121,7 +1123,14 @@ for the ANNs and section\ref{blup:bayes} for the Bayesian methods and GBLUP. The
 explaining who those methods were adapted and implemented for the prediction of maize and \textit{Arabidopsis}
 traits.
 
-\subsubsection{CV} \label{cv}
+\subsection{Validation scheme} \label{cv}
+
+The validation approach in this study was a little different than common 5 fold cross validation. All
+predictions were run 50 times with different splits of TST and TRN. For the full data set randomly 20\% were
+assigned to TST and 80\% to TST. This process was repeated 50 times, reducing the chance of biases due to any
+TST-TRN combination being randomly more predictable for on or the other method. The validation scheme was
+generated \textit{a priori} and stored in cross-validation files to allow reusing the validation sets.
+
 
 \subsection{ANN}
 The scripts for ANN based GS were written in python using the lower level API TensorFlow \cite{TF2016} and the
@@ -1148,15 +1157,14 @@ training was iterated over the different number epochs, architecture, drop out v
 cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$ to $60$ in steps $5$
 and several 1, 2 or 3 Layer architectures following the locally-connected layer.
 
-
- 
- 
-
 \subsection{GBLUP}
 
 The evaluation of the genomic BLUP was performed with the R-package BGLR \cite{BGLR}. To allow pairwise
 comparison of the individual validation runs the same validation scheme as for the ANNs was used with the same
 TST and TRN sets. 
+
+
+
 
 \singlespacing
 \section{Results} \label{res:gp}
