@@ -1165,7 +1165,6 @@ TST and TRN sets.
 
 
 
-
 \singlespacing
 \section{Results} \label{res:gp}
 \subsubsection{Results of \textit{A. thaliana} prediction}
@@ -1341,8 +1340,6 @@ TST and TRN sets.
 \label{fig:ke_ann}
 \end{figure}
 
-
-
 \begin{figure}[H]
   \centering \includegraphics[angle=0,height=.495\textheight, width=1.1\textwidth]{gp_petkuser}
   \decoRule
@@ -1374,7 +1371,33 @@ TST and TRN sets.
 
 \subsubsection{Single environments}
 
+\begin{figure}[H]
+  \centering \includegraphics[angle=0,height=.695\textheight, width=1.1\textwidth]{SL_pred}
+  \decoRule
+  \caption[Results of genomic prediction across single environments for Kemater and Petkuser DH populations]{Results of genomic prediction across single environments for \textbf{A} Kemater  and \textbf{B} Petkuser DH populations}
+\label{fig:sl_pred}
+\end{figure}
 
+\onehalfspacing
+\begin{table}[H]
+  \centering
+  \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL)  and across locations (AL) for Kemater and Petkuser}
+  \begin{tabular}{lrr|rr}
+    \toprule
+    & \multicolumn{2}{c}{\textbf{Kemater}}  & \multicolumn{2}{c}{\textbf{Petkuser}} \\
+    Phenotype & AL   & WL   & AL    & WL \\ 
+    \midrule
+    EV\_V3    & 0.73 & 0.46 & 0.72 & 0.25 \\ 
+    EV\_V4    & 0.72 & 0.49 & 0.65 & 0.25 \\ 
+    EV\_V6    & 0.70 & 0.44 & 0.65 & 0.33 \\ 
+    PH\_V4    & 0.84 & 0.56 & 0.84 & 0.44 \\ 
+    PH\_V6    & 0.80 & 0.56 & 0.80 & 0.48 \\ 
+    PH\_final & 0.78 & 0.70 & 0.76 & 0.67 \\ 
+    DtSILK    & 0.76 & 0.53 & 0.77 & 0.52 \\ 
+    \bottomrule
+  \end{tabular}
+\end{table}
+\doublespacing
 
 \section{Discussion}
 
