@@ -86,7 +86,7 @@ to their inputs \cite{vzilinskas2006practical}.
  \textbf{B} Identity activation function.
  \textbf{C} Sigmoid or logistic activation function.
  \textbf{D} tangens hyperbolicus activation function.
- \textbf{E} rectified linear units activation function .
+ \textbf{E} rectified linear units activation function.
  \textbf{F} SoftPlus activation function.}
 \label{fig:activation}
 \end{figure}
@@ -551,7 +551,7 @@ Like the early breeders modern breeders of to determine the selection threshold 
 \label{eqn:S}
 \end{equation}
 
-which in the case of normal distributed data as depicted in figure \ref{trunSel} can be expressed as:
+which in the case of normal distributed data as depicted in figure \ref{fig:trunSel} can be expressed as:
 
 \begin{equation}
 S = \varphi (\frac{T - \mu}{\sigma}) \frac{\sigma}{p}
@@ -585,7 +585,7 @@ prediction. \newline (i) The prediction accuracy, which is usually smaller than 
 different prediction equations and an increase in the accuracy will lead to an proportional increase in $R$
 the gain per generation cycle. For this reasons since 2001 in quantitative genetics one very active field of
 research was and still is to find new algorithms that are superior to others as presented in the next chapter
-(\ref{blup:bayes}.  As later evaluated on more than 150 phenotypes in chapter \ref{gp:res} $h^2$ is always
+(\ref{blup:bayes}.  As later evaluated on more than 150 phenotypes in chapter \ref{gpdis} $h^2$ is always
 larger than $r_{uA}$.  Which if it was the only variable factor in equation \ref{eqn:Breeders} make genomic
 selection inferior to phenotypic selection. Which from a certain point of view it is. Phenotypic trials are
 better approximation for phenotypic appearance as GEBVs. However as the cost of genotyping have decreased
@@ -647,9 +647,9 @@ Y = X \beta  +  Zu + \varepsilon
 \end{equation}
 
 where $Y$ is and $nx1$ vector of phenotypic observations, $X$ the matrix of the fixed effects and $\beta$ the
-vector of the fixed effects. $Z$ the incidence matrix for the combined marker effects and $u$ a $(nx1)$ vector
+vector of the fixed effects. $Z$ the incidence matrix for the combined marker effects and $u$ a $(n\; x\; 1)$ vector
 of the additive genetic effect the vector of the residuals $\varepsilon$.  To construct the model lets assume
-a matrix of size $(n x m)$ with $n$ individuals and $m$ loci $M$ containing marker information for 3
+a matrix of size $(n\; x\; m)$ with $n$ individuals and $m$ loci $M$ containing marker information for 3
 individuals on 4 loci, thus being of size $3x4$. The 4 markers of matrix \ref{arr:M} can take values of $-1$,
 $0$ and $1$ translating into minor allele, heterozygous locus and major allele. The following example
 calculation has been adapted from \cite{isik2013}.
@@ -664,7 +664,7 @@ calculation has been adapted from \cite{isik2013}.
   \label{arr:M}
 \end{equation}
 
-The $M$ matrix contains all the information that is necessary for the computation of the K matrix and other viable genetic parameters. The $MM'$ matrix of size $n x n$ (\ref{MM'}) bears additional parameters.
+The $M$ matrix contains all the information that is necessary for the computation of the K matrix and other viable genetic parameters. The $MM'$ matrix of size $n\; x\; n$ (\ref{arr:MM'}) bears additional parameters.
 
 \begin{equation}
   MM' = 
@@ -755,7 +755,7 @@ common today (personal observation).
 
 where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for the $j^{th}$ individual at the
 $i^th$ locus. Another method also proposed by \cite{yang2010common} is to adjust $G_{UAR}$ with $\beta$ as in
-equation \ref{uaradj}
+equation \ref{eqn:uaradj}
 
 \begin{equation}
   G_{UARadj} = \left\{
@@ -1399,7 +1399,7 @@ TST and TRN sets.
 \end{table}
 \doublespacing
 
-\section{Discussion}
+\section{Discussion}\label{gpdis}
 
 \onehalfspacing
 \begin{table}[H]

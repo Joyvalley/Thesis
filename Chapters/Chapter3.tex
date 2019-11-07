@@ -141,7 +141,7 @@ sample sizes is much less pronounced. While for small ($<$ 1,000 individuals) da
 compared to running \texttt{GWAS-Flow} on CPUs or running \textit{GEMMA}, the GPU-version clearly outperforms
 the other implementations if the number of accessions increases. 
 
-\begin{figure}[th]
+\begin{figure}[H]
 \centering
 \includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/comp_time_gwas}
 \decoRule
@@ -149,7 +149,7 @@ the other implementations if the number of accessions increases.
 \label{fig:time_accessions}
 \end{figure}
 
-Figure \ref{time:markers} shows the computational time in relation to the number of markers and a fixed amount
+Figure \ref{fig:time_marker} shows the computational time in relation to the number of markers and a fixed amount
 of 2000 accessions for the two different \texttt{GWAS-Flow} implementations. Here, a linear relationship is
 visible in both cases. To show the performance of \texttt{GWAS-Flow} not only for simulated data, we also run
 both implementations on more than 200 different real datasets downloaded from the AraPheno database. Figure 1C
@@ -159,7 +159,7 @@ GPU-based implementation outperforms both, if the number of accessions is above 
 GWAS results (p-values, beta estimates and standard errors of the beta estimates) are nearly (apart from some
 mathematical inaccuracies) identical between the three different implementations.
 
-\begin{figure}[th]
+\begin{figure}[H]
 \centering
 \includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/time_markers_gwas}
 \decoRule
@@ -167,7 +167,7 @@ mathematical inaccuracies) identical between the three different implementations
 \label{fig:time_marker}
 \end{figure}
 
-\section{Disucssion}
+\section{Discussion}
 
 We made use of recent developments of computational architecture and software to cope with the increasing
 computational demand in analyzing large GWAS datasets. With \texttt{GWAS-Flow} we implemented both, a CPU- and
@@ -197,7 +197,7 @@ test the full pairwise interaction matrix of all SNPs. Although this might be a 
 would be computationally feasible.
 
 
-\begin{figure}[th]
+\begin{figure}[H]
  \centering \includegraphics[height=.6\textheight, width=1.1\textwidth]{Figures/gwas_real_data} \decoRule
  \caption[Computational time of GWA Analyses on real \textit{A. thaliana} data sets]{Comparison of the
   computational time for the analyses of $>$ 200 phenotypes from \textit{Arabidopsis thaliana} as a function
