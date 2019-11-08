@@ -10,7 +10,7 @@
 While machine learning, neural networks and deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
 \ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, a founder of
-machine learning as it would be defined today,  which was designed to mimic the information flow in biological
+machine learning as it would be defined today, which was designed to mimic the information flow in biological
 nervous systems \cite{rosenblatt1961}.
 
 \begin{figure}[th]
@@ -29,8 +29,8 @@ of 0. This is algebraically represented in equation \ref{eqn:weights}:
 
 \begin{subequations}
  \begin{align}
-   0 = \mbox{if } \sum_i^n w_j x_i - \theta \leq 0 \\
-   1 = \mbox{if } \sum_i^n w_i x_i - \theta > 0
+  0 = \mbox{if } \sum_i^n w_j x_i - \theta \leq 0 \\
+  1 = \mbox{if } \sum_i^n w_i x_i - \theta > 0
  \end{align}
  \label{eqn:weights}
 \end{subequations}
@@ -96,7 +96,7 @@ Figure \ref{fig:activation} shows six of the most commonly used activation funct
 equation \ref{eqn:binary}, which properties have been discussed along the perceptron model. All other
 activation produce continuous outputs from any given input. Any mathematical function can serve as
 an activation function in neural nets, starting with a simple identity function \ref{eqn:ident} ,
-\ref{fig:activation} \textbf{B}.  The sigmoid functions \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}
+\ref{fig:activation} \textbf{B}. The sigmoid functions \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}
 and tanh figure \ref{fig:activation} \textbf{D}, equation \ref{eqn:tanh}, when $x \rightarrow \infty$ or
 $x \rightarrow -\infty$ they have similar properties to the binary function, but produce continuous output
 around 0.
@@ -104,8 +104,8 @@ around 0.
 \begin{equation}
  f(x)= \sigma(x) = \left\{
  \begin{array}{ll}
-  0 \; for \; x < 0 \\ 
-  1 \; for \; x \geq 0
+ 0 \; for \; x < 0 \\ 
+ 1 \; for \; x \geq 0
  \end{array}
 \right .
 \label{eqn:binary}
@@ -115,7 +115,7 @@ around 0.
  f(x) = \sigma(x) = x
  \label{eqn:ident}
 \end{equation}
-       
+    
 \begin{equation}
  f(x) = \sigma(x) = \frac{1}{1+e^{-x}} 
  \label{eqn:sigmoid}
@@ -127,17 +127,17 @@ around 0.
 \end{equation}
 
 \begin{equation}
-  f(x)= \sigma(x) = \left\{
+ f(x)= \sigma(x) = \left\{
  \begin{array}{ll}
-  0 \; for \; x < 0 \\ 
-  x \; for \; x \geq 0
+ 0 \; for \; x < 0 \\ 
+ x \; for \; x \geq 0
  \end{array}
 \right .
 \label{eqn:relu}
 \end{equation}
 
 \begin{equation}
-  f(x) = ln(1+e^x)
+ f(x) = ln(1+e^x)
  \label{eqn:softplus}
 \end{equation}
 
@@ -175,7 +175,7 @@ predicted and the real values. The same function can be rewritten with the previ
 weights and biases in equation \ref{eqn:MSE}.
 
 \begin{equation}
-  L(w,b) =  \frac{1}{2n} \sum_x \| y(x) - \widetilde{y}\|^2.
+ L(w,b) = \frac{1}{2n} \sum_x \| y(x) - \widetilde{y}\|^2.
  \label{eqn:MSE2}
 \end{equation}
 
@@ -184,14 +184,14 @@ function $y(x)$. Giving the quadratic nature of the function the $L(w,b)$ will a
 $L(w,b) \rightarrow 0$ the loss is minimal, meaning that the real and predicted values are close together and
 the network found weights and biases that explain the output well. \\
 A widely used function to find the optimum for such a loss function is gradient descent. Its objective is to
-fine the minimum for the loss function \cite{bottou1991stochastic}.  The behind gradient descent or other
+fine the minimum for the loss function \cite{bottou1991stochastic}. The behind gradient descent or other
 optimizing algorithms is start with randomly initialized weights and biases and repeatedly move them in
 direction $\Delta w$ and $\Delta b$. This results in a change of the loss function as shown in equation
 \ref{eqn:deltaL}, making use of partial derivatives.
 
 \begin{equation}
  \Delta L = \frac{\partial L}{\partial w} \Delta w + \frac{\partial L}{\partial b} \Delta b
-\label{eqn:deltaL}  
+\label{eqn:deltaL} 
 \end{equation}
 
 Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a
@@ -243,8 +243,8 @@ training epoch.
 
 \begin{subequations}
  \begin{align}
-   w = w_i - \eta \frac{\partial}{\partial w}L(w) \\
-   b = b_i - \eta \frac{\partial}{\partial b}L(b) \\
+  w = w_i - \eta \frac{\partial}{\partial w}L(w) \\
+  b = b_i - \eta \frac{\partial}{\partial b}L(b) \\
  \end{align}
  \label{eqn:gdwb}
 \end{subequations}
@@ -252,8 +252,8 @@ training epoch.
 Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb} a simplifies to:
 
 \begin{equation}
-  w = w_i - \eta  \nabla L
-  \label{eqn:simplegd}  
+ w = w_i - \eta \nabla L
+ \label{eqn:simplegd} 
 \end{equation}
 
 \subsubsection{Optimizers}
@@ -263,7 +263,7 @@ extensions of the basic gradient descent algorithm (GD) shown in \ref{eqn:gdwb}.
 descent is that if the data sets grow larger, the demand in memory for computation increases
 exponentially. Taking into consideration machine learning is a popular method ind big data applications this
 is a serious drawback. Methods to overcome that are stochastic gradient descent and mini-batch gradient
-descent.  The idea behind the latter is to randomly divide the entity of the training data in sub-samples
+descent. The idea behind the latter is to randomly divide the entity of the training data in sub-samples
 called mini-batches \cite{bottou-bousquet-2008}. The network is then trained iteratively over the mini
 batches. The batch size influences the accuracy and the training speed and is another hyperparameter which has
 to be tuned. If the batch size is 1 mini batch GD is also referred to as stochastical gradient descent (SGD).
@@ -275,28 +275,28 @@ gradient of the previous step in the calculation of the current step. This conce
 \cite{polyak1964} and re-popularized alongside backpropagation learning by \cite{rumelhart1988learning}.
 
 \begin{equation}
-  w = w_i - \eta \nabla L + \alpha \Delta w
-  \label{eqn:momentum}
+ w = w_i - \eta \nabla L + \alpha \Delta w
+ \label{eqn:momentum}
 \end{equation}
 
 Equation \ref{eqn:momentum} shows how the momentum is mathematically represented in GD to update the weights
 $w$ or likewise the biases the delta of the weights multiplied by the coefficient $\alpha$ - the momentum,
 which usually ranges from 0.1 to 0.9 and is another parameter to tuned for successful training. If the
 momentum is two small the GD will not be able to overcome local minima and if $\alpha$ is two large the loss
-functions tends to oscillate without finding an optimum \cite{lecun2015deep}.  For both of the momentum and
+functions tends to oscillate without finding an optimum \cite{lecun2015deep}. For both of the momentum and
 the learning rate it is impractical to remain on the same level during all training epochs. Because after each
 epoch the loss function is either closer or further away from its global minima and depending on the distance
 to that minimum it is desirable to have larger or smaller learning rates and momenta. This can be achieved
 with naive approaches for example using a step function to gradually decrease those values after each
-iteration, or to utilize algorithmic approaches \cite{michie1994machine}.  There is a large variety of
+iteration, or to utilize algorithmic approaches \cite{michie1994machine}. There is a large variety of
 optimizers trying to find optimal values for $\alpha$ and $\eta$ and till today this field is under active
 research \cite{goodfellow2016deep}. Popular among those are: RMSprop \cite{hinton2012neural}; Nesterov
 momentum \cite{dozat2016incorporating}; Adadelta \cite{zeiler2012adadelta}; Adagrad \cite{ruder2016overview}
-and Adam \cite{kingma2014adam}. With Adam being the most widely used optimizer today.  Nesterov momentum is
+and Adam \cite{kingma2014adam}. With Adam being the most widely used optimizer today. Nesterov momentum is
 slight change to the
 normal momentum capable of having huge impacts in practical applications, because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
 RMSProp - root mean square propagation - is a method aiming to adapt the learning rate algorithmically, by
-choosing $\eta$ for each parameter.  And lastly the wide-spread Adam optimizer combines both of the features
+choosing $\eta$ for each parameter. And lastly the wide-spread Adam optimizer combines both of the features
 of momentum and RMSProp and adapts the learning rate as well as the momentum iteratively
 \cite{kingma2014adam}.
 
@@ -321,30 +321,30 @@ hyperparameters is devoted to minimizing this effect \cite{tetko1995neural}. Fig
 visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
 
 \begin{figure}[H]
-   \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
-   \caption[Training vs. validation loss over time]{Learning curves showing how a loss function changes during training
-     in the loss and validation data set. While the training loss approaches 0 the validation loss starts increasing
-     after hitting a minimum. This effect is due to overfitting on the training data set. Figure from
-     \cite{goodfellow2016deep}.}
+  \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
+  \caption[Training vs. validation loss over time]{Learning curves showing how a loss function changes during training
+   in the loss and validation data set. While the training loss approaches 0 the validation loss starts increasing
+   after hitting a minimum. This effect is due to overfitting on the training data set. Figure from
+   \cite{goodfellow2016deep}.}
  \label{fig:overfitting}
 \end{figure}
 
 \textbf{Cross-validation} \\
 
 A method that is used in basically every training of neural network is splitting up the data sets in multiple
-sub-sets.  More specifically a training set (TRN) and a testing set (TST). The training set is used to
+sub-sets. More specifically a training set (TRN) and a testing set (TST). The training set is used to
 minimize the loss functions and its success is evaluated on the TRN set, by comparing the predicted values
-$\hat{y}$ with the real values in TST $y$.  For all neural nets in this study person's correlation coefficient
+$\hat{y}$ with the real values in TST $y$. For all neural nets in this study person's correlation coefficient
 was chosen as performance metric, as in equation \ref{eqn:pearson} \cite{soper1917distribution}.
 
 \begin{equation}
-\rho(y,\hat{y})  =  \frac{cov(y,\hat{y})}{  \sigma_y \sigma_{\hat{y}}}
-  \label{eqn:pearson}
+\rho(y,\hat{y}) = \frac{cov(y,\hat{y})}{ \sigma_y \sigma_{\hat{y}}}
+ \label{eqn:pearson}
 \end{equation}
 
 There are other popular performance metrics, especially for classification problems, like AUC (area under the
 curve) and ROC (receiver operating characteristics), which basically evaluate by weighing sensitivity and
-specificity.  In cross-validation compared to single validation the initial data set is split into TRN and TST
+specificity. In cross-validation compared to single validation the initial data set is split into TRN and TST
 multiple times e.g. if the ratio is 80:20 5 times, and each TRN-TST pair is evaluated individually. Sometimes
 it becomes necessary to use a third subset - the validation data. Because hyperparameter tuning is performed
 with the TRN and TST sets, a third portion of the data needs to be assessed to check whether the neural
@@ -365,7 +365,7 @@ genome. Therefore resulting in traits following certain gradual statistical dist
 binned in classes or even binary. Intuitively this might be contradicting with the foundation of modern
 Genetics - Mendel's three laws. That where derived from observations with where mainly influenced by one
 locus. But staying with one of Mendel's examples the round or wrinkled surfaces of peas \textit{Pisum
-  sativum}, an assessment of a couple of thousands peas, would most likely inevitably lead to the conclusion
+ sativum}, an assessment of a couple of thousands peas, would most likely inevitably lead to the conclusion
 that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those is possible and
 observable. Mendel's third law of independent segregation also only holds true under certain assumptions. The
 most simplest one being that the traits under investigation have to be located on different linkage
@@ -406,15 +406,15 @@ distribution of trait values in a given population can be expressed as the addit
 genetic and the environmental effects \ref{eqn:PGE}.
 
 \begin{equation}
-  \sigma_{P} = \sigma_{G} + \sigma_{E}
-  \label{eqn:PGE}
+ \sigma_{P} = \sigma_{G} + \sigma_{E}
+ \label{eqn:PGE}
 \end{equation}
 
 The genomic and the environmental effects not only influence the phenotypic variance directly, but the
 environment also has an influence on gene expression methylation of DNA bases etc. and therefore the equation
 \ref{eqn:PGE} needs to be extend by the variance of the gene-environment interactions $\sigma_{GxE}$
 \ref{eqn:PGGE} , \cite{lynch1998}, \cite{walsh2018}.
-        
+    
 \begin{equation}
  \sigma_{P} = \sigma_{G} + \sigma_{E} + \sigma_{GxE}
  \label{eqn:PGGE}
@@ -425,8 +425,8 @@ genetic architectures of traits the genetic variance needs to be decomposed furt
 and epistatic components \ref{eqn:GAD}
 
 \begin{equation}
-  \sigma_{G} = \sigma_{A} + \sigma_{D} + \sigma_{I}
-  \label{eqn:GAD}
+ \sigma_{G} = \sigma_{A} + \sigma_{D} + \sigma_{I}
+ \label{eqn:GAD}
 \end{equation}
 
 The additive effects are caused by single, for this model mostly homozygous, loci while the variance caused by
@@ -441,7 +441,7 @@ represented in equation \ref{eqn:IAA}.
 
 
 \begin{equation}
-  \sigma_{I} = \sigma_{AxA} + \sigma_{DxD} + \sigma_{AxD}
+ \sigma_{I} = \sigma_{AxA} + \sigma_{DxD} + \sigma_{AxD}
  \label{eqn:IAA}
 \end{equation}
 
@@ -481,7 +481,7 @@ Genomic prediction has been applied to almost all relevant crop and model specie
 \cite{li2012applied}; \cite{annicchiarico2015accuracy}; \cite{li2015genomical}; \cite{biazzi2017genome};
 \cite{hawkins2018recent}. Barley \cite{neyhart2019}; \cite{oakey2016}; \cite{zhong2009factors}. Cassava
 (\textit{Manihot esculenta}) \cite{elias2018}; \cite{elias2018improving}. Cauliflower (\textit{Brassica
-  olearacea spp}) \cite{thorwarth2018genomic}. Cotton (\textit{Gossiypium spp.}) \cite{gapare2018}. Maze
+ olearacea spp}) \cite{thorwarth2018genomic}. Cotton (\textit{Gossiypium spp.}) \cite{gapare2018}. Maze
 (\textit{Zea mays}) \cite{moeinizade2019}; \cite{allier2019usefulness}; \cite{brauner2018genomic};
 \cite{schrag2018beyond}; \cite{schopp2017genomic}; \cite{e2017genomic}; \cite{schopp2017accuracy};
 \cite{kadam2016genomic}; \cite{bustos2016improvement}; \cite{montesinos2015threshold};
@@ -493,7 +493,7 @@ Genomic prediction has been applied to almost all relevant crop and model specie
 \cite{qian2014sub}. Rice (\textit{Oryza sativa}) \cite{Momen2019}; \cite{BenHassen2018}; \cite{Xu2013rice};
 \cite{Grenier2015}. Rye (\textit{Secale cerale}) \cite{auinger2016model}; \cite{bernal2014importance};
 \cite{wang2014accuracy}; \cite{bernal2017genomic}; \cite{marulanda2016optimum}. Sugar beet (\textit{Beta
-  vulgaris}),\cite{wurschum2013genomic}; \cite{biscarini2014genome}.  Sugar cane (\textit{Saccharum officinarum})
+ vulgaris}),\cite{wurschum2013genomic}; \cite{biscarini2014genome}. Sugar cane (\textit{Saccharum officinarum})
 \cite{gouy2013experimental} Soybean (\textit{Glycine max}) \cite{Stewart_Brown_2019}; \cite{Jarquin_2016};
 \cite{Xavier_2016}. Switchgrass (\textit{Panicum virgatum}) \cite{Poudel_2019}; \cite{Ramstein_2019};
 \cite{Ramstein_2016}. Wheat (\textit{Triticum aestivum}) \cite{Cuevas_2019}; \cite{Howard_2019};
@@ -538,8 +538,8 @@ considered an early form of recurrent truncation selection. Truncation selection
 phenotype is shown in figure \ref{fig:trunSel}.
  
 \begin{figure}[H]
-   \centering \includegraphics[height=.25\textheight, width=0.6\textwidth]{Figures/truncSel} \decoRule
-   \caption[Truncation selection of a normal distributed phenotype]{Truncation selection from a normal distributed phenotype with a threshold value of $T$, $\mu$ as the mean of the total population and $\mu^{\ast}$ as the mean of the selected phenotypes. Graphic from \cite{walsh2018short}}
+  \centering \includegraphics[height=.25\textheight, width=0.6\textwidth]{Figures/truncSel} \decoRule
+  \caption[Truncation selection of a normal distributed phenotype]{Truncation selection from a normal distributed phenotype with a threshold value of $T$, $\mu$ as the mean of the total population and $\mu^{\ast}$ as the mean of the selected phenotypes. Graphic from \cite{walsh2018short}}
  \label{fig:trunSel}
 \end{figure}
 
@@ -547,7 +547,7 @@ phenotype is shown in figure \ref{fig:trunSel}.
 Like the early breeders modern breeders of to determine the selection threshold $T$ to divide the total population with the mean $\mu$ into two groups: the individuals culled and the ones allowed to reproduce with the mean $\mu^{\ast}$. The difference between those two is the selection differential $S$:
 
 \begin{equation}
-  S =  \mu^{\ast} - \mu
+ S = \mu^{\ast} - \mu
 \label{eqn:S}
 \end{equation}
 
@@ -567,26 +567,26 @@ i = \frac{S}{\sigma} = \frac{\varphi (z_{|1-p|})}{p}
 With recurrent truncation selection over many generations the population mean of the trait $\mu$ will change
 (hopefully in the desired direction), if the heritability (in this case the narrow sense heritability) $h^2$ >
 0. It is impossible to breed for traits that do not contain any genetic components in its architecture
-\cite{walsh2018}.  Next to $i$ the intensity and $h^2$ the additive portion of the heritability the accuracy
+\cite{walsh2018}. Next to $i$ the intensity and $h^2$ the additive portion of the heritability the accuracy
 of the selection $r_{uA}$ is important for the success of a breeding program. Those three terms can be applied
 to compute the gain of selection $R$ over one generation (equation \ref{eqn:Breeders}). Due to its importance
 in the evaluation of breeding schemes it is known as the breeder's equation \cite{mousseau1987natural};
 \cite{falconer1996}; \cite{kingsolver2001strength}.
 
 \begin{equation}
-  R = i r_{uA} \sigma_A
+ R = i r_{uA} \sigma_A
 \label{eqn:Breeders}
 \end{equation}
 
 The accuracy $r_{uA}$ of equation \ref{eqn:Breeders} in cases only phenotypic selection is conducted the
 heritability and in cases where the selection process is aided by genomic prediction it is the prediction
-accuracy.  According to breeder's equation there are three parameters which can be influenced through genomic
+accuracy. According to breeder's equation there are three parameters which can be influenced through genomic
 prediction. \newline (i) The prediction accuracy, which is usually smaller than the heritability, varies for
 different prediction equations and an increase in the accuracy will lead to an proportional increase in $R$
 the gain per generation cycle. For this reasons since 2001 in quantitative genetics one very active field of
 research was and still is to find new algorithms that are superior to others as presented in the next chapter
-(\ref{blup:bayes}.  As later evaluated on more than 150 phenotypes in chapter \ref{gpdis} $h^2$ is always
-larger than $r_{uA}$.  Which if it was the only variable factor in equation \ref{eqn:Breeders} make genomic
+(\ref{blup:bayes}. As later evaluated on more than 150 phenotypes in chapter \ref{gpdis} $h^2$ is always
+larger than $r_{uA}$. Which if it was the only variable factor in equation \ref{eqn:Breeders} make genomic
 selection inferior to phenotypic selection. Which from a certain point of view it is. Phenotypic trials are
 better approximation for phenotypic appearance as GEBVs. However as the cost of genotyping have decreased
 dramatically in the last 20 years. Phenotyping in the field remains tedious, laborious and mostly vastly
@@ -604,8 +604,8 @@ be grown in the field. For selection it is only necessary to grow enough so that
 tissue and evaluated. After selection only the ones above the threshold are grown until they bear seats (or
 any other reproductive organ) and be used for the next selection cycle, allowing up to ten generations per
 year. This development hast lead to the rise to a new branch of breeding: speed breeding
-\cite{ghosh2018speed}; \cite{watson2018speed}.  In practical, company-level genomic prediction as largely
-contributed to an increase by a factor of 2 of the gain in selection in recent years  (personal
+\cite{ghosh2018speed}; \cite{watson2018speed}. In practical, company-level genomic prediction as largely
+contributed to an increase by a factor of 2 of the gain in selection in recent years (personal
 communication with breeding company employees ).\newline The last term in equation \ref{eqn:Breeders} the additive genetic variance $\sigma_A$
 is not directly yet heavily influenced by the described breeding scheme. Artificial selection has similar
 effects on the genetic variance as bottlenecks in natural selection have: it decreases, thus making it harder
@@ -628,70 +628,70 @@ methods of the Bayesian alphabet
 solely benchmarked against each other, but had to compete with the previously popular pedigree
 methods. Quickly in the course of the first decade of this millennium the superiority of the genomic method
 became elucidated in livestock and plant breeding \cite{habier2007impact}; \cite{vanraden2008efficient};
-\cite{vanraden2008reliability}; \cite{harris2009genomic}.  While the genomic methods are superior to
+\cite{vanraden2008reliability}; \cite{harris2009genomic}. While the genomic methods are superior to
 non-genomic methods, there is no clear evidence that either of the genomic methods are superior to each other
 and there is lack of empirical evidence that the Bayesian methods generally outperform GBLUP
-\cite{moser2009comparison} ; \cite{bernardo2010breeding}; \cite{azodi2019}.  Alike in the pedigree BLUP in
+\cite{moser2009comparison} ; \cite{bernardo2010breeding}; \cite{azodi2019}. Alike in the pedigree BLUP in
 genomic BLUP the co-variance between related individuals is used for the prediction. In the later case it is
 constructed from marker information. In the GWAS terminology the relationship matrix is referred to as $K$ for
 kinship in GWAS literature, while in GS circumstances it is also called GRM (genomic relationship matrix) or
 simply abbreviated as $G$. This study will remain consistent with the circumstantial literature and therefore
 purposely inconsistent within itself. In the chapter addressing GWAS the it will be called $K$ for kinship
-matrix and it the following chapter elucidating GBLUP it will be referred to as $G$.  The general genomic
+matrix and it the following chapter elucidating GBLUP it will be referred to as $G$. The general genomic
 prediction model \ref{eqn:blup} is derived from the mixed model \cite{henderson1975best};
 \cite{vanraden2008efficient} and implemented as:
 
 \begin{equation}
-Y = X \beta  +  Zu + \varepsilon
-  \label{eqn:blup}
+Y = X \beta + Zu + \varepsilon
+ \label{eqn:blup}
 \end{equation}
 
 where $Y$ is and $nx1$ vector of phenotypic observations, $X$ the matrix of the fixed effects and $\beta$ the
 vector of the fixed effects. $Z$ the incidence matrix for the combined marker effects and $u$ a $(n\; x\; 1)$ vector
-of the additive genetic effect the vector of the residuals $\varepsilon$.  To construct the model lets assume
+of the additive genetic effect the vector of the residuals $\varepsilon$. To construct the model lets assume
 a matrix of size $(n\; x\; m)$ with $n$ individuals and $m$ loci $M$ containing marker information for 3
 individuals on 4 loci, thus being of size $3x4$. The 4 markers of matrix \ref{arr:M} can take values of $-1$,
 $0$ and $1$ translating into minor allele, heterozygous locus and major allele. The following example
 calculation has been adapted from \cite{isik2013}.
 
 \begin{equation}
-  M = 
-  \begin{pmatrix}[r]
-    -1 & 0 &  1 & -1 \\
-    -1 & 0 &  0 &  0 \\
-     0 & 1 &  1 & -1 
-  \end{pmatrix}
-  \label{arr:M}
+ M = 
+ \begin{pmatrix}[r]
+  -1 & 0 & 1 & -1 \\
+  -1 & 0 & 0 & 0 \\
+   0 & 1 & 1 & -1 
+ \end{pmatrix}
+ \label{arr:M}
 \end{equation}
 
 The $M$ matrix contains all the information that is necessary for the computation of the K matrix and other viable genetic parameters. The $MM'$ matrix of size $n\; x\; n$ (\ref{arr:MM'}) bears additional parameters.
 
 \begin{equation}
-  MM' = 
-  \begin{pmatrix}[r]
-    3 &  1 & 2 \\
-   -1 &  1 & 0 \\
-    2 &  0 & 3 
-  \end{pmatrix}
-  \label{arr:MM'}
+ MM' = 
+ \begin{pmatrix}[r]
+  3 & 1 & 2 \\
+  -1 & 1 & 0 \\
+  2 & 0 & 3 
+ \end{pmatrix}
+ \label{arr:MM'}
 \end{equation}
 
 
 The diagonal show the number of homozygous loci per individual, while the other elements of the matrix
 indicate the number of markers shared by related individuals and is an indicator for the distance of the
-relationship as defined by identity-by-descent \cite{vanraden2008efficient}; \cite{misztal2013methods}.  While
+relationship as defined by identity-by-descent \cite{vanraden2008efficient}; \cite{misztal2013methods}. While
 matrix \ref{arr:MM'} calculates the metrics per individual the $M'M$ matrix (\ref{arr:M'M}) counts those
 metrics per marker. Likewise the diagonal contains the number of homozygous individuals per marker.
 
 \begin{equation}
-  M'M = 
-  \begin{pmatrix}[r]
-    3 & -1 & 0 & 0 \\
-   -1 &  1 & 1 & 1 \\
-    0 &  1 & 2 & 1 \\
-    0 &  1 & 1 & 2 
-  \end{pmatrix}
-  \label{arr:M'M}
+ M'M = 
+ \begin{pmatrix}[r]
+  3 & -1 & 0 & 0 \\
+  -1 & 1 & 1 & 1 \\
+  0 & 1 & 2 & 1 \\
+  0 & 1 & 1 & 2 
+ \end{pmatrix}
+ \label{arr:M'M}
 \end{equation}
 
 The next step is to obtain a matrix of the allele frequencies at each locus of the size ($n x m$) as matrix
@@ -699,32 +699,32 @@ M. For the design of matrix P (\ref{arr:P}) let the minor allele frequencies $p_
 $\{0.3, 0.2, 0.1, 0.15\}$. The allele frequency of the $i^{th}$ column of $P$ is expressed, according the $,^{th}$ marker of matrix $M$ as $P_i = 2(p_i - 0.5)$ resulting in: 
 
 \begin{equation}
-  P = 
-  \begin{pmatrix}[r]
-   -0.4 & -0.6 & -0.8 & -0.7 \\
-   -0.4 & -0.6 & -0.8 & -0.7 \\
-   -0.4 & -0.6 & -0.8 & -0.7
-  \end{pmatrix}
-  \label{arr:P}
+ P = 
+ \begin{pmatrix}[r]
+  -0.4 & -0.6 & -0.8 & -0.7 \\
+  -0.4 & -0.6 & -0.8 & -0.7 \\
+  -0.4 & -0.6 & -0.8 & -0.7
+ \end{pmatrix}
+ \label{arr:P}
 \end{equation}
 
 The allele frequencies as in this simulated example should be taken from the entire population and not the
-subsample used in this calculation \cite{vanraden2008efficient}.  The final step to obtain the Z matrix of
+subsample used in this calculation \cite{vanraden2008efficient}. The final step to obtain the Z matrix of
 equation \ref{eqn:blup} is to subtract the P matrix from the M matrix $Z= M - P$ resulting in:
 
 \begin{equation}
-  Z = 
-  \begin{pmatrix}[r]
-    1.4 & 0.6 & 1.8 & -0.3 \\
-   -0.6 & 0.6 & 0.8 & 0.7 \\
-    0.4 & 1.6 & 1.8 & -0.3 \\
+ Z = 
+ \begin{pmatrix}[r]
+  1.4 & 0.6 & 1.8 & -0.3 \\
+  -0.6 & 0.6 & 0.8 & 0.7 \\
+  0.4 & 1.6 & 1.8 & -0.3 \\
 
-  \end{pmatrix}
-  \label{arr:Z}
+ \end{pmatrix}
+ \label{arr:Z}
 \end{equation}
 
 In $Z$ the mean values of the allele effects are set to 0 and the subtraction of $P$ emphasizes the effect of
-rare variants \cite{vanraden2008efficient}.  There is a large variety of methods to generate the genomic
+rare variants \cite{vanraden2008efficient}. There is a large variety of methods to generate the genomic
 relationship matrices and here lies the major difference between different genomic BLUP methods. But they all
 have in common that K is always of size $n x n$.
 
@@ -737,20 +737,20 @@ common today (personal observation).
 (ii) Probably the most popular method in GS is to obtain $K$ as proposed by \cite{vanraden2008efficient} designed after Wright's \cite{wright1922coefficients} equations for the covariance in structured populations, as described by equation \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
 
 \begin{equation}
-  G = \frac{ZZ'}{2 \Sigma p_i (1-p_i)} 
+ G = \frac{ZZ'}{2 \Sigma p_i (1-p_i)} 
 \label{eqn:vanraden}
 \end{equation}
 
 (iii) The unified additive relationship $G_{UAR}$ according to \cite{yang2010common} and equation \ref{eqn:uar}
 
 \begin{equation}
-  G_{UAR} =  A_{jk} = \frac{1}{N} \Sigma_i{A_{ijk}} = \left\{
-    \!\begin{aligned}
-      \frac{1}{N} \Sigma_{i} \frac{(x_{ij} - 2p_i)(x_{ik} - 2p_i)}{2p_i  (1-p_i)}, j \ne k \\
-      1 + \frac{1}{N} \Sigma_i \frac{x_{ij}^2 (1+2p_i) x_{ij} + 2p_i^2 }{2p_i (1-p_i)}, j = k     
-    \end{aligned}
-  \right.
-  \label{eqn:uar}
+ G_{UAR} = A_{jk} = \frac{1}{N} \Sigma_i{A_{ijk}} = \left\{
+  \!\begin{aligned}
+   \frac{1}{N} \Sigma_{i} \frac{(x_{ij} - 2p_i)(x_{ik} - 2p_i)}{2p_i (1-p_i)}, j \ne k \\
+   1 + \frac{1}{N} \Sigma_i \frac{x_{ij}^2 (1+2p_i) x_{ij} + 2p_i^2 }{2p_i (1-p_i)}, j = k   
+  \end{aligned}
+ \right.
+ \label{eqn:uar}
 \end{equation}
 
 where $p_i$ is the allele frequency at locus $i$ and $x_{ij}$ the genotype for the $j^{th}$ individual at the
@@ -758,13 +758,13 @@ $i^th$ locus. Another method also proposed by \cite{yang2010common} is to adjust
 equation \ref{eqn:uaradj}
 
 \begin{equation}
-  G_{UARadj} = \left\{
-    \!\begin{aligned}
-      \beta A_{jk}, \;\; j \ne k \\
-      1 + \beta (A_{jk}-1 ), \;\; j = k      
-    \end{aligned}
-    \right.
-  \label{eqn:uaradj}
+ G_{UARadj} = \left\{
+  \!\begin{aligned}
+   \beta A_{jk}, \;\; j \ne k \\
+   1 + \beta (A_{jk}-1 ), \;\; j = k   
+  \end{aligned}
+  \right.
+ \label{eqn:uaradj}
 \end{equation}
 
 (iv) Another approach is to weigh marker by the reciprocals of their expected variance according to the model
@@ -772,11 +772,11 @@ equation \ref{eqn:uaradj}
 \cite{leutenegger2003estimation}; \cite{amin2007genomic}.
 
 \begin{equation}
-  \!\begin{aligned}
-    G = ZDZ' , with \\
-    D_{ii} = \frac{1}{m | 2p_i(1-p_i) | }
-  \end{aligned}
-  \label{eqn:ZDZ}
+ \!\begin{aligned}
+  G = ZDZ' , with \\
+  D_{ii} = \frac{1}{m | 2p_i(1-p_i) | }
+ \end{aligned}
+ \label{eqn:ZDZ}
 \end{equation}
 
 
@@ -784,14 +784,14 @@ equation \ref{eqn:uaradj}
 between the respective genotypes \cite{morota2014kernel}.
 
 \begin{equation}
-  \!\begin{aligned}
-    K(x_i,x_j) = exp (- \theta d_{ij}^2) \\
-    = \prod_{k=1}^m exp (- \theta(x_{ik} - x_{jk})^2)
-  \end{aligned}
-  \label{eqn:gauss}
+ \!\begin{aligned}
+  K(x_i,x_j) = exp (- \theta d_{ij}^2) \\
+  = \prod_{k=1}^m exp (- \theta(x_{ik} - x_{jk})^2)
+ \end{aligned}
+ \label{eqn:gauss}
 \end{equation}
 
-with $d_{ij} = \sqrt{(x_{i1} -  x_{j1})^2 + \dots + (x_{ik} - x_{jk})^2 + \dots +  (x_{im} - x_{j,a})^2 }$ and
+with $d_{ij} = \sqrt{(x_{i1} - x_{j1})^2 + \dots + (x_{ik} - x_{jk})^2 + \dots + (x_{im} - x_{j,a})^2 }$ and
 $ x_{ik}(i,j = 1, \dots , n,k = 1, \dots , m)$ and $x_{ik}$ as the $i^{th}$ individual at SNP $k$. \\
 
 
@@ -801,27 +801,27 @@ The mixed model can be solved to obtain genomic estimated breeding values as:
 
 
 \begin{equation}
-  \begin{pmatrix}[ccc]
-    X'X & X'Z & 0 \\ 
-    Z'X & Z'Z + G^{11} & G^{12} \\ 
-    0 & G^{21} & G^{22} \\ 
-  \end{pmatrix}
-  \begin{pmatrix}[r]
-    \hat{b} \\ 
-    \hat{y}_1 \\ 
-    \hat{y}_2 \\ 
-  \end{pmatrix}
-  =
-  \begin{pmatrix}[r]
-    X'y \\ 
-    Z'y \\ 
-    0 \\ 
-  \end{pmatrix}
-  \label{eqn:pBLUP}
+ \begin{pmatrix}[ccc]
+  X'X & X'Z & 0 \\ 
+  Z'X & Z'Z + G^{11} & G^{12} \\ 
+  0 & G^{21} & G^{22} \\ 
+ \end{pmatrix}
+ \begin{pmatrix}[r]
+  \hat{b} \\ 
+  \hat{y}_1 \\ 
+  \hat{y}_2 \\ 
+ \end{pmatrix}
+ =
+ \begin{pmatrix}[r]
+  X'y \\ 
+  Z'y \\ 
+  0 \\ 
+ \end{pmatrix}
+ \label{eqn:pBLUP}
 \end{equation}
 
 with $G^{12}$ as the part of $G^{-1}$ containing individuals \underline{with} phenotypic data.
-with $G^{22}$ as the part of $G^{-1}$ containing individuals \underline{without} phenotypic data and just SNP  information. 
+with $G^{22}$ as the part of $G^{-1}$ containing individuals \underline{without} phenotypic data and just SNP information. 
 
 The GEBV of the unknown phenotypes $\hat{y}_2$ can thus be predicted as:
 
@@ -840,23 +840,23 @@ it becomes more complicated to compute the inverse of $G$ (personal observations
 Next to the universal GBLUP a set of related algorithms became popular for solving the mixed models involved in genomic selection, known as the Bayesian alphabet \cite{gianola2009}; \cite{gianola2013}. They are all based on Bayes' fundamental theorem in equation \ref{eqn:bayes}
 
 \begin{equation}
-P(\theta | y) = \frac{P(\theta )P(y | \theta)}{P(y)}  
+P(\theta | y) = \frac{P(\theta )P(y | \theta)}{P(y)} 
 \label{eqn:bayes}
 \end{equation}
 
 with $P(\theta )$ as the prior distribution, $P(y|\theta )$ as the likelihood and $P(y)$ as the marginal density of $y$. The prior distribution in GS assume that $y$ was drawn from a certain distribution. Infinitesimal models assume that the genetic effects follow a normal distribution \cite{legarra2018}. The Bayesian frameworks however will assume non-normal distributed marker effects. This can be explained by a two-step hierarchical distribution.
-Stage one  assumes that every marker has \textit{a priori} a different variance \cite{legarra2018}.
+Stage one assumes that every marker has \textit{a priori} a different variance \cite{legarra2018}.
 
 \begin{equation}
 p(a_i|\sigma_{ai}^2) = N (0,\sigma^1_{ai})
-  \label{eqn:stageonbayes}
+ \label{eqn:stageonbayes}
 \end{equation}
 
 The second stage assumes prior distributions for the variances.
 
 \begin{equation}
 p(a_i| variable ) = P(\dots )
-  \label{eqn:stagetwobayes}
+ \label{eqn:stagetwobayes}
 \end{equation}
 
 with $variable$ standing for the large variety of prior distribution. In total there are more than >20
@@ -871,17 +871,17 @@ Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomi
 \label{tab:bayesABC}
 \centering
 \resizebox{\textwidth}{!}{\begin{tabular}{lcccccc}
-  \toprule
-  Name      & Reference & Prior & Indicator & Hierarchy & Hyperprior & Estimation \\
-  \midrule
-  \hline 
-  BayesA       & \cite{hayes2001}           & Student & No  & Yes & No  & MCMC \\
-  BayesB       & \cite{hayes2001}           & Student & Yes & Yes & No  & MCMC \\
-  BayesC       & \cite{verbyla2009accuracy} & Student & Yes & Yes & No  & MCMC \\
-  BL           & \cite{xu2010expectation}   & Laplace & No  & Yes & No  & EM   \\
-  BayesD$\pi$  & \cite{habier2011}          & Student & Yes & Yes & Yes & MCMC \\
-                            \bottomrule                                                   
-                          \end{tabular}}
+ \toprule
+ Name   & Reference & Prior & Indicator & Hierarchy & Hyperprior & Estimation \\
+ \midrule
+ \hline 
+ BayesA    & \cite{hayes2001}      & Student & No & Yes & No & MCMC \\
+ BayesB    & \cite{hayes2001}      & Student & Yes & Yes & No & MCMC \\
+ BayesC    & \cite{verbyla2009accuracy} & Student & Yes & Yes & No & MCMC \\
+ BL      & \cite{xu2010expectation}  & Laplace & No & Yes & No & EM  \\
+ BayesD$\pi$ & \cite{habier2011}     & Student & Yes & Yes & Yes & MCMC \\
+              \bottomrule                          
+             \end{tabular}}
 \caption*{The name is given by the author. The prior column tells which shrinkage prior is used. }
 \end{table}
 
@@ -955,25 +955,25 @@ data we used the data sets generated in the scope of the 1001 genome project of 
 
 Having established the quantitative architecture of traits in section \ref{quan} an the basics of machine
 learning and neural nets in section \ref{introml}, that knowledge can be used to provide a proof of concept
-that neural networks are a candidate for GP.  Table \ref{tab:simmarker} provides also the possible genotypes
+that neural networks are a candidate for GP. Table \ref{tab:simmarker} provides also the possible genotypes
 that can be derived by two bi-allelic markers $G_1 \dots G_4$ on a fictional haploid organism. In this
 simulation the effect sizes for each marker $\beta_1$ and $\beta_2$ are constant with a value of 1.
 
 \begin{table}[H]
-  \caption{Simple simulated phenotypes and genotypes for genomic prediction with genotypes $G_1 \dots G_4$, $M_1$ and
-    $M_2$ and phenotypes based on additive effects or $and$, $or$, $xor$ logic gates.}
+ \caption{Simple simulated phenotypes and genotypes for genomic prediction with genotypes $G_1 \dots G_4$, $M_1$ and
+  $M_2$ and phenotypes based on additive effects or $and$, $or$, $xor$ logic gates.}
 \label{tab:simmarker}
 \centering
 \begin{tabular}{ l c c | c c c c c c }
-  \toprule
-  & $M_1$ & $M_2$ & $Y_{ADD}$ & $Y_{AND}$ & $Y_{OR}$ & $Y_{XOR}$\\
-  \midrule
-  \hline 
-  $G_1$ & 0 & 0 & 0 & 0 & 0 & 0 \\
-  $G_2$ & 0 & 1 & 1 & 0 & 1 & 1 \\
-  $G_3$ & 1 & 0 & 1 & 0 & 1 & 1 \\
-  $G_4$ & 1 & 1 & 2 & 1 & 1 & 0 \\
-  \bottomrule
+ \toprule
+ & $M_1$ & $M_2$ & $Y_{ADD}$ & $Y_{AND}$ & $Y_{OR}$ & $Y_{XOR}$\\
+ \midrule
+ \hline 
+ $G_1$ & 0 & 0 & 0 & 0 & 0 & 0 \\
+ $G_2$ & 0 & 1 & 1 & 0 & 1 & 1 \\
+ $G_3$ & 1 & 0 & 1 & 0 & 1 & 1 \\
+ $G_4$ & 1 & 1 & 2 & 1 & 1 & 0 \\
+ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -1001,15 +1001,15 @@ was ReLU (\ref{eqn:relu}) with an Adam optimizer. The results of the prediction 
 \label{tab:simgpres}
 \centering
 \begin{tabular}{ l c c | c c c c c c }
-  \toprule
-  & $M_1$ & $M_2$ & $\hat{Y}_{ADD}$ & $\hat{Y}_{AND}$ & $\hat{Y}_{OR}$ & $\hat{Y}_{XOR}$\\
-  \midrule
-  \hline 
-  $G_1$ & 0 & 0 & 0.01 & 0.00 & 0.00 & 0.01 \\
-  $G_2$ & 0 & 1 & 0.99 & 0.01 & 0.99 & 0.98 \\
-  $G_3$ & 1 & 0 & 0.99 & 0.00 & 0.99 & 1.01 \\
-  $G_4$ & 1 & 1 & 1.99 & 0.98 & 1.01 & 0.02 \\
-  \bottomrule
+ \toprule
+ & $M_1$ & $M_2$ & $\hat{Y}_{ADD}$ & $\hat{Y}_{AND}$ & $\hat{Y}_{OR}$ & $\hat{Y}_{XOR}$\\
+ \midrule
+ \hline 
+ $G_1$ & 0 & 0 & 0.01 & 0.00 & 0.00 & 0.01 \\
+ $G_2$ & 0 & 1 & 0.99 & 0.01 & 0.99 & 0.98 \\
+ $G_3$ & 1 & 0 & 0.99 & 0.00 & 0.99 & 1.01 \\
+ $G_4$ & 1 & 1 & 1.99 & 0.98 & 1.01 & 0.02 \\
+ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -1029,7 +1029,7 @@ Two different data sets were used for the genomic prediction trials.
 A set of maze doubled-haploid (DH) populations, derived from MAZE landraces. And \textit{A. thaliana} data sets, with genomic data procured along the 1001 genomic project \cite{1001genome} and various phenotypic trials.
 
 
-\subsection{DH populations derived from maize  landraces}
+\subsection{DH populations derived from maize landraces}
 The DH populations were produced, propagated and phenotyped in the scope of the MAZE project phase I, funded
 by the Federal Ministry of Education and Research (BMBF) (Funding ID: 031B0195, project “MAZE”) as well as the
 KWS SAAT SE, by various project partners at the Technical University of Munich, University of Hohenheim and
@@ -1045,7 +1045,7 @@ forgotten. This and high intensity selection over many generation has led to a l
 $\sigma_G$ in modern maize cultivars. Therefore the landrace germplasm present a important, essential stock of
 genetic variability for continuous success in maize breeding. The utilization of those germplasms would be
 impossible without the invaluable work of institutions as the IPK Gartersleben whose goal as genebanks is to
-maintain and store genetic material for long time periods.  Of those landraces three, representing large
+maintain and store genetic material for long time periods. Of those landraces three, representing large
 phenotypic heterogentiy were chosen: (i) Kemater Landmais Gelb (KE, Austria), Petkuser Ferdinand Rot (PE,
 Germany) and Lalin (LL, Spain). They represent 95 \% of the molecular variance if a set of
 35 landraces analyzed in a preceding project by \cite{mayer2017there}.\newline
@@ -1062,16 +1062,16 @@ and 403 PE DHs. LL was excluded from further analyses due to insufficient amount
 
 \subsubsection{Phenotypic maze data}
 (The phenotype data was provided by the TUM as described by \cite{holker2019european}) \newline The traits
-were evaluated with lattice design in 6 different locations across Europe.  Those traits were: Early Vigor
+were evaluated with lattice design in 6 different locations across Europe. Those traits were: Early Vigor
 (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant
 height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till
-Silking (DtSILK)) and root lodging (RL).  To account for GxE best linear unbiased estimators were calculated
+Silking (DtSILK)) and root lodging (RL). To account for GxE best linear unbiased estimators were calculated
 according to Henderson's model \cite{henderson1975best} and use for further prediction.
 
 \subsubsection{Single environment prediction}
 Next to the across environment BLUEs used for prediction the single environment BLUEs were used for prediction
 to able to gain insights of the structure of $\sigma_{GxE}$ of the maize traits. This resulted in 2246
-genotype x environment combinations for Kemater and 1975 for Petkuser with at least one data point.  This
+genotype x environment combinations for Kemater and 1975 for Petkuser with at least one data point. This
 number is lower than the maximum number of n DHs per populations times the 6 environments, because naturally
 not all genotypes yielded reliable data in the environments. Each DH x environment was treated as an
 individual in for the across environment prediction. The marker matrix was enhanced with the environmental
@@ -1079,19 +1079,19 @@ origin as cofactors as show in table \ref{tab:envmarker} with one-hot encoded ma
 
 \onehalfspacing
 \begin{table}[H]
-  \centering
-  \caption{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
-  \label{tab:envmarker}
-  \begin{tabular}{l|cccc}
-    \toprule
-           & M-1 & M-2 & E-1 & E-2 \\
-    \midrule
-    DH1-E1 & 0   & 1   & 1   & 0   \\
-    DH2-E1 & 1   & 0   & 1   & 0   \\
-    DH1-E2 & 0   & 1   & 0   & 1   \\
-    DH2-E2 & 1   & 0   & 0   & 1   \\                                           
-    \bottomrule
-  \end{tabular}
+ \centering
+ \caption{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
+ \label{tab:envmarker}
+ \begin{tabular}{l|cccc}
+  \toprule
+      & M-1 & M-2 & E-1 & E-2 \\
+  \midrule
+  DH1-E1 & 0  & 1  & 1  & 0  \\
+  DH2-E1 & 1  & 0  & 1  & 0  \\
+  DH1-E2 & 0  & 1  & 0  & 1  \\
+  DH2-E2 & 1  & 0  & 0  & 1  \\                      
+  \bottomrule
+ \end{tabular}
 \end{table}
 \doublespacing
 
@@ -1105,7 +1105,7 @@ The genomic data was generated during the course of the 1001 genome project of \
 \cite{1001genome} producing completed sequenced and assembled genomes from 1035 genomes, along 600k marker
 data for 1307 accessions with a small overlap between those groups resulting in a total of 2029 genotyped
 accessions. With more than 10 mio. SNPs and Indels on the 5 chromosomes of e \textit{A. thaliana}. Imputation
-of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}.  For
+of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}. For
 every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned and MAF filtered. LD
 pruning was executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD
 threshold of $0.65$ and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
@@ -1113,7 +1113,7 @@ phenotype.
 
 \subsubsection{Phenotypic data}
 A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the according study
-references.  The phenotypic trials ranged from 100 to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{strauch2015}; \cite{me2014}.
+references. The phenotypic trials ranged from 100 to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{strauch2015}; \cite{me2014}.
 
 
 \section{Methods}
@@ -1140,19 +1140,19 @@ libraries. Another advantage is that they work well on GPUs, which allows ML alg
 amount of time compared to CPU-based calculations. Prior to training the data was split into TRN and TST. The
 markers of TRN served as the input layer for the network while the phenotypes were trained upon in the output
 layer, which in the present cases consisted of only one node, because GS in the cases applied here is a
-regression problem.  Preliminary trials showed Adam is the superior optimizer for GS and hence was the only
+regression problem. Preliminary trials showed Adam is the superior optimizer for GS and hence was the only
 one further used. Likewise relu was the activation of choice being superior to sigmoid or other non
 rectifiers. All the weights and the biases of the kernel were initialized with truncated normal distributed
 values. The loss function used was always MSE. \newline Having a few hyperparameters fixed, the other ones
-were optimized via grid search.  For each TRN multiple networks were trained to fine tune the input
+were optimized via grid search. For each TRN multiple networks were trained to fine tune the input
 parameters. Those were the number of layers, the nodes per layer, the magnitude of the dropout, the type of
 dropout used, whether the first layer was locally-connected for fully-connected and the duration of training
 via the training epochs. This amount to a total of a little shy of 260000 trained networks for the 146
 \textit{A. thaliana} data sets alone. \newline After another set preliminary runs LCL as the first layer
 seamed to result in higher accuracies then FLC as the first layer and where henceforth exclusively used and
 applied with a stride length of 7. The stride length determines how many node of the input layer, in this case
-markers, where combined in the first hidden layer.  The type of drop out used (alpha dropout, Gaussian noise
-or normal dropout) did not show an effect therefore the normal dropout function was used.  The network
+markers, where combined in the first hidden layer. The type of drop out used (alpha dropout, Gaussian noise
+or normal dropout) did not show an effect therefore the normal dropout function was used. The network
 training was iterated over the different number epochs, architecture, drop out values the the cross validation
 cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$ to $60$ in steps $5$
 and several 1, 2 or 3 Layer architectures following the locally-connected layer.
@@ -1165,160 +1165,165 @@ TST and TRN sets.
 
 
 
-\singlespacing
+
 \section{Results} \label{res:gp}
 \subsubsection{Results of \textit{A. thaliana} prediction}
-\ref{AC:gp_res}
+Table \ref{tab:at_res} show the results for genomic prediction for 146 \textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via grid search, yielding the highest prediction accuracies.
+Figure \ref{AC:gp_res} contains scatter plots for the comparison of accuracies for GBLUP and the respective ANNs for 50 validation sets for all phenotypes.
+In table \ref{tab:at_res} phenotypes were ANN outperformed the genomic BLUP are indicated in red. At first sight ANN can surpass with GBLUP for traits with high accuracies, compete at an intermediate level and fails to reach to level of GBLUP when overall accuracies are low. 
+
+\singlespacing
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
-  \hline
-  Phenotype & GBLUP & ANN & Architecture & Epochs \\
-  \hline
-  YEL  & 0.9259 & 0.891 & 20, 10 & 20 \\
-  FT16 & 0.8237 & 0.8215 & 100 & 10 \\
-  2W & 0.8156 & \color{red}{0.8205} & 50, 30 & 35 \\
-  FT10 & 0.8249 & 0.8191 & 48 & 50 \\
-  LD & 0.8128 & \color{red}{0.8159} & 150 & 30 \\
-  DTF sweden 2009 (1st experiment) & 0.8063 & \color{red}{0.8141} & 48 & 30 \\
-  DTF sweden 2009 (2nd experiment) & 0.8035 & \color{red}{0.8091} & 50, 30 & 20 \\
-  DTF sweden 2008 (2nd experiment) & 0.7986 & \color{red}{0.8057} & 150 & 25 \\
-  4W & 0.795 & \color{red}{0.8052} & 50, 35, 15 & 30 \\
-  FT22 & 0.8009 & \color{red}{0.8043} & 150 & 15 \\
-  DTF spain 2008 (2nd experiment) & 0.7975 & \color{red}{0.8032} & 150 & 40 \\
-  LN16 & 0.7996 & \color{red}{0.7999} & 50, 30 & 20 \\
-  DTF spain 2009 (2nd experiment) & 0.7917 & \color{red}{0.7988} & 150 & 55 \\
-  LDV & 0.8158 & 0.7975 & 150 & 15 \\
-  0W GH FT & 0.7873 & \color{red}{0.7942} & 50, 30 & 15 \\
-  DTFmainEffect2009 & 0.7794 & \color{red}{0.7855} & 50, 35, 15 & 35 \\
-  SD & 0.7905 & 0.7848 & 48 & 30 \\
-  DTFplantingSummer2008 & 0.75 & \color{red}{0.7746} & 50, 30 & 20 \\
-  FT GH & 0.7693 & \color{red}{0.7702} & 50, 30 & 15 \\
-  DTFlocSweden2009 & 0.7595 & \color{red}{0.7626} & 50, 30 & 60 \\
-  DTFplantingSummer2009 & 0.7521 & \color{red}{0.7584} & 50, 30 & 50 \\
-  0W & 0.7488 & 0.7473 & 48 & 40 \\
-  DTF spain 2009 (1st experiment) & 0.7691 & 0.7425 & 48 & 40 \\
-  DTF sweden 2008 (1st experiment) & 0.727 & \color{red}{0.728} & 50, 30 & 20 \\
-  DTFlocSweden2008 & 0.7161 & \color{red}{0.7271} & 50, 30 & 55 \\
-  Seed Dormancy & 0.7014 & \color{red}{0.7241} & 50, 30 & 35 \\
-  DTFmainEffect2008 & 0.7102 & \color{red}{0.7142} & 50, 30 & 20 \\
-  8W & 0.7259 & 0.7083 & 150 & 50 \\
-  LN22 & 0.7004 & \color{red}{0.7069} & 50, 30 & 20 \\
-  Size sweden 2009 (1st experiment) & 0.6905 & \color{red}{0.6994} & 48 & 50 \\
-  LN10 & 0.6934 & \color{red}{0.698} & 50, 30 & 20 \\
-  DTF spain 2008 (1st experiment) & 0.6944 & 0.677 & 150 & 25 \\
-  SDV & 0.6775 & 0.6728 & 150 & 15 \\
-  8W GH FT & 0.7001 & 0.6546 & 48 & 40 \\
-  0W GH LN & 0.6568 & 0.654 & 50, 30 & 20 \\
-  Storage 7 days & 0.6496 & \color{red}{0.65} & 50, 30 & 25 \\
-  Storage 28 days & 0.6627 & 0.6483 & 50, 30 & 55 \\
-  8W GH LN & 0.671 & 0.6434 & 48 & 70 \\
-  Size sweden 2009 (2nd experiment) & 0.6114 & \color{red}{0.6268} & 48 & 50 \\
-  SizeLocSweden2009 & 0.6144 & \color{red}{0.619} & 150 & 35 \\
-  FLC & 0.6118 & \color{red}{0.6161} & 50, 30 & 30 \\
-  LFS GH & 0.6178 & 0.6136 & 150 & 35 \\
-  FT Field & 0.7324 & 0.6112 & 150 & 60 \\
-  LY  & 0.6072 & \color{red}{0.6088} & 150 & 60 \\
-  Storage 56 days & 0.6085 & 0.5788 & 150 & 15 \\
-  LES & 0.56 & \color{red}{0.5764} & 150 & 50 \\
-  M216T665 & 0.5155 & \color{red}{0.5674} & 50, 30 & 50 \\
-  LC Duration GH & 0.5799 & 0.5664 & 150 & 55 \\
-  M172T666 & 0.5165 & \color{red}{0.5487} & 150 & 60 \\
-  Trichome avg JA & 0.588 & 0.5343 & 150 & 55 \\
-  Secondary Dormancy & 0.5184 & \color{red}{0.5264} & 150 & 30 \\
-  SizeMainEffect2009 & 0.52 & 0.5171 & 48 & 50 \\
-  DSDS50 & 0.4754 & \color{red}{0.5006} & 50, 30 & 60 \\
-  avrPphB & 0.5054 & 0.4942 & 150 & 60 \\
-  Hypocotyl length & 0.4934 & 0.4807 & 150 & 50 \\
-  Size spain 2009 (1st experiment) & 0.5121 & 0.4751 & 150 & 50 \\
-  Yield spain 2009 (1st experiment) & 0.5205 & 0.4719 & 50, 30 & 50 \\
-  Leaf serr 10 & 0.4636 & \color{red}{0.4683} & 150 & 55 \\
-  Size spain 2009 (2nd experiment) & 0.471 & 0.4623 & 48 & 50 \\
-  Trichome avg C & 0.4617 & 0.4385 & 48 & 40 \\
-  Germ in dark & 0.4447 & 0.4382 & 150 & 15 \\
-  YieldMainEffect2009 & 0.505 & 0.4345 & 150 & 30 \\
-  FT Diameter Field & 0.5004 & 0.4274 & 150 & 15 \\
-  Bacterial titer & 0.5406 & 0.417 & 150 & 55 \\
-  FRI & 0.4011 & \color{red}{0.4119} & 48 & 30 \\
-  Rosette Erect 22 & 0.3973 & 0.3934 & 48 & 30 \\
-  Area sweden 2009 (1st experiment) & 0.4203 & 0.3895 & 50, 35, 15 & 30 \\
-  Width 10 & 0.3932 & 0.3784 & 50, 30 & 60 \\
-  Silique 22 & 0.4339 & 0.377 & 50, 30 & 50 \\
-  avrRpt2 & 0.3757 & 0.3737 & 50, 30 & 30 \\
-  M130T666 & 0.4381 & 0.3733 & 150 & 60 \\
-  SizePlantingSummer2009 & 0.3769 & 0.3615 & 150 & 5 \\
-  Area sweden 2009 (2nd experiment) & 0.359 & 0.3542 & 48 & 45 \\
-  FW  & 0.3397 & \color{red}{0.3522} & 50, 30 & 25 \\
-  P31 & 0.3632 & 0.3419 & 50, 30 & 45 \\
-  MT GH & 0.4016 & 0.3397 & 150 & 50 \\
-  avrB & 0.3304 & \color{red}{0.3384} & 50, 30 & 30 \\
-  avrRpm1 & 0.361 & 0.3368 & 50, 30 & 20 \\
-  Seed bank 133-91 & 0.3446 & 0.3334 & 150 & 5 \\
-  Mg25 & 0.5321 & 0.3288 & 50, 30 & 60 \\
-  Leaf roll 10 & 0.3558 & 0.3272 & 48 & 40 \\
-  Yield spain 2009 (2nd experiment) & 0.4184 & 0.3197 & 20, 10 & 40 \\
-  Noco2 & 0.3051 & \color{red}{0.3174} & 48 & 30 \\
-  Emwa1 & 0.3226 & 0.3124 & 50, 30 & 30 \\
-  FT Duration GH & 0.2659 & \color{red}{0.3123} & 48 & 5 \\
-  Leaf serr 22 & 0.3021 & \color{red}{0.3108} & 150 & 60 \\
-  Anthocyanin 10 & 0.3198 & 0.3107 & 50, 35, 15 & 60 \\
-  Cd114 & 0.3345 & 0.3069 & 50, 30 & 50 \\
-  Leaf serr 16 & 0.2895 & \color{red}{0.3011} & 48 & 40 \\
-  Fe56 & 0.2802 & \color{red}{0.3006} & 150 & 35 \\
-  YieldLocSweden2009 & 0.3431 & 0.2993 & 150 & 60 \\
-  Width 16 & 0.3463 & 0.2983 & 150 & 50 \\
-  Co59 & 0.2738 & \color{red}{0.2953} & 50, 35, 15 & 25 \\
-  K39 & 0.3036 & 0.2952 & 50, 30 & 60 \\
-  Leaf roll 16 & 0.3072 & 0.2886 & 150 & 15 \\
-  DTFplantingLoc2008 & 0.2971 & 0.275 & 50, 30 & 5 \\
-  SizePlantingSummerLocSweden2009 & 0.2803 & 0.2704 & 50, 30 & 60 \\
-  Mn55 & 0.2775 & 0.2662 & 50, 30 & 20 \\
-  Anthocyanin 22 & 0.2731 & 0.2635 & 150 & 15 \\
-  As75 & 0.254 & \color{red}{0.2619} & 50, 30 & 35 \\
-  Na23 & 0.2564 & \color{red}{0.2598} & 50, 30 & 15 \\
-  Ni60 & 0.2894 & 0.2539 & 150 & 25 \\
-  Mo98 & 0.2765 & 0.2537 & 50, 30 & 35 \\
-  Chlorosis 22 & 0.2622 & 0.2453 & 50, 35, 15 & 10 \\
-  Hiks1 & 0.2441 & \color{red}{0.2452} & 20, 10 & 20 \\
-  Zn66 & 0.2553 & 0.2444 & 150 & 35 \\
-  B11 & 0.2891 & 0.2392 & 48 & 40 \\
-  Germ 16 & 0.2987 & 0.2356 & 50, 30 & 41 \\
-  At2 & 0.2147 & \color{red}{0.216} & 150 & 15 \\
-  Emco5 & 0.166 & \color{red}{0.2101} & 150, 30 & 20 \\
-  Se82 & 0.2192 & 0.2075 & 150 & 25 \\
-  Mature cell length & 0.1987 & \color{red}{0.2052} & 150 & 45 \\
-  DW  & 0.2878 & 0.2048 & 50, 30 & 60 \\
-  Yield sweden 2009 (1st experiment) & 0.2274 & 0.2033 & 150 & 55 \\
-  As2 & 0.1774 & \color{red}{0.1962} & 150 & 15 \\
-  Meristem zone length & 0.1976 & 0.195 & 150 & 50 \\
-  Germ 10 & 0.2073 & 0.1873 & 20, 10 & 40 \\
-  Anthocyanin 16 & 0.2433 & 0.1867 & 20, 10 & 10 \\
-  Width 22 & 0.2224 & 0.1856 & 50, 30 & 50 \\
-  YieldPlantingSummerLocSweden2009 & 0.2146 & 0.18 & 150 & 55 \\
-  DTFplantingSummerLocSweden2009 & 0.2032 & 0.1775 & 150 & 55 \\
-  Bs & 0.2161 & 0.1656 & 50, 30 & 60 \\
-  Bs CFU2 & 0.1672 & 0.1584 & 50, 35, 15 & 15 \\
-  Germ 22 & 0.1267 & \color{red}{0.1533} & 50, 30 & 35 \\
-  Leaf roll 22 & 0.1135 & \color{red}{0.1511} & 48 & 45 \\
-  RP GH & 0.1755 & 0.1458 & 150 & 15 \\
-  Cu65 & 0.1543 & 0.1315 & 150 & 5 \\
-  Li7 & 0.1611 & 0.1297 & 150 & 60 \\
-  As & 0.1089 & \color{red}{0.1227} & 100 & 20 \\
-  At1 & 0.1473 & 0.1197 & 48 & 40 \\
-  S34 & 0.1045 & \color{red}{0.11} & 50, 30 & 60 \\
-  YieldPlantingSummer2009 & 0.1265 & 0.0984 & 150 & 50 \\
-  Silique 16 & 0.2366 & 0.0884 & 50, 30 & 60 \\
-  Chlorosis 10 & 0.0243 & \color{red}{0.088} & 50, 35, 15 & 55 \\
-  Ca43 & 0.3333 & 0.0732 & 50, 35, 15 & 55 \\
-  Seedling Growth & 0.0813 & 0.0636 & 48 & 30 \\
-  Vern Growth & -0.0096 & \color{red}{0.0422} & 150 & 15 \\
-  At2 CFU2 & 0.0694 & 0.0378 & 150 & 25 \\
-  Yield sweden 2009 (2nd experiment) & 0.0536 & 0.0355 & 150 & 25 \\
-  As CFU2 & 0.0312 & \color{red}{0.035} & 150 & 5 \\
-  At1 CFU2 & 0.0818 & 0.0319 & 50, 30 & 50 \\
-  Aphid number & -0.0246 & \color{red}{0.029} & 50, 35, 15 & 10 \\
-  After Vern Growth & -0.1433 & \color{red}{0.0057} & 50, 35, 15 & 5 \\
-  Chlorosis 16 & -0.0313 & \color{red}{-0.0121} & 150 & 5 \\
-  As2 CFU2 & 0.0504 & -0.0325 & 50, 30 & 60 \\
+  \caption[Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN]{Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN} \\
+ \toprule
+ Phenotype & GBLUP & ANN & Architecture & Epochs \\
+ \hline
+ FT16 & 0.8237 & 0.8215 & 100 & 10 \\
+ 2W & 0.8156 & \color{red}{0.8205} & 50, 30 & 35 \\
+ FT10 & 0.8249 & 0.8191 & 48 & 50 \\
+ LD & 0.8128 & \color{red}{0.8159} & 150 & 30 \\
+ DTF sweden 2009 (1st experiment) & 0.8063 & \color{red}{0.8141} & 48 & 30 \\
+ DTF sweden 2009 (2nd experiment) & 0.8035 & \color{red}{0.8091} & 50, 30 & 20 \\
+ DTF sweden 2008 (2nd experiment) & 0.7986 & \color{red}{0.8057} & 150 & 25 \\
+ 4W & 0.795 & \color{red}{0.8052} & 50, 35, 15 & 30 \\
+ FT22 & 0.8009 & \color{red}{0.8043} & 150 & 15 \\
+ DTF spain 2008 (2nd experiment) & 0.7975 & \color{red}{0.8032} & 150 & 40 \\
+ LN16 & 0.7996 & \color{red}{0.7999} & 50, 30 & 20 \\
+ DTF spain 2009 (2nd experiment) & 0.7917 & \color{red}{0.7988} & 150 & 55 \\
+ LDV & 0.8158 & 0.7975 & 150 & 15 \\
+ 0W GH FT & 0.7873 & \color{red}{0.7942} & 50, 30 & 15 \\
+ DTFmainEffect2009 & 0.7794 & \color{red}{0.7855} & 50, 35, 15 & 35 \\
+ SD & 0.7905 & 0.7848 & 48 & 30 \\
+ DTFplantingSummer2008 & 0.75 & \color{red}{0.7746} & 50, 30 & 20 \\
+ FT GH & 0.7693 & \color{red}{0.7702} & 50, 30 & 15 \\
+ DTFlocSweden2009 & 0.7595 & \color{red}{0.7626} & 50, 30 & 60 \\
+ DTFplantingSummer2009 & 0.7521 & \color{red}{0.7584} & 50, 30 & 50 \\
+ 0W & 0.7488 & 0.7473 & 48 & 40 \\
+ DTF spain 2009 (1st experiment) & 0.7691 & 0.7425 & 48 & 40 \\
+ DTF sweden 2008 (1st experiment) & 0.727 & \color{red}{0.728} & 50, 30 & 20 \\
+ DTFlocSweden2008 & 0.7161 & \color{red}{0.7271} & 50, 30 & 55 \\
+ Seed Dormancy & 0.7014 & \color{red}{0.7241} & 50, 30 & 35 \\
+ DTFmainEffect2008 & 0.7102 & \color{red}{0.7142} & 50, 30 & 20 \\
+ 8W & 0.7259 & 0.7083 & 150 & 50 \\
+ LN22 & 0.7004 & \color{red}{0.7069} & 50, 30 & 20 \\
+ Size sweden 2009 (1st experiment) & 0.6905 & \color{red}{0.6994} & 48 & 50 \\
+ LN10 & 0.6934 & \color{red}{0.698} & 50, 30 & 20 \\
+ DTF spain 2008 (1st experiment) & 0.6944 & 0.677 & 150 & 25 \\
+ SDV & 0.6775 & 0.6728 & 150 & 15 \\
+ 8W GH FT & 0.7001 & 0.6546 & 48 & 40 \\
+ 0W GH LN & 0.6568 & 0.654 & 50, 30 & 20 \\
+ Storage 7 days & 0.6496 & \color{red}{0.65} & 50, 30 & 25 \\
+ Storage 28 days & 0.6627 & 0.6483 & 50, 30 & 55 \\
+ 8W GH LN & 0.671 & 0.6434 & 48 & 70 \\
+ Size sweden 2009 (2nd experiment) & 0.6114 & \color{red}{0.6268} & 48 & 50 \\
+ SizeLocSweden2009 & 0.6144 & \color{red}{0.619} & 150 & 35 \\
+ FLC & 0.6118 & \color{red}{0.6161} & 50, 30 & 30 \\
+ LFS GH & 0.6178 & 0.6136 & 150 & 35 \\
+ FT Field & 0.7324 & 0.6112 & 150 & 60 \\
+ LY & 0.6072 & \color{red}{0.6088} & 150 & 60 \\
+ Storage 56 days & 0.6085 & 0.5788 & 150 & 15 \\
+ LES & 0.56 & \color{red}{0.5764} & 150 & 50 \\
+ M216T665 & 0.5155 & \color{red}{0.5674} & 50, 30 & 50 \\
+ LC Duration GH & 0.5799 & 0.5664 & 150 & 55 \\
+ M172T666 & 0.5165 & \color{red}{0.5487} & 150 & 60 \\
+ Trichome avg JA & 0.588 & 0.5343 & 150 & 55 \\
+ Secondary Dormancy & 0.5184 & \color{red}{0.5264} & 150 & 30 \\
+ SizeMainEffect2009 & 0.52 & 0.5171 & 48 & 50 \\
+ DSDS50 & 0.4754 & \color{red}{0.5006} & 50, 30 & 60 \\
+ avrPphB & 0.5054 & 0.4942 & 150 & 60 \\
+ Hypocotyl length & 0.4934 & 0.4807 & 150 & 50 \\
+ Size spain 2009 (1st experiment) & 0.5121 & 0.4751 & 150 & 50 \\
+ Yield spain 2009 (1st experiment) & 0.5205 & 0.4719 & 50, 30 & 50 \\
+ Leaf serr 10 & 0.4636 & \color{red}{0.4683} & 150 & 55 \\
+ Size spain 2009 (2nd experiment) & 0.471 & 0.4623 & 48 & 50 \\
+ Trichome avg C & 0.4617 & 0.4385 & 48 & 40 \\
+ Germ in dark & 0.4447 & 0.4382 & 150 & 15 \\
+ YieldMainEffect2009 & 0.505 & 0.4345 & 150 & 30 \\
+ FT Diameter Field & 0.5004 & 0.4274 & 150 & 15 \\
+ Bacterial titer & 0.5406 & 0.417 & 150 & 55 \\
+ FRI & 0.4011 & \color{red}{0.4119} & 48 & 30 \\
+ Rosette Erect 22 & 0.3973 & 0.3934 & 48 & 30 \\
+ Area sweden 2009 (1st experiment) & 0.4203 & 0.3895 & 50, 35, 15 & 30 \\
+ Width 10 & 0.3932 & 0.3784 & 50, 30 & 60 \\
+ Silique 22 & 0.4339 & 0.377 & 50, 30 & 50 \\
+ avrRpt2 & 0.3757 & 0.3737 & 50, 30 & 30 \\
+ M130T666 & 0.4381 & 0.3733 & 150 & 60 \\
+ SizePlantingSummer2009 & 0.3769 & 0.3615 & 150 & 5 \\
+ Area sweden 2009 (2nd experiment) & 0.359 & 0.3542 & 48 & 45 \\
+ FW & 0.3397 & \color{red}{0.3522} & 50, 30 & 25 \\
+ P31 & 0.3632 & 0.3419 & 50, 30 & 45 \\
+ MT GH & 0.4016 & 0.3397 & 150 & 50 \\
+ avrB & 0.3304 & \color{red}{0.3384} & 50, 30 & 30 \\
+ avrRpm1 & 0.361 & 0.3368 & 50, 30 & 20 \\
+ Seed bank 133-91 & 0.3446 & 0.3334 & 150 & 5 \\
+ Mg25 & 0.5321 & 0.3288 & 50, 30 & 60 \\
+ Leaf roll 10 & 0.3558 & 0.3272 & 48 & 40 \\
+ Yield spain 2009 (2nd experiment) & 0.4184 & 0.3197 & 20, 10 & 40 \\
+ Noco2 & 0.3051 & \color{red}{0.3174} & 48 & 30 \\
+ Emwa1 & 0.3226 & 0.3124 & 50, 30 & 30 \\
+ FT Duration GH & 0.2659 & \color{red}{0.3123} & 48 & 5 \\
+ Leaf serr 22 & 0.3021 & \color{red}{0.3108} & 150 & 60 \\
+ Anthocyanin 10 & 0.3198 & 0.3107 & 50, 35, 15 & 60 \\
+ Cd114 & 0.3345 & 0.3069 & 50, 30 & 50 \\
+ Leaf serr 16 & 0.2895 & \color{red}{0.3011} & 48 & 40 \\
+ Fe56 & 0.2802 & \color{red}{0.3006} & 150 & 35 \\
+ YieldLocSweden2009 & 0.3431 & 0.2993 & 150 & 60 \\
+ Width 16 & 0.3463 & 0.2983 & 150 & 50 \\
+ Co59 & 0.2738 & \color{red}{0.2953} & 50, 35, 15 & 25 \\
+ K39 & 0.3036 & 0.2952 & 50, 30 & 60 \\
+ Leaf roll 16 & 0.3072 & 0.2886 & 150 & 15 \\
+ DTFplantingLoc2008 & 0.2971 & 0.275 & 50, 30 & 5 \\
+ SizePlantingSummerLocSweden2009 & 0.2803 & 0.2704 & 50, 30 & 60 \\
+ Mn55 & 0.2775 & 0.2662 & 50, 30 & 20 \\
+ Anthocyanin 22 & 0.2731 & 0.2635 & 150 & 15 \\
+ As75 & 0.254 & \color{red}{0.2619} & 50, 30 & 35 \\
+ Na23 & 0.2564 & \color{red}{0.2598} & 50, 30 & 15 \\
+ Ni60 & 0.2894 & 0.2539 & 150 & 25 \\
+ Mo98 & 0.2765 & 0.2537 & 50, 30 & 35 \\
+ Chlorosis 22 & 0.2622 & 0.2453 & 50, 35, 15 & 10 \\
+ Hiks1 & 0.2441 & \color{red}{0.2452} & 20, 10 & 20 \\
+ Zn66 & 0.2553 & 0.2444 & 150 & 35 \\
+ B11 & 0.2891 & 0.2392 & 48 & 40 \\
+ Germ 16 & 0.2987 & 0.2356 & 50, 30 & 41 \\
+ At2 & 0.2147 & \color{red}{0.216} & 150 & 15 \\
+ Emco5 & 0.166 & \color{red}{0.2101} & 150, 30 & 20 \\
+ Se82 & 0.2192 & 0.2075 & 150 & 25 \\
+ Mature cell length & 0.1987 & \color{red}{0.2052} & 150 & 45 \\
+ DW & 0.2878 & 0.2048 & 50, 30 & 60 \\
+ Yield sweden 2009 (1st experiment) & 0.2274 & 0.2033 & 150 & 55 \\
+ As2 & 0.1774 & \color{red}{0.1962} & 150 & 15 \\
+ Meristem zone length & 0.1976 & 0.195 & 150 & 50 \\
+ Germ 10 & 0.2073 & 0.1873 & 20, 10 & 40 \\
+ Anthocyanin 16 & 0.2433 & 0.1867 & 20, 10 & 10 \\
+ Width 22 & 0.2224 & 0.1856 & 50, 30 & 50 \\
+ YieldPlantingSummerLocSweden2009 & 0.2146 & 0.18 & 150 & 55 \\
+ DTFplantingSummerLocSweden2009 & 0.2032 & 0.1775 & 150 & 55 \\
+ Bs & 0.2161 & 0.1656 & 50, 30 & 60 \\
+ Bs CFU2 & 0.1672 & 0.1584 & 50, 35, 15 & 15 \\
+ Germ 22 & 0.1267 & \color{red}{0.1533} & 50, 30 & 35 \\
+ Leaf roll 22 & 0.1135 & \color{red}{0.1511} & 48 & 45 \\
+ RP GH & 0.1755 & 0.1458 & 150 & 15 \\
+ Cu65 & 0.1543 & 0.1315 & 150 & 5 \\
+ Li7 & 0.1611 & 0.1297 & 150 & 60 \\
+ As & 0.1089 & \color{red}{0.1227} & 100 & 20 \\
+ At1 & 0.1473 & 0.1197 & 48 & 40 \\
+ S34 & 0.1045 & \color{red}{0.11} & 50, 30 & 60 \\
+ YieldPlantingSummer2009 & 0.1265 & 0.0984 & 150 & 50 \\
+ Silique 16 & 0.2366 & 0.0884 & 50, 30 & 60 \\
+ Chlorosis 10 & 0.0243 & \color{red}{0.088} & 50, 35, 15 & 55 \\
+ Ca43 & 0.3333 & 0.0732 & 50, 35, 15 & 55 \\
+ Seedling Growth & 0.0813 & 0.0636 & 48 & 30 \\
+ Vern Growth & -0.0096 & \color{red}{0.0422} & 150 & 15 \\
+ At2 CFU2 & 0.0694 & 0.0378 & 150 & 25 \\
+ Yield sweden 2009 (2nd experiment) & 0.0536 & 0.0355 & 150 & 25 \\
+ As CFU2 & 0.0312 & \color{red}{0.035} & 150 & 5 \\
+ At1 CFU2 & 0.0818 & 0.0319 & 50, 30 & 50 \\
+ Aphid number & -0.0246 & \color{red}{0.029} & 50, 35, 15 & 10 \\
+ After Vern Growth & -0.1433 & \color{red}{0.0057} & 50, 35, 15 & 5 \\
+ Chlorosis 16 & -0.0313 & \color{red}{-0.0121} & 150 & 5 \\
+ As2 CFU2 & 0.0504 & -0.0325 & 50, 30 & 60 \\
 \bottomrule
+\label{tab:at_res}
 \end{longtable}
 \doublespacing
 
@@ -1334,16 +1339,16 @@ TST and TRN sets.
 \subsubsection{Across environments}
 
 \begin{figure}[H]
-  \centering \includegraphics[angle=0,height=.49\textheight, width=1.1\textwidth]{gp_kemater}
-  \decoRule
+ \centering \includegraphics[angle=0,height=.49\textheight, width=1.1\textwidth]{gp_kemater}
+ \decoRule
 \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP }
 \label{fig:ke_ann}
 \end{figure}
 
 \begin{figure}[H]
-  \centering \includegraphics[angle=0,height=.495\textheight, width=1.1\textwidth]{gp_petkuser}
-  \decoRule
-  \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
+ \centering \includegraphics[angle=0,height=.495\textheight, width=1.1\textwidth]{gp_petkuser}
+ \decoRule
+ \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
 \label{fig:pe_ann}
 \end{figure}
 
@@ -1352,50 +1357,53 @@ TST and TRN sets.
 \begin{table}[H]
 \centering
 \begin{tabular}{lcc|cc}
-  \toprule
-  & \multicolumn{2}{c}{\textbf{Kemater}}  & \multicolumn{2}{c}{\textbf{Petkuser}} \\
-  Phenotype & GBLUP & ANN & GBLUP & ANN \\ 
-  \midrule
-  EV\_V3 & 0.44 & 0.46 & 0.31 & 0.25 \\ 
-  EV\_V4 & 0.47 & 0.49 & 0.31 & 0.25 \\ 
-  EV\_V6 & 0.43 & 0.44 & 0.38 & 0.33 \\ 
-  DtTAS & 0.47 & 0.44 &  &  \\ 
-  PH\_V4\_mean & 0.54 & 0.56 & 0.46 & 0.44 \\ 
-  PH\_V6\_mean & 0.53 & 0.56 & 0.51 & 0.48 \\ 
-  PH\_final & 0.69 & 0.70 & 0.68 & 0.67 \\ 
-  DtSILK & 0.57 & 0.53 & 0.54 & 0.52 \\ 
-  \bottomrule
+ \toprule
+ & \multicolumn{2}{c}{\textbf{Kemater}} & \multicolumn{2}{c}{\textbf{Petkuser}} \\
+ Phenotype & GBLUP & ANN & GBLUP & ANN \\ 
+ \midrule
+ EV\_V3 & 0.44 & 0.46 & 0.31 & 0.25 \\ 
+ EV\_V4 & 0.47 & 0.49 & 0.31 & 0.25 \\ 
+ EV\_V6 & 0.43 & 0.44 & 0.38 & 0.33 \\ 
+ DtTAS & 0.47 & 0.44 & & \\ 
+ PH\_V4\_mean & 0.54 & 0.56 & 0.46 & 0.44 \\ 
+ PH\_V6\_mean & 0.53 & 0.56 & 0.51 & 0.48 \\ 
+ PH\_final & 0.69 & 0.70 & 0.68 & 0.67 \\ 
+ DtSILK & 0.57 & 0.53 & 0.54 & 0.52 \\ 
+ \bottomrule
 \end{tabular}
 \end{table}
 \doublespacing
 
 \subsubsection{Single environments}
 
+The prediction of the single environment BLUEs with the environmentally enhanced marker matrix yielded
+substantially higher prediction accuracies than the prediction with the across environment BLUEs (previous section)-
+
 \begin{figure}[H]
-  \centering \includegraphics[angle=0,height=.695\textheight, width=1.1\textwidth]{SL_pred}
-  \decoRule
-  \caption[Results of genomic prediction across single environments for Kemater and Petkuser DH populations]{Results of genomic prediction across single environments for \textbf{A} Kemater  and \textbf{B} Petkuser DH populations}
+ \centering \includegraphics[angle=0,height=.895\textheight, width=1.1\textwidth]{SL_pred}
+ \decoRule
+ \caption[Results of genomic prediction across single environments for Kemater and Petkuser DH populations]{Results of genomic prediction across single environments for \textbf{A} Kemater and \textbf{B} Petkuser DH populations}
 \label{fig:sl_pred}
 \end{figure}
 
 \onehalfspacing
 \begin{table}[H]
-  \centering
-  \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL)  and across locations (AL) for Kemater and Petkuser}
-  \begin{tabular}{lrrr|rrr}
-    \toprule
-    & \multicolumn{3}{c}{\textbf{Kemater}}  & \multicolumn{3}{c}{\textbf{Petkuser}} \\
-    Phenotype & AL   & WL   & $\Delta$ & AL   & WL & $\Delta$ \\ 
-    \midrule
-    EV\_V3 & 0.73 & 0.46 & 0.27 & 0.72 & 0.25 & 0.47 \\ 
-    EV\_V4 & 0.72 & 0.49 & 0.23 & 0.66 & 0.25 & 0.40 \\ 
-    EV\_V6 & 0.70 & 0.44 & 0.26 & 0.65 & 0.33 & 0.33 \\ 
-    PH\_V4 & 0.84 & 0.56 & 0.28 & 0.84 & 0.44 & 0.41 \\ 
-    PH\_V6 & 0.80 & 0.56 & 0.25 & 0.80 & 0.48 & 0.31 \\ 
-    PH\_final & 0.78 & 0.70 & 0.08 & 0.76 & 0.67 & 0.09 \\ 
-    DtSILK & 0.76 & 0.53 & 0.23 & 0.77 & 0.52 & 0.25 \\ 
-    \bottomrule
-  \end{tabular}
+ \centering
+ \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL) and across locations (AL) for Kemater and Petkuser}
+ \begin{tabular}{lrrr|rrr}
+  \toprule
+  & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}} \\
+  Phenotype & AL  & WL  & $\Delta$ & AL  & WL & $\Delta$ \\ 
+  \midrule
+  EV\_V3 & 0.73 & 0.46 & 0.27 & 0.72 & 0.25 & 0.47 \\ 
+  EV\_V4 & 0.72 & 0.49 & 0.23 & 0.66 & 0.25 & 0.40 \\ 
+  EV\_V6 & 0.70 & 0.44 & 0.26 & 0.65 & 0.33 & 0.33 \\ 
+  PH\_V4 & 0.84 & 0.56 & 0.28 & 0.84 & 0.44 & 0.41 \\ 
+  PH\_V6 & 0.80 & 0.56 & 0.25 & 0.80 & 0.48 & 0.31 \\ 
+  PH\_final & 0.78 & 0.70 & 0.08 & 0.76 & 0.67 & 0.09 \\ 
+  DtSILK & 0.76 & 0.53 & 0.23 & 0.77 & 0.52 & 0.25 \\ 
+  \bottomrule
+ \end{tabular}
 \end{table}
 \doublespacing
 
@@ -1403,19 +1411,19 @@ TST and TRN sets.
 
 \onehalfspacing
 \begin{table}[H]
-  \centering
-  \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN architectures resulting in highest prediction accuracies, with number of hidden layer (HL) and the total count (n)}
-  \begin{tabular}{cccc}
-  \toprule
-    LCL & Architecture & HL & n \\ 
-   \midrule
-    True &  150        & 2 &  56  \\ 
-    True &  50, 30     & 3 &  47  \\ 
-    True &  48         & 2 &  23  \\ 
-    True &  50, 35, 15 & 4 &  11  \\ 
-    True &  20, 10     & 3 &   5  \\ 
-    True &  100        & 2 &   2  \\ 
-    True &  150, 30    & 3 &   1  \\ 
+ \centering
+ \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN architectures resulting in highest prediction accuracies, with number of hidden layer (HL) and the total count (n)}
+ \begin{tabular}{cccc}
+ \toprule
+  LCL & Architecture & HL & n \\ 
+  \midrule
+  True & 150    & 2 & 56 \\ 
+  True & 50, 30   & 3 & 47 \\ 
+  True & 48     & 2 & 23 \\ 
+  True & 50, 35, 15 & 4 & 11 \\ 
+  True & 20, 10   & 3 &  5 \\ 
+  True & 100    & 2 &  2 \\ 
+  True & 150, 30  & 3 & \\
    \bottomrule
 \end{tabular}
 \end{table}
