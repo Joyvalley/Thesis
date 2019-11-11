@@ -10,22 +10,23 @@
 While machine learning, neural networks and deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
 \ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, a founder of
-machine learning as it would be defined today, which was designed to mimic the information flow in biological
-nervous systems \cite{rosenblatt1961}.
+machine learning as a set of related statistical algorithms would be defined today. Rosenblatt designed his
+perceptron to mimic the information flow in biological nervous systems \cite{rosenblatt1961}.
 
 \begin{figure}[th]
  \centering \includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png} \decoRule
-\caption[Basic perceptron model]{Basic perceptron model as proposed by Rosenblatt}
+\caption[Basic perceptron model]{Basic perceptron model as proposed by Rosenblatt \cite{rosenblatt1961}}
 \label{fig:perceptron}
 \end{figure}
 
+
 This basic perceptron, which contrary to perceptrons used nowadays does not have an embedded activation
 function, takes $n$ binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$
-after being processed by the perceptron or neuron. To achieve this Rosenblatt introduced the concept of
-weights, which indicated a certain input's relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The
-output $y$ is determined by the weighted sum of the weights and biases $\sum_i w_ix_i $ and iff a certain
-threshold value is met the neuron is either activated and outputs 1 or not activated resulting in and output
-of 0. This is algebraically represented in equation \ref{eqn:weights}:
+after being processed. To achieve this Rosenblatt introduced the concept of weights, which determine a certain
+input's relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The output $y$ is determined by
+the weighted sum of the weights and biases $\sum_i w_ix_i $ and if a certain threshold value is met the
+neuron is either activated and outputs 1 or not activated resulting in and output of 0. This is algebraically
+represented in equation \ref{eqn:weights}:
 
 \begin{subequations}
  \begin{align}
@@ -35,22 +36,22 @@ of 0. This is algebraically represented in equation \ref{eqn:weights}:
  \label{eqn:weights}
 \end{subequations}
 
-\noindent
+
 Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation
-\ref{eqn:weights} which represents the activation threshold and per definition is of negative value. A single
+\ref{eqn:weights} which represents the activation threshold and per definition is a negative value. A single
 perceptron is a linear classifier and can only be trained on linearly separable functions and can applied, as
-shown by \cite{rosenblatt1961}, to solve simple logical operations as AND, OR and NOT. The simple perceptron
-fails, however, due to non-linearity, to perform XOR operations, proven by \cite{marvin1969}. This discovery
-let to a near stillstance in the research of artificial neural networks in the 1970s. This time period is now
-often referred to as the first AI-winter. Another reason that massively hindered the applications and research
-of machine learning during that span was the, compared to
+shown by \cite{rosenblatt1961}, to solve simple logical operations as AND, OR and NOT. The basic perceptron
+fails, however, due to non-linearity to perform XOR operations which was proven by \cite{marvin1969}. This
+discovery led to a near stillstance in the research of artificial neural networks in the 1970s. This time
+period is now often referred to as the first AI-winter. Another reason that massively hindered the
+applications and research of machine learning during that span was the, compared to
 modern times, incredibly small amount of computational power available \cite{nguyen1990truck}. \\
 More complex decision making, like solving XOR problems, requires more complex structures than a single
 perceptron. Continuing the trend of mimicking human neural networks, multiple artificial neurons were stacked
 into layers and these layers were connected to each other allowing communication between the many perceptrons
-in such a network. Figure \ref{fig:nn} shows schematically the basic structure of an artificial neural network,
-now harboring three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii) one output
-layer, which in this case only consists of one only neuron.
+in such a network. Figure \ref{fig:nn} shows schematically the basic structure of an artificial neural
+network, now harboring three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii)
+one output layer, which in this case only consists of one only neuron.
 
 \begin{figure}[H]
 \centering
@@ -60,18 +61,20 @@ layer, which in this case only consists of one only neuron.
 \label{fig:nn}
 \end{figure}
 
-In the sample layout of figure \ref{fig:nn} the neurons in the first column weigh the inputs and pass those
-the the neurons in the second layer. In this case all neurons on the first layer or connected to all neurons
-on the second layer, such layers are referred to fully-connected layers (FLC) , and their resulting networks
-are often called multi-layer perceptrons (MLP). This architecture enables the network to perform more complex
-calculations and result in more abstract decisions than single neurons or single layer architectures. There
-are also layers were neurons in the previous layer are only connected with neighboring neurons in the
-succeeding layers. Those are known as locally-connected layers (LCL) or related to them are convolutional
-layers which shared weights between selected neurons, building convolutional neural networks (CNN) \cite{lecun1999object}.
+
+In the sample layout of figure \ref{fig:nn} the neurons in the first column weigh the inputs and pass the
+gathered information to the neurons in the second layer. In the above case  all neurons on the first layer are
+connected to all neurons on the second layer. Such layers are referred to as fully-connected layers (FLC) , and
+their resulting networks are often called multi-layer perceptrons (MLP). This architecture enables the network
+to perform more complex calculations and result in more abstract decision making than single neurons or single layer
+architectures. There are also layers were neurons in the previous layer are only connected with neighboring
+neurons in the succeeding layers. Those are known as locally-connected layers (LCL) or related to them are
+convolutional layers which share weights between selected neurons, building convolutional neural networks
+(CNN) \cite{lecun1999object}.
 
 \subsubsection{Activation functions}
 
-The neurons discussed so far are only capable of outputting binary results. Either 0 or 1, depending on
+The neurons discussed so far are only capable of outputting binary results, depending on
 whether threshold values are being reached or not. For more complex estimations it is desirable that small
 changes in the input also result in small changes of the output. This requirement can not be met with binary
 outputs. Activation functions for a given node provide more sophisticated rules for the output in accordance
@@ -91,15 +94,16 @@ to their inputs \cite{vzilinskas2006practical}.
 \label{fig:activation}
 \end{figure}
 
+
 Figure \ref{fig:activation} shows six of the most commonly used activation functions
-\cite{warner1996understanding}. The simplest one was introduced , is the binary step activation function \textbf{A} in
-equation \ref{eqn:binary}, which properties have been discussed along the perceptron model. All other
-activation produce continuous outputs from any given input. Any mathematical function can serve as
-an activation function in neural nets, starting with a simple identity function \ref{eqn:ident} ,
-\ref{fig:activation} \textbf{B}. The sigmoid functions \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}
-and tanh figure \ref{fig:activation} \textbf{D}, equation \ref{eqn:tanh}, when $x \rightarrow \infty$ or
-$x \rightarrow -\infty$ they have similar properties to the binary function, but produce continuous output
-around 0.
+\cite{warner1996understanding}. The simplest one was already introduced. It is the binary step activation
+function \textbf{A} in equation \ref{eqn:binary}, which properties have been discussed along the perceptron
+model. All other activation produce continuous outputs from any given input. \\
+Any mathematical function can serve as an activation function in neural nets, starting with a simple identity
+function \ref{eqn:ident}, \ref{fig:activation} \textbf{B}. The sigmoid function \ref{fig:activation}
+\textbf{C}, equation \ref{eqn:sigmoid} and tanh figure \ref{fig:activation} \textbf{D}, equation
+\ref{eqn:tanh}, when $x \rightarrow \infty$ or $x \rightarrow -\infty$  have similar properties as the
+binary function, but produce continuous output around threshold values of 0.
 
 \begin{equation}
  f(x)= \sigma(x) = \left\{
@@ -141,10 +145,11 @@ around 0.
  \label{eqn:softplus}
 \end{equation}
 
+
 ReLU (equation \ref{eqn:relu}) and the softplus (equation \ref{eqn:softplus}) share similar properties as
 well, the latter one being a smoothed version of ReLU. Rectifiers as activation functions have been introduced
-in 2000s \cite{hahnloser2000digital} and have since then overtaken all others as the most popular activations
-functions in neural networks and deep learning today \cite{lecun2015deep} and they have proven to be superior
+in the 2000s \cite{hahnloser2000digital} and have since then overtaken all others as the most popular activations
+functions in neural networks and deep learning \cite{lecun2015deep} and they have proven to be superior
 in many deep-learning applications over sigmoid or logistic functions. One of the advantages leading to the
 superiority of ReLUs is that with randomly initialized weights only half of the ReLU neurons are activated at start,
 compared to tanh and sigmoid activation \cite{glorot2011deep}. All activation functions shown in figure
@@ -155,37 +160,40 @@ important prerequisite for networks being able to learn. \\
 
 \subsubsection{Gradient descent algorithm}
 
-Let the network shown in \ref{fig:nn} be for the classification of a arbitrary phenotype like blue petals with
-$x_1 \dots x_4$ on the input layers being genetic markers as features. And the output layer displaying a value
-from 0 to 1, meaning yes: blue petals from 0 - 0.5 and no blue petals from 0.5 to 1. To quantify how well the
-network performs on achieving that goal a loss function is applied \cite{schmidhuber2015deep}. There is a
-large variety of different loss functions available for neural networks like mean squared error (MSE), root
-mean squared error (RMSE), cross-entropy and many others. In general MSE and RMSE are commonly used for regression
-problems, with the latter being less popular and cross-entropy also called log-loss is used for binary or
-multi-class classification problems \cite{janocha2017loss}. Since all problems presented in due course are
-regression problems, that use MSE as their loss function, this will be the only loss function used.
+Let the network shown in \ref{fig:nn} be designed for the classification of an arbitrary phenotype like blue
+petals with $x_1 \dots x_4$ on the input layers being genetic markers as features. And the output layer
+displaying a value from 0 to 1, meaning yes: blue petals from 0 - 0.5 and no blue petals from 0.5 to 1. To
+quantify how well the network performs on achieving that goal a loss function is applied
+\cite{schmidhuber2015deep}. There is a large variety of different loss functions available for neural networks
+like mean squared error (MSE), root mean squared error (RMSE), cross-entropy among others. In general MSE and
+RMSE are commonly used for regression problems, with the latter being less popular and cross-entropy also
+called log-loss is used for binary or multi-class classification settings \cite{janocha2017loss}. Since all
+problems presented in due course are regression problems that use MSE as their loss function this will be the
+only loss function further elaborated upon in this section.
 
 \begin{equation}
  MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \widetilde{y})^2
  \label{eqn:MSE}
 \end{equation}
 
+
 Equation \ref{eqn:MSE} shows the MSE function which is the sum of the squares of the differences of all the
 predicted and the real values. The same function can be rewritten with the previously used terminology of
-weights and biases in equation \ref{eqn:MSE}.
+weights and biases in equation \ref{eqn:MSE} with $L(w,b)$ as the loss.
 
 \begin{equation}
  L(w,b) = \frac{1}{2n} \sum_x \| y(x) - \widetilde{y}\|^2.
  \label{eqn:MSE2}
 \end{equation}
 
+
 With $w$ and $b$ as the collection of all the weights and the biases in the network used to optimize the
-function $y(x)$. Giving the quadratic nature of the function the $L(w,b)$ will always be positive. And if
+function $y(x)$. Giving the quadratic nature of the function $L(w,b)$ will always be positive. If
 $L(w,b) \rightarrow 0$ the loss is minimal, meaning that the real and predicted values are close together and
 the network found weights and biases that explain the output well. \\
 A widely used function to find the optimum for such a loss function is gradient descent. Its objective is to
-fine the minimum for the loss function \cite{bottou1991stochastic}. The behind gradient descent or other
-optimizing algorithms is start with randomly initialized weights and biases and repeatedly move them in
+find the minimum of loss functions \cite{bottou1991stochastic}. The idea behind gradient descent or other
+optimizing algorithms is to start with randomly initialized weights and biases and repeatedly move them in
 direction $\Delta w$ and $\Delta b$. This results in a change of the loss function as shown in equation
 \ref{eqn:deltaL}, making use of partial derivatives.
 
@@ -194,24 +202,27 @@ direction $\Delta w$ and $\Delta b$. This results in a change of the loss functi
 \label{eqn:deltaL} 
 \end{equation}
 
+
 Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a
 reduction of the loss. To simplify this problem let $\Delta d$ be the vector of changes:
 $\Delta d = (\Delta w , \Delta b)^T $ and $\nabla L$ the vector of the partial derivatives: equation
 \ref{eqn:nabla}
+
 
 \begin{equation}
  \nabla L = \left(\frac{\partial L}{\partial w}, \frac{\partial L}{\partial w}\right)^T
 \label{eqn:nabla}
 \end{equation}
 
-Having defined $\nabla L$ and $\Delta d$ the term \ref{eqn:deltaL} can be simplified as equation \ref{eqn:cd}
+Having defined $\nabla L$ and $\Delta d$ the term \ref{eqn:deltaL} can be simplified as written in equation \ref{eqn:cd}
 
 \begin{equation}
 \Delta C = \nabla L * \Delta d
  \label{eqn:cd}
 \end{equation}
 
-Now the task of gradient descent or any other optimizer is to find $\Delta d$ that results in $\Delta C$ being negative
+
+Now the task of gradient descent is to find $\Delta d$ that results in $\Delta C$ being negative
 as shown in equation \ref{eqn:eta}
 
 \begin{equation}
@@ -219,16 +230,17 @@ as shown in equation \ref{eqn:eta}
  \label{eqn:eta}
 \end{equation}
 
-In this case $\eta$ is a small positive decimal number, commonly referred to as the learning rate, which
-usually, but not exclusively ranges from 0.1 to 0.001. However it can be larger or much smaller in some
-cases. Having found a way to ensure that $\Delta L$ always decreases according to equation \ref{eqn:eta} it is
-utilized to repeatedly update the gradient $\nabla L$. To make the gradient descent algorithm efficient the
-learning rate $\eta$ must be chosen correctly. If $\eta$ is too large, the gradient $\Delta L$ might end up
-being larger than zero, leading to an increase of the loss, and if the step size is too small convergence will
-either take too long or not take place at all \cite{bergstra2011algorithms}. In practical machine learning
-approaches different learning rates are tested. There are also algorithmic approaches. While equation
-\ref{eqn:deltaL} only accounts for two inputs features, it can be generalized to compute $n$ inputs shown in
-equation \ref{eqn:gd}.
+
+Here $\eta$ is a small positive decimal number, commonly referred to as the learning rate which usually, but
+not exclusively, ranges from 0.1 to 0.001.  Having found a way to ensure that $\Delta L$ always decreases
+according to equation \ref{eqn:eta} it is utilized to repeatedly update the gradient $\nabla L$. To make the
+gradient descent algorithm efficient the learning rate $\eta$ has to be chosen correctly. If $\eta$ is too
+large, the gradient $\Delta L$ possibly ends up being larger than zero, leading to an increase of the loss, and if
+the step size is too small convergence will either take too long or not take place at all
+\cite{bergstra2011algorithms}. In practical machine learning approaches different learning rates are
+tested. There are also algorithmic approaches available. Equation \ref{eqn:deltaL} only accounts for two inputs
+features but it can be generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
+
 
 \begin{eqnarray}
  \nabla L = \left(\frac{\partial L}{\partial w_1}, \ldots ,
@@ -236,10 +248,12 @@ equation \ref{eqn:gd}.
  \label{eqn:gd}
 \end{eqnarray}
 
+
 Equation \ref{eqn:gdwb} shows the gradient descent how it is used to repetitively update the weights and
 biases to optimize the loss function $L(c,w)$ with $w$ and $b$ as the weight and bias matrices and the
 learning rate $\eta$. In machine learning each iterational update of the network is often called epoch or
 training epoch.
+
 
 \begin{subequations}
  \begin{align}
@@ -249,7 +263,8 @@ training epoch.
  \label{eqn:gdwb}
 \end{subequations}
 
-Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb} a simplifies to:
+
+Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb}  simplifies to:
 
 \begin{equation}
  w = w_i - \eta \nabla L
@@ -258,36 +273,38 @@ Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb} a
 
 \subsubsection{Optimizers}
 The previous section introduced the concept of gradient descent, an algorithm to minimize the loss function of
-the weights and biases of a neural network. All other optimizers introduced here, are either variations or
-extensions of the basic gradient descent algorithm (GD) shown in \ref{eqn:gdwb}. One disadvantage of gradient
-descent is that if the data sets grow larger, the demand in memory for computation increases
-exponentially. Taking into consideration machine learning is a popular method ind big data applications this
-is a serious drawback. Methods to overcome that are stochastic gradient descent and mini-batch gradient
-descent. The idea behind the latter is to randomly divide the entity of the training data in sub-samples
-called mini-batches \cite{bottou-bousquet-2008}. The network is then trained iteratively over the mini
-batches. The batch size influences the accuracy and the training speed and is another hyperparameter which has
-to be tuned. If the batch size is 1 mini batch GD is also referred to as stochastical gradient descent (SGD).
-During the optimization process optimizers can find local minima in the cost function without being able to
-overcome them to find the desired global minimum. An algorithm extending GD to accelerate the search of the
-global minimum is momentum. Which allows the GD to speed up when the loss is decreasing and to slow down when
-going in the wrong direction - increasing the loss function $L(w,b)$. This is achieved by accounting for the
-gradient of the previous step in the calculation of the current step. This concept was introduced by
-\cite{polyak1964} and re-popularized alongside backpropagation learning by \cite{rumelhart1988learning}.
+the weights and biases for a neural network. All other optimizers introduced in the following chapter, are
+either variations or extensions of the basic gradient descent algorithm (GD) shown in \ref{eqn:gdwb}.\\
+One disadvantage of gradient descent is that if the data sets grow larger, the demand in memory for
+computation increases exponentially. Taking into consideration machine learning is a popular method in big
+data applications this is a serious drawback. Methods to solve that issue are stochastic gradient descent and
+mini-batch gradient descent. The idea behind the latter is to randomly divide the entity of the training data
+in sub-samples called mini-batches \cite{bottou-bousquet-2008}. The network is then trained iteratively over
+those mini batches. The batch size has a significant influence on the accuracy and the training speed of the
+network and is a hyperparameter which has to be tuned by iteratively testing like the learning rate. If the
+batch size is 1 mini batch GD is also referred to as stochastical gradient descent (SGD). During the
+optimization process optimizers can find local minima of the cost function without being able to overcome them
+to discover the desired global minima. An algorithm extending GD to accelerate the search of the global minimum
+is momentum, which allows the GD to speed up when the loss is decreasing and to slow down when going in the
+wrong direction, hence  increasing the loss function $L(w,b)$. This is achieved by accounting for the gradient of
+the previous step in the calculation of the current step. This concept was introduced by \cite{polyak1964} and
+re-popularized alongside backpropagation learning by \cite{rumelhart1988learning}.
 
 \begin{equation}
  w = w_i - \eta \nabla L + \alpha \Delta w
  \label{eqn:momentum}
 \end{equation}
 
+
 Equation \ref{eqn:momentum} shows how the momentum is mathematically represented in GD to update the weights
 $w$ or likewise the biases the delta of the weights multiplied by the coefficient $\alpha$ - the momentum,
-which usually ranges from 0.1 to 0.9 and is another parameter to tuned for successful training. If the
+which usually ranges from 0.1 to 0.9 and is another parameter to be tuned for successful training. If the
 momentum is two small the GD will not be able to overcome local minima and if $\alpha$ is two large the loss
-functions tends to oscillate without finding an optimum \cite{lecun2015deep}. For both of the momentum and
-the learning rate it is impractical to remain on the same level during all training epochs. Because after each
-epoch the loss function is either closer or further away from its global minima and depending on the distance
-to that minimum it is desirable to have larger or smaller learning rates and momenta. This can be achieved
-with naive approaches for example using a step function to gradually decrease those values after each
+functions tends to oscillate without ever finding an optimum \cite{lecun2015deep}. \\ For both the
+momentum and the learning rate it is impractical to remain on the same level during all training epochs. After
+each epoch the loss function is either closer or further away from its global minima and depending on the
+distance to that minimum it is desirable to have larger or smaller learning rates and momenta. This can be
+achieved with naive approaches for example using a step function to gradually decrease those values after each
 iteration, or to utilize algorithmic approaches \cite{michie1994machine}. There is a large variety of
 optimizers trying to find optimal values for $\alpha$ and $\eta$ and till today this field is under active
 research \cite{goodfellow2016deep}. Popular among those are: RMSprop \cite{hinton2012neural}; Nesterov
@@ -296,29 +313,29 @@ and Adam \cite{kingma2014adam}. With Adam being the most widely used optimizer t
 slight change to the
 normal momentum capable of having huge impacts in practical applications, because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
 RMSProp - root mean square propagation - is a method aiming to adapt the learning rate algorithmically, by
-choosing $\eta$ for each parameter. And lastly the wide-spread Adam optimizer combines both of the features
-of momentum and RMSProp and adapts the learning rate as well as the momentum iteratively
-\cite{kingma2014adam}.
+choosing $\eta$ for each parameter. And lastly the wide-spread Adam optimizer combines both of the features of
+momentum and RMSProp and adapts the learning rate as well as the momentum iteratively \cite{kingma2014adam}.
 
 
 \subsubsection{Backpropagation}
 maybe i will leave out backpropagation
-$\odot$
+$\hdots$
+$\vdots$
 
 Backpropagation \cite{rumelhart1988learning}
 
 \subsubsection{Regularization parameters}
 
-When applying the combined aforementioned algorithms and optimizers to find global minima of a loss function
+When applying the combined, aforementioned algorithms and optimizers to find global minima of a loss function
 of a neural network the problem of overfitting arises, because optimizers like Adam work ``too'' well. This
-issue is due to the fact that neural networks have 100s of thousand of free parameters to be trained, deep
+issue is due to the fact that neural networks have 100s of thousand of free parameters to be trained, deeper
 neural networks have billions and trillions of parameters. If training of the neural net continues for enough
 epochs eventually the loss function will approach a minimum and as $ L(w,b)\rightarrow 0 $ the initially drawn
-conclusion could mislead to assuming that training was quite successful, but when trying to apply the network trained on
-the training data set (TRN) to a testing data set (TST) the loss and accuracy of the prediction of TST and
-TST are very large or accordingly small. This phenomenon is know as overfitting and a lot of fine tuning of
-hyperparameters is devoted to minimizing this effect \cite{tetko1995neural}. Figure \ref{fig:overfitting}
-visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
+conclusion could mislead to assuming that training was quite successful. However, when trying to apply the
+trained network on the training data set (TRN) to a testing data set (TST) the loss and accuracy of the
+prediction of TST and TST are very large or accordingly small. This phenomenon is known as overfitting and a
+lot of fine tuning of hyperparameters is devoted to minimizing this effect \cite{tetko1995neural}. Figure
+\ref{fig:overfitting} visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
 
 \begin{figure}[H]
   \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
@@ -331,7 +348,7 @@ visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
 
 \textbf{Cross-validation} \\
 
-A method that is used in basically every training of neural network is splitting up the data sets in multiple
+A method that is used in basically every training of neural networks is splitting up the data in multiple
 sub-sets. More specifically a training set (TRN) and a testing set (TST). The training set is used to
 minimize the loss functions and its success is evaluated on the TRN set, by comparing the predicted values
 $\hat{y}$ with the real values in TST $y$. For all neural nets in this study person's correlation coefficient
@@ -343,11 +360,11 @@ was chosen as performance metric, as in equation \ref{eqn:pearson} \cite{soper19
 \end{equation}
 
 There are other popular performance metrics, especially for classification problems, like AUC (area under the
-curve) and ROC (receiver operating characteristics), which basically evaluate by weighing sensitivity and
+curve) and ROC (receiver operating characteristics), which evaluate the success of learning by weighing sensitivity and
 specificity. In cross-validation compared to single validation the initial data set is split into TRN and TST
 multiple times e.g. if the ratio is 80:20 5 times, and each TRN-TST pair is evaluated individually. Sometimes
-it becomes necessary to use a third subset - the validation data. Because hyperparameter tuning is performed
-with the TRN and TST sets, a third portion of the data needs to be assessed to check whether the neural
+it is necessary to use a third subset - the validation data set. Because hyperparameter tuning is performed
+with the TRN and TST sets, a third portion of the data needs to asses to whether the neural
 network is able to generalize on global data.
 
 \textbf{L1 and L2 loss} \\
@@ -362,41 +379,40 @@ L1 and L2
 extension of the polygenic model proposed by \cite{boyle2017expanded} and thoroughly reviewed in
 \cite{timpson2018} all traits or phenotypic values are influenced by a great number or all genes in the
 genome. Therefore resulting in traits following certain gradual statistical distributions instead of being
-binned in classes or even binary. Intuitively this might be contradicting with the foundation of modern
-Genetics - Mendel's three laws. That where derived from observations with where mainly influenced by one
-locus. But staying with one of Mendel's examples the round or wrinkled surfaces of peas \textit{Pisum
- sativum}, an assessment of a couple of thousands peas, would most likely inevitably lead to the conclusion
-that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those is possible and
-observable. Mendel's third law of independent segregation also only holds true under certain assumptions. The
-most simplest one being that the traits under investigation have to be located on different linkage
-groups. Otherwise for the 7 traits used in Mendel's initial studies would not have segregated
+binned in classes or binary. Intuitively this might be contradicting with the foundation of modern genetics -
+Mendel's three laws. Those where derived from observations which where mainly influenced by one locus. But
+using one of Mendel's phenotypes as an example - the round or wrinkled surfaces of peas \textit{Pisum
+  sativum}- an assessment of a couple of thousands peas, would most likely inevitably lead to the conclusion
+that form the ``roundest'' to the ``wrinkliest'' pea any gradual step between those two classes is possible
+and observable. Mendel's third law of independent segregation also only holds true under certain
+assumptions. The most simplest one being that the traits under investigation have to be located on different
+linkage groups. Otherwise the 7 traits used in Mendel's initial studies would not have segregated
 independently. The odds of 7 randomly selected traits being on 7 different linkage groups are rather small,
 especially taking into account, that the genome of the \textit{P. sativum} consists of only 7 chromosomes
 itself \cite{kalo2004}. Mendel probably new about traits not following its own laws, as well as being aware of
 the quantitative nature of traits such as the constitution of surfaces of peas or the color of petals. But
 being the pioneer of a then rather unexplored field of science, some of which big questions we fail to
 satisfactory answer today, he did not have the resources or the knowledge to explain behavior's not
-``mendeling'', that were only able to be deciphered in later decades and centuries
-based on his ground-breaking work. \\
-Initially thought to be contradicting to Mendel's ideas Darwin proposed the concept's of evolution due to
-natural selection which also introduce the idea of traits following a gradual distribution
-\cite{darwin1859}. This contrast led to a long lasting debate in the scientific community in the early 1900s,
-between the Mendelians and the biometricians who believed in the quantitative nature of continuous
-traits. This conflict has eventually been solved by Fisher's fundamental work published in 1918
-\cite{fisher1919xv}. His theories combined the then in all fields of science popular research of distributions
-with genomics. He he mathematically proved that traits influenced by many genes, with randomly-sampled alleles
-follow a continuous normal distribution in a population. While this combined the ideas of Mendel and the
-biometricians it opened an other long debated question of effect size and the overall architecture of complex
-traits. While in the theory of monogenic traits the effect size of the single gene on the trait is 1 or 100 \%
-with an increasing number of genes influencing a complex traits the \textit{per sè} contribution of single
-gene has to decrease with an increasing number of loci determining the value a given trait. In the 1990s it
-has been thought, that complex traits are predominantly controlled from few genes with a large to medium
-effect size, while others had a minimal influence
+``mendeling''. Some of which were only able to be deciphered in recent decades based on his ground-breaking work. \\
+Initially thought to be contradicting to Mendel's ideas Darwin proposed the concept of evolution due to
+natural selection which introduced the idea of traits following a gradual distribution \cite{darwin1859}. This
+contrast led to a long lasting debate in the scientific community in the early 1900s, between the Mendelians
+and the biometricians who believed in the quantitative nature of continuous traits. This conflict has
+eventually been solved by Fisher's fundamental work published in 1919 \cite{fisher1919xv}. His theories
+combined the then in all fields of science popular research on statistical distributions with genomics. He
+mathematically proved that traits influenced by many genes, with randomly-sampled alleles follow a continuous
+normal distribution in a population. \\ While this combined the ideas of Mendel and of the biometricians
+it opened an other long debated question of effect sizes and the overall genetic architecture of complex
+traits. While in the theory of monogenic traits the effect size of the single gene on the trait is 100 \%,
+with an increasing number of genes influencing a complex trait the \textit{per sè} contribution of single gene
+has to decrease with an increasing number of loci determining the value a given trait. In the 1990s it has
+been thought, that complex traits are predominantly controlled from few genes with a large to medium effect
+size, while others supposedly had a minimal influence
 \cite{zhang2018esti}. \\
-With the upcoming popularity of GWAS as the favored method to decipher genetic architectures of traits, or
-having pioneered in human genetics in became clear that the majority of the effect sizes are tiny < 1 \% while
-there are very few loci which have a moderate effect on the phenotypic variance of a population with around 10
-\% or less \cite{korte2013advantages}, \cite{stringer2011}. This nature of quantitative traits present great
+With the upcoming popularity of GWAS as the favored method to decipher genetic architectures of traits, having
+pioneered in human genetics, it became clear that the majority of effect sizes are tiny < 1 \% while there
+are very few loci which have a moderate effect on the phenotypic variance of a population with around 10 \% or
+less \cite{korte2013advantages}, \cite{stringer2011}. This nature of quantitative traits present great
 challenges to animal \cite{goddard2009} and plant breeding \cite{wurschum2012}, in further improving crop or
 livestock performances, as well complicating the decomposition of genomic causes for diseases like
 schizophrenia or autism in human medicine \cite{de2014}, \cite{purcell2014}. \\
@@ -410,8 +426,9 @@ genetic and the environmental effects \ref{eqn:PGE}.
  \label{eqn:PGE}
 \end{equation}
 
+
 The genomic and the environmental effects not only influence the phenotypic variance directly, but the
-environment also has an influence on gene expression methylation of DNA bases etc. and therefore the equation
+environment also has an influence on gene expression, methylation of DNA bases etc. and therefore the equation
 \ref{eqn:PGE} needs to be extend by the variance of the gene-environment interactions $\sigma_{GxE}$
 \ref{eqn:PGGE} , \cite{lynch1998}, \cite{walsh2018}.
     
@@ -420,8 +437,9 @@ environment also has an influence on gene expression methylation of DNA bases et
  \label{eqn:PGGE}
 \end{equation}
 
-Equation \ref{eqn:PGGE} shows the decomposition of the phenotypic variance, to thoroughly understand complex
-genetic architectures of traits the genetic variance needs to be decomposed further in its additive, dominance
+
+Equation \ref{eqn:PGGE} shows the decomposition of the phenotypic variance. To thoroughly understand complex
+genetic architectures of traits the genetic variance needs to be decomposed even further in its additive, dominance
 and epistatic components \ref{eqn:GAD}
 
 \begin{equation}
@@ -429,23 +447,24 @@ and epistatic components \ref{eqn:GAD}
  \label{eqn:GAD}
 \end{equation}
 
+
 The additive effects are caused by single, for this model mostly homozygous, loci while the variance caused by
 dominance effects, is caused by heterozygous loci and their resulting interactions being full-, over- , co- or
-underdominant. And lastly the interaction effects that are a result of two or more genes only having an impact
+underdominant. And lastly the interaction effects are a result of two or more genes only having an impact
 if the involved genes co-occur in a certain state. The resulting variance is commonly known
 as gene-gene interactions and/or epistasis \cite{falconer1996}. \\
 Since possible interactions in a genome can happen between additive or dominant or a combination of those
 loci. The variance due to interaction effects $\sigma_{I}$ can be further dissembled in the variance resulting
-from additive-additive $\sigma_{AA}$ dominant-dominant $\sigma_{DD}$ and additive-dominant $\sigma_{AD}$ terms as
-represented in equation \ref{eqn:IAA}.
-
+from additive-additive $\sigma_{AA}$ dominant-dominant $\sigma_{DD}$ and additive-dominant $\sigma_{AD}$ terms
+as shown in equation \ref{eqn:IAA}.
 
 \begin{equation}
  \sigma_{I} = \sigma_{AxA} + \sigma_{DxD} + \sigma_{AxD}
  \label{eqn:IAA}
 \end{equation}
 
-Knowledge of the variance components involved in the expression of a trait in population, lead up to the
+
+Knowledge of the variance components involved in the expression of a trait in a given population lead up to the
 estimation of the total influence of all genetic variances and the environmental variance one the phenotypic
 distribution. This concept is called heritability. The heritability of a trait $H^2$ accounts for the
 proportion of the phenotypic variance controlled by the total genetic variance as shown in equation
@@ -457,6 +476,7 @@ additive, dominance and epistatic effects are included \cite{brooker1999genetics
  H^2 = \frac{\sigma_{A} + \sigma_{D} + \sigma_{I}}{\sigma_{P}}
  \label{eqn:h2G}
 \end{equation}
+
 
 The concept of narrow-sense heritability \ref{eqn:h2a} is similar to the broad-sense heritability, but only
 the additive genetic effects are included in the genetic part of the equation. This differentiation is import
@@ -476,7 +496,7 @@ controlled by the combination of the parents \cite{falconer1996}, \cite{walsh201
 \subsection{Artificial selection in plant and animal breeding in the genomics era}
 \subsubsection{Introduction to genomic selection }
 
-Genomic prediction has been applied to almost all relevant crop and model species. Including:
+Genomic prediction has been applied to almost all relevant crop and model species. This  includes:
 \textit{A.thaliana} \cite{hu2015}; \cite{shen2013novel}. Alfalfa (\textit{Medicago sativa})
 \cite{li2012applied}; \cite{annicchiarico2015accuracy}; \cite{li2015genomical}; \cite{biazzi2017genome};
 \cite{hawkins2018recent}. Barley \cite{neyhart2019}; \cite{oakey2016}; \cite{zhong2009factors}. Cassava
@@ -516,7 +536,7 @@ became popular, basically differing in the degree of shrinkage of the assumed ma
 \cite{hayes2001}; \cite{gianola2009}; \cite{habier2011}; \cite{gianola2013}; \cite{crossa2017};
 \cite{azodi2019}.
 
-\subsubsection{Genomic selection in recurrent selection and the breeders equation}
+\subsubsection{Genomic predict in recurrent selection and the breeders equation}
 
 While the quantitative genetic methods breeders utilize are complex their goals can be defined in one
 sentence: To genetically improve plant germplasms for agriculture. The breeding process started at the same
@@ -581,7 +601,7 @@ in the evaluation of breeding schemes it is known as the breeder's equation \cit
 The accuracy $r_{uA}$ of equation \ref{eqn:Breeders} in cases only phenotypic selection is conducted the
 heritability and in cases where the selection process is aided by genomic prediction it is the prediction
 accuracy. According to breeder's equation there are three parameters which can be influenced through genomic
-prediction. \newline (i) The prediction accuracy, which is usually smaller than the heritability, varies for
+prediction. \\ (i) The prediction accuracy, which is usually smaller than the heritability, varies for
 different prediction equations and an increase in the accuracy will lead to an proportional increase in $R$
 the gain per generation cycle. For this reasons since 2001 in quantitative genetics one very active field of
 research was and still is to find new algorithms that are superior to others as presented in the next chapter
@@ -592,12 +612,12 @@ better approximation for phenotypic appearance as GEBVs. However as the cost of 
 dramatically in the last 20 years. Phenotyping in the field remains tedious, laborious and mostly vastly
 expensive. Taking into account that field trials have to be repeated in several years and locations to produce
 reliable accounts it becomes clear that genotyping 10th of thousands of accessions is much cheaper than
-conducting field trials with 1000 of them. \newline (ii) The selection intensity can much stricter if the
+conducting field trials with 1000 of them. \\ (ii) The selection intensity can much stricter if the
 total population that is selected from is larger and in genomic prediction settings they are, because it
 allows selection from two pools. The first the pool of plants with known phenotyped \underline{and} known
 genotype and from those were just genomic data is available. When selecting from a pool of 1000 with $p=0.05$
 with the goal to keep 50 plants in the next breeding cycle, the same goal can be reached when genomically
-selecting from a pool of 10000 with and intensity of $p=0.05$. \newline (iii) The decreased time per
+selecting from a pool of 10000 with and intensity of $p=0.05$. \\ (iii) The decreased time per
 generation is probably the largest advantage of genomic selection when applied to breeding. While in field
 trials it is only possible to have one generation per year. Genomic selection does not require the plants to
 be grown in the field. For selection it is only necessary to grow enough so that DNA can be extracted from the
@@ -606,7 +626,7 @@ any other reproductive organ) and be used for the next selection cycle, allowing
 year. This development hast lead to the rise to a new branch of breeding: speed breeding
 \cite{ghosh2018speed}; \cite{watson2018speed}. In practical, company-level genomic prediction as largely
 contributed to an increase by a factor of 2 of the gain in selection in recent years (personal
-communication with breeding company employees ).\newline The last term in equation \ref{eqn:Breeders} the additive genetic variance $\sigma_A$
+communication with breeding company employees ).\\ The last term in equation \ref{eqn:Breeders} the additive genetic variance $\sigma_A$
 is not directly yet heavily influenced by the described breeding scheme. Artificial selection has similar
 effects on the genetic variance as bottlenecks in natural selection have: it decreases, thus making it harder
 to increase $R$ in later selection cycles \cite{walsh2018}.
@@ -624,7 +644,8 @@ assumptions about their distribution. The difference in prior distribution is th
 methods of the Bayesian alphabet
 \cite{gianola2013}.\\
 
-\textbf{Genomic BLUP} \newline In the early years of research on genomic prediction algorithms they were not
+\noindent
+\textbf{Genomic BLUP} \\ In the early years of research on genomic prediction algorithms they were not
 solely benchmarked against each other, but had to compete with the previously popular pedigree
 methods. Quickly in the course of the first decade of this millennium the superiority of the genomic method
 became elucidated in livestock and plant breeding \cite{habier2007impact}; \cite{vanraden2008efficient};
@@ -835,7 +856,8 @@ language capable of solving liner equations. Computational as the the number of 
 increases in numbers the timed demand grows exponentially, because the kinship matrix quadruples in size and
 it becomes more complicated to compute the inverse of $G$ (personal observations). \\
 
-\textbf{Bayesian methods} \newline 
+\noindent
+\textbf{Bayesian methods} \\ 
 
 Next to the universal GBLUP a set of related algorithms became popular for solving the mixed models involved in genomic selection, known as the Bayesian alphabet \cite{gianola2009}; \cite{gianola2013}. They are all based on Bayes' fundamental theorem in equation \ref{eqn:bayes}
 
@@ -1034,7 +1056,7 @@ The DH populations were produced, propagated and phenotyped in the scope of the 
 by the Federal Ministry of Education and Research (BMBF) (Funding ID: 031B0195, project “MAZE”) as well as the
 KWS SAAT SE, by various project partners at the Technical University of Munich, University of Hohenheim and
 the KWS. A thorough description of the germplasm selection and phenotyping was recently published by
-\cite{holker2019european}. \newline Modern maize cultivars are almost exclusively high-performing hybrids from
+\cite{holker2019european}. \\ Modern maize cultivars are almost exclusively high-performing hybrids from
 two inbreed lines from different heterotic pools. Commonly hybrids are derived from the cross European Flint x
 American Dent \cite{dos2004priori}; \cite{brauner2019testcross}. Before hybrid breeding became the predominant
 method in maze breeding in the 1960s landraces were grown by farmers. Landraces are dynamic, open-pollinated,
@@ -1048,12 +1070,12 @@ impossible without the invaluable work of institutions as the IPK Gartersleben w
 maintain and store genetic material for long time periods. Of those landraces three, representing large
 phenotypic heterogentiy were chosen: (i) Kemater Landmais Gelb (KE, Austria), Petkuser Ferdinand Rot (PE,
 Germany) and Lalin (LL, Spain). They represent 95 \% of the molecular variance if a set of
-35 landraces analyzed in a preceding project by \cite{mayer2017there}.\newline
+35 landraces analyzed in a preceding project by \cite{mayer2017there}.\\
 In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in vivo} haploid induction with an inducer line as described in \cite{roeber2005vivo}.
 
 
 \subsubsection{Genomic maize data}
-(The genomic data was provided by the TUM as described by \cite{holker2019european}) \newline Genotyping was
+(The genomic data was provided by the TUM as described by \cite{holker2019european}) \\ Genotyping was
 performed with the 600k Affymetrix\textsuperscript{\textregistered} Axiom\textsuperscript{\textregistered}
 Maize array \cite{unterseer2014powerful}. The markers were quality filters and missing values were imputed
 individually for each landrace population using Beagle 5.0 \cite{browning2007rapid};
@@ -1061,7 +1083,7 @@ individually for each landrace population using Beagle 5.0 \cite{browning2007rap
 and 403 PE DHs. LL was excluded from further analyses due to insufficient amounts of genotypes.
 
 \subsubsection{Phenotypic maze data}
-(The phenotype data was provided by the TUM as described by \cite{holker2019european}) \newline The traits
+(The phenotype data was provided by the TUM as described by \cite{holker2019european}) \\ The traits
 were evaluated with lattice design in 6 different locations across Europe. Those traits were: Early Vigor
 (EV) at three different stages (V3, V4, V6); Plant height (PH) at two stages (V4,V6) and the final plant
 height (PH\_final), as well as male and female flowering time (Days till Tasseling (DtTAS) and Days till
@@ -1143,12 +1165,12 @@ layer, which in the present cases consisted of only one node, because GS in the 
 regression problem. Preliminary trials showed Adam is the superior optimizer for GS and hence was the only
 one further used. Likewise relu was the activation of choice being superior to sigmoid or other non
 rectifiers. All the weights and the biases of the kernel were initialized with truncated normal distributed
-values. The loss function used was always MSE. \newline Having a few hyperparameters fixed, the other ones
+values. The loss function used was always MSE. \\ Having a few hyperparameters fixed, the other ones
 were optimized via grid search. For each TRN multiple networks were trained to fine tune the input
 parameters. Those were the number of layers, the nodes per layer, the magnitude of the dropout, the type of
 dropout used, whether the first layer was locally-connected for fully-connected and the duration of training
 via the training epochs. This amount to a total of a little shy of 260000 trained networks for the 146
-\textit{A. thaliana} data sets alone. \newline After another set preliminary runs LCL as the first layer
+\textit{A. thaliana} data sets alone. \\ After another set preliminary runs LCL as the first layer
 seamed to result in higher accuracies then FLC as the first layer and where henceforth exclusively used and
 applied with a stride length of 7. The stride length determines how many node of the input layer, in this case
 markers, where combined in the first hidden layer. The type of drop out used (alpha dropout, Gaussian noise
