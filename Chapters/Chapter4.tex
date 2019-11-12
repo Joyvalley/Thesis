@@ -235,11 +235,11 @@ Here $\eta$ is a small positive decimal number, commonly referred to as the lear
 not exclusively, ranges from 0.1 to 0.001.  Having found a way to ensure that $\Delta L$ always decreases
 according to equation \ref{eqn:eta} it is utilized to repeatedly update the gradient $\nabla L$. To make the
 gradient descent algorithm efficient the learning rate $\eta$ has to be chosen correctly. If $\eta$ is too
-large, the gradient $\Delta L$ possibly ends up being larger than zero, leading to an increase of the loss, and if
-the step size is too small convergence will either take too long or not take place at all
+large, the gradient $\Delta L$ possibly ends up being larger than zero, leading to an increase of the loss,
+and if the step size is too small convergence will either take too long or not take place at all
 \cite{bergstra2011algorithms}. In practical machine learning approaches different learning rates are
-tested. There are also algorithmic approaches available. Equation \ref{eqn:deltaL} only accounts for two inputs
-features but it can be generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
+tested. There are also algorithmic approaches available. Equation \ref{eqn:deltaL} only accounts for two
+inputs features but it can be generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
 
 
 \begin{eqnarray}
@@ -494,7 +494,7 @@ controlled by the combination of the parents \cite{falconer1996}, \cite{walsh201
 
 
 \subsection{Artificial selection in plant and animal breeding in the genomics era}
-\subsubsection{Introduction to genomic selection }
+\subsubsection{Introduction to genomic selection } \label{intro:gs}
 
 Genomic prediction has been applied to almost all relevant crop and model species. This  includes:
 \textit{A.thaliana} \cite{hu2015}; \cite{shen2013novel}. Alfalfa (\textit{Medicago sativa})
@@ -913,64 +913,63 @@ Table \ref{tab:bayesABC} summarizes commonly applied Bayesian methods for genomi
 
 
 \subsection{Genomic selection using artificial neural networks }
-Genomic selection (GS) has been successfully applied in animal \cite{gianola2015one}; \cite{hayes2010genome}
-and plant breeding \cite{crossa2010}; \cite{desta2014genomic}; \cite{heffner2010plant};
-\cite{crossa2017} as well as in medical applications, since it was first reported
+A mentioned in \ref{intro:gs} genomic selection (GS) has been successfully applied in animal
+\cite{gianola2015one}; \cite{hayes2010genome} and plant breeding \cite{crossa2010}; \cite{desta2014genomic};
+\cite{heffner2010plant}; \cite{crossa2017} as well as in medical applications, since it was first reported
 \cite{hayes2001}. Since then the repertoire of methods for predicting phenotypic values has increased rapidly
 e.g. \cite{dlc2009}; \cite{habier2011}; \cite{gianola2013}; \cite{crossa2017}. The most commonly applied
-methods include GULP and a set of related algorithms known as the bayesian alphabet
-\cite{gianola2009}. Genomic prediction in general has repeatedly been shown to outperform pedigree-based
-methods \cite{crossa2010}; \cite{albrecht2011} and is nowadays used in many plant and animal breeding
-schemes. It has also been shown that using whole-genome information is superior to using only feature-selected
-markers with known QTLs for a given trait \cite{bernardo2007}; \cite{heffner2011} in some cases. A more recent
-study \cite{azodi2019} compared 11 different genomic prediction algorithms with a variety of data sets and
-found contradicting results, indicating that feature selection can be usefull in some cases the when the whole
-genome regression is performed by neural nets 1 While every new method is a valuable addition to the tool-kits
-for genomic selection, some fundamental problems remain unsolved, of which the n>>p problematic stands
-out. Usually in genomic selection settings the size of the training population (TRN) with n phenotypes is
-substantially smaller than the number of markers ($p$) \cite{fan2014challenges}. Making the number of features
-immensely large, even when SNP-SNP interactions are not considered. Furthermore each marker is treated as an
-independent observation neglecting collinearity and linkage disequilibrium (LD). Further difficulties arise
-through non-additive, epistatic and dominance marker effects. The main problem with epistasis issue
-quantitative genetics is the almost infinite amount of different marker combinations, that cannot be
-represented within the size of TRN in the thousands, the same problems arises for example in GWA studies
-\cite{korte2013advantages}. With already large p the number of possible additive SNP-SNP interactions
-potentiates to $p^{(p-1)}$. Methods that attempt to overcome those issues are EG-BLUP, using an enhanced
-epistatic kinship matrix and reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015};
-\cite{martini2017genomic}.
-
+methods include GBLUP and the bayesian alphabet \cite{gianola2009}. Genomic prediction in general has
+repeatedly been shown to outperform pedigree-based methods \cite{crossa2010}; \cite{albrecht2011} and is
+nowadays used in many plant and animal breeding schemes. It has also been shown that using whole-genome
+information is superior to using only feature-selected markers with known QTLs for a given trait
+\cite{bernardo2007}; \cite{heffner2011} in most cases. A more recent study \cite{azodi2019} compared 11
+different genomic prediction algorithms with a variety of data sets and found contradicting results,
+indicating that feature selection can be usefull in some cases the when the whole genome regression is
+performed by neural nets. \\
+While every new method is a valuable addition to the tool-box of genomic selection, some fundamental problems
+remain unsolved and the same for every algorithm, of which the n>>p problematic stands out. Usually in genomic
+selection settings the size of the training population (TRN) with n phenotypes is substantially smaller than
+the number of markers ($p$) \cite{fan2014challenges}. Making the number of features immensely large, even when
+SNP-SNP interactions are not considered. Furthermore each marker is treated as an independent observation
+neglecting collinearity and linkage disequilibrium (LD). Further difficulties arise through non-additive,
+epistatic and dominance marker effects. The main problem with epistasis issue quantitative genetics is the
+almost infinite amount of different marker combinations, that cannot be represented within the size of TRN in
+the thousands, the same problems arises for example in GWA studies \cite{korte2013advantages}. With already
+large p the number of possible additive SNP-SNP interactions potentiates to $p^{(p-1)}$. Methods that attempt
+to overcome those issues are EG-BLUP, using an enhanced epistatic kinship matrix and reproducing kernel
+Hilbert space regression (RKHS) \cite{jiang2015}; \cite{martini2017genomic}. \\
 In the past 10 years, due to increasing availability of high performance computational hardware with
 decreasing costs and parallel development of free easy-to-use software, most prominent being googles library
 TensorFlow \cite{TF2016} and Keras \cite{keras2015}, machine learning (ML) has experienced a renaissance. ML
 is a set of methods and algorithms used widely for regression and classification problems. popular among those
 are e.g. support vector machines, multi-layer perceptrons (MLP) and convolutional neural networks. The machine
 learning mimics the architecture of neural networks and are therefore commonly referred to as artificial
-neural networks (ANN). Those algorithms have widely been applied in many biological fields \cite{min2017deep}; \cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016}; \cite{webb2018deep};
-\cite{rampasek2016tensorflow}.
-
+neural networks (ANN). Those algorithms have widely been applied in many biological fields \cite{min2017deep};
+\cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016}; \cite{webb2018deep};
+\cite{rampasek2016tensorflow}. \\
 A variety of studies assessed the usability of ML in genomic prediction \cite{gonzalez2018applications};
-\cite{gonza2016}; \cite{ogutu2011comparison}; \cite{montesinos2019benchmarking}; \cite{grinberg2018evaluation}
-; \cite{cuevas2019deep}; \cite{montesinos2019new}; \cite{ma2017deepgs}; \cite{qiu2016application};
-\cite{gonza2012} \cite{li2018genomic}. Through all those studies the common denominator is that there is no
-such thing as a gold standard for genomic prediction. No single algorithm was able to outperform all the
-others tested in a single of those studies, let alone in all. While the generally aptitude of ML for genomic
-selection has been repeatedly shown, how no evidence exists that neural networks can outperform or in many
-cases perform on that same level as mixed-model approaches as GBLUP \cite{hayes2001}. While in other fields
-like image classification neural networks have up to 100s of hidden layers \cite{he2016deep} the commonly used
-fully-connected networks in genomic prediction of 1 - 3 hidden layers. With 1 layer networks often being the
-most successful among those. Contradicting to the idea behind machine learning in genomic selection 1 hidden
-layer networks will be inapt to capture interactions between loci and thus only account for additive
-effects. As shown in \cite{azodi2019} convolutional networks perform worse than fully-connected networks in
-genomic selection, which again is contradicting to other fields where convolutional layers are applied
-successfully, e.g natural language processing \cite{dos2014deep} or medical image analysis
-\cite{litjens2017survey}. Instead of using convolutional layers and fully-connected layers only, as show in
-Pook et al 2019, we also propose to use locally-connected layer in combination with fully-connected
-layers. While CL and LCL are closely related they have a significant difference. While in CL weights are
-shared between neurons in LCLs each neuron as its own weight. This leads to a reduced number of parameters to
-be trained in the following FCLs, and should therefore theoretically lead to a decrease in overfitting a
-common problem in machine learning. To evaluate the results of Pook et al. 2019 accomplished with simulated
-data we used the data sets generated in the scope of the 1001 genome project of \textit{Arabidopsis thaliana}
-\cite{1001genome}
+\cite{gonza2016}; \cite{ogutu2011comparison}; \cite{montesinos2019benchmarking};
+\cite{grinberg2018evaluation}; \cite{cuevas2019deep}; \cite{montesinos2019new}; \cite{ma2017deepgs};
+\cite{qiu2016application}; \cite{gonza2012}; \cite{li2018genomic}. Through all those studies the common
+denominator is that there is no such thing as a gold standard for genomic prediction. No single algorithm was
+able to outperform all the others tested in a single of those studies, let alone in all. While the generally
+aptitude of ML for genomic selection has been repeatedly shown, how no evidence exists that neural networks
+can outperform or in many cases perform on that same level as mixed-model approaches as GBLUP
+\cite{hayes2001}. While in other fields like image classification neural networks have up to 100s of hidden
+layers \cite{he2016deep} the commonly used fully-connected networks in genomic prediction of 1 - 3 hidden
+layers. With 1 layer networks often being the most successful among those. Contradicting to the idea behind
+machine learning in genomic selection 1 hidden layer networks will be inapt to capture interactions between
+loci and thus only account for additive effects. As shown in \cite{azodi2019} convolutional networks perform
+worse than fully-connected networks in genomic selection, which again is contradicting to other fields where
+convolutional layers are applied successfully, e.g natural language processing \cite{dos2014deep} or medical
+image analysis \cite{litjens2017survey}. Instead of using convolutional layers and fully-connected layers
+only, as show in Pook et al 2019, we also propose to use locally-connected layer in combination with
+fully-connected layers. While CL and LCL are closely related they have a significant difference. While in CL
+weights are shared between neurons in LCLs each neuron as its own weight. This leads to a reduced number of
+parameters to be trained in the following FCLs, and should therefore theoretically lead to a decrease in
+overfitting a common problem in machine learning. To evaluate the results of Pook et al. 2019 accomplished
+with simulated data we used the data sets generated in the scope of the 1001 genome project of
+\textit{Arabidopsis thaliana} \cite{1001genome}
 
 
 \section{Proof of concept for ANN-based genomic selection} \label{POC}
@@ -1153,7 +1152,6 @@ assigned to TST and 80\% to TST. This process was repeated 50 times, reducing th
 TST-TRN combination being randomly more predictable for on or the other method. The validation scheme was
 generated \textit{a priori} and stored in cross-validation files to allow reusing the validation sets.
 
-
 \subsection{ANN}
 The scripts for ANN based GS were written in python using the lower level API TensorFlow \cite{TF2016} and the
 higher level API Keras \cite{keras2015}. Both are very versatile, well-documented and are capable of
@@ -1162,22 +1160,24 @@ libraries. Another advantage is that they work well on GPUs, which allows ML alg
 amount of time compared to CPU-based calculations. Prior to training the data was split into TRN and TST. The
 markers of TRN served as the input layer for the network while the phenotypes were trained upon in the output
 layer, which in the present cases consisted of only one node, because GS in the cases applied here is a
-regression problem. Preliminary trials showed Adam is the superior optimizer for GS and hence was the only
-one further used. Likewise relu was the activation of choice being superior to sigmoid or other non
+regression problem. Preliminary trials showed Adam is the superior optimizer for GS and hence was the only one
+further used. Likewise relu was the activation of choice being superior to sigmoid or other non
 rectifiers. All the weights and the biases of the kernel were initialized with truncated normal distributed
-values. The loss function used was always MSE. \\ Having a few hyperparameters fixed, the other ones
-were optimized via grid search. For each TRN multiple networks were trained to fine tune the input
-parameters. Those were the number of layers, the nodes per layer, the magnitude of the dropout, the type of
-dropout used, whether the first layer was locally-connected for fully-connected and the duration of training
-via the training epochs. This amount to a total of a little shy of 260000 trained networks for the 146
-\textit{A. thaliana} data sets alone. \\ After another set preliminary runs LCL as the first layer
-seamed to result in higher accuracies then FLC as the first layer and where henceforth exclusively used and
-applied with a stride length of 7. The stride length determines how many node of the input layer, in this case
-markers, where combined in the first hidden layer. The type of drop out used (alpha dropout, Gaussian noise
-or normal dropout) did not show an effect therefore the normal dropout function was used. The network
-training was iterated over the different number epochs, architecture, drop out values the the cross validation
-cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$ to $60$ in steps $5$
-and several 1, 2 or 3 Layer architectures following the locally-connected layer.
+values. The loss function used was always MSE. \\
+Having a few hyperparameters fixed, the other ones were optimized via grid search. For each TRN multiple
+networks were trained to fine tune the input parameters. Those were the number of layers, the nodes per layer,
+the magnitude of the dropout, the type of dropout used, whether the first layer was locally-connected for
+fully-connected and the duration of training via the training epochs. This amount to a total of a little shy
+of 260000 trained networks for the 146
+\textit{A. thaliana} data sets alone. \\
+After another set preliminary runs LCL as the first layer seamed to result in higher accuracies then FLC as
+the first layer and where henceforth exclusively used and applied with a stride length of 7. The stride length
+determines how many node of the input layer, in this case markers, where combined in the first hidden
+layer. The type of drop out used (alpha dropout, Gaussian noise or normal dropout) did not show an effect
+therefore the normal dropout function was used. The network training was iterated over the different number
+epochs, architecture, drop out values the the cross validation cycles, thus explaining the tremendous amount
+of total networks trained. Epochs from $5$ to $60$ in steps $5$ and several 1, 2 or 3 Layer architectures
+following the locally-connected layer.
 
 \subsection{GBLUP}
 
@@ -1185,14 +1185,15 @@ The evaluation of the genomic BLUP was performed with the R-package BGLR \cite{B
 comparison of the individual validation runs the same validation scheme as for the ANNs was used with the same
 TST and TRN sets. 
 
-
-
-
 \section{Results} \label{res:gp}
 \subsubsection{Results of \textit{A. thaliana} prediction}
-Table \ref{tab:at_res} show the results for genomic prediction for 146 \textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via grid search, yielding the highest prediction accuracies.
-Figure \ref{AC:gp_res} contains scatter plots for the comparison of accuracies for GBLUP and the respective ANNs for 50 validation sets for all phenotypes.
-In table \ref{tab:at_res} phenotypes were ANN outperformed the genomic BLUP are indicated in red. At first sight ANN can surpass with GBLUP for traits with high accuracies, compete at an intermediate level and fails to reach to level of GBLUP when overall accuracies are low. 
+Table \ref{tab:at_res} show the results for genomic prediction for 146 \textit{A. thaliana} phenotypes with
+ANNs and GBLUP and the architecture, determined via grid search, yielding the highest prediction accuracies.
+Figure \ref{AC:gp_res} contains scatter plots for the comparison of accuracies for GBLUP and the respective
+ANNs for 50 validation sets for all phenotypes.  In table \ref{tab:at_res} phenotypes were ANN outperformed
+the genomic BLUP are indicated in red. At first sight ANN can surpass with GBLUP for traits with high
+accuracies, compete at an intermediate level and fails to reach to level of GBLUP when overall accuracies are
+low.
 
 \singlespacing
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
