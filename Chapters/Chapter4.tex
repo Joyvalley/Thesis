@@ -5,13 +5,13 @@
 
 \section{Introduction}
 \subsection{A brief history of machine learning} \label{introml}
-\subsubsection{Basic perceptron model}
+\subsubsection{The basic perceptron model}
 
 While machine learning, neural networks and deep learning became essential tools for many applications in more
 recent years, their mathematical principals date back to the early 1950s and 1960s. Figure
-\ref{fig:perceptron} schematically show the basic perceptron model as proposed by Rosenblatt, a founder of
-machine learning as a set of related statistical algorithms would be defined today. Rosenblatt designed his
-perceptron to mimic the information flow in biological nervous systems \cite{rosenblatt1961}.
+\ref{fig:perceptron} schematically shows the basic perceptron model as proposed by Rosenblatt, one of the
+founders of machine learning, as the set of related statistical algorithms would be defined today. Rosenblatt
+designed his perceptron to mimic the information flow in biological nervous systems \cite{rosenblatt1961}.
 
 \begin{figure}[th]
  \centering \includegraphics[height=.25\textheight, width=.5\textwidth]{Figures/perceptron.png} \decoRule
@@ -20,11 +20,11 @@ perceptron to mimic the information flow in biological nervous systems \cite{ros
 \end{figure}
 
 
-This basic perceptron, which contrary to perceptrons used nowadays does not have an embedded activation
+This basic perceptron, which contrary to perceptrons used nowadays, does not have an embedded activation
 function, takes $n$ binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$
 after being processed. To achieve this Rosenblatt introduced the concept of weights, which determine a certain
 input's relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The output $y$ is determined by
-the weighted sum of the weights and biases $\sum_i w_ix_i $ and if a certain threshold value is met the
+the weighted sum of the weights $\sum_i w_ix_i $. If a certain threshold value is met the
 neuron is either activated and outputs 1 or not activated resulting in and output of 0. This is algebraically
 represented in equation \ref{eqn:weights}:
 
@@ -37,21 +37,25 @@ represented in equation \ref{eqn:weights}:
 \end{subequations}
 
 
-Next to the weights $w_n$ and the inputs $x_n$ a third term $\theta$ is introduced in equation
-\ref{eqn:weights} which represents the activation threshold and per definition is a negative value. A single
+Next to the weights $w_n$ and the inputs $x_n$, a third term $\theta$ is introduced in equation
+\ref{eqn:weights}, which represents the activation threshold and per definition is a negative value. A single
 perceptron is a linear classifier and can only be trained on linearly separable functions and can applied, as
 shown by \cite{rosenblatt1961}, to solve simple logical operations as AND, OR and NOT. The basic perceptron
-fails, however, due to non-linearity to perform XOR operations which was proven by \cite{marvin1969}. This
-discovery led to a near stillstance in the research of artificial neural networks in the 1970s. This time
+fails, however, due to non-linearity to perform XOR operations, which was proven by \cite{marvin1969}. This
+discovery led to a near stillstance in the research of artificial neural networks in the 1970s. That time
 period is now often referred to as the first AI-winter. Another reason that massively hindered the
 applications and research of machine learning during that span was the, compared to
 modern times, incredibly small amount of computational power available \cite{nguyen1990truck}. \\
 More complex decision making, like solving XOR problems, requires more complex structures than a single
-perceptron. Continuing the trend of mimicking human neural networks, multiple artificial neurons were stacked
+perceptron can provide. Continuing the trend of mimicking human neural networks, multiple artificial neurons were stacked
 into layers and these layers were connected to each other allowing communication between the many perceptrons
-in such a network. Figure \ref{fig:nn} shows schematically the basic structure of an artificial neural
-network, now harboring three types of layers. (i) the input layer, (ii) one or more hidden layers and (iii)
-one output layer, which in this case only consists of one only neuron.
+in such a network. Figure \ref{fig:nn} schematically shows the basic structure of an artificial neural
+network, now harboring three types of layers.
+\begin{enumerate}[(i)]
+\item the input layer
+\item one or more hidden layers
+\item the output layer, which in this case only consists of one only neuron
+\end{enumerate}
 
 \begin{figure}[H]
 \centering
@@ -63,20 +67,21 @@ one output layer, which in this case only consists of one only neuron.
 
 
 In the sample layout of figure \ref{fig:nn} the neurons in the first column weigh the inputs and pass the
-gathered information to the neurons in the second layer. In the above case  all neurons on the first layer are
-connected to all neurons on the second layer. Such layers are referred to as fully-connected layers (FLC) , and
-their resulting networks are often called multi-layer perceptrons (MLP). This architecture enables the network
-to perform more complex calculations and result in more abstract decision making than single neurons or single layer
-architectures. There are also layers were neurons in the previous layer are only connected with neighboring
-neurons in the succeeding layers. Those are known as locally-connected layers (LCL) or related to them are
-convolutional layers which share weights between selected neurons, building convolutional neural networks
-(CNN) \cite{lecun1999object}.
+gathered information to the neurons into the second layer. In the case above neurons in the first layer are
+connected to all neurons on the second layer. Such layers are referred to as fully-connected layers (FLC) and
+their resulting networks are often called multi-layer perceptrons (MLP) or fully-connected networks. This
+architecture enables the network to perform more complex calculations resulting in more abstract decision
+making than single neurons or single layer architectures.\\
+There are other architectures, where neurons in the previous layer are only connected with neighboring neurons
+in the succeeding layers. Those are known as locally-connected layers (LCL). Related to them are convolutional
+layers which share weights between selected neurons, building convolutional neural networks (CNN)
+\cite{lecun1999object}.
 
 \subsubsection{Activation functions}
 
-The neurons discussed so far are only capable of outputting binary results, depending on
-whether threshold values are being reached or not. For more complex estimations it is desirable that small
-changes in the input also result in small changes of the output. This requirement can not be met with binary
+The neurons discussed so far are only capable of outputting binary results, depending on whether threshold
+values are being reached or not. For more complex estimations it is desirable that small changes in the input
+also result in small changes of the output. This requirement cannot be easily met with binary
 outputs. Activation functions for a given node provide more sophisticated rules for the output in accordance
 to their inputs \cite{vzilinskas2006practical}.
 
@@ -84,26 +89,26 @@ to their inputs \cite{vzilinskas2006practical}.
 \centering
 \includegraphics[height=.55\textheight, width=.85\textwidth]{Figures/activation}
 \decoRule
-\caption[Popular activation functions for neural networks]{Popular activation functions used in neural networks.
- \textbf{A} Binary step activation function.
- \textbf{B} Identity activation function.
- \textbf{C} Sigmoid or logistic activation function.
- \textbf{D} tangens hyperbolicus activation function.
- \textbf{E} rectified linear units activation function.
- \textbf{F} SoftPlus activation function.}
+\caption[Popular activation functions for neural networks]{Popular activation functions used in neural
+  networks.
+  \textbf{A} Binary step activation function \\
+  \textbf{B} Identity activation function \\
+  \textbf{C} Sigmoid or logistic activation function \\
+  \textbf{D} tangens hyperbolicus activation function \\
+  \textbf{E} rectified linear units activation function \\
+  \textbf{F} SoftPlus activation function\\}
 \label{fig:activation}
 \end{figure}
 
 
 Figure \ref{fig:activation} shows six of the most commonly used activation functions
-\cite{warner1996understanding}. The simplest one was already introduced. It is the binary step activation
-function \textbf{A} in equation \ref{eqn:binary}, which properties have been discussed along the perceptron
-model. All other activation produce continuous outputs from any given input. \\
+\cite{warner1996understanding}. The simplest one, the binary step activation was already introduced (function
+\textbf{A} in equation \ref{eqn:binary}), which properties have been discussed along the perceptron
+model. All other activation produce continuous outputs from given inputs. \\
 Any mathematical function can serve as an activation function in neural nets, starting with a simple identity
-function \ref{eqn:ident}, \ref{fig:activation} \textbf{B}. The sigmoid function \ref{fig:activation}
-\textbf{C}, equation \ref{eqn:sigmoid} and tanh figure \ref{fig:activation} \textbf{D}, equation
-\ref{eqn:tanh}, when $x \rightarrow \infty$ or $x \rightarrow -\infty$  have similar properties as the
-binary function, but produce continuous output around threshold values of 0.
+function (equation \ref{eqn:ident}, figure \ref{fig:activation} \textbf{B}). The sigmoid function (figure \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}) and tanh (figure \ref{fig:activation} \textbf{D}, equation
+\ref{eqn:tanh}), when $x \rightarrow \infty$ or $x \rightarrow -\infty$ have similar properties as the binary
+function, but produce continuous output around threshold values of 0.
 
 \begin{equation}
  f(x)= \sigma(x) = \left\{
@@ -148,41 +153,42 @@ binary function, but produce continuous output around threshold values of 0.
 
 ReLU (equation \ref{eqn:relu}) and the softplus (equation \ref{eqn:softplus}) share similar properties as
 well, the latter one being a smoothed version of ReLU. Rectifiers as activation functions have been introduced
-in the 2000s \cite{hahnloser2000digital} and have since then overtaken all others as the most popular activations
-functions in neural networks and deep learning \cite{lecun2015deep} and they have proven to be superior
-in many deep-learning applications over sigmoid or logistic functions. One of the advantages leading to the
-superiority of ReLUs is that with randomly initialized weights only half of the ReLU neurons are activated at start,
-compared to tanh and sigmoid activation \cite{glorot2011deep}. All activation functions shown in figure
-\ref{fig:activation}, but the binary step function, share one common property: a small change of the input
-weight will result in small changes in the output, while a small change of the input for the binary step
-function leads to either no or a complete change of the output. This property is, as described below, is an
-important prerequisite for networks being able to learn. \\
+in the 2000s \cite{hahnloser2000digital} and have since then overtaken all others as the most popular
+activations functions in neural networks and deep learning \cite{lecun2015deep}. They have proven to be
+superior in many deep-learning applications over sigmoid or logistic functions. One of the advantages leading
+to the superiority of ReLUs is that with randomly initialized weights only half of the ReLU neurons are
+activated at start compared to tanh and sigmoid activation \cite{glorot2011deep}. All activation functions
+shown in figure \ref{fig:activation}, but the binary step function, share one common property: a small change
+of the input weight will result in small changes of the output, while a small change of the input for the
+binary step function leads to either no or a complete change of the output, except for ReLU when $x<0$. This
+property is, as described below, is an important prerequisite for networks being able to learn. \\
 
 \subsubsection{Gradient descent algorithm}
 
-Let the network shown in \ref{fig:nn} be designed for the classification of an arbitrary phenotype like blue
-petals with $x_1 \dots x_4$ on the input layers being genetic markers as features. And the output layer
-displaying a value from 0 to 1, meaning yes: blue petals from 0 - 0.5 and no blue petals from 0.5 to 1. To
-quantify how well the network performs on achieving that goal a loss function is applied
-\cite{schmidhuber2015deep}. There is a large variety of different loss functions available for neural networks
-like mean squared error (MSE), root mean squared error (RMSE), cross-entropy among others. In general MSE and
-RMSE are commonly used for regression problems, with the latter being less popular and cross-entropy also
-called log-loss is used for binary or multi-class classification settings \cite{janocha2017loss}. Since all
-problems presented in due course are regression problems that use MSE as their loss function this will be the
-only loss function further elaborated upon in this section.
+Let a network alike the one shown in figure \ref{fig:nn} be designed for the classification of an arbitrary
+phenotype like blue petals with $x_1 \dots x_4$ on the input layers being genetic markers as features. The
+output layer displays value from 0 to 1 giving the probability of the petals being blue or not. To quantify
+how well the network performs on predicting the color of the petals a loss function is applied
+\cite{schmidhuber2015deep}. \\
+There is a large variety of different loss functions available for neural networks like mean squared error
+(MSE), root mean squared error (RMSE) and cross-entropy among others. In generally MSE and RMSE are used for
+regression problems, with the latter being less popular, and cross-entropy also called log-loss is used for
+binary or multi-class classification settings \cite{janocha2017loss}. Since all problems presented in due
+course are regression problems that use MSE as their loss function this will be the only loss function further
+elaborated upon in. MSE or the quadratic loss function can be written as:
 
 \begin{equation}
- MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \widetilde{y})^2
+ MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y})^2
  \label{eqn:MSE}
 \end{equation}
 
 
 Equation \ref{eqn:MSE} shows the MSE function which is the sum of the squares of the differences of all the
-predicted and the real values. The same function can be rewritten with the previously used terminology of
-weights and biases in equation \ref{eqn:MSE} with $L(w,b)$ as the loss.
+predicted $\hat{y}$ and the real values $y_i$. The same function can be rewritten with the previously used
+terminology of weights and biases in equation \ref{eqn:MSE} with $L(w,b)$ as the loss.
 
 \begin{equation}
- L(w,b) = \frac{1}{2n} \sum_x \| y(x) - \widetilde{y}\|^2.
+ L(w,b) = \frac{1}{2n} \sum_x \| y(x) - \hat{y}\|^2.
  \label{eqn:MSE2}
 \end{equation}
 
@@ -191,11 +197,10 @@ With $w$ and $b$ as the collection of all the weights and the biases in the netw
 function $y(x)$. Giving the quadratic nature of the function $L(w,b)$ will always be positive. If
 $L(w,b) \rightarrow 0$ the loss is minimal, meaning that the real and predicted values are close together and
 the network found weights and biases that explain the output well. \\
-A widely used function to find the optimum for such a loss function is gradient descent. Its objective is to
-find the minimum of loss functions \cite{bottou1991stochastic}. The idea behind gradient descent or other
-optimizing algorithms is to start with randomly initialized weights and biases and repeatedly move them in
-direction $\Delta w$ and $\Delta b$. This results in a change of the loss function as shown in equation
-\ref{eqn:deltaL}, making use of partial derivatives.
+A widely used function to find the optimum for such a loss function by finding its minimum is gradient descent
+(GD) \cite{bottou1991stochastic}. The idea behind GD or other optimizing algorithms is to start with randomly
+initialized weights and biases and repeatedly move them in direction $\Delta w$ and $\Delta b$. This results
+in a change of the loss function which can be represented using partial derivatives as shown in equation \ref{eqn:deltaL}.
 
 \begin{equation}
  \Delta L = \frac{\partial L}{\partial w} \Delta w + \frac{\partial L}{\partial b} \Delta b
@@ -205,8 +210,8 @@ direction $\Delta w$ and $\Delta b$. This results in a change of the loss functi
 
 Ideally $\Delta L$ is negative and the optimization algorithm found $\Delta w$ and $\Delta b$ that lead to a
 reduction of the loss. To simplify this problem let $\Delta d$ be the vector of changes:
-$\Delta d = (\Delta w , \Delta b)^T $ and $\nabla L$ the vector of the partial derivatives: equation
-\ref{eqn:nabla}
+$\Delta d = (\Delta w , \Delta b)^T $ and $\nabla L$ the vector of the partial derivatives as in equation
+\ref{eqn:nabla}.
 
 
 \begin{equation}
@@ -214,7 +219,7 @@ $\Delta d = (\Delta w , \Delta b)^T $ and $\nabla L$ the vector of the partial d
 \label{eqn:nabla}
 \end{equation}
 
-Having defined $\nabla L$ and $\Delta d$ the term \ref{eqn:deltaL} can be simplified as written in equation \ref{eqn:cd}
+Having defined $\nabla L$ and $\Delta d$ the term \ref{eqn:deltaL} can be simplified to:
 
 \begin{equation}
 \Delta C = \nabla L * \Delta d
@@ -231,16 +236,15 @@ as shown in equation \ref{eqn:eta}
 \end{equation}
 
 
-Here $\eta$ is a small positive decimal number, commonly referred to as the learning rate which usually, but
+Here $\eta$ is a small positive decimal number, commonly referred to as the learning rate, which usually, but
 not exclusively, ranges from 0.1 to 0.001.  Having found a way to ensure that $\Delta L$ always decreases
-according to equation \ref{eqn:eta} it is utilized to repeatedly update the gradient $\nabla L$. To make the
-gradient descent algorithm efficient the learning rate $\eta$ has to be chosen correctly. If $\eta$ is too
-large, the gradient $\Delta L$ possibly ends up being larger than zero, leading to an increase of the loss,
-and if the step size is too small convergence will either take too long or not take place at all
-\cite{bergstra2011algorithms}. In practical machine learning approaches different learning rates are
-tested. There are also algorithmic approaches available. Equation \ref{eqn:deltaL} only accounts for two
+according to equation \ref{eqn:eta} it can be utilized to repeatedly update the gradient $\nabla L$ over time
+steps $T$. To make the gradient descent algorithm efficient the learning rate $\eta$ has to be chosen
+correctly. If $\eta$ is too large the gradient $\Delta L$ possibly ends up being larger than zero  leading to
+an increase of the loss. If the step size is too small convergence will either take too long or not take
+place at all \cite{bergstra2011algorithms}. In practical machine learning approaches different learning rates
+are tested. There are also algorithmic approaches available. Equation \ref{eqn:deltaL} only accounts for two
 inputs features but it can be generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
-
 
 \begin{eqnarray}
  \nabla L = \left(\frac{\partial L}{\partial w_1}, \ldots ,
@@ -1353,8 +1357,9 @@ low.
 
 
 \begin{figure}[H]
- \centering\includegraphics[height=.59\textheight, width=1.0\textwidth]{ ann_vs_gblup} \decoRule
-\caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the methods}
+  \centering\includegraphics[height=.59\textheight, width=1.0\textwidth]{ann_vs_gblup}
+  \decoRule
+  \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the methods}
 \label{fig:annblup}
 \end{figure}
 
@@ -1380,19 +1385,19 @@ low.
 \begin{table}[H]
 \centering
 \begin{tabular}{lcc|cc}
- \toprule
- & \multicolumn{2}{c}{\textbf{Kemater}} & \multicolumn{2}{c}{\textbf{Petkuser}} \\
- Phenotype & GBLUP & ANN & GBLUP & ANN \\ 
- \midrule
- EV\_V3 & 0.44 & 0.46 & 0.31 & 0.25 \\ 
- EV\_V4 & 0.47 & 0.49 & 0.31 & 0.25 \\ 
- EV\_V6 & 0.43 & 0.44 & 0.38 & 0.33 \\ 
- DtTAS & 0.47 & 0.44 & & \\ 
- PH\_V4\_mean & 0.54 & 0.56 & 0.46 & 0.44 \\ 
- PH\_V6\_mean & 0.53 & 0.56 & 0.51 & 0.48 \\ 
- PH\_final & 0.69 & 0.70 & 0.68 & 0.67 \\ 
- DtSILK & 0.57 & 0.53 & 0.54 & 0.52 \\ 
- \bottomrule
+  \toprule
+  & \multicolumn{2}{c}{\textbf{Kemater}} & \multicolumn{2}{c}{\textbf{Petkuser}} \\
+  Phenotype & GBLUP & ANN & GBLUP & ANN \\ 
+  \midrule
+  EV\_V3 & 0.44 & 0.46 & 0.31 & 0.25 \\ 
+  EV\_V4 & 0.47 & 0.49 & 0.31 & 0.25 \\ 
+  EV\_V6 & 0.43 & 0.44 & 0.38 & 0.33 \\ 
+  DtTAS & 0.47 & 0.44 & & \\ 
+  PH\_V4\_mean & 0.54 & 0.56 & 0.46 & 0.44 \\ 
+  PH\_V6\_mean & 0.53 & 0.56 & 0.51 & 0.48 \\ 
+  PH\_final & 0.69 & 0.70 & 0.68 & 0.67 \\ 
+  DtSILK & 0.57 & 0.53 & 0.54 & 0.52 \\ 
+  \bottomrule
 \end{tabular}
 \end{table}
 \doublespacing

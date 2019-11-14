@@ -10,7 +10,7 @@
 % Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 % ----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+% PACKAGES AND OHER DOCUMENT CONFIGURATIONS
 % -------------------------------------------------------------------
 \documentclass[
 12pt, % The default documnt font size, optins: 10pt, 11pt, 12pt
@@ -25,7 +25,7 @@ doublespacing, % Single line spacing, alternatives: onehalfspacing or dBoublespa
 %parskip, % Uncomment to add space between paragraphs
 %nohyperref, % Uncomment to not load the hyperref package
 headsepline, % Uncomment to get a line under the header
-%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+chapterinoneline, % Uncomment to place the chapter title next to the number on one line
 % consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
 ]{MastersDoctoralThesis} % The class file specifying the document structure
 \usepackage[utf8]{inputenc} % Required for inputting international characters
@@ -39,7 +39,7 @@ headsepline, % Uncomment to get a line under the header
 %% author names in small capitals 
 \renewcommand{\mkbibnamelast}[1]{\small{\textsc{#1}}}
 
-%% numerics numbered by appearance 1
+%% numerics numbered by appearance 
 %\usepackage[backend=bibtex, style=numeric,sorting=none]{biblatex} % Use the bibtex
 
 %\usepackage[backend=bibtex,style=alphabetic]{biblatex}
@@ -51,6 +51,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{mathtools}
+\usepackage{enumerate}
 \usepackage{longtable}
 \makeatletter
 \renewcommand*\env@matrix[1][c]{\hskip -\arraycolsep
@@ -86,7 +87,7 @@ headsepline, % Uncomment to get a line under the header
 \lstset{style=mystyle}
 % ------------------------------------------------------------------------------
 %	MARGIN SETTINGS
-% -----------------------------------------------------------------------------
+% ----------------------------------------------------------------------------
 
 \geometry{
   paper=a4paper, % Change to letterpaper for US letter
@@ -303,13 +304,14 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \pagestyle{thesis} % Return the page headers back to the "thesis" style2
 % Include the chapters of the thesis as separate files from the Chapters folder
 % uncomment the lines as yo write the chapters
+
 % \cfoot*{\pagemark}
-\clearscrheadfoot
-\ohead{\rightmark}
-\cfoot[\pagemark]{\pagemark}
-\providepairofpagestyles[thesisSimple]{thesis}{%
-	\automark*[section]{}%
-}
+% \clearscrheadfoot
+% \ohead{\rightmark}
+% \cfoot[\pagemark]{\pagemark}
+% \providepairofpagestyles[thesisSimple]{thesis}{%
+% 	\automark*[section]{}%
+% }
 
 
 \include{Chapters/Chapter1}
