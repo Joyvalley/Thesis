@@ -3,7 +3,7 @@
 \label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 
-\section{Introduction}
+\section{Introduction to machine learning and genomic prediction}
 \subsection{A brief history of machine learning} \label{introml}
 \subsubsection{The basic perceptron model}
 
@@ -24,9 +24,9 @@ This basic perceptron, which contrary to perceptrons used nowadays, does not hav
 function, takes $n$ binary inputs $x_1 , x_2 .... x_n$ and produces a single, likewise binary, output $y$
 after being processed. To achieve this Rosenblatt introduced the concept of weights, which determine a certain
 input's relative importance to the outcome of the output $w_1 , w_2 ... w_n$. The output $y$ is determined by
-the weighted sum of the weights $\sum_i w_ix_i $. If a certain threshold value is met the
-neuron is either activated and outputs 1 or not activated resulting in and output of 0. This is algebraically
-represented in equation \ref{eqn:weights}:
+the weighted sum of the weights $\sum_i w_ix_i $. If a certain threshold value is met the neuron is either
+activated and outputs 1 or not activated resulting in and output of 0. This is algebraically represented in
+equation \ref{eqn:weights}:
 
 \begin{subequations}
  \begin{align}
@@ -276,87 +276,94 @@ Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb}  
 \end{equation}
 
 \subsubsection{Optimizers}
-The previous section introduced the concept of gradient descent, an algorithm to minimize the loss function of
-the weights and biases for a neural network. All other optimizers introduced in the following chapter, are
-either variations or extensions of the basic gradient descent algorithm (GD) shown in \ref{eqn:gdwb}.\\
-One disadvantage of gradient descent is that if the data sets grow larger, the demand in memory for
-computation increases exponentially. Taking into consideration machine learning is a popular method in big
-data applications this is a serious drawback. Methods to solve that issue are stochastic gradient descent and
-mini-batch gradient descent. The idea behind the latter is to randomly divide the entity of the training data
-in sub-samples called mini-batches \cite{bottou-bousquet-2008}. The network is then trained iteratively over
-those mini batches. The batch size has a significant influence on the accuracy and the training speed of the
-network and is a hyperparameter which has to be tuned by iteratively testing like the learning rate. If the
-batch size is 1 mini batch GD is also referred to as stochastical gradient descent (SGD). During the
-optimization process optimizers can find local minima of the cost function without being able to overcome them
-to discover the desired global minima. An algorithm extending GD to accelerate the search of the global minimum
-is momentum, which allows the GD to speed up when the loss is decreasing and to slow down when going in the
-wrong direction, hence  increasing the loss function $L(w,b)$. This is achieved by accounting for the gradient of
-the previous step in the calculation of the current step. This concept was introduced by \cite{polyak1964} and
-re-popularized alongside backpropagation learning by \cite{rumelhart1988learning}.
+The previous section introduced the concept of gradient descent, an algorithm to minimize the
+loss function of the weights and biases of a neural network. All other optimizers introduced in
+the following chapter are either variations or extensions of the basic gradient descent algorithm shown in equation \ref{eqn:gdwb}. \\
+One disadvantage of gradient descent is that if the data set grows larger the demand in memory
+for computation increases exponentially. Taking into consideration that machine learning is a
+popular method in big data applications this is a serious drawback.\\
+Methods to solve that issue are stochastic gradient descent and mini batch gradient descent.
+The idea behind the latter is to randomly divide the entity of the training data into
+subsamples called mini batches \cite{bottou-bousquet-2008}. The network is then trained
+iteratively with all mini batches. The batch size has a significant influence on the accuracy
+and the training speed of the network and is a hyperparameter, which has to be tuned by
+iteratively testing different settings. If the batch size is one mini batch GD is also
+referred to as stochastical gradient descent (SGD). \\
+During the optimization process optimizers can descent into local minima of the cost function
+without being able to overcome them enabling to reach the global minimum. An algorithm
+extending GD to accelerate the search of the global minimum is momentum, which allows the GD to
+speed up when the loss is decreasing and to slow down when going in the wrong direction, hence
+the loss function $L(w,b)$ is increasing. This is achieved by accounting for the gradient of
+the previous step in the calculation of the current step. This concept was introduced by
+\cite{polyak1964} and re-popularized alongside backpropagation learning by
+\cite{rumelhart1988learning}.
 
 \begin{equation}
  w = w_i - \eta \nabla L + \alpha \Delta w
  \label{eqn:momentum}
 \end{equation}
 
+Equation \ref{eqn:momentum} shows how the momentum is mathematically represented in GD to
+update the weights $w$ or likewise the biases. The delta of the weights multiplied by an
+coefficient $\alpha$ is the momentum. $\alpha$ is usually ranges from 0.1 to 0.9 and is another
+parameter to be tuned for successful training. If the momentum is two small the GD will not be
+able to overcome local minima and if $\alpha$ is two large the loss functions tends to
+oscillate without ever finding an optimum \cite{lecun2015deep}. \\
+For both the momentum and the learning rate it is impractical to maintain the same level
+during all training epochs. After each epoch the loss function is either closer or further away
+from its global minima and depending on the distance to that minimum it is desirable to have
+larger or smaller learning rates and momenta. This can be achieved with naive approaches, for
+example using a step function to gradually decrease those values after each iteration, or to
+utilize algorithmic approaches \cite{michie1994machine}. There is a large variety of optimizers
+trying to find optimal values for $\alpha$ and $\eta$ and till today this field is under active
+research \cite{goodfellow2016deep}. Popular among those are: RMSprop \cite{hinton2012neural};
+Nesterov momentum \cite{dozat2016incorporating}; Adadelta \cite{zeiler2012adadelta}; Adagrad
+\cite{ruder2016overview} and Adam \cite{kingma2014adam}. With Adam being the most popular
+optimizer today. \\ Nesterov momentum is slight change to the normal momentum algorithm, capable of having huge impacts in practical applications, because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
+RMSProp - root mean square propagation - is a method aiming to adapt the learning rate
+algorithmically, by choosing $\eta$ for each iteration. Lastly the wide-spread Adam optimizer
+combines both of the features of momentum and RMSProp and adapts the learning rate as well as
+the momentum iteratively \cite{kingma2014adam}.
 
-Equation \ref{eqn:momentum} shows how the momentum is mathematically represented in GD to update the weights
-$w$ or likewise the biases the delta of the weights multiplied by the coefficient $\alpha$ - the momentum,
-which usually ranges from 0.1 to 0.9 and is another parameter to be tuned for successful training. If the
-momentum is two small the GD will not be able to overcome local minima and if $\alpha$ is two large the loss
-functions tends to oscillate without ever finding an optimum \cite{lecun2015deep}. \\ For both the
-momentum and the learning rate it is impractical to remain on the same level during all training epochs. After
-each epoch the loss function is either closer or further away from its global minima and depending on the
-distance to that minimum it is desirable to have larger or smaller learning rates and momenta. This can be
-achieved with naive approaches for example using a step function to gradually decrease those values after each
-iteration, or to utilize algorithmic approaches \cite{michie1994machine}. There is a large variety of
-optimizers trying to find optimal values for $\alpha$ and $\eta$ and till today this field is under active
-research \cite{goodfellow2016deep}. Popular among those are: RMSprop \cite{hinton2012neural}; Nesterov
-momentum \cite{dozat2016incorporating}; Adadelta \cite{zeiler2012adadelta}; Adagrad \cite{ruder2016overview}
-and Adam \cite{kingma2014adam}. With Adam being the most widely used optimizer today. Nesterov momentum is
-slight change to the
-normal momentum capable of having huge impacts in practical applications, because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
-RMSProp - root mean square propagation - is a method aiming to adapt the learning rate algorithmically, by
-choosing $\eta$ for each parameter. And lastly the wide-spread Adam optimizer combines both of the features of
-momentum and RMSProp and adapts the learning rate as well as the momentum iteratively \cite{kingma2014adam}.
 
+% \subsubsection{Backpropagation}
+% maybe i will leave out backpropagation
+% $\hdots$
+% $\vdots$
 
-\subsubsection{Backpropagation}
-maybe i will leave out backpropagation
-$\hdots$
-$\vdots$
+% Backpropagation \cite{rumelhart1988learning}
 
-Backpropagation \cite{rumelhart1988learning}
+\subsubsection{Regularization parameters and overfitting}
 
-\subsubsection{Regularization parameters}
-
-When applying the combined, aforementioned algorithms and optimizers to find global minima of a loss function
-of a neural network the problem of overfitting arises, because optimizers like Adam work ``too'' well. This
-issue is due to the fact that neural networks have 100s of thousand of free parameters to be trained, deeper
-neural networks have billions and trillions of parameters. If training of the neural net continues for enough
-epochs eventually the loss function will approach a minimum and as $ L(w,b)\rightarrow 0 $ the initially drawn
-conclusion could mislead to assuming that training was quite successful. However, when trying to apply the
-trained network on the training data set (TRN) to a testing data set (TST) the loss and accuracy of the
-prediction of TST and TST are very large or accordingly small. This phenomenon is known as overfitting and a
-lot of fine tuning of hyperparameters is devoted to minimizing this effect \cite{tetko1995neural}. Figure
-\ref{fig:overfitting} visualizes the effects of overfitting during training \cite{goodfellow2016deep}.
+A common problem in machine learning is over parameterize the model on the training data and
+losing the ability to generalize on validation data. This issue occurs because neural networks
+have hundreds of thousand of free parameters to be trained. Deeper neural networks even have
+billions or trillions of parameters. If training of the neural net continues for enough epochs
+eventually the loss function will approach a minimum. As $ L(w,b) \rightarrow 0 $ the initially
+drawn conclusion could mislead to assuming that training was successful. However, when trying
+to apply the trained network on the training data set (TRN) to a testing data set (TST) the
+loss and accuracy of the prediction of TST are very large or accordingly small. This phenomenon
+is known as overfitting and a lot of fine tuning of hyperparameters is devoted to minimizing
+this effect \cite{tetko1995neural}. Figure \ref{fig:overfitting} visualizes this effects of
+during training \cite{goodfellow2016deep} of a neural networks.
 
 \begin{figure}[H]
   \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
-  \caption[Training vs. validation loss over time]{Learning curves showing how a loss function changes during training
-   in the loss and validation data set. While the training loss approaches 0 the validation loss starts increasing
-   after hitting a minimum. This effect is due to overfitting on the training data set. Figure from
-   \cite{goodfellow2016deep}.}
+  \caption[Training vs. validation loss over time]{Learning curves showing how a loss function
+    changes during training in the training and validation data set. While the training loss
+    approaches 0 the validation loss starts increasing after hitting a minimum. This effect is
+    due to overfitting on the training data set. Figure from \cite{goodfellow2016deep}.}
  \label{fig:overfitting}
 \end{figure}
 
 \textbf{Cross-validation} \\
 
-A method that is used in basically every training of neural networks is splitting up the data in multiple
-sub-sets. More specifically a training set (TRN) and a testing set (TST). The training set is used to
-minimize the loss functions and its success is evaluated on the TRN set, by comparing the predicted values
-$\hat{y}$ with the real values in TST $y$. For all neural nets in this study person's correlation coefficient
-was chosen as performance metric, as in equation \ref{eqn:pearson} \cite{soper1917distribution}.
+A method that is used in basically every training of neural networks is splitting up the data
+in multiple sub-sets. More specifically a training set (TRN) and a testing set (TST). The
+training set is used to minimize the loss functions and its success is evaluated on the TRN
+set, by comparing the predicted values $\hat{y}$ with the real values in TST $y$. For all
+neural nets in this study person's correlation coefficient was chosen as performance metric, as
+in equation \ref{eqn:pearson} \cite{soper1917distribution}.
 
 \begin{equation}
 \rho(y,\hat{y}) = \frac{cov(y,\hat{y})}{ \sigma_y \sigma_{\hat{y}}}
