@@ -1197,17 +1197,93 @@ Europe. Those traits were:
 
 To account for GxE best linear unbiased estimators were calculated according to
 Henderson's model \cite{henderson1975best} and used for further prediction. Once the BLUEs
-were calculated across all environments and once they were calculated for the DHs in the six environments individually.
+were calculated across all environments and once they were calculated for the DHs in the
+six environments individually.
 
+
+
+\subsection{A. thaliana}
+
+\subsubsection{Genomic data}
+
+The genomic data was generated during the course of the 1001 genome project of
+\textit{A. thaliana} \cite{1001genome} producing completed sequenced and assembled genomes
+for 1035 ecotypes along 600k marker data for 1307 accessions with an overlap between those
+groups resulting in a total of 2029 genotyped accessions. Totaling in more than 10
+mio. SNPs and Indels on the 5 chromosomes of \textit{A. thaliana}. Imputation of missing
+data and upsampling of the 600k subsets was performed with Beagle3
+\cite{browning2007rapid}. \\
+For every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned
+and MAF filtered. LD pruning was executed with the R-package SNPRelate
+\cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$ and a
+$MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
+phenotype.
+
+\subsubsection{Phenotypic data}
+A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the
+according study references. The phenotypic trials ranged from 100 to more than 1000
+accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014}; \cite{strauch2015}.
+
+
+
+\section{Methods}
+
+The theoretical backgrounds of the methods used for genomic prediction were described in
+section \ref{introml} for the ANNs and section \ref{blup:bayes} for the Bayesian methods
+and GBLUP. The next sections are devoted to explaining how those methods were adapted and
+implemented for the prediction of maize and \textit{Arabidopsis} traits.
+
+\subsection{Validation scheme} \label{cv}
+
+The validation approach in this study was a little different than common five fold cross
+validation. All predictions were run 50 times with different splits of TST and TRN. For
+the full data sets randomly 20\% were assigned to TST and 80\% to TST. This process was
+repeated 50 times reducing the chance of biases due to any TST-TRN combination being
+randomly more predictable for one or the other method. The validation scheme was generated
+\textit{a priori} and stored in cross-validation files to allow reusing the validation
+sets.
+
+\subsection{ANN}
+The scripts for ANN based GS were written in python using the lower level API TensorFlow
+\cite{TF2016} and the higher level API Keras \cite{keras2015}. Both are very versatile,
+well-documented and are capable of performing a large variety of machine learning
+applications. For those reasons they are among the most used ML libraries. Another
+advantage is that they work well on GPUs, which allows ML algorithms to run in a
+reasonable amount of time compared to CPU-based calculations. \\
+Prior to training the data was split into TRN and TST. The markers of TRN served as the
+input layer for the network while the phenotypes were values trained upon in the output
+node. Preliminary trials showed that Adam is the superior optimizer for GS and hence was
+the only one further used. Likewise relu was the activation of choice being superior to
+sigmoid or other non-rectifiers. All the weights and the biases of the kernel were
+initialized with truncated normal distributed
+values. The loss function used was always MSE. \\
+Having a few hyperparameters fixed the remaining ones were optimized via a grid
+search. For each training set multiple networks were trained to fine tune the input
+parameters. Those were the number of layers, the nodes per layer, the magnitude of the
+dropout, the type of dropout used, whether the first layer was locally-connected for
+fully-connected and the duration of training via the training epochs. This amounted to a
+total of almost 260000 trained networks for the 146 \textit{A. thaliana} data sets alone. \\
+After another set preliminary runs LCL as the first layer appeared to result in higher
+prediction accuracies than FLC and where henceforth exclusively used and applied with a
+stride length of 7. The stride length determines how many nodes of the input layer, in
+this case markers, are combined in the first hidden layer. The type of drop out used
+(alpha dropout, Gaussian noise or normal dropout) did not show any effect therefore the
+normal dropout function was used further. The network's training was iterated over the
+different number of epochs, architectures, drop out values and the cross validation
+cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$
+to $60$ in steps $5$ and several 1, 2 or 3 Layer architectures, following the
+locally-connected layer, were tested.
 
 \subsubsection{Single environment prediction}
-Next to the across environment BLUEs used for prediction the single environment BLUEs were used for prediction
-to able to gain insights of the structure of $\sigma_{GxE}$ of the maize traits. This resulted in 2246
-genotype x environment combinations for Kemater and 1975 for Petkuser with at least one data point. This
-number is lower than the maximum number of n DHs per populations times the 6 environments, because naturally
-not all genotypes yielded reliable data in the environments. Each DH x environment was treated as an
-individual in for the across environment prediction. The marker matrix was enhanced with the environmental
-origin as cofactors as show in table \ref{tab:envmarker} with one-hot encoded markers.
+Next to the across environment BLUEs used for prediction the single environment BLUEs were
+used for prediction to able to gain insights of the structure of $\sigma_{GxE}$ of the
+maize traits. This resulted in 2246 genotype x environment combinations for Kemater and
+1975 for Petkuser with at least one data point. This number is lower than the maximum
+number of n DHs per populations times the 6 environments, because naturally not all
+genotypes yielded reliable data in the environments. Each DH x environment was treated as
+an individual in for the across environment prediction. The marker matrix was enhanced
+with the environmental origin as cofactors as show in table \ref{tab:envmarker} with
+one-hot encoded markers.
 
 \onehalfspacing
 \begin{table}[H]
@@ -1227,91 +1303,29 @@ origin as cofactors as show in table \ref{tab:envmarker} with one-hot encoded ma
 \end{table}
 \doublespacing
 
-
-
-\subsection{A. thaliana}
-
-\subsubsection{Genomic data}
-
-The genomic data was generated during the course of the 1001 genome project of \textit{A. thaliana}
-\cite{1001genome} producing completed sequenced and assembled genomes from 1035 genomes, along 600k marker
-data for 1307 accessions with a small overlap between those groups resulting in a total of 2029 genotyped
-accessions. With more than 10 mio. SNPs and Indels on the 5 chromosomes of e \textit{A. thaliana}. Imputation
-of missing data and upsampling of the 600k subsets was performed with Beagle3 \cite{browning2007rapid}. For
-every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned and MAF filtered. LD
-pruning was executed with the R-package SNPRelate \cite{zheng2013tutorial} with a relatively strict LD
-threshold of $0.65$ and $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
-phenotype.
-
-\subsubsection{Phenotypic data}
-A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the according study
-references. The phenotypic trials ranged from 100 to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{strauch2015}; \cite{me2014}.
-
-
-\section{Methods}
-
-The theoretical backgrounds of the methods used for genomic prediction were described in section \ref{introml}
-for the ANNs and section\ref{blup:bayes} for the Bayesian methods and GBLUP. The next sections are devoted to
-explaining who those methods were adapted and implemented for the prediction of maize and \textit{Arabidopsis}
-traits.
-
-\subsection{Validation scheme} \label{cv}
-
-The validation approach in this study was a little different than common 5 fold cross validation. All
-predictions were run 50 times with different splits of TST and TRN. For the full data set randomly 20\% were
-assigned to TST and 80\% to TST. This process was repeated 50 times, reducing the chance of biases due to any
-TST-TRN combination being randomly more predictable for on or the other method. The validation scheme was
-generated \textit{a priori} and stored in cross-validation files to allow reusing the validation sets.
-
-\subsection{ANN}
-The scripts for ANN based GS were written in python using the lower level API TensorFlow \cite{TF2016} and the
-higher level API Keras \cite{keras2015}. Both are very versatile, well-documented and are capable of
-performing a large variety of machine learning applications. For those reasons they are the most used ML
-libraries. Another advantage is that they work well on GPUs, which allows ML algorithms to run a reasonable
-amount of time compared to CPU-based calculations. Prior to training the data was split into TRN and TST. The
-markers of TRN served as the input layer for the network while the phenotypes were trained upon in the output
-layer, which in the present cases consisted of only one node, because GS in the cases applied here is a
-regression problem. Preliminary trials showed Adam is the superior optimizer for GS and hence was the only one
-further used. Likewise relu was the activation of choice being superior to sigmoid or other non
-rectifiers. All the weights and the biases of the kernel were initialized with truncated normal distributed
-values. The loss function used was always MSE. \\
-Having a few hyperparameters fixed, the other ones were optimized via grid search. For each TRN multiple
-networks were trained to fine tune the input parameters. Those were the number of layers, the nodes per layer,
-the magnitude of the dropout, the type of dropout used, whether the first layer was locally-connected for
-fully-connected and the duration of training via the training epochs. This amount to a total of a little shy
-of 260000 trained networks for the 146
-\textit{A. thaliana} data sets alone. \\
-After another set preliminary runs LCL as the first layer seamed to result in higher accuracies then FLC as
-the first layer and where henceforth exclusively used and applied with a stride length of 7. The stride length
-determines how many node of the input layer, in this case markers, where combined in the first hidden
-layer. The type of drop out used (alpha dropout, Gaussian noise or normal dropout) did not show an effect
-therefore the normal dropout function was used. The network training was iterated over the different number
-epochs, architecture, drop out values the the cross validation cycles, thus explaining the tremendous amount
-of total networks trained. Epochs from $5$ to $60$ in steps $5$ and several 1, 2 or 3 Layer architectures
-following the locally-connected layer.
-
 \subsection{GBLUP}
 
-The evaluation of the genomic BLUP was performed with the R-package BGLR \cite{BGLR}. To allow pairwise
-comparison of the individual validation runs the same validation scheme as for the ANNs was used with the same
-TST and TRN sets. 
+The evaluation of the genomic BLUP was performed with the R-package BGLR \cite{BGLR}. To
+allow pairwise comparison of the individual validation runs the same validation scheme as
+for the ANNs was used with the same TST and TRN sets.
 
 \section{Results} \label{res:gp}
 \subsubsection{Results of \textit{A. thaliana} prediction}
-Table \ref{tab:at_res} show the results for genomic prediction for 146 \textit{A. thaliana} phenotypes with
-ANNs and GBLUP and the architecture, determined via grid search, yielding the highest prediction accuracies.
-Figure \ref{AC:gp_res} contains scatter plots for the comparison of accuracies for GBLUP and the respective
-ANNs for 50 validation sets for all phenotypes.  In table \ref{tab:at_res} phenotypes were ANN outperformed
-the genomic BLUP are indicated in red. At first sight ANN can surpass with GBLUP for traits with high
-accuracies, compete at an intermediate level and fails to reach to level of GBLUP when overall accuracies are
-low.
+Table \ref{tab:at_res} shows the results for genomic prediction for 146
+\textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via
+grid search, yielding the highest prediction accuracies.  Figure \ref{AC:gp_res} contains
+scatter plots for the comparison of accuracies for GBLUP and the respective ANNs for 50
+validation sets for all phenotypes. Phenotypes in table \ref{tab:at_res} where ANN
+outperformed GBLUP are indicated in red. At first sight the accuracies of ANNs can surpass
+the ones of GBLUP for traits with high overall accuracies, compete at an intermediate
+level and fail to reach to level of GBLUP when overall accuracies are low.
 
 \singlespacing
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
   \caption[Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN]{Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN} \\
  \toprule
  Phenotype & GBLUP & ANN & Architecture & Epochs \\
- \hline
+ \midrule
  FT16 & 0.8237 & 0.8215 & 100 & 10 \\
  2W & 0.8156 & \color{red}{0.8205} & 50, 30 & 35 \\
  FT10 & 0.8249 & 0.8191 & 48 & 50 \\
@@ -1460,7 +1474,6 @@ low.
 \label{tab:at_res}
 \end{longtable}
 \doublespacing
-
 
 
 \begin{figure}[H]
