@@ -19,12 +19,12 @@ Genome-wide association studies, pioneered in human genetics \cite{Hirschhorn200
 become the predominant method to detect associations between phenotypes and the genetic
 variations present in a population, in the last decade. Understanding the genetic
 architecture of traits and mapping the underlying genomic polymorphisms is of paramount
-importance for successful breeding, both in plants and animals, as well as for studying the
-genetic risk factors of diseases. Over the last decades the costs for genotyping have been
-reduced dramatically. Early GWAS consisted of a few hundred individuals, which have been
-phenotyped and genotyped on a couple of hundreds to thousands of genomic markers. Nowadays
-marker densities for many species easily exceed millions of genomic polymorphisms. Albeit
-commonly SNPs are used for association studies, standard GWAS models
+importance for successful breeding, both in plants and animals, as well as for studying
+the genetic risk factors of diseases. Over the last decades the costs for genotyping have
+been reduced dramatically. Early GWAS consisted of a few hundred individuals, which have
+been phenotyped and genotyped on a couple of hundreds to thousands of genomic
+markers. Nowadays marker densities for many species easily exceed millions of genomic
+polymorphisms. Albeit commonly SNPs are used for association studies, standard GWAS models
 are flexible to handle different genomic features as input. \\
 The \textit{Arabidopsis} 1001 genomes project features for example 1135 sequenced
 \textit{Arabidopsis thaliana} accessions with over 10 million genomic markers that
@@ -88,7 +88,7 @@ Y = \beta_{0} + X_i\beta_i + u + \epsilon, u \sim N(0,\sigma_gK), \epsilon \sim 
 \end{equation}
 
 \noindent
-From this LMM the residual sum of squares for marker $i$ are calcucated as descirebed in
+From this LMM the residual sum of squares for marker $i$ are calculated as described in
 \ref{eqn:RSS_GWAS}
 
 \begin{equation}
@@ -113,7 +113,7 @@ error for each marker.
 
 \subsubsection{Calculation of permutation-based thresholds for GWAS}
 
-To calculate a permuation-based threshold essentially \textit{n} repetitions (\textit{n}
+To calculate a permutation-based threshold essentially \textit{n} repetitions (\textit{n}
 $\geq$ 100) are computed of the GWAS on the same data with the sole difference that before
 each GWAS phenotypic values are randomized. Thus any correlation between the phenotype and
 the genotype will be broken and indeed for over 90\% of these analyses the estimated
@@ -142,9 +142,9 @@ of the mixed model that is broadly used to perform GWAS. All calculations were r
 same machine using 16 i9 virtual CPUs. The GPU version ran on an NVIDIA Tesla P100 graphic
 card. Additionally to the analyses of the simulated data, the times required by
 \textit{GEMMA} and both \texttt{GWAS-Flow} implementations for $>$ 200 different real
-datasets from \textit{A. thaliana} were compared, which also have been downloaded from the
+data sets from \textit{A. thaliana} were compared, which also have been downloaded from the
 AraPheno database \cite{seren2016arapheno} and have been analyzed with the available fully
-imputed genomic dataset of ca. 10 million markers, filtered for a minor allele count
+imputed genomic data set of ca. 10 million markers, filtered for a minor allele count
 greater five.
 
 \section{Results}
@@ -196,7 +196,7 @@ different implementations.
 
 \section{Discussion}
 
-To cope with the increasing computational demand in analyzing large GWAS datasets, recent
+To cope with the increasing computational demand in analyzing large GWAS data sets, recent
 developments of computational architecture and software were utilized to develop
 \texttt{GWAS-Flow}. With \texttt{GWAS-Flow} both a CPU- and a GPU-based version of the
 classical linear mixed model, commonly used for GWAS, is provided. Both implementations
