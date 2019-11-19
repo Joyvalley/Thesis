@@ -346,7 +346,8 @@ lot of fine tuning of hyperparameters is devoted to minimizing this effect
 \cite{goodfellow2016deep} of a neural networks.
 
 \begin{figure}[H]
-  \centering \includegraphics[height=.35\textheight, width=1.0t\textwidth]{Figures/overfitting} \decoRule
+  \centering \includegraphics[height=.35\textheight, width=1.0\textwidth]{Figures/overfitting}
+  \decoRule
   \caption[Training vs. validation loss over time]{Learning curves showing how a loss function
     changes during training in the training and validation data set. While the training loss
     approaches 0 the validation loss starts increasing after hitting a minimum. This effect is due
@@ -1475,12 +1476,13 @@ successful predictions. For 60 of 145 phenotypes ANNs were able to outperform
 GBLUP. However, when the overall prediction accuracies are generally high
 $\rho(y,\hat{y}) \geq 0.75$, 16 out 20 of the ANN yield higher predictive abilities than
 GBLUP. At an intermediate level they perform both at the same level and at low levels
-$\rho(y,\hat{y}) < .30$ GBLUP appears to be better than the tested ANNs.\\
+$\rho(y,\hat{y}) < 0.30$ GBLUP appears to be better than the tested ANNs.\\
 Figure \ref{fig:annblup} compares the average prediction accuracies of 50 validation folds
 for ANN and GBLUP for all the 145 phenotypes.
 
 \begin{figure}[H]
-  \centering\includegraphics[height=.59\textheight, width=1.0\textwidth]{ann_vs_gblup}
+  \centering
+  \includegraphics[height=.55\textheight, width=1.0\textwidth]{ann_vs_gblup}
   \decoRule
   \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in
   \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in
@@ -1499,13 +1501,6 @@ ANNs. Furthermore as also visible in figure \ref{fig:anblup}, when the predictiv
 abilities are high and ANNs technically performs better, the differences between the
 methods become insignificantly small, so that for those data sets the difference is
 smaller than 0.01.
-
-\begin{figure}[H]
- \centering \includegraphics[angle=0,height=.49\textheight, width=1.0\textwidth]{herit_acc}
- \decoRule
- \caption[Prediction accuracies of GBLUP compared to the heritability of \textit{A. thaliana} traits]{Prediction accuracies of GBLUP compared to the pseudo-heritability of \textit{A. thaliana} traits. The color scale indicates the difference between the accuracy and the pseudo-heritability. The size of the dots indicates the absolute difference between ANN and GBLUP prediction. Dots on the diagonal line have the same accuracy and heritability}
-\label{fig:herit_gp}
-\end{figure}
 
 
 \subsection{Results of maize prediction}
@@ -1588,6 +1583,22 @@ across environment BLUEs (previous section)-
 
 
 \section{Discussion}\label{gpdis}
+\subsection{Correlation between heritability and prediction accuracy}
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{herit_acc}
+ \decoRule
+ \caption[Prediction accuracies of GBLUP compared to the heritability of
+ \textit{A. thaliana} traits]{Prediction accuracies of GBLUP compared to the
+   pseudo-heritability of \textit{A. thaliana} traits. The color scale indicates the
+   difference between the accuracy and the pseudo-heritability. The size of the dots
+   indicates the absolute difference between ANN and GBLUP prediction. Dots on the
+   diagonal line have the same accuracy and heritability}
+\label{fig:herit_gp}
+\end{figure}
+
+
+\subsection{Two or three layer networks outperform deeper ANNs}
 
 \onehalfspacing
 \begin{table}[H]
@@ -1611,3 +1622,8 @@ across environment BLUEs (previous section)-
 \end{tabular}
 \end{table}
 \doublespacing
+
+
+
+\subsection{GxE interactions have great influence on plant development traits in maize}
+
