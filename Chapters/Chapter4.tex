@@ -346,7 +346,7 @@ lot of fine tuning of hyperparameters is devoted to minimizing this effect
 \cite{goodfellow2016deep} of a neural networks.
 
 \begin{figure}[H]
-  \centering \includegraphics[height=.35\textheight, width=1.1\textwidth]{Figures/overfitting} \decoRule
+  \centering \includegraphics[height=.35\textheight, width=1.0t\textwidth]{Figures/overfitting} \decoRule
   \caption[Training vs. validation loss over time]{Learning curves showing how a loss function
     changes during training in the training and validation data set. While the training loss
     approaches 0 the validation loss starts increasing after hitting a minimum. This effect is due
@@ -1225,8 +1225,6 @@ A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} 
 according study references. The phenotypic trials ranged from 100 to more than 1000
 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014}; \cite{strauch2015}.
 
-
-
 \section{Methods}
 
 The theoretical backgrounds of the methods used for genomic prediction were described in
@@ -1263,7 +1261,7 @@ search. For each training set multiple networks were trained to fine tune the in
 parameters. Those were the number of layers, the nodes per layer, the magnitude of the
 dropout, the type of dropout used, whether the first layer was locally-connected for
 fully-connected and the duration of training via the training epochs. This amounted to a
-total of almost 260000 trained networks for the 146 \textit{A. thaliana} data sets alone. \\
+total of almost 260000 trained networks for the 145 \textit{A. thaliana} data sets alone. \\
 After another set preliminary runs LCL as the first layer appeared to result in higher
 prediction accuracies than FLC and where henceforth exclusively used and applied with a
 stride length of 7. The stride length determines how many nodes of the input layer, in
@@ -1312,14 +1310,9 @@ for the ANNs was used with the same TST and TRN sets.
 
 \section{Results} \label{res:gp}
 \subsubsection{Results of \textit{A. thaliana} prediction}
-Table \ref{tab:at_res} shows the results for genomic prediction for 146
+Table \ref{tab:at_res} shows the results for genomic prediction for 145
 \textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via
-grid search, yielding the highest prediction accuracies.  Figure \ref{AC:gp_res} contains
-scatter plots for the comparison of accuracies for GBLUP and the respective ANNs for 50
-validation sets for all phenotypes. Phenotypes in table \ref{tab:at_res} where ANN
-outperformed GBLUP are indicated in red. At first sight the accuracies of ANNs can surpass
-the ones of GBLUP for traits with high overall accuracies, compete at an intermediate
-level and fail to reach to level of GBLUP when overall accuracies are low.
+grid search, yielding the highest prediction accuracies.
 
 \singlespacing
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
@@ -1476,25 +1469,59 @@ level and fail to reach to level of GBLUP when overall accuracies are low.
 \end{longtable}
 \doublespacing
 
+
+Table \ref{tab:at_res} contains in total 145 phenotypes where both ANN and GBLUP yielded
+successful predictions. For 60 of 145 phenotypes ANNs were able to outperform
+GBLUP. However, when the overall prediction accuracies are generally high
+$\rho(y,\hat{y}) \geq 0.75$, 16 out 20 of the ANN yield higher predictive abilities than
+GBLUP. At an intermediate level they perform both at the same level and at low levels
+$\rho(y,\hat{y}) < .30$ GBLUP appears to be better than the tested ANNs.\\
+Figure \ref{fig:annblup} compares the average prediction accuracies of 50 validation folds
+for ANN and GBLUP for all the 145 phenotypes.
+
 \begin{figure}[H]
   \centering\includegraphics[height=.59\textheight, width=1.0\textwidth]{ann_vs_gblup}
   \decoRule
-  \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the methods}
+  \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in
+  \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in
+    \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the
+    methods}
 \label{fig:annblup}
 \end{figure}
+
+Usually the predictions across methods are closely correlated with each other only for a
+few phenotypes a large difference in prediction accuracies. For more than 100 of the
+prediction sets the differences in accuracies is smaller than 0.03. The ones with a
+difference in accuracies larger than 0.05 are among those was low general prediction
+accuracies. With extreme values of 0.2 and 0.15 going in either direction, however with
+the majority of those with the linear classifier GBLUP being dominant over
+ANNs. Furthermore as also visible in figure \ref{fig:anblup}, when the predictive
+abilities are high and ANNs technically performs better, the differences between the
+methods become insignificantly small, so that for those data sets the difference is
+smaller than 0.01.
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.49\textheight, width=1.0\textwidth]{herit_acc}
+ \decoRule
+ \caption[Prediction accuracies of GBLUP compared to the heritability of \textit{A. thaliana} traits]{Prediction accuracies of GBLUP compared to the pseudo-heritability of \textit{A. thaliana} traits. The color scale indicates the difference between the accuracy and the pseudo-heritability. The size of the dots indicates the absolute difference between ANN and GBLUP prediction. Dots on the diagonal line have the same accuracy and heritability}
+\label{fig:herit_gp}
+\end{figure}
+
 
 \subsection{Results of maize prediction}
 \subsubsection{Across environments}
 
 \begin{figure}[H]
- \centering \includegraphics[angle=0,height=.49\textheight, width=1.1\textwidth]{gp_kemater}
+ \centering \includegraphics[angle=0,height=.49\textheight, width=1.0\textwidth]{gp_kemater}
  \decoRule
-\caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and GBLUP }
+ \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and
+ GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and
+   GBLUP }
 \label{fig:ke_ann}
 \end{figure}
 
 \begin{figure}[H]
- \centering \includegraphics[angle=0,height=.495\textheight, width=1.1\textwidth]{gp_petkuser}
+ \centering \includegraphics[angle=0,height=.495\textheight, width=1.0\textwidth]{gp_petkuser}
  \decoRule
  \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
 \label{fig:pe_ann}
@@ -1528,7 +1555,7 @@ matrix yielded substantially higher prediction accuracies than the prediction wi
 across environment BLUEs (previous section)-
 
 \begin{figure}[H]
- \centering \includegraphics[angle=0,height=.895\textheight, width=1.1\textwidth]{SL_pred}
+ \centering \includegraphics[angle=0,height=.895\textheight, width=1.0\textwidth]{SL_pred}
  \decoRule
  \caption[Results of genomic prediction across single environments for Kemater and
  Petkuser DH populations]{Results of genomic prediction across single environments for
@@ -1556,6 +1583,9 @@ across environment BLUEs (previous section)-
  \end{tabular}
 \end{table}
 \doublespacing
+
+
+
 
 \section{Discussion}\label{gpdis}
 
