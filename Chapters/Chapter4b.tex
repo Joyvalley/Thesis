@@ -1,0 +1,562 @@
+\section{Material}
+Two different data sets were used for the genomic prediction trials. A set of
+doubled-haploid (DH) populations derived from maize landraces and \textit{A. thaliana}
+data sets with genomic data procured along the 1001 genomic project \cite{1001genome} and
+various phenotypic trials \cite{seren2016arapheno}.
+
+
+\subsection{DH populations derived from maize landraces}
+The DH populations were produced, propagated and phenotyped in the scope of the MAZE
+project phase I, funded by the Federal Ministry of Education and Research (BMBF) (Funding
+ID: 031B0195, project “MAZE”) as well as the KWS SAAT SE, by various project partners at
+the Technical University of Munich, University of Hohenheim and the KWS. A thorough
+description of the germplasm selection and phenotyping was recently published by
+\cite{holker2019european}. \\
+Modern maize cultivars are almost exclusively high-performing hybrids from two inbreed
+lines originating from different heterotic pools. Commonly hybrids are derived from a
+cross of European Flint and American Dent maize \cite{dos2004priori};
+\cite{brauner2019testcross}. Before hybrid breeding became the predominant method in maize
+breeding in the 1960s, landraces were grown by farmers. Landraces are dynamic,
+open-pollinated, locally highly-adapted populations. They did not derive from modern
+breeding, but from locally confined selection and adaption by farmers to often very
+specific needs \cite{arteaga2016genomic}. The hybrids grown today are derived from just a
+few landraces as founder lines, while the majority of landraces has been nearly
+forgotten. This and high intensity selection over many generation has led to a loss of
+genetic diversity $\sigma_G$ in modern maize cultivars.\\
+The landrace germplasm present an important and essential stock of genetic variability for
+continuous success in maize breeding. The utilization of those germplasms would be
+impossible without the invaluable work of institutions like the IPK Gartersleben, whose
+goal as genebanks is to maintain and store genetic material for long time periods. From
+European three landraces representing large phenotypic and genetic heterogentiy were
+chosen to be assessed in the scope of the MAZE project:
+
+\begin{enumerate}[(i)]
+\item  Kemater Landmais Gelb (KE, Austria)
+\item Petkuser Ferdinand Rot (PE, Germany)
+\item Lalin (LL, Spain).
+\end{enumerate}
+
+They represent 95\% of the molecular variance in a set of
+35 landraces analyzed in a preceding project by \cite{mayer2017there}.\\
+In total 1015 DH lines (516 KE, 432 PE, 67 LL) were produced with \textit{in vivo} haploid
+induction with an inducer line as described in \cite{roeber2005vivo}.
+
+
+\subsubsection{Genomic maize data}
+The genomic maize data was provided by the TUM as described by \cite{holker2019european}.\\
+Genotyping was performed with the 600k Affymetrix\textsuperscript{\textregistered}
+Axiom\textsuperscript{\textregistered} Maize array \cite{unterseer2014powerful}. The
+markers were quality filtered and missing values were imputed individually for each
+landrace population using Beagle 5.0 \cite{browning2007rapid};
+\cite{browning2018one}. After LD pruning and further quality control 29833 markers
+remained for 471 Kemater and 403 PE DHs. LL was excluded from further analyses due to
+insufficient amounts of genotypes.
+
+\subsubsection{Phenotypic maze data}
+The phenotype data was provided by the TUM as described by \cite{holker2019european}. \\
+The traits were evaluated with lattice design in 6 different locations across
+Europe. Those traits were:
+
+\begin{enumerate}[(i)]
+\item early Vigor (EV) at three different stages (V3, V4, V6)
+\item plant height (PH) at two developing stages (V4,V6)
+\item the final plant height (PH\_final)
+\item male flowering time: days till tasseling (DtTAS)
+\item female flowering time: days till silking (DtSILK)) 
+\end{enumerate}
+
+To account for GxE best linear unbiased estimators were calculated according to
+Henderson's model \cite{henderson1975best} and used for further prediction. Once the BLUEs
+were calculated across all environments and once they were calculated for the DHs in the
+six environments individually.
+
+
+
+\subsection{A. thaliana}
+
+\subsubsection{Genomic data}
+
+The genomic data was generated during the course of the 1001 genome project of
+\textit{A. thaliana} \cite{1001genome} producing completed sequenced and assembled genomes
+for 1035 ecotypes along 600k marker data for 1307 accessions with an overlap between those
+groups resulting in a total of 2029 genotyped accessions. Totaling in more than 10
+mio. SNPs and Indels on the 5 chromosomes of \textit{A. thaliana}. Imputation of missing
+data and upsampling of the 600k subsets was performed with Beagle3
+\cite{browning2007rapid}. \\
+For every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned
+and MAF filtered. LD pruning was executed with the R-package SNPRelate
+\cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$ and a
+$MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
+phenotype.
+
+\subsubsection{Phenotypic data}
+A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the
+according study references. The phenotypic trials ranged from 100 to more than 1000
+accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014}; \cite{strauch2015}.
+
+\section{Methods}
+
+The theoretical backgrounds of the methods used for genomic prediction were described in
+section \ref{introml} for the ANNs and section \ref{blup:bayes} for the Bayesian methods
+and GBLUP. The next sections are devoted to explaining how those methods were adapted and
+implemented for the prediction of maize and \textit{Arabidopsis} traits.
+
+\subsection{Validation scheme} \label{cv}
+
+The validation approach in this study was a little different than common five fold cross
+validation. All predictions were run 50 times with different splits of TST and TRN. For
+the full data sets randomly 20\% were assigned to TST and 80\% to TST. This process was
+repeated 50 times reducing the chance of biases due to any TST-TRN combination being
+randomly more predictable for one or the other method. The validation scheme was generated
+\textit{a priori} and stored in cross-validation files to allow reusing the validation
+sets.
+
+\subsection{ANN}
+The scripts for ANN based GS were written in python using the lower level API TensorFlow
+\cite{TF2016} and the higher level API Keras \cite{keras2015}. Both are very versatile,
+well-documented and are capable of performing a large variety of machine learning
+applications. For those reasons they are among the most used ML libraries. Another
+advantage is that they work well on GPUs, which allows ML algorithms to run in a
+reasonable amount of time compared to CPU-based calculations. \\
+Prior to training the data was split into TRN and TST. The markers of TRN served as the
+input layer for the network while the phenotypes were values trained upon in the output
+node. Preliminary trials showed that Adam is the superior optimizer for GS and hence was
+the only one further used. Likewise relu was the activation of choice being superior to
+sigmoid or other non-rectifiers. All the weights and the biases of the kernel were
+initialized with truncated normal distributed
+values. The loss function used was always MSE. \\
+Having a few hyperparameters fixed the remaining ones were optimized via a grid
+search. For each training set multiple networks were trained to fine tune the input
+parameters. Those were the number of layers, the nodes per layer, the magnitude of the
+dropout, the type of dropout used, whether the first layer was locally-connected for
+fully-connected and the duration of training via the training epochs. This amounted to a
+total of almost 260000 trained networks for the 145 \textit{A. thaliana} data sets alone. \\
+After another set preliminary runs LCL as the first layer appeared to result in higher
+prediction accuracies than FLC and where henceforth exclusively used and applied with a
+stride length of 7. The stride length determines how many nodes of the input layer, in
+this case markers, are combined in the first hidden layer. The type of drop out used
+(alpha dropout, Gaussian noise or normal dropout) did not show any effect therefore the
+normal dropout function was used further. The network's training was iterated over the
+different number of epochs, architectures, drop out values and the cross validation
+cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$
+to $60$ in steps $5$ and several 1, 2 or 3 Layer architectures, following the
+locally-connected layer, were tested.
+
+\subsubsection{Single environment prediction}
+Next to the across environment BLUEs used for prediction the single environment BLUEs were
+used for prediction to able to gain insights of the structure of $\sigma_{GxE}$ of the
+maize traits. This resulted in 2246 genotype x environment combinations for Kemater and
+1975 for Petkuser with at least one data point. This number is lower than the maximum
+number of n DHs per populations times the 6 environments, because naturally not all
+genotypes yielded reliable data in the environments. Each DH x environment was treated as
+an individual in for the across environment prediction. The marker matrix was enhanced
+with the environmental origin as cofactors as show in table \ref{tab:envmarker} with
+one-hot encoded markers.
+
+\onehalfspacing
+\begin{table}[H]
+ \centering
+ \caption{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
+ \label{tab:envmarker}
+ \begin{tabular}{l|cccc}
+  \toprule
+      & M-1 & M-2 & E-1 & E-2 \\
+  \midrule
+  DH1-E1 & 0  & 1  & 1  & 0  \\
+  DH2-E1 & 1  & 0  & 1  & 0  \\
+  DH1-E2 & 0  & 1  & 0  & 1  \\
+  DH2-E2 & 1  & 0  & 0  & 1  \\                      
+  \bottomrule
+ \end{tabular}
+\end{table}
+\doublespacing
+
+\subsection{GBLUP and Bayesian methods}
+
+The evaluation of the genomic BLUP and the Bayesian methods was performed with the
+R-package BGLR \cite{BGLR}. To allow pairwise comparison of the individual validation runs
+the same validation scheme as for the ANNs was used with the same TST and TRN sets. BGLR
+implements GBLUP as Bayesian ridge regression (BRR), which mathematically has the same
+results as GBLUP, but uses and Bayesian approach \cite{BGLR}. For further comparison of
+the prediction methods, not only ANN and GBLUP were compared, but also five different
+Bayesian methods were applied to the maize data sets:
+
+\onehalfspacing
+\begin{enumerate}[(i)]
+\item BayesA
+\item BayesB
+\item BayesC
+\item Bayesian Lasso
+\item BRR / GBLUP
+\end{enumerate}
+
+\doublespacing
+
+\section{Results} \label{res:gp}
+\subsubsection{Results of \textit{A. thaliana} prediction}
+Table \ref{tab:at_res} shows the results for genomic prediction for 145
+\textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via
+grid search, yielding the highest prediction accuracies.
+
+\singlespacing
+\begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
+  \caption[Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN]{Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN}  \\
+  \toprule
+  Phenotype                          & GBLUP   & ANN                  & Architecture & Epochs \\
+  \midrule
+  FT16                               & 0.8237  & 0.8215               & 100          & 10     \\
+  2W                                 & 0.8156  & \color{red}{0.8205}  & 50, 30       & 35     \\
+  FT10                               & 0.8249  & 0.8191               & 48           & 50     \\
+  LD                                 & 0.8128  & \color{red}{0.8159}  & 150          & 30     \\
+  DTF sweden 2009 (1st experiment)   & 0.8063  & \color{red}{0.8141}  & 48           & 30     \\
+  DTF sweden 2009 (2nd experiment)   & 0.8035  & \color{red}{0.8091}  & 50, 30       & 20     \\
+  DTF sweden 2008 (2nd experiment)   & 0.7986  & \color{red}{0.8057}  & 150          & 25     \\
+  4W                                 & 0.795   & \color{red}{0.8052}  & 50, 35, 15   & 30     \\
+  FT22                               & 0.8009  & \color{red}{0.8043}  & 150          & 15     \\
+  DTF spain 2008 (2nd experiment)    & 0.7975  & \color{red}{0.8032}  & 150          & 40     \\
+  LN16                               & 0.7996  & \color{red}{0.7999}  & 50, 30       & 20     \\
+  DTF spain 2009 (2nd experiment)    & 0.7917  & \color{red}{0.7988}  & 150          & 55     \\
+  LDV                                & 0.8158  & 0.7975               & 150          & 15     \\
+  0W GH FT                           & 0.7873  & \color{red}{0.7942}  & 50, 30       & 15     \\
+  DTFmainEffect2009                  & 0.7794  & \color{red}{0.7855}  & 50, 35, 15   & 35     \\
+  SD                                 & 0.7905  & 0.7848               & 48           & 30     \\
+  DTFplantingSummer2008              & 0.75    & \color{red}{0.7746}  & 50, 30       & 20     \\
+  FT GH                              & 0.7693  & \color{red}{0.7702}  & 50, 30       & 15     \\
+  DTFlocSweden2009                   & 0.7595  & \color{red}{0.7626}  & 50, 30       & 60     \\
+  DTFplantingSummer2009              & 0.7521  & \color{red}{0.7584}  & 50, 30       & 50     \\
+  0W                                 & 0.7488  & 0.7473               & 48           & 40     \\
+  DTF spain 2009 (1st experiment)    & 0.7691  & 0.7425               & 48           & 40     \\
+  DTF sweden 2008 (1st experiment)   & 0.727   & \color{red}{0.728}   & 50, 30       & 20     \\
+  DTFlocSweden2008                   & 0.7161  & \color{red}{0.7271}  & 50, 30       & 55     \\
+  Seed Dormancy                      & 0.7014  & \color{red}{0.7241}  & 50, 30       & 35     \\
+  DTFmainEffect2008                  & 0.7102  & \color{red}{0.7142}  & 50, 30       & 20     \\
+  8W                                 & 0.7259  & 0.7083               & 150          & 50     \\
+  LN22                               & 0.7004  & \color{red}{0.7069}  & 50, 30       & 20     \\
+  Size sweden 2009 (1st experiment)  & 0.6905  & \color{red}{0.6994}  & 48           & 50     \\
+  LN10                               & 0.6934  & \color{red}{0.698}   & 50, 30       & 20     \\
+  DTF spain 2008 (1st experiment)    & 0.6944  & 0.677                & 150          & 25     \\
+  SDV                                & 0.6775  & 0.6728               & 150          & 15     \\
+  8W GH FT                           & 0.7001  & 0.6546               & 48           & 40     \\
+  0W GH LN                           & 0.6568  & 0.654                & 50, 30       & 20     \\
+  Storage 7 days                     & 0.6496  & \color{red}{0.65}    & 50, 30       & 25     \\
+  Storage 28 days                    & 0.6627  & 0.6483               & 50, 30       & 55     \\
+  8W GH LN                           & 0.671   & 0.6434               & 48           & 70     \\
+  Size sweden 2009 (2nd experiment)  & 0.6114  & \color{red}{0.6268}  & 48           & 50     \\
+  SizeLocSweden2009                  & 0.6144  & \color{red}{0.619}   & 150          & 35     \\
+  FLC                                & 0.6118  & \color{red}{0.6161}  & 50, 30       & 30     \\
+  LFS GH                             & 0.6178  & 0.6136               & 150          & 35     \\
+  FT Field                           & 0.7324  & 0.6112               & 150          & 60     \\
+  LY                                 & 0.6072  & \color{red}{0.6088}  & 150          & 60     \\
+  Storage 56 days                    & 0.6085  & 0.5788               & 150          & 15     \\
+  LES                                & 0.56    & \color{red}{0.5764}  & 150          & 50     \\
+  M216T665                           & 0.5155  & \color{red}{0.5674}  & 50, 30       & 50     \\
+  LC Duration GH                     & 0.5799  & 0.5664               & 150          & 55     \\
+  M172T666                           & 0.5165  & \color{red}{0.5487}  & 150          & 60     \\
+  Trichome avg JA                    & 0.588   & 0.5343               & 150          & 55     \\
+  Secondary Dormancy                 & 0.5184  & \color{red}{0.5264}  & 150          & 30     \\
+  SizeMainEffect2009                 & 0.52    & 0.5171               & 48           & 50     \\
+  DSDS50                             & 0.4754  & \color{red}{0.5006}  & 50, 30       & 60     \\
+  avrPphB                            & 0.5054  & 0.4942               & 150          & 60     \\
+  Hypocotyl length                   & 0.4934  & 0.4807               & 150          & 50     \\
+  Size spain 2009 (1st experiment)   & 0.5121  & 0.4751               & 150          & 50     \\
+  Yield spain 2009 (1st experiment)  & 0.5205  & 0.4719               & 50, 30       & 50     \\
+  Leaf serr 10                       & 0.4636  & \color{red}{0.4683}  & 150          & 55     \\
+  Size spain 2009 (2nd experiment)   & 0.471   & 0.4623               & 48           & 50     \\
+  Trichome avg C                     & 0.4617  & 0.4385               & 48           & 40     \\
+  Germ in dark                       & 0.4447  & 0.4382               & 150          & 15     \\
+  YieldMainEffect2009                & 0.505   & 0.4345               & 150          & 30     \\
+  FT Diameter Field                  & 0.5004  & 0.4274               & 150          & 15     \\
+  Bacterial titer                    & 0.5406  & 0.417                & 150          & 55     \\
+  FRI                                & 0.4011  & \color{red}{0.4119}  & 48           & 30     \\
+  Rosette Erect 22                   & 0.3973  & 0.3934               & 48           & 30     \\
+  Area sweden 2009 (1st experiment)  & 0.4203  & 0.3895               & 50, 35, 15   & 30     \\
+  Width 10                           & 0.3932  & 0.3784               & 50, 30       & 60     \\
+  Silique 22                         & 0.4339  & 0.377                & 50, 30       & 50     \\
+  avrRpt2                            & 0.3757  & 0.3737               & 50, 30       & 30     \\
+  M130T666                           & 0.4381  & 0.3733               & 150          & 60     \\
+  SizePlantingSummer2009             & 0.3769  & 0.3615               & 150          & 5      \\
+  Area sweden 2009 (2nd experiment)  & 0.359   & 0.3542               & 48           & 45     \\
+  FW                                 & 0.3397  & \color{red}{0.3522}  & 50, 30       & 25     \\
+  P31                                & 0.3632  & 0.3419               & 50, 30       & 45     \\
+  MT GH                              & 0.4016  & 0.3397               & 150          & 50     \\
+  avrB                               & 0.3304  & \color{red}{0.3384}  & 50, 30       & 30     \\
+  avrRpm1                            & 0.361   & 0.3368               & 50, 30       & 20     \\
+  Seed bank 133-91                   & 0.3446  & 0.3334               & 150          & 5      \\
+  Mg25                               & 0.5321  & 0.3288               & 50, 30       & 60     \\
+  Leaf roll 10                       & 0.3558  & 0.3272               & 48           & 40     \\
+  Yield spain 2009 (2nd experiment)  & 0.4184  & 0.3197               & 20, 10       & 40     \\
+  Noco2                              & 0.3051  & \color{red}{0.3174}  & 48           & 30     \\
+  Emwa1                              & 0.3226  & 0.3124               & 50, 30       & 30     \\
+  FT Duration GH                     & 0.2659  & \color{red}{0.3123}  & 48           & 5      \\
+  Leaf serr 22                       & 0.3021  & \color{red}{0.3108}  & 150          & 60     \\
+  Anthocyanin 10                     & 0.3198  & 0.3107               & 50, 35, 15   & 60     \\
+  Cd114                              & 0.3345  & 0.3069               & 50, 30       & 50     \\
+  Leaf serr 16                       & 0.2895  & \color{red}{0.3011}  & 48           & 40     \\
+  Fe56                               & 0.2802  & \color{red}{0.3006}  & 150          & 35     \\
+  YieldLocSweden2009                 & 0.3431  & 0.2993               & 150          & 60     \\
+  Width 16                           & 0.3463  & 0.2983               & 150          & 50     \\
+  Co59                               & 0.2738  & \color{red}{0.2953}  & 50, 35, 15   & 25     \\
+  K39                                & 0.3036  & 0.2952               & 50, 30       & 60     \\
+  Leaf roll 16                       & 0.3072  & 0.2886               & 150          & 15     \\
+  DTFplantingLoc2008                 & 0.2971  & 0.275                & 50, 30       & 5      \\
+  SizePlantingSummerLocSweden2009    & 0.2803  & 0.2704               & 50, 30       & 60     \\
+  Mn55                               & 0.2775  & 0.2662               & 50, 30       & 20     \\
+  Anthocyanin 22                     & 0.2731  & 0.2635               & 150          & 15     \\
+  As75                               & 0.254   & \color{red}{0.2619}  & 50, 30       & 35     \\
+  Na23                               & 0.2564  & \color{red}{0.2598}  & 50, 30       & 15     \\
+  Ni60                               & 0.2894  & 0.2539               & 150          & 25     \\
+  Mo98                               & 0.2765  & 0.2537               & 50, 30       & 35     \\
+  Chlorosis 22                       & 0.2622  & 0.2453               & 50, 35, 15   & 10     \\
+  Hiks1                              & 0.2441  & \color{red}{0.2452}  & 20, 10       & 20     \\
+  Zn66                               & 0.2553  & 0.2444               & 150          & 35     \\
+  B11                                & 0.2891  & 0.2392               & 48           & 40     \\
+  Germ 16                            & 0.2987  & 0.2356               & 50, 30       & 41     \\
+  At2                                & 0.2147  & \color{red}{0.216}   & 150          & 15     \\
+  Emco5                              & 0.166   & \color{red}{0.2101}  & 150, 30      & 20     \\
+  Se82                               & 0.2192  & 0.2075               & 150          & 25     \\
+  Mature cell length                 & 0.1987  & \color{red}{0.2052}  & 150          & 45     \\
+  DW                                 & 0.2878  & 0.2048               & 50, 30       & 60     \\
+  Yield sweden 2009 (1st experiment) & 0.2274  & 0.2033               & 150          & 55     \\
+  As2                                & 0.1774  & \color{red}{0.1962}  & 150          & 15     \\
+  Meristem zone length               & 0.1976  & 0.195                & 150          & 50     \\
+  Germ 10                            & 0.2073  & 0.1873               & 20, 10       & 40     \\
+  Anthocyanin 16                     & 0.2433  & 0.1867               & 20, 10       & 10     \\
+  Width 22                           & 0.2224  & 0.1856               & 50, 30       & 50     \\
+  YieldPlantingSummerLocSweden2009   & 0.2146  & 0.18                 & 150          & 55     \\
+  DTFplantingSummerLocSweden2009     & 0.2032  & 0.1775               & 150          & 55     \\
+  Bs                                 & 0.2161  & 0.1656               & 50, 30       & 60     \\
+  Bs CFU2                            & 0.1672  & 0.1584               & 50, 35, 15   & 15     \\
+  Germ 22                            & 0.1267  & \color{red}{0.1533}  & 50, 30       & 35     \\
+  Leaf roll 22                       & 0.1135  & \color{red}{0.1511}  & 48           & 45     \\
+  RP GH                              & 0.1755  & 0.1458               & 150          & 15     \\
+  Cu65                               & 0.1543  & 0.1315               & 150          & 5      \\
+  Li7                                & 0.1611  & 0.1297               & 150          & 60     \\
+  As                                 & 0.1089  & \color{red}{0.1227}  & 100          & 20     \\
+  At1                                & 0.1473  & 0.1197               & 48           & 40     \\
+  S34                                & 0.1045  & \color{red}{0.11}    & 50, 30       & 60     \\
+  YieldPlantingSummer2009            & 0.1265  & 0.0984               & 150          & 50     \\
+  Silique 16                         & 0.2366  & 0.0884               & 50, 30       & 60     \\
+  Chlorosis 10                       & 0.0243  & \color{red}{0.088}   & 50, 35, 15   & 55     \\
+  Ca43                               & 0.3333  & 0.0732               & 50, 35, 15   & 55     \\
+  Seedling Growth                    & 0.0813  & 0.0636               & 48           & 30     \\
+  Vern Growth                        & -0.0096 & \color{red}{0.0422}  & 150          & 15     \\
+  At2 CFU2                           & 0.0694  & 0.0378               & 150          & 25     \\
+  Yield sweden 2009 (2nd experiment) & 0.0536  & 0.0355               & 150          & 25     \\
+  As CFU2                            & 0.0312  & \color{red}{0.035}   & 150          & 5      \\
+  At1 CFU2                           & 0.0818  & 0.0319               & 50, 30       & 50     \\
+  Aphid number                       & -0.0246 & \color{red}{0.029}   & 50, 35, 15   & 10     \\
+  After Vern Growth                  & -0.1433 & \color{red}{0.0057}  & 50, 35, 15   & 5      \\
+  Chlorosis 16                       & -0.0313 & \color{red}{-0.0121} & 150          & 5      \\
+  As2 CFU2                           & 0.0504  & -0.0325              & 50, 30       & 60     \\
+  \bottomrule
+\label{tab:at_res}
+\end{longtable}
+\doublespacing
+
+
+Table \ref{tab:at_res} contains in total 145 phenotypes where both ANN and GBLUP yielded
+successful predictions. For 60 of 145 phenotypes ANNs were able to outperform
+GBLUP. However, when the overall prediction accuracies are generally high
+$\rho(y,\hat{y}) \geq 0.75$, 16 out 20 of the ANN yield higher predictive abilities than
+GBLUP. At an intermediate level they perform both at the same level and at low levels
+$\rho(y,\hat{y}) < 0.30$ GBLUP appears to be better than the tested ANNs.\\
+Figure \ref{fig:annblup} compares the average prediction accuracies of 50 validation folds
+for ANN and GBLUP for all the 145 phenotypes.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=.55\textheight, width=1.0\textwidth]{ann_vs_gblup}
+  \decoRule
+  \caption[Scatterplot comparing prediction accuaracies of ANN and GBLUP in
+  \textit{A. thaliana}]{Scatterplot comparing prediction accuaracies of ANN and GBLUP in
+    \textit{A. thaliana}. Greyscale indicates the magnitude of the difference between the
+    methods}
+\label{fig:annblup}
+\end{figure}
+
+Usually the predictions across methods are closely correlated with each other only for a
+few phenotypes a large difference in prediction accuracies. For more than 100 of the
+prediction sets the differences in accuracies is smaller than 0.03. The ones with a
+difference in accuracies larger than 0.05 are among those was low general prediction
+accuracies. With extreme values of 0.2 and 0.15 going in either direction, however with
+the majority of those with the linear classifier GBLUP being dominant over
+ANNs. Furthermore as also visible in figure \ref{fig:anblup}, when the predictive
+abilities are high and ANNs technically performs better, the differences between the
+methods become insignificantly small, so that for those data sets the difference is
+smaller than 0.01.
+
+
+\subsection{Results of maize prediction}
+\subsubsection{Across environments}
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.49\textheight, width=1.0\textwidth]{gp_kemater}
+ \decoRule
+ \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and
+ GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and
+   GBLUP }
+\label{fig:ke_ann}
+\end{figure}
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.495\textheight, width=1.0\textwidth]{gp_petkuser}
+ \decoRule
+ \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
+\label{fig:pe_ann}
+\end{figure}
+
+\onehalfspacing
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc|cc}
+  \toprule
+  & \multicolumn{2}{c}{\textbf{Kemater}} & \multicolumn{2}{c}{\textbf{Petkuser}} \\
+  Phenotype    & GBLUP                                & ANN  & GBLUP & ANN                    \\ 
+  \midrule
+  EV\_V3       & 0.44                                 & 0.46 & 0.31  & 0.25                   \\ 
+  EV\_V4       & 0.47                                 & 0.49 & 0.31  & 0.25                   \\ 
+  EV\_V6       & 0.43                                 & 0.44 & 0.38  & 0.33                   \\ 
+  DtTAS        & 0.47                                 & 0.44 &       &                        \\ 
+  PH\_V4\_mean & 0.54                                 & 0.56 & 0.46  & 0.44                   \\ 
+  PH\_V6\_mean & 0.53                                 & 0.56 & 0.51  & 0.48                   \\ 
+  PH\_final    & 0.69                                 & 0.70 & 0.68  & 0.67                   \\ 
+  DtSILK       & 0.57                                 & 0.53 & 0.54  & 0.52                   \\ 
+  \bottomrule
+\end{tabular}
+\end{table}
+\doublespacing
+
+\subsubsection{Single environments}
+
+The prediction of the single environment BLUEs with the environmentally enhanced marker
+matrix yielded substantially higher prediction accuracies than the prediction with the
+across environment BLUEs (previous section)-
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.895\textheight, width=1.0\textwidth]{SL_pred}
+ \decoRule
+ \caption[Results of genomic prediction across single environments for Kemater and
+ Petkuser DH populations]{Results of genomic prediction across single environments for
+   \textbf{A} Kemater and \textbf{B} Petkuser DH populations}
+\label{fig:sl_pred}
+\end{figure}
+
+\subsubsection{Comparison of Bayesian methods in maize phenotype prediction}
+
+Figure \ref{fig:bayes_vs_acc} compares the results of phenotype prediction for five
+different Bayesian methods in terms of the respective prediction accuracy. The trials have
+been run for both DH populations independently. The results back those from the
+literature, mentioned in chapter \ref{blup:bayes}.
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{pred_acc_bayes}
+ \decoRule
+ \caption[Results of genomic prediction of maize traits with five different Bayesian methods]{Results of genomic prediction of maize traits with five different Bayesian methods for eight difference traits for the DH populations Kemater (KE) and Petkuser (PE)}
+\label{fig:bayes_vs_acc}
+\end{figure}
+
+No single method is superior over all the others. This is more pronounced in the Petkuser
+subpopulation, where there is almost no difference between those methods at all, and less
+articulated for Kemater. At view the plot for Kemater might suggest that BayesA and
+especially BayesB perform on higher levels for most trades. However, all the early vigor
+and plant height traits are closely correlated since they are basically the same trait at
+different time points, it is not surprising that the same algorithm that works well on one
+of those works well on the others as well.
+
+\subsubsection{Number of marker and prediction accuracy}
+
+Marker chips like the ones to analyze the genomic maize data for this study contain hundreds of
+thousands of SNPs and other polymorphisms \cite{unterseer2014powerful}. Through LD, many
+of those markers do not segregate independently and are highly co-linear. In elite
+breeding materials LD is typical very large and cultivated maize is no exception. The
+markers used were already LD pruned to the remaining 28933 markers.  Figure
+\ref{fig:marker_vs_acc} shows the mean of prediction accuracies for the Bayesian methods
+as a function of the markers used. For that the complete marker set has been subsampled
+multiple times in 1k, 2K, 5k, 10k or 20k subsets and used in the prediction pipeline.
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{marker_vs_acc}
+ \decoRule
+ \caption[Predictive ability as a function of the number of markers]{Predictive ability as
+   a function of the number of markers for the Petkuser population of maize and varying
+   amounts of markers and the Bayesian methods}
+\label{fig:marker_vs_acc}
+\end{figure}
+
+As visible in figure \ref{fig:marker_vs_acc} there is no increase in prediction accurcaies
+after the marker sets exceed 5000 markers for all the maize traits in the Petkuser
+population. Futhermore, the majority of the predictive ability is already met with just
+1000 genomic markers in the study, so that the increase between 1k and 5k is usually
+smaller than 0.05. This holds true for all the traits, and does not increase or decrease
+as the overall predictive ability grows larger.
+
+
+
+
+\section{Discussion}\label{gpdis}
+\subsection{Correlation between heritability and prediction accuracy}
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{herit_acc}
+ \decoRule
+ \caption[Prediction accuracies of GBLUP compared to the heritability of
+ \textit{A. thaliana} traits]{Prediction accuracies of GBLUP compared to the
+   pseudo-heritability of \textit{A. thaliana} traits. The color scale indicates the
+   difference between the accuracy and the pseudo-heritability. The size of the dots
+   indicates the absolute difference between ANN and GBLUP prediction. Dots on the
+   diagonal line have the same accuracy and heritability}
+\label{fig:herit_gp}
+\end{figure}
+
+
+\subsection{Two or three layer networks outperform deeper ANNs}
+
+\onehalfspacing
+\begin{table}[H]
+  \centering
+  \caption[ANN architectures of ANN resulting in highest prediction
+  accuracies]{ANN architectures resulting in highest prediction
+    accuracies, with number of hidden layer (HL) and the total count
+    (n)}
+ \begin{tabular}{cccc}
+   \toprule
+   LCL  & Architecture & HL & n  \\ 
+   \midrule
+   True & 150          & 2  & 56 \\ 
+   True & 50, 30       & 3  & 47 \\ 
+   True & 48           & 2  & 23 \\ 
+   True & 50, 35, 15   & 4  & 11 \\ 
+   True & 20, 10       & 3  & 5  \\ 
+   True & 100          & 2  & 2  \\ 
+   True & 150, 30      & 3  & 1  \\
+   \bottomrule
+\end{tabular}
+\end{table}
+\doublespacing
+
+
+
+
+
+\subsection{GxE interactions have great influence on plant development traits in maize}
+
+\onehalfspacing
+\begin{table}[H]
+ \centering
+ \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL) and across locations (AL) for Kemater and Petkuser}
+ \begin{tabular}{lrrr|rrr}
+   \toprule
+   & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}}    \\
+   Phenotype & AL                                   & WL   & $\Delta$ & AL   & WL   & $\Delta$ \\ 
+   \midrule
+   EV\_V3    & 0.73                                 & 0.46 & 0.27     & 0.72 & 0.25 & 0.47     \\ 
+   EV\_V4    & 0.72                                 & 0.49 & 0.23     & 0.66 & 0.25 & 0.40     \\ 
+   EV\_V6    & 0.70                                 & 0.44 & 0.26     & 0.65 & 0.33 & 0.33     \\ 
+   PH\_V4    & 0.84                                 & 0.56 & 0.28     & 0.84 & 0.44 & 0.41     \\ 
+   PH\_V6    & 0.80                                 & 0.56 & 0.25     & 0.80 & 0.48 & 0.31     \\ 
+   PH\_final & 0.78                                 & 0.70 & 0.08     & 0.76 & 0.67 & 0.09     \\ 
+   DtSILK    & 0.76                                 & 0.53 & 0.23     & 0.77 & 0.52 & 0.25     \\ 
+   \bottomrule
+ \end{tabular}
+\end{table}
+\doublespacing
