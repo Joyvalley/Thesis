@@ -189,17 +189,27 @@ Bayesian methods were applied to the maize data sets:
 \item Bayesian Lasso
 \item BRR / GBLUP
 \end{enumerate}
-
 \doublespacing
 
+Besides the actual prediction algorithms the number of markers and the number of
+accessions will influence the final accuracy. To assess the prediction accuracy as related
+to the number of markers, the full Petkuser genotype matrix was subsampled five times each into 1k,
+2k, 5k, 10k and 20k subsets. To analyze the prediction accuracy as a function of the
+number of accessions the Kemater data set was sampled into 50,100,200,300 and 400
+accession subsets, again, randomly 5 times. Both trials were run with 50 fold validation
+with 80\% TRN and 20\% TRN. 
+
+
+
 \section{Results} \label{res:gp}
-\subsubsection{Results of \textit{A. thaliana} prediction}
+\subsubsection{Results of \textit{A. thaliana} prediction} \label{res:gp:at}
 Table \ref{tab:at_res} shows the results for genomic prediction for 145
 \textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via
 grid search, yielding the highest prediction accuracies.
 
 \singlespacing
 \begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
+
   \caption[Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN]{Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN}  \\
   \toprule
   Phenotype                          & GBLUP   & ANN                  & Architecture & Epochs \\
@@ -380,11 +390,10 @@ prediction sets the differences in accuracies is smaller than 0.03. The ones wit
 difference in accuracies larger than 0.05 are among those was low general prediction
 accuracies. With extreme values of 0.2 and 0.15 going in either direction, however with
 the majority of those with the linear classifier GBLUP being dominant over
-ANNs. Furthermore as also visible in figure \ref{fig:anblup}, when the predictive
+ANNs. Furthermore as also visible in figure \ref{fig:annblup}, when the predictive
 abilities are high and ANNs technically performs better, the differences between the
 methods become insignificantly small, so that for those data sets the difference is
 smaller than 0.01.
-
 
 \subsection{Results of maize prediction}
 \subsubsection{Across environments}
@@ -483,18 +492,40 @@ multiple times in 1k, 2K, 5k, 10k or 20k subsets and used in the prediction pipe
 \label{fig:marker_vs_acc}
 \end{figure}
 
-As visible in figure \ref{fig:marker_vs_acc} there is no increase in prediction accurcaies
+As visible in figure \ref{fig:marker_vs_acc} there is no increase in prediction accuracies
 after the marker sets exceed 5000 markers for all the maize traits in the Petkuser
-population. Futhermore, the majority of the predictive ability is already met with just
+population. Furthermore, the majority of the predictive ability is already met with just
 1000 genomic markers in the study, so that the increase between 1k and 5k is usually
 smaller than 0.05. This holds true for all the traits, and does not increase or decrease
 as the overall predictive ability grows larger.
+
+\subsubsection{Number of accessions and prediction accuracy}
+
+\begin{figure}[H]
+ \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{phenos_acc}
+ \decoRule
+ \caption[Predictive ability as a function of the number of markers]{Predictive ability as
+   a function of the number of phenotypes included in the prediction from the Kemater
+   population. The dots represent the mean prediction accuracies for 10 randomly subsets
+   with 50 fold validation each. The pointsize indicates the standard error}
+\label{fig:phenos_vs_acc}
+\end{figure}
 
 
 
 
 \section{Discussion}\label{gpdis}
 \subsection{Correlation between heritability and prediction accuracy}
+
+The results in section \ref{res:gp:at} and table \ref{tab:at_res} show that for a large
+variety of different \textit{A. thaliana} traits prediction accuracies vary from 0 to
+almost 0.9, depending on the trait being assessed. Next to the number for markers and
+phenotypes. The architectures of a trait as explained in section \ref{quan} will have an
+definite influence on the ability of prediction algorithms being able to produce
+meaningful results. Plot \ref{fig:herit_gp} compares the heritability with the results of
+GBLUP prediction for the 146 \textit{A. thaliana} traits used for prediction. The
+heritability here is the pseudo-heritability as estimated during GWAS using REML
+estimations of the variance components of a trait with given genotypes. 
 
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{herit_acc}
@@ -507,6 +538,15 @@ as the overall predictive ability grows larger.
    diagonal line have the same accuracy and heritability}
 \label{fig:herit_gp}
 \end{figure}
+
+The predictive ability and the pseudo-heritability are highly correlated with each other
+and the latter can be used as a valid approximation for the accuracy of prediction. In
+chapter \ref{quan} it was stated that it is theoretically impossible for
+$\rho_{(y,\hat{y})}$ to exceed $H^2$. As figure \ref{fig:herit_gp} shows this assumptions
+hold almost completely true. Only a few points are slightly above the diagonal and are
+either close to 0 for both $\rho_{(y,\hat{y})}$ and the pseudo-heritability or might be
+due to over- or under inflation of the REML model. Many published studies found similar
+results concerning the comparison of the two metrics e.g \cite{kwong2017genomic}; \cite{morgante2018effect}; \cite{yap2018misestimation}; \cite{piaskowski2018genomic}; \cite{zhang2019factors}
 
 
 \subsection{Two or three layer networks outperform deeper ANNs}
@@ -534,7 +574,9 @@ as the overall predictive ability grows larger.
 \end{table}
 \doublespacing
 
+\subsubsection{Number of phenotypes is the bottleneck}
 
+Design of training populations \cite{akdemir2019design}
 
 
 
@@ -546,7 +588,7 @@ as the overall predictive ability grows larger.
  \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL) and across locations (AL) for Kemater and Petkuser}
  \begin{tabular}{lrrr|rrr}
    \toprule
-   & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}}    \\
+   & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}}              \\
    Phenotype & AL                                   & WL   & $\Delta$ & AL   & WL   & $\Delta$ \\ 
    \midrule
    EV\_V3    & 0.73                                 & 0.46 & 0.27     & 0.72 & 0.25 & 0.47     \\ 
@@ -560,3 +602,8 @@ as the overall predictive ability grows larger.
  \end{tabular}
 \end{table}
 \doublespacing
+
+
+\section{Conclusion}
+
+Proposal of using GS and GP to select ideal training populations from a larger pool.
