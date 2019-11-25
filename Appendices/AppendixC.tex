@@ -8,7 +8,7 @@
 \section{GP ANN}
 \begin{lstlisting}[language=Python]
 
-  import os,sys,gc
+import os,sys,gc
 import pandas as pd
 import numpy as np
 import timeit
@@ -74,15 +74,9 @@ for i in range (1,len(sys.argv),2):
     else:
         print('unknown option ' + str(sys.argv[i]))
         quit()
-
+       
         
-        
-## change dir to data location
-
-
-#os.chdir('/home/jaf81qa/jan_storage/tens')
 x = pd.read_csv(X_file, index_col = 0)
-#os.chdir("/storage/full-share/genoPred/maze")
 y = pd.read_csv(Y_file, index_col = 0)
 cv_folds = pd.read_csv(CV_file,index_col=0)
 
@@ -128,18 +122,15 @@ def build_network(arc,drop_rate,LC,DG):
         model = add_drops(model,drop_out,k)
     model.add(Dense(1, kernel_initializer='truncated_normal'))
     return(model)
-
      
 config = tf.ConfigProto()
 #config.gpu_options.per_process_gpu_memory_fraction = 0.1
 config.gpu_options.allow_growth = True
 set_session(tf.Session(config=config))
 
-
 if not os.path.isfile("RESULTScv50.txt"):
     out2 = open("RESULTScv50.txt",'w')
     out2.write('DateTime\tCompTime\tDF\tGenos\tPhenos\tCV_fold\tArchit\tConv\tActFun\tEpochs\tdrop_rate\tAccuracy\n' )
-
     
 for k in range(1,51):
     print("Training on cv fold "+ str(k))
@@ -193,9 +184,8 @@ for k in range(1,51):
     foo <- sapply(depends,
                   function(X){if(!suppressPackageStartupMessages(require(X,character.only = T))){install.packages(X)}})
     foo <- sapply(depends,function(X){suppressPackageStartupMessages(library(X,character.only=TRUE))})
-    rm(foo)
-    
-        
+    rm(foo) 
+     
     maze <- read.csv(genocsv, row.names = 1)
     phe <- read.csv(phenocsv, row.names = 1)
     cvffolds <- read.csv(cvfcsv,row.names=1)
@@ -297,65 +287,7 @@ for(i in 1:length(my.args)){
 
 geno_pred(phenocsv = pheno.name,genocsv=geno.name, cvfcsv = cv.name, label=my_ph,mod = "BRR", phe =my_phe)
 
-
-
 \end{lstlisting}
 
 %$
 
-
-\section{Results of GP} \label{AC:gp_res}
-  
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_0}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_1}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_2}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_3}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_4}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_5}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_6}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=1.05\textheight, width=1.1\textwidth]{Figures/cor_plots_7}
-  \decoRule
- \label{fig:bla}
-\end{figure}
-
-\begin{figure}[H]
-  \centering \includegraphics[height=.35\textheight, width=.65\textwidth]{Figures/cor_plots_8}
-  \decoRule
- \label{fig:bla}
-\end{figure}

@@ -1,9 +1,62 @@
 \chapter{General Discussion} % Main chapter title
-
 \label{Chapter6}
+
+Researching and applying quantitative genetics from genome assemblies to genomic selection
+is tedious with many error-prone steps involved. To obtain optimal results every step in
+the entire process has to be optimized individually, without loosing the larger frame out
+of sight. 
+
+
+\begin{figure}
+  \begin{small}
+    \begin{center}
+      \begin{tikzpicture}[node distance=2cm]    
+        \node (start) [startstop] {DNA extraction};
+        \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
+        \draw [arrow] (start) -- (seq);
+        \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
+        \draw [arrow] (start) -- (SNP);
+        \node (ga) [process, below of=seq] {Genome assembly} ;
+        \draw [arrow] (seq) -- (ga);
+        \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
+        \draw [arrow] (ga) -- (snpca);
+        \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
+        \draw [arrow] (snpca) -- (imp) ;
+        \draw [arrow] (SNP) -- (imp) ;
+        \node (LD) [io, below of=imp] {LD pruning} ;
+        \draw [arrow] (imp) -- (LD) ;
+        \node (MAF) [io, below of=LD] {MAF filtering} ;
+        \draw [arrow] (LD) -- (MAF) ;
+        \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
+        \draw [arrow] (MAF) -- (bm) ;
+      \end{tikzpicture}
+        \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics}
+    \end{center}
+  \end{small}
+\end{figure}
 
 Nothing here yet.
 
 10000s of genome assemblies
 Almost 1 million neural nets trained and the same amount of GWAS run.
 Awesome stuff ! 
+
+
+
+Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
+LD in \textit{A. thaliana} \cite{nordborg2002extent}
+Evolution of selfing \cite{tang2007evolution}
+Evolution and genetic differentiation among relatives of Arabidopsis thaliana \cite{koch2007evolution}
+FLC haplotypes \cite{li2014multiple}
+
+
+\begin{figure}[th]
+\centering
+\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/plot_NAs_AT}
+\decoRule
+\caption[Haplotype structure on a 1kb window of chromosome 4 of
+\textit{A. thaliana}]{Number of segregating haplotypes with a polymorphism in at least one
+  position over a stretch of 1 kbp.}
+\label{fig:chr_jul}
+\end{figure}
+\cite{dittberner2018natural}

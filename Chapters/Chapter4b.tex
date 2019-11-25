@@ -171,7 +171,7 @@ one-hot encoded markers.
 \end{table}
 \doublespacing
 
-\subsection{GBLUP and Bayesian methods}
+\subsection{GBLUP and Bayesian methods} \label{met:blup:bayes}
 
 The evaluation of the genomic BLUP and the Bayesian methods was performed with the
 R-package BGLR \cite{BGLR}. To allow pairwise comparison of the individual validation runs
@@ -196,7 +196,7 @@ accessions will influence the final accuracy. To assess the prediction accuracy 
 to the number of markers, the full Petkuser genotype matrix was subsampled five times each into 1k,
 2k, 5k, 10k and 20k subsets. To analyze the prediction accuracy as a function of the
 number of accessions the Kemater data set was sampled into 50,100,200,300 and 400
-accession subsets, again, randomly 5 times. Both trials were run with 50 fold validation
+accession subsets  randomly 10 times. Both trials were run with 50 fold validation
 with 80\% TRN and 20\% TRN. 
 
 
@@ -439,7 +439,12 @@ smaller than 0.01.
 
 The prediction of the single environment BLUEs with the environmentally enhanced marker
 matrix yielded substantially higher prediction accuracies than the prediction with the
-across environment BLUEs (previous section)-
+across environment BLUEs (previous section). The gain is higher if the prediction
+accuracies previously have been lower. Figure \ref{fig:sl_pred} \textbf{A} compares the
+results for within and across location prediction for the Kemater DHs and \textbf{B} for
+the Petkuser population. The overall gain of adding the environmental information to the
+marker matrix is higher for Petkuser, where the prediction accuracies with the across
+environment BLUEs have been smaller.
 
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.895\textheight, width=1.0\textwidth]{SL_pred}
@@ -460,7 +465,10 @@ literature, mentioned in chapter \ref{blup:bayes}.
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{pred_acc_bayes}
  \decoRule
- \caption[Results of genomic prediction of maize traits with five different Bayesian methods]{Results of genomic prediction of maize traits with five different Bayesian methods for eight difference traits for the DH populations Kemater (KE) and Petkuser (PE)}
+ \caption[Results of genomic prediction of maize traits with five different Bayesian
+ methods]{Results of genomic prediction of maize traits with five different Bayesian
+   methods for eight difference traits for the DH populations Kemater (KE) and Petkuser
+   (PE)}
 \label{fig:bayes_vs_acc}
 \end{figure}
 
@@ -468,9 +476,9 @@ No single method is superior over all the others. This is more pronounced in the
 subpopulation, where there is almost no difference between those methods at all, and less
 articulated for Kemater. At view the plot for Kemater might suggest that BayesA and
 especially BayesB perform on higher levels for most trades. However, all the early vigor
-and plant height traits are closely correlated since they are basically the same trait at
-different time points, it is not surprising that the same algorithm that works well on one
-of those works well on the others as well.
+and plant height traits are closely correlated since they are basically the same trait
+measured at different time points, it is not surprising that the same algorithm that works
+well on one of those works well on the others as well.
 
 \subsubsection{Number of marker and prediction accuracy}
 
@@ -499,7 +507,12 @@ population. Furthermore, the majority of the predictive ability is already met w
 smaller than 0.05. This holds true for all the traits, and does not increase or decrease
 as the overall predictive ability grows larger.
 
-\subsubsection{Number of accessions and prediction accuracy}
+\subsubsection{Number of DHs and prediction accuracy}
+
+Figure \ref{fig:phenos_vs_acc} shows the prediction accuracy as a function as the number
+of Kemater DHs in the prediction set. As explained in section \ref{met:blup:bayes}, the
+full 471 Kemater DH library was subsampled in 50,100, 200, 300 and 400 DH subsets 10 times
+each and again each subset has been split into 80\% TRN and 20\% TRN 50 times.
 
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.55\textheight, width=1.0\textwidth]{phenos_acc}
@@ -507,11 +520,19 @@ as the overall predictive ability grows larger.
  \caption[Predictive ability as a function of the number of markers]{Predictive ability as
    a function of the number of phenotypes included in the prediction from the Kemater
    population. The dots represent the mean prediction accuracies for 10 randomly subsets
-   with 50 fold validation each. The pointsize indicates the standard error}
+   with 50 fold validation each. The pointsize indicates the standard deviation}
 \label{fig:phenos_vs_acc}
 \end{figure}
 
-
+Figure \ref{fig:phenos_vs_acc} shows similar behaviors for all the eight different
+phenotypes assessed. With increasing number of DH the prediction accuracy will gradually
+increase, while the standard deviation of a total of 500 predictions for each subset and
+phenotype decreases. Figure \ref{fig:marker_vs_acc}, addressing $\rho_{(y,\hat{y})}$ as a
+function as the number of markers shows a plateau just after a couple of thousand
+markers. For the number of DHs a similar effect for $\rho_{(y,\hat{y})}$ is not
+observable. Even though the largest increases are realized between 50 and 200 DHs, between
+200 and 400 DHs there appears to be a linear increase of the predictive ability, which
+does not hit a plateau yet. This will be thoroughly discussed in section \ref{gpdis}.
 
 \section{Discussion}\label{gpdis}
 \subsection{Correlation between heritability and prediction accuracy}
@@ -606,5 +627,3 @@ Design of training populations \cite{akdemir2019design}
  \end{tabular}
 \end{table}
 \doublespacing
-
-
