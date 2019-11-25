@@ -1,17 +1,22 @@
 \chapter{General Discussion} % Main chapter title
 \label{Chapter6}
+\section{Genomic data preparation is error prone}
 
 Researching and applying quantitative genetics from genome assemblies to genomic selection
 is tedious with many error-prone steps involved. To obtain optimal results every step in
 the entire process has to be optimized individually, without loosing the larger frame out
-of sight. 
+of sight. \\
+To perform analyses for quantitative genetics in general there are two types of data
+required: (i) genotypic and (ii) phenotypic data. Both are equally important and take many
+steps to procure. Figure \ref{fig:quan_flow} schematically displays the key steps involved
+in obtaining genomic marker matrices for downstream analyses as GWAS and GS. 
 
-
-\begin{figure}
-  \begin{small}
-    \begin{center}
-      \begin{tikzpicture}[node distance=2cm]    
-        \node (start) [startstop] {DNA extraction};
+\begin{figure}[H]
+  \begin{center}
+      \begin{tikzpicture}[node distance=2cm,scale=0.8, transform shape]
+        \node (start0) [startstop] {Selection of suitable candidates};
+        \node (start) [startstop,below of=start0] {DNA extraction};
+        \draw [arrow] (start0) -- (start);
         \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
         \draw [arrow] (start) -- (seq);
         \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
@@ -30,10 +35,11 @@ of sight.
         \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
         \draw [arrow] (MAF) -- (bm) ;
       \end{tikzpicture}
-        \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics}
-    \end{center}
-  \end{small}
+        \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps}
+      \end{center}
+      \label{fig:quan_flow}
 \end{figure}
+
 
 Nothing here yet.
 
@@ -42,6 +48,7 @@ Almost 1 million neural nets trained and the same amount of GWAS run.
 Awesome stuff ! 
 
 
+Imputation \cite{pook2019improving}
 
 Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
 LD in \textit{A. thaliana} \cite{nordborg2002extent}
