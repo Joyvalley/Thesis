@@ -270,12 +270,12 @@ called epoch or training epoch.
 \begin{subequations}
  \begin{align}
   w = w_i - \eta \frac{\partial}{\partial w}L(w) \\
-  b = b_i - \eta \frac{\partial}{\partial b}L(b) \\
+  b = b_i - \eta \frac{\partial}{\partial b}L(b) 
  \end{align}
  \label{eqn:gdwb}
 \end{subequations}
 
-Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb} simplifies to:
+Substituting the partial differentials with $\nabla L$ equation \ref{eqn:gdwb} a and b likewise simplifies to:
 
 \begin{equation}
  w = w_i - \eta \nabla L
@@ -516,7 +516,8 @@ by the combination of the parents \cite{falconer1996}, \cite{walsh2018}.
 \subsubsection{Introduction to genomic selection } \label{intro:gs}
 
 Genomic prediction has been applied to almost all relevant crop and model species. This
-includes: \textit{A.thaliana}; \cite{shen2013novel}; \cite{hu2015}.
+includes among others: \\
+\textit{A.thaliana}; \cite{shen2013novel}; \cite{hu2015}.\\
 Alfalfa (\textit{Medicago sativa}) \cite{li2012applied}; \cite{annicchiarico2015accuracy}; \cite{li2015genomical}; \cite{biazzi2017genome}; \cite{hawkins2018recent}. \\
 Barley (\textit{Hordeum vulgare}) \cite{zhong2009factors}; \cite{oakey2016}; \cite{neyhart2019}. \\
 Cassava (\textit{Manihot esculenta}) \cite{elias2018}; \cite{elias2018improving}.
@@ -530,14 +531,13 @@ Maize (\textit{Zea mays}) \cite{rincent2012}; \cite{windhausen2012};
 \cite{e2017genomic}; \cite{brauner2018genomic};
 \cite{schrag2018beyond}; \cite{moeinizade2019}; \cite{allier2019usefulness}. \\
 Potato (\textit{Solanum tuberosum}) \cite{enciso2018genomic}; \cite{Endelman2018pot}.\\
-Rape seed (\textit{Brassica naps}) \cite{snowdon2012potential}; \cite{wurschum2014potential}; \cite{qian2014sub}; \cite{jan2016genomic}; \cite{luo2017genomic}; \cite{werner2018effective}.\\
+Rape seed (\textit{Brassica napus}) \cite{snowdon2012potential}; \cite{wurschum2014potential}; \cite{qian2014sub}; \cite{jan2016genomic}; \cite{luo2017genomic}; \cite{werner2018effective}.\\
 Rice (\textit{Oryza sativa})  \cite{Xu2013rice}; \cite{Grenier2015}; \cite{BenHassen2018}; \cite{Momen2019}. \\
 Rye (\textit{Secale cerale}) \cite{bernal2014importance}; \cite{wang2014accuracy};
 \cite{auinger2016model}; \cite{marulanda2016optimum}; \cite{bernal2017genomic}.
 Sugar beet (\textit{Beta vulgaris}), \cite{wurschum2013genomic}; \cite{biscarini2014genome}.\\
 Sugar cane (\textit{Saccharum officinarum}) \cite{gouy2013experimental}.\\
-Soybean (\textit{Glycine max}) \cite{Jarquin_2016}; \cite{Xavier_2016};
-\cite{Stewart_Brown_2019}.
+Soybean (\textit{Glycine max}) \cite{Jarquin_2016}; \cite{Xavier_2016}; \cite{Stewart_Brown_2019}.\\
 Switchgrass (\textit{Panicum virgatum}) \cite{Ramstein_2016}; \cite{Poudel_2019}; \cite{Ramstein_2019}. \\
 Wheat (\textit{Triticum aestivum}) \cite{Thavamanikumar_2015}; \cite{Lopez_Cruz_2015};
 \cite{Sukumaran_2016}; \cite{Bustos_Korts_2016}; \cite{Gianola_2016_wheat};
@@ -569,7 +569,7 @@ dramatically to the point where they share little external traits with their wil
 ancestors. Those changes have been deeply carved into the genomes, which underwent serious
 alterations, including hybridization, duplications etc. This lead to most crop plants not
 having any wild ancestors with whom they could naturally mate. For example wheat
-(\textit{Triticum aestivum}), one of the three most important sources of food on a global
+(\textit{T. aestivum}), one of the three most important sources of food on a global
 scale, underwent multiple hybridization steps \cite{ozkan2001allopolyploidy}. Wheat is a
 hybrid from either the diploid emmer (\textit{T. diccoides}) or durum wheat
 (\textit{T. durum}) and \textit{{Aegilops tauschii}}, while emmer and durum are hybrids
@@ -616,7 +616,7 @@ i = \frac{S}{\sigma} = \frac{\varphi (z_{|1-p|})}{p}
 \end{equation}
 
 With recurrent truncation selection over many generations the population mean of the trait
-$\mu$ will change (hopefully in the desired direction), if the heritability (in this case
+$\mu$ will change (hopefully in the desired direction) if the heritability (in this case
 the narrow sense heritability) $h^2$ > 0. It is impossible to breed for traits that do not
 contain any genetic components in their architecture \cite{walsh2018}.\\
 Next to $i$ the selection intensity and $h^2$ the accuracy of the selection process
@@ -637,7 +637,8 @@ process is aided by genomic prediction it is the prediction accuracy \footnote{T
   prediction accuracy in the literature is sometimes used synonymously with predictive
   ability, sometimes the predictive ability is defined as the prediction accuracy divided
   by the narrow or broad sense heritability. In the present study they will be used
-  synonymously or termed $\rho_{(y,\hat{y})}$ }. According to the breeder's equation there
+  synonymously or termed $\rho_{(y,\hat{y})}$ as the correlation after Pearson between the
+  real $y$ and the predicted values $\hat{y}$}. According to the breeder's equation there
 are three parameters, which can be influenced through genomic
 prediction. \\
 
@@ -1134,3 +1135,8 @@ interaction effects could be obscured under larger additive effects. Gene-enviro
 interactions might have a significant influence resulting in a model that does not
 converge.
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

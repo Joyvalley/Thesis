@@ -1,6 +1,6 @@
 \chapter{General Discussion} % Main chapter title
 \label{Chapter6}
-\section{Genomic data preparation is error prone}
+\section{Genomic data preparation is error-prone}
 
 Researching and applying quantitative genetics from genome assemblies to genomic selection
 is tedious with many error-prone steps involved. To obtain optimal results every step in
@@ -9,36 +9,91 @@ of sight. \\
 To perform analyses for quantitative genetics in general there are two types of data
 required: (i) genotypic and (ii) phenotypic data. Both are equally important and take many
 steps to procure. Figure \ref{fig:quan_flow} schematically displays the key steps involved
-in obtaining genomic marker matrices for downstream analyses as GWAS and GS. 
+in obtaining genomic marker matrices for downstream analyses as GWAS and GS from selection
+of candidate genotypes to the final numeric marker matrix. Genotyping can either be
+achieved by whole genome sequencing or by SNP analysis with a SNP array.
+The first step after sequencing, which provides raw reads, is to assemble the genome. As
+discussed in chapter \ref{Chapter1} genome assembly is a complicated process. This holds
+true for both the assembly of core and plastid genomes. There is a large variety of tools
+available for core genome assembly and like the ones for plastid genomes they vary in
+their algorithmic approaches and likewise their accuracy \cite{zhang2011practical}, which
+makes it hard to determine whether polymorphisms between individual genomes are due to
+artifacts in the genome assembly pipeline or actually are mirrored in the biological
+genome. Furthermore, genome assembly result in one dimensional representations of formerly
+three dimensional genomes, losing most of the spatial and epigenetic information.
 
 \begin{figure}[H]
   \begin{center}
-      \begin{tikzpicture}[node distance=2cm,scale=0.8, transform shape]
-        \node (start0) [startstop] {Selection of suitable candidates};
-        \node (start) [startstop,below of=start0] {DNA extraction};
-        \draw [arrow] (start0) -- (start);
-        \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
-        \draw [arrow] (start) -- (seq);
-        \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
-        \draw [arrow] (start) -- (SNP);
-        \node (ga) [process, below of=seq] {Genome assembly} ;
-        \draw [arrow] (seq) -- (ga);
-        \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
-        \draw [arrow] (ga) -- (snpca);
-        \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
-        \draw [arrow] (snpca) -- (imp) ;
-        \draw [arrow] (SNP) -- (imp) ;
-        \node (LD) [io, below of=imp] {LD pruning} ;
-        \draw [arrow] (imp) -- (LD) ;
-        \node (MAF) [io, below of=LD] {MAF filtering} ;
-        \draw [arrow] (LD) -- (MAF) ;
-        \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
-        \draw [arrow] (MAF) -- (bm) ;
-      \end{tikzpicture}
-        \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps}
-      \end{center}
-      \label{fig:quan_flow}
+    \begin{tikzpicture}[node distance=2cm, scale=0.8, transform shape]
+      \node (start0) [startstop] {Selection of suitable candidates};
+      \node (start) [startstop,below of=start0] {DNA extraction};
+      \draw [arrow] (start0) -- (start);
+      \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
+      \draw [arrow] (start) -- (seq);
+      \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
+      \draw [arrow] (start) -- (SNP);
+      \node (ga) [process, below of=seq] {Genome assembly} ;
+      \draw [arrow] (seq) -- (ga);
+      \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
+      \draw [arrow] (ga) -- (snpca);
+      \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
+      \draw [arrow] (snpca) -- (imp) ;
+      \draw [arrow] (SNP) -- (imp) ;
+      \node (LD) [io, below of=imp] {LD pruning} ;
+      \draw [arrow] (imp) -- (LD) ;
+      \node (MAF) [io, below of=LD] {MAF filtering} ;
+      \draw [arrow] (LD) -- (MAF) ;
+      \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
+      \draw [arrow] (MAF) -- (bm) ;
+    \end{tikzpicture}
+    \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps} \label{fig:quan_flow}
+  \end{center}     
 \end{figure}
+
+After sequencing and assembling multiple genomes of a species the next step is to align
+them to detect genetic polymorphisms such as SNPs, InDels, etc. followed by the imputation
+of missing values. This takes into consideration that all the missing data are actually
+missing due to the assembly and not actually missing in the genome as deletions. However,
+this step is necessary because GWAS and genomic selection requires complete data without
+missing values.  Again, there is a variety of tools for the imputation of missing
+markers. In plant genomics the most commonly used software is Beagle
+\cite{browning2007rapid}; \cite{browning2018one}, which is based on hidden Markov models.
+As thoroughly reviewed by \cite{pook2019improving} the accuracy of the algorithm varies
+vastly depending on the population, LD structure, chromosome region, effective population
+size and the allele frequency, all possibly leading to errors adding up the ones already
+introduced to the upper branches of the entire pipeline.
+
+\subsection{Imputation leads to false positive GWAS results}
+
+Faulty imputation and SNP calling can possibly result in false positive GWAS results as
+shown in the following example. Data from phenotypic trials with 330 fully sequenced
+\textit{A. thaliana} for carbon isotope discrimination were used to perform GWAS with a
+marker matrix with 10 million SNPs imputed with Beagle 3.0
+\cite{dittberner2018natural}. This resulted in one marker with a significant p value on
+the fourth chromosome. Upon further investigation of the chromosomal region in question
+using the unimputed data a complex haplotype structure was revealed as shown in figure
+\ref{fig:chr_jul}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/plot_NAs_AT}
+\decoRule
+\caption[Haplotype structure on a 1kb window of chromosome 4 of
+\textit{A. thaliana}]{Haplotype structure on a 1 kb window of chromosome 5 of
+  \textit{A. thaliana}. On the vertical axis the number of NAs in the population of 1135
+  accessions for a given marker is displayed. The horizontal axis gives the physical
+  position on the chromosome. Red markers are located in coding and blue markers in
+  non-coding regions according to the TAIR10 annotation \cite{rhee2003arabidopsis}. The
+  gray bars indicate more than five coherent missing values for one accession. The arrow
+  points to the location of the significant GWAS hit.}
+\label{fig:chr_jul}
+\end{figure}
+
+The significant SNP is located in a region where up to 80\% of the data were originally
+missing values. 
+
+
+
 
 
 Nothing here yet.
@@ -48,7 +103,6 @@ Almost 1 million neural nets trained and the same amount of GWAS run.
 Awesome stuff ! 
 
 
-Imputation \cite{pook2019improving}
 
 Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
 LD in \textit{A. thaliana} \cite{nordborg2002extent}
@@ -57,13 +111,12 @@ Evolution and genetic differentiation among relatives of Arabidopsis thaliana \c
 FLC haplotypes \cite{li2014multiple}
 
 
-\begin{figure}[th]
-\centering
-\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/plot_NAs_AT}
-\decoRule
-\caption[Haplotype structure on a 1kb window of chromosome 4 of
-\textit{A. thaliana}]{Number of segregating haplotypes with a polymorphism in at least one
-  position over a stretch of 1 kbp.}
-\label{fig:chr_jul}
-\end{figure}
-\cite{dittberner2018natural}
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:

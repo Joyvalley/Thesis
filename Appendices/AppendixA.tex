@@ -5,8 +5,9 @@
 
 \label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
 
-\linespread{1.5} 
-\section{gwas.py}
+\linespread{1.5}
+\section{GWAS-Flow}
+\subsection{gwas.py}
 \begin{lstlisting}[language=Python]
 import os
 import sys
@@ -129,7 +130,7 @@ elif eltime > 3600 :
 
 
 
-  \section{main.py}
+  \subsection{main.py}
   \begin{lstlisting}[language=Python]
     import pandas as pd 
     import numpy as np
@@ -269,7 +270,7 @@ def gwas(X,K,Y,batch_size):
 
   \end{lstlisting}
 
-\section{herit.py}
+\subsection{herit.py}
 \begin{lstlisting}[language=Python]
   
 def estimate(y, lik, K, M=None, verbose=True):
@@ -309,4 +310,295 @@ def estimate(y, lik, K, M=None, verbose=True):
         return g , v , e 
 
 
+      \end{lstlisting}
+
+
+
+
+
+\section{Genomic prediction}
+\subsection{GP ANN}
+\begin{lstlisting}[language=Python]
+
+import os,sys,gc
+import pandas as pd
+import numpy as np
+import timeit
+from datetime import datetime
+import keras
+import tensorflow as tf
+from keras import backend as K
+from keras import layers
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, GaussianNoise, AlphaDropout, Reshape
+from keras.layers import Flatten, LocallyConnected1D, LocallyConnected2D
+from keras.optimizers import Adam, Adagrad, Adadelta
+from keras.backend.tensorflow_backend import set_session 
+
+##set default values
+
+learning_rate = 0.01
+JobID = 1
+ps = 25
+optim = "adam"
+X_file = "KE.geno.csv"
+Y_file = "KE_pheno.csv"
+CV_file = "KE_cv_pw.csv"
+label = "DtSILK"
+start_time = timeit.default_timer()
+act="relu"
+drop_rate = str('0.5,0.5,0.5')
+arc = str('63,63')
+DG = 'D,D,D,D,D,G'
+LC = True
+training_epochs = 25
+hyp = False
+
+### parse command line arguments
+
+for i in range (1,len(sys.argv),2):
+    if sys.argv[i] == "-x":
+        X_file = sys.argv[i+1]
+    elif sys.argv[i] == "-y":
+        Y_file = sys.argv[i+1]
+    elif sys.argv[i] == "-cv":
+        CV_file = sys.argv[i+1]
+    elif sys.argv[i] == "-JobID":
+        JobID = int(sys.argv[i+1])
+    elif sys.argv[i] == "-label":
+        label = sys.argv[i+1]
+    elif sys.argv[i] == "-act":
+        act = str(sys.argv[i+1])
+    elif sys.argv[i] == "-epochs":
+        training_epochs = int(sys.argv[i+1])
+    elif sys.argv[i] == "-lr":
+        learning_rate = float(sys.argv[i+1])
+    elif sys.argv[i] == "-arc":
+        arc = sys.argv[i+1]
+    elif sys.argv[i] == "-ps":
+        ps = int(sys.argv[i+1])
+    elif sys.argv[i] == "-dr":
+        drop_rate=str(sys.argv[i+1])
+    elif sys.argv[i] == "-LC":
+         LC = bool(sys.argv[i+1])
+    elif sys.argv[i] == "hyp":
+        hyp = bool(sys.argv[i+1])
+    else:
+        print('unknown option ' + str(sys.argv[i]))
+        quit()
+       
+        
+x = pd.read_csv(X_file, index_col = 0)
+y = pd.read_csv(Y_file, index_col = 0)
+cv_folds = pd.read_csv(CV_file,index_col=0)
+
+## select column of phenotype file via columnname
+
+y = y[[label]]
+## activity_regularizer=regularizers.l1(0.01)))
+
+def build_network(arc,drop_rate,LC,DG):
+    def add_drops(model,drop_out,k):
+        if DG[k].upper() == 'D':
+            model.add(Dropout(drop_out[0]))
+        elif DG[k].upper() == 'G':
+            model.add(GaussianNoise(drop_out[k]))
+        elif DG[k].upper() == "A":
+            model.add(AlphaDropout(drop_out[k]))
+        else:
+            pass
+        return model    
+    DG = DG.strip().split(",")
+    arc = arc.strip().split(",")
+    archit = []
+    for layer in  arc:
+        archit.append(int(layer))
+    layer_number = len(archit)        
+    drop_rate = drop_rate.strip().split(",")
+    drop_out = []
+    for drops in drop_rate:
+        drop_out.append(float(drops)) 
+    model = Sequential()
+    if LC == True:
+        model.add(Reshape(input_shape=(x_train.shape[1],),target_shape=(x_train.shape[1],1)))
+        model.add(LocallyConnected1D(1,10,strides=7,input_shape=(x_train.shape[1],1)))
+        model.add(Flatten())
+        start = 0
+        model = add_drops(model,drop_out,start)
+    elif LC == False:
+        model.add(Dense(archit[0], kernel_initializer='truncated_normal', activation=act, input_shape=(x_train.shape[1],)))
+        model = add_drops(model,drop_out,start)
+    start = 1
+    for k in range(start,len(archit)):
+        model.add(Dense(archit[k], kernel_initializer='truncated_normal', activation=act))
+        model = add_drops(model,drop_out,k)
+    model.add(Dense(1, kernel_initializer='truncated_normal'))
+    return(model)
+     
+config = tf.ConfigProto()
+#config.gpu_options.per_process_gpu_memory_fraction = 0.1
+config.gpu_options.allow_growth = True
+set_session(tf.Session(config=config))
+
+if not os.path.isfile("RESULTScv50.txt"):
+    out2 = open("RESULTScv50.txt",'w')
+    out2.write('DateTime\tCompTime\tDF\tGenos\tPhenos\tCV_fold\tArchit\tConv\tActFun\tEpochs\tdrop_rate\tAccuracy\n' )
+    
+for k in range(1,51):
+    print("Training on cv fold "+ str(k))
+    cv = cv_folds['cv_' + str(k)]
+    num_cvs = np.ptp(cv) + 1
+    
+    i = 1
+    x_train = x[cv != i] 
+    x_test = x[cv == i] 
+    y_train = y[cv != i]
+    y_test = y[cv == i]
+
+    yhat = np.zeros(shape = y_test.shape)
+
+    model = build_network(arc,drop_rate,LC,DG)
+    model.compile(loss='mse', optimizer=Adam(lr=0.01,decay = 0.001),metrics=['accuracy'])
+    model.fit(x_train,y_train, epochs=training_epochs , verbose=0) 
+#    score = model.evaluate(x_test, y_test, verbose=0)
+    bla = model.predict(x_test)
+    y_sub= y[np.asarray(cv == i)]
+    
+    print(model.summary())
+    print('\n')
+    print(label)        
+
+    comp_time = int(round(timeit.default_timer() - start_time,0))
+
+    DateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    acc = np.corrcoef(bla[:,0],np.asarray(y_sub)[:,0])[0,1]
+
+    out2 = open("RESULTScv50.txt", 'a')
+    out2.write('%s\t%i\t%s\t%s\t%s\t%i\t%s\t%s\t%s\t%i\t%s\t%0.5f\n' % (
+        DateTime, comp_time, label, X_file, Y_file, int(k), arc, LC,  act,int(training_epochs), drop_rate, round(acc,4)))
+
+    del model,bla, x_train, x_test, y_train, y_test 
+    K.clear_session() 
+    gc.collect()
+    
+    config = tf.ConfigProto()
+    #config.gpu_options.per_process_gpu_memory_fraction = 0.1
+    config.gpu_options.allow_growth = True
+    set_session(tf.Session(config=config))
 \end{lstlisting}
+
+\subsection{GBLUP}
+\begin{lstlisting}[language=R]
+    geno_pred <- function(phenocsv,genocsv,cvfcsv,cvf=1,mod = "BRR",label,phe)
+{
+    my_phe <- phe
+    depends<- c("BGLR","doBy","doParallel",'R.utils',"BBmisc","dplyr")
+    foo <- sapply(depends,
+                  function(X){if(!suppressPackageStartupMessages(require(X,character.only = T))){install.packages(X)}})
+    foo <- sapply(depends,function(X){suppressPackageStartupMessages(library(X,character.only=TRUE))})
+    rm(foo) 
+     
+    maze <- read.csv(genocsv, row.names = 1)
+    phe <- read.csv(phenocsv, row.names = 1)
+    cvffolds <- read.csv(cvfcsv,row.names=1)
+    
+    X <- scale(maze)
+    y <- phe[[label]]
+    if(any(is.na(y))){
+        rms <- which(is.na(y))
+        y <- y[-rms]
+        X <- X[-rms,]
+    }
+    for(i in 1:50){
+        cvf = i
+        n=length(y)
+        seed <- sample(1:100,1)
+                                        #set.seed(seed)
+                                        #folds=sample(1:cvf,size=n,replace=T)
+        folds = cvffolds[,cvf]
+        yHatCV=rep(NA,n)
+        
+        for(i in 1:max(folds)){
+            cat("Predicting cv-fold ",i," of ", max(folds))
+            tst=which(folds==i)
+            yNA=y
+            yNA[tst]=NA
+            fm=BGLR(y=yNA,ETA=list(list(X=X,model=mod)),verbose =F ,nIter=7000,burnIn=1000)
+            yHatCV[tst]=fm$yHat[tst]
+            cat("   done\n")
+        }
+        
+        my_cor <- cor(yHatCV,y,use = "complete.obs")
+        print(c("Corrleation of GP", mod, my_cor))
+        filename = paste0(my_phe,"_gp_results.csv")
+        print(filename)
+        if(!any(dir() == filename)){
+            res <- matrix(ncol=8, nrow = 1) %>%
+                setColNames(c("geno","pheno","cv_folds","seed","label", "cor","method","nmark"))
+            res[1,] <- c(as.character(genocsv),as.character(phenocsv),as.character(cvf),as.character(seed),
+                         as.character(label),as.character(my_cor),as.character(mod),dim(X)[2])
+            print("#################")
+	    print(res)
+	    print("############")
+            write.csv(res,filename)
+        }else{
+            res <- read.csv(filename,row.names = 1)
+            for(i in 1:7){
+                res[,i] <- as.character(res[,i])
+            }
+            res[dim(res)[1]+1,] <- c(as.character(genocsv),phenocsv,cvf,seed,as.character(label),my_cor,mod,dim(X)[2])
+            write.csv(res,filename)
+        }
+    }
+    
+  }
+## execute this script with: Rscript ex.gblup.r -x genofile -y phenofile -c cv file
+source("~/PHD/Projects/gblup/bglr.r")
+
+
+my.args <- commandArgs(trailingOnly = TRUE)
+#my.args <- c("-x", "gent_geno.csv","-y" , "gent_pheno.csv")
+### set defaults 
+#cvf.name = NA
+
+## parsing the command line options 
+all.opts <- c("-x","-y","-label","-h","-cv","-phe")
+for(i in 1:length(my.args)){
+    if( i %% 2 == 1){
+        if(!my.args[i] %in%  all.opts){
+            cat("unknown option", my.args[i], "Use only", all.opts , "\n")
+            cat("use -h for help \n")
+            quit()
+        }
+    }    
+    if(my.args[i] == "-x"){
+        geno.name <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-y") {
+        pheno.name <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-label") {
+        my_ph <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-cv"){
+        cv.name = as.character(my.args[i+1])
+    } else if(my.args[i] == "-phe"){
+        my_phe <- as.character(my.args[i+1])
+    } else if(my.args[i] == "-h") {
+        print(" This script takes as a minimum two intputs\n")
+        print(" -x genotypefile")
+        print(" -y phenotypefile ")
+        print(" -cv cross-valiadtion file : is optional if none is specified random 5 fold cv will be used")
+        print(" -JobID : specify column number to use in your cross validation file")
+        print(" -label : use header of phenotype file column you want to use")
+        quit()
+    }
+}
+
+
+#pheno.name <- my.args[1]
+#geno.name <- my.args[2]
+#cvf.name <- my.args[3]
+
+geno_pred(phenocsv = pheno.name,genocsv=geno.name, cvfcsv = cv.name, label=my_ph,mod = "BRR", phe =my_phe)
+
+\end{lstlisting}
+
+%$
