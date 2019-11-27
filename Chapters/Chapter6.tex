@@ -1,4 +1,4 @@
-\chapter{General Discussion} % Main chapter title
+\chapter{General Discussion and further Observations} % Main chapter title
 \label{Chapter6}
 \section{Genomic data preparation is error-prone}
 
@@ -19,7 +19,7 @@ available for core genome assembly and like the ones for plastid genomes they va
 their algorithmic approaches and likewise their accuracy \cite{zhang2011practical}, which
 makes it hard to determine whether polymorphisms between individual genomes are due to
 artifacts in the genome assembly pipeline or actually are mirrored in the biological
-genome. Furthermore, genome assembly result in one dimensional representations of formerly
+genome. Furthermore, genome assemblies result in one dimensional representations of formerly
 three dimensional genomes, losing most of the spatial and epigenetic information.
 
 \begin{figure}[H]
@@ -90,17 +90,73 @@ using the unimputed data a complex haplotype structure was revealed as shown in 
 \end{figure}
 
 The significant SNP is located in a region where up to 80\% of the data were originally
-missing values. 
+missing values and were filled with Beagle 3.0. Additionally a complex structure of longer
+or shorter deletions is present, completely cutting out the non-coding region between the
+two coding ones. Taking a look at figure \ref{fig:chr_jul} it immediately becomes obvious
+that imputation in this region has to be wrong because the complex haplotype structure is
+a clear indication for the missing values not being due to sequencing errors, but that
+they are actually mirrored in the biological genomes. The possibility of imputation
+leading to false positives has been discussed by \cite{lin2010new}. The present case
+provides an practical example of th phenomenon. \\
+Further in the scope of the study it was assessed weather the phasing algorithm used in
+Beagle 3.0 detected some signal from the haplotype structure that lead to the faulty
+imputation. The different haplotypes and deletions were coded as pseudo-markers for
+further association studies, all resulting in non-significant p-values. The plots in
+figure \ref{fig:chr_jul} provide a good example to show how the information loss about
+complex genomic structures can lead to false statistical assumptions.
+
+\subsection{Numeric marker matrices cannot represent the complexity of genomes}
+
+Figure \ref{fig:chr1} shows the complex haplotype structure of chromosome one of
+\textit{A. thaliana}. The plots for chromosome two to five are included in appendix
+\ref{haplo:str}. They basically all follow a similar pattern. The region directly flanking
+the centromere is more polymorphic than the telomeres at the p and q arms of the
+chromosomes, independent if the chromosome is metacentric like chromosome one and five,
+telocentric as chromosome two and four acrocentric as chromosome three. The centromere
+itself is highly conserved and generally coding regions have less haplotypes than
+non-coding regions. E.g. on chromosome one over a 1 kb window in 1135 accessions there are ca. 78 different haplotypes in general and 98 in coding and 62 in non-coding
+regions one average. The most polymorphic regions, however, are often coding regions, like
+a region on the q arm of chromosome one located at around 22 Mbp, which has more than 700
+segregating haplotypes in the 1 kbp window. The region harbors a locus containing disease
+resistance genes \cite{cheng2017araport11}, over the evolutionary advantages or
+disadvantages for those regions being highly polymorphic can only be speculated. 
+
+\begin{figure}[H]
+\centering 
+\includegraphics[height=.55\textheight, width=1.1\textwidth]{Figures/chr1_hap}
+\decoRule
+\caption[Haplotype strutcture of chromosome 1 of \textit{A. thaliana}]{The number of segregating haplotypes with a polymorphism in at least one position over a stretch of 1 kbp on chromosome one of \textit{A. thaliana}.}
+\label{fig:chr1}
+\end{figure}
+
+Next to highly polymorphic regions there are regions, which are completely conserved and
+do not have a single polymorphism in the 1 kpb window. Intuitively one would assume that
+this would indicate important household genes that do not allow for any alterations in the
+amino acid sequence, however, the majority, around 75\% of those regions are considered to
+be non-coding. Conserved non-coding sequences (CNS) have been widely studied and shown
+great evolutionary importance and be witnessed across species with millions of years of
+evolutionary distance \cite{Burgess946}. \\
+The haplotype analysis allows to visualize another interesting evolutionary
+artifact. Chromosome one of \textit{A. thalina} was derived from a fusion of two
+chromosomes of its next relative \textit{A. lyrata}. Next to the active centromere located
+in the middle of the chromosome, at around 20 mbp there is a region that shares some
+properties of a centromere, where one of the \textit{A. lyrata} centromeres was
+located \cite{koch2007evolution}. \\
+The haplotype as well as the LD structure overall or for special regions e.g flowering
+time associated loci \cite{li2014multiple}, is two complex to be represented sufficiently
+in a binary marker matrix. If his hold true, as shown, for \textit{A. thaliana} it matters
+even more so in plants whose genomes are much larger, underwent multiple whole genome
+duplications and consist of many more chromosome. Like the diploid \textit{Z. mays} with
+10 chromosomes, the allotetraploid \textit{B. napus} a product of hybridization with 19
+chromosomes from the two ancestral species \textit{B. rapa} and \textit{B. oleracea}
+\cite{liu2018brassica}, or the even more complex allohexaploid genome of
+\textit{T. aestivum} \cite{international2018shifting}.
+
+\subsection{Input data for GWAS and GS}
+
+\section{Prospects in Genomic Selection}
 
 
-
-
-
-Nothing here yet.
-
-10000s of genome assemblies
-Almost 1 million neural nets trained and the same amount of GWAS run.
-Awesome stuff ! 
 
 
 
@@ -108,7 +164,7 @@ Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
 LD in \textit{A. thaliana} \cite{nordborg2002extent}
 Evolution of selfing \cite{tang2007evolution}
 Evolution and genetic differentiation among relatives of Arabidopsis thaliana \cite{koch2007evolution}
-FLC haplotypes \cite{li2014multiple}
+FLC haplotypes 
 
 
 
