@@ -11,16 +11,16 @@ required: (i) genotypic and (ii) phenotypic data. Both are equally important and
 steps to procure. Figure \ref{fig:quan_flow} schematically displays the key steps involved
 in obtaining genomic marker matrices for downstream analyses as GWAS and GS from selection
 of candidate genotypes to the final numeric marker matrix. Genotyping can either be
-achieved by whole genome sequencing or by SNP analysis with a SNP array.
-The first step after sequencing, which provides raw reads, is to assemble the genome. As
-discussed in chapter \ref{Chapter1} genome assembly is a complicated process. This holds
-true for both the assembly of core and plastid genomes. There is a large variety of tools
-available for core genome assembly and like the ones for plastid genomes they vary in
-their algorithmic approaches and likewise their accuracy \cite{zhang2011practical}, which
-makes it hard to determine whether polymorphisms between individual genomes are due to
-artifacts in the genome assembly pipeline or actually are mirrored in the biological
-genome. Furthermore, genome assemblies result in one dimensional representations of formerly
-three dimensional genomes, losing most of the spatial and epigenetic information.
+achieved by whole genome sequencing or by SNP analysis with a SNP array.  The first step
+after sequencing, which provides raw reads, is to assemble the genome. As discussed in
+chapter \ref{Chapter1} genome assembly is a complicated process. This holds true for both
+the assembly of core and plastid genomes. There is a large variety of tools available for
+core genome assembly and like the ones for plastid genomes they vary in their algorithmic
+approaches and likewise their accuracy \cite{zhang2011practical}, which makes it hard to
+determine whether polymorphisms between individual genomes are due to artifacts in the
+genome assembly pipeline or actually are mirrored in the biological genome. Furthermore,
+genome assemblies result in one dimensional representations of formerly three dimensional
+genomes, losing most of the spatial and epigenetic information.
 
 \begin{figure}[H]
   \begin{center}
@@ -114,7 +114,7 @@ the centromere is more polymorphic than the telomeres at the p and q arms of the
 chromosomes, independent if the chromosome is metacentric like chromosome one and five,
 telocentric as chromosome two and four acrocentric as chromosome three. The centromere
 itself is highly conserved and generally coding regions have less haplotypes than
-non-coding regions. E.g. on chromosome one over a 1 kb window in 1135 accessions there are
+non-coding regions. E.g. on chromosome one over a 1 kbp window in 1135 accessions there are
 ca. 78 different haplotypes in general and 98 in coding and 62 in non-coding regions one
 average. The most polymorphic regions, however, are often coding regions, like a region on
 the q arm of chromosome one located at around 22 Mbp, which has more than 700 segregating
@@ -133,11 +133,12 @@ those regions being highly polymorphic can only be speculated.
 \end{figure}
 
 Next to highly polymorphic regions there are regions, which are completely conserved and
-do not have a single polymorphism in the 1 kpb window. Intuitively one would assume that
-this would indicate important household genes that do not allow for any alterations in the
-amino acid sequence, however, the majority, around 75\% of those regions are considered to
-be non-coding. Conserved non-coding sequences (CNS) have been widely studied and shown
-great evolutionary importance and be witnessed across species with millions of years of
+do not have a single polymorphism in a 1 kpb window. Around the centromere there are
+regions longer than 10 kpb with no SNPs. Intuitively one would assume that this would
+indicate important household genes that do not allow for any alterations in the amino acid
+sequence, however, the majority, around 75\% of those regions are considered to be
+non-coding. Conserved non-coding sequences (CNS) have been widely studied and shown great
+evolutionary importance and were witnessed across species with millions of years of
 evolutionary distance \cite{Burgess946}. \\
 The haplotype analysis allows to visualize another interesting evolutionary
 artifact. Chromosome one of \textit{A. thaliana} was derived from a fusion of two
@@ -157,15 +158,51 @@ chromosomes from the two ancestral species \textit{B. rapa} and \textit{B. olera
 
 \subsection{Input data for GWAS and GS}
 
-\section{Prospects in Genomic Selection}
+Phenotypic trials can only ever represent a sub sample of whole populations. Even larger
+trials in the 1001 genome project only feature a bit more than 1000 accessions
+\cite{atwell2010}; \cite{1001genome}. In practical trials it is common to randomly pick
+accessions, cultivars or genotypes in the hope that they will segregate for a certain
+trait. Sometimes this can be backed by a PCA or an analysis of molecular variance to
+choose suitable candidates \cite{holker2019european} but this is not common practice. This
+results in allele frequencies in the subpopulations not following those of the global
+populations and phenotypic values not following normal distributions. For the 402 tested
+\textit{A. thaliana} traits analyzed only 72 follow a normal distribution (own
+observation), according the Shapiro-Wilk test \cite{shapiro1965analysis}. Taking into
+account that many statistical tests assume normal distributed data, this is an another
+source of errors in the genomic analysis pipelines, leading to over or under inflation of
+p-values. This effect can become very large for imbalanced and/or binary phenotypes like
+YEL (appendix \ref{AppendixB}). One method to overcome this problematic is to use
+permutation-based thresholds for significance, which can account better for phenotypic
+distributions than Bonferroni thresholds (chapter \ref{Chapter3}). In the given example
+the permutation threshold is around $10^{-16}$ and the Bonferroni threshold is
+approximately $10^{-8 }$, potentially leading to a larger number of number of false
+positive markers.\\
+Due the many sources of statistical inaccuracies that can be possibly introduced in the
+whole genome analysis pipeline all results have to be carefully evaluated, which often
+times is not done sufficiently. For each significant marker that has been detected the raw
+genomic information needs to assessed to validate the results. 
 
 
+\section{Prospects in Genomic Selection and Plant Breeding and Conclusion}
+Plant breeding, like in the last decades and centuries, will utilize the technology of its
+time. Many new tools including genome editing were recently added to the tool box of
+breeding and despite regulatory issues of quickly found its way to revolutionize modern
+plant biotechnology \cite{araki2015towards}. While in the future GWAS and its relatives or
+progeny will be used to further elucidate the nature of quantitative traits, genomic
+selection and genome editing will allow further improvement of the worlds major crop
+plants \cite{rodriguez2017engineering}, aiming to provide germplasms with the yield
+potential required by the demand of the growing world's population.\\
+Following the current trends in bioinformatics for plant breeding this full lead to a
+further increase in the dimensionality of data, as genotyping costs will further decline
+and modern automated phenotyping techniques allow for larger trials, swallowing less
+resources. 
 
-Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
-LD in \textit{A. thaliana} \cite{nordborg2002extent}
-Evolution of selfing \cite{tang2007evolution}
-Evolution and genetic differentiation among relatives of Arabidopsis thaliana \cite{koch2007evolution}
-FLC haplotypes 
+
+% Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}
+% LD in \textit{A. thaliana} \cite{nordborg2002extent}
+% Evolution of selfing \cite{tang2007evolution}
+% Evolution and genetic differentiation among relatives of Arabidopsis thaliana \cite{koch2007evolution}
+% FLC haplotypes 
 
 
 
