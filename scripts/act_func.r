@@ -30,7 +30,7 @@ rec_lu_func <- function(x){ ifelse(x < 0 , 0, x )}
 RELU  = plot_activation_function(rec_lu_func, 'ReLU', c(-4,4))
 
 soft_plus_func <- function(x){ log(1 + exp(x))}
-softy = plot_activation_function(soft_plus_func, 'SoftPlus', c(-8,8))
+softy = plot_activation_function(soft_plus_func, 'SoftPlus', c(-4,4))
 
 
 ggarrange(binary_step, ident,

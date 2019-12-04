@@ -202,14 +202,14 @@ with 80\% TRN and 20\% TRN.
 
 
 \section{Results} \label{res:gp}
-\subsubsection{Results of \textit{A. thaliana} prediction} \label{res:gp:at}
-Table \ref{tab:at_res} shows the results for genomic prediction for 145
-\textit{A. thaliana} phenotypes with ANNs and GBLUP and the architecture, determined via
-grid search, yielding the highest prediction accuracies.
+\subsubsection{Results of \textit{A. thaliana} prediction} \label{res:gp:at} Table
+\ref{tab:at_res} shows the results for genomic prediction for 145 \textit{A. thaliana}
+phenotypes with ANNs and GBLUP and the architecture, determined via grid search, yielding
+the highest prediction accuracies.
 
 \singlespacing
-\begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth} p{.1\textwidth}}
-
+\begin{longtable}{p{.5\textwidth} p{.1\textwidth} p{.1\textwidth} p{.15\textwidth}
+    p{.1\textwidth}}
   \caption[Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN]{Prediction accuracies of \textit{A. thaliana} phenotypes for GBLUP and ANN}  \\
   \toprule
   Phenotype                          & GBLUP   & ANN                  & Architecture & Epochs \\
@@ -384,16 +384,15 @@ for ANN and GBLUP for all the 145 phenotypes.
 \label{fig:annblup}
 \end{figure}
 
-Usually the predictions across methods are closely correlated with each other only for a
-few phenotypes a large difference in prediction accuracies. For more than 100 of the
-prediction sets the differences in accuracies is smaller than 0.03. The ones with a
-difference in accuracies larger than 0.05 are among those was low general prediction
-accuracies. With extreme values of 0.2 and 0.15 going in either direction, however with
-the majority of those with the linear classifier GBLUP being dominant over
-ANNs. Furthermore as also visible in figure \ref{fig:annblup}, when the predictive
-abilities are high and ANNs technically performs better, the differences between the
-methods become insignificantly small, so that for those data sets the difference is
-smaller than 0.01.
+Usually the prediction accuracies across methods are closely correlated with each other.
+Only for a few phenotypes there is a large difference in the prediction accuracies
+observable. For more than 100 of the prediction sets the difference in accuracies is
+smaller than 0.03. The ones with a difference in accuracies larger than 0.05 are among
+those with low general prediction accuracies, with extreme values of 0.2 and 0.15 going in
+either direction, however with the majority of those with GBLUP being dominant over
+ANNs. Furthermore, also visible in figure \ref{fig:annblup}, when the predictive abilities
+are high and ANNs perform better, the differences between the methods becomes
+insignificantly small, so that for those data sets the difference is smaller than 0.01.
 
 \subsection{Results of maize prediction}
 \subsubsection{Across environments}
@@ -402,22 +401,30 @@ smaller than 0.01.
  \centering \includegraphics[angle=0,height=.49\textheight, width=1.0\textwidth]{gp_kemater}
  \decoRule
  \caption[Violinplot comparing the results for GP in the DH population Kemater for ANN and
- GBLUP]{Violinplot comparing the results for GP in the DH population Kemater for ANN and
-   GBLUP }
+ GBLUP]{Violinplot comparing the results of genomic prediction in the doubled-haploid
+   population Kemater for ANN and GBLUP for the early vigor (EV\_V3,4,6) and plant height
+   (PH\_V4,V6,final) traits and days till silking (DtSILK) and days till tasseling (DtTAS). }
 \label{fig:ke_ann}
 \end{figure}
 
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.495\textheight, width=1.0\textwidth]{gp_petkuser}
  \decoRule
- \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP]{Violinplot comparing the results for GP in the DH population Petkuser for ANN and GBLUP }
+ \caption[Violinplot comparing the results for GP in the DH population Petkuser for ANN
+ and GBLUP]{Violinplot comparing the results for genomic prediction in the doubled-haploid
+   population Petkuser for ANN and GBLUP for the early vigor (EV\_V3,4,6) and plant height
+   (PH\_V4,V6,final) traits and days till silking (DtSILK). }
 \label{fig:pe_ann}
 \end{figure}
 
 \onehalfspacing
 \begin{table}[H]
-\centering
-\begin{tabular}{lcc|cc}
+  \caption[Prediction accuracies of maize phenotypes for GBLUP and ANN]{Prediction
+    accuracies of maize phenotypes for the doubled-haploid populations Kemater and
+    Petkuser and the early vigor (EV\_V3,4,6) and plant height (PH\_V4,6,final) traits and
+    days till silking (DtSILK).}
+  \centering
+  \begin{tabular}{lcc|cc}
   \toprule
   & \multicolumn{2}{c}{\textbf{Kemater}} & \multicolumn{2}{c}{\textbf{Petkuser}} \\
   Phenotype    & GBLUP                                & ANN  & GBLUP & ANN                    \\ 
@@ -435,7 +442,7 @@ smaller than 0.01.
 \end{table}
 \doublespacing
 
-\subsubsection{Single environments}
+\subsubsection{Single environment prediction}
 
 The prediction of the single environment BLUEs with the environmentally enhanced marker
 matrix yielded substantially higher prediction accuracies than the prediction with the
@@ -482,11 +489,11 @@ well on one of those works well on the others as well.
 
 \subsubsection{Number of marker and prediction accuracy}
 
-Marker chips like the ones to analyze the genomic maize data for this study contain hundreds of
-thousands of SNPs and other polymorphisms \cite{unterseer2014powerful}. Through LD, many
-of those markers do not segregate independently and are highly co-linear. In elite
-breeding materials LD is typical very large and cultivated maize is no exception. The
-markers used were already LD pruned to the remaining 28933 markers.  Figure
+Marker chips like the ones used to analyze the genomic maize data for this study contain
+hundreds of thousands of SNPs and other polymorphisms \cite{unterseer2014powerful}. Due to
+LD, many of those markers do not segregate independently and are highly co-linear. In
+elite breeding materials LD is typical very large and cultivated maize is no
+exception. The markers used were already LD pruned to the remaining 28933 markers. Figure
 \ref{fig:marker_vs_acc} shows the mean of prediction accuracies for the Bayesian methods
 as a function of the markers used. For that the complete marker set has been subsampled
 multiple times in 1k, 2k, 5k, 10k or 20k subsets and used in the prediction pipeline.
@@ -503,9 +510,9 @@ multiple times in 1k, 2k, 5k, 10k or 20k subsets and used in the prediction pipe
 As visible in figure \ref{fig:marker_vs_acc} there is no increase in prediction accuracies
 after the marker sets exceed 5000 markers for all the maize traits in the Petkuser
 population. Furthermore, the majority of the predictive ability is already met with just
-1000 genomic markers in the study, so that the increase between 1k and 5k is usually
-smaller than 0.05. This holds true for all the traits, and does not increase or decrease
-as the overall predictive ability grows larger.
+1000 genomic markers in the prediction set, so that an increase from 1k to 5k markers
+usually results in an increase smaller than 0.05. This holds true for all the traits, and
+does not increase or decrease as the overall predictive ability grows larger.
 
 \subsubsection{Number of DHs and prediction accuracy}
 
