@@ -15,7 +15,7 @@ authors approved of the final manuscript.
 
 
 \section{Introduction}
-Genome-wide association studies, pioneered in human genetics \cite{Hirschhorn2005} have
+Genome-wide association studies, pioneered in human genetics \cite{Hirschhorn2005}, have
 become the predominant method to detect associations between phenotypes and the genetic
 variations present in a population, in the last decade. Understanding the genetic
 architecture of traits and mapping the underlying genomic polymorphisms is of paramount
@@ -37,14 +37,14 @@ One critical step of GWAS is to determine the threshold at which an association 
 significant. Classically the conservative Bonferroni threshold is used, which accounts for
 the number of statistical tests that are performed, while many recent studies try to set
 significance thresholds that are based on the false-discovery rate (FDR)
-\cite{Storey9440}. An alternative approach to determine permutation-based thresholds
+\cite{Storey9440}. An alternative approach is to determine permutation-based thresholds
 \cite{che2014adaptive}. Permutation-based thresholds estimate the significance by
 shuffling phenotypes and genotypes before each GWAS run, thus any signal left in the data
 should not have a genetic cause, but might represent model mis-specifications or uneven
 phenotypic distributions. Typically this process is repeated hundreds to thousands of
 times and will lead to a distinct threshold for each phenotype analyzed
 \cite{togninalli2017aragwas}. The computational demand of permutation-based thresholds is
-immense, as per analysis not one, but at least hundreds of GWAS need to be performed. Here
+immense, as per analysis not one but at least hundreds of GWAS need to be performed. Here
 the main limitation is the pure computational demand. Thus, faster GWAS models could
 easily make the estimation of permutation-based thresholds the default choice.
 
@@ -80,7 +80,7 @@ graphical processing units (GPUs).\\
 performed with \textit{numpy} \cite{oliphant2006guide}. Variance components for residual
 and genomic effects are estimated with a function slightly altered from the Python package
 \textit{limix} \cite{Lippert003905}. The GWAS model is based on the following linear mixed
-model that takes into account the effect of every marker with respect to the kinship:
+model (LMM) that takes into account the effect of every marker with respect to the kinship:
 
 \begin{equation}
 Y = \beta_{0} + X_i\beta_i + u + \epsilon, u \sim N(0,\sigma_gK), \epsilon \sim N(0,\sigma_e I )
@@ -202,10 +202,10 @@ developments of computational architecture and software were utilized to develop
 \texttt{GWAS-Flow}. With \texttt{GWAS-Flow} both a CPU- and a GPU-based version of the
 classical linear mixed model, commonly used for GWAS, is provided. Both implementations
 outperform custom R scripts on simulated and real data. While the CPU-based version
-performs nearly identical compared to \textit{GEMMA}, a commonly used GWAS implementation,
-the GPU-based implementation outperforms both, if the number of individuals, which have
-been phenotyped, increases. For analyzing big data, here the main limitation would be the
-RAM of the GPU, but as the individual test for each marker is
+performs nearly identical compared to \textit{GEMMA}, the GPU-based implementation
+outperforms both, if the number of individuals, which have been phenotyped, increases. For
+analyzing big data, here the main limitation would be the RAM of the GPU, but as the
+individual test for each marker is
 independent, this can be easily overcome programmatically. \\
 The presented \texttt{GWAS-Flow} implementations are markedly faster compared to custom
 GWAS scripts and even outperform efficient fast implementations like \textit{GEMMA} in

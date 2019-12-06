@@ -23,12 +23,12 @@ specific needs \cite{arteaga2016genomic}. The hybrids grown today are derived fr
 few landraces as founder lines, while the majority of landraces has been nearly
 forgotten. This and high intensity selection over many generation has led to a loss of
 genetic diversity $\sigma_G$ in modern maize cultivars.\\
-The landrace germplasm present an important and essential stock of genetic variability for
-continuous success in maize breeding. The utilization of those germplasms would be
+The landrace germplasm presents an important and essential stock of genetic variability
+for continuous success in maize breeding. The utilization of those germplasms would be
 impossible without the invaluable work of institutions like the IPK Gartersleben, whose
 goal as genebanks is to maintain and store genetic material for long time periods. From
-European three landraces representing large phenotypic and genetic heterogentiy were
-chosen to be assessed in the scope of the MAZE project:
+the whole set of European landraces, three, representing large phenotypic and
+genetic heterogentiy, were chosen to be assessed in the scope of the MAZE project:
 
 \begin{enumerate}[(i)]
 \item Kemater Landmais Gelb (KE, Austria)
@@ -77,11 +77,11 @@ six environments individually.
 \subsubsection{Genomic data}
 
 The genomic data was generated during the course of the 1001 genome project of
-\textit{A. thaliana} \cite{1001genome} producing completed sequenced and assembled genomes
-for 1035 ecotypes along 600k marker data for 1307 accessions with an overlap between those
-groups resulting in a total of 2029 genotyped accessions. Totaling in more than 10
-mio. SNPs and Indels on the 5 chromosomes of \textit{A. thaliana}. Imputation of missing
-data and upsampling of the 600k subsets was performed with Beagle3
+\textit{A. thaliana} \cite{1001genome} producing completely sequenced and assembled
+genomes for 1035 ecotypes along 600k marker data for 1307 accessions with an overlap
+between those groups resulting in a total of 2029 genotyped accessions. Totaling in more
+than 10 mio. SNPs and Indels on the 5 chromosomes of \textit{A. thaliana}. Imputation of
+missing data and upsampling of the 600k subsets was performed with Beagle3
 \cite{browning2007rapid}. \\
 For every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned
 and MAF filtered. LD pruning was executed with the R-package SNPRelate
@@ -105,7 +105,7 @@ implemented for the prediction of maize and \textit{Arabidopsis} traits.
 
 The validation approach in this study was a little different than common five fold cross
 validation. All predictions were run 50 times with different splits of TST and TRN. For
-the full data sets randomly 20\% were assigned to TST and 80\% to TST. This process was
+the full data sets randomly 20\% were assigned to TST and 80\% to TRN. This process was
 repeated 50 times reducing the chance of biases due to any TST-TRN combination being
 randomly more predictable for one or the other method. The validation scheme was generated
 \textit{a priori} and stored in cross-validation files to allow reusing the validation
@@ -128,11 +128,11 @@ values. The loss function used was always MSE. \\
 Having a few hyperparameters fixed the remaining ones were optimized via a grid
 search. For each training set multiple networks were trained to fine tune the input
 parameters. Those were the number of layers, the nodes per layer, the magnitude of the
-dropout, the type of dropout used, whether the first layer was locally-connected for
+dropout, the type of dropout used, whether the first layer was locally-connected or
 fully-connected and the duration of training via the training epochs. This amounted to a
 total of almost 260000 trained networks for the 145 \textit{A. thaliana} data sets alone. \\
 After another set preliminary runs LCL as the first layer appeared to result in higher
-prediction accuracies than FLC and where henceforth exclusively used and applied with a
+prediction accuracies than FLC and were henceforth exclusively used and applied with a
 stride length of 7. The stride length determines how many nodes of the input layer, in
 this case markers, are combined in the first hidden layer. The type of drop out used
 (alpha dropout, Gaussian noise or normal dropout) did not show any effect therefore the
@@ -144,12 +144,12 @@ locally-connected layer, were tested.
 
 \subsubsection{Single environment prediction}
 Next to the across environment BLUEs used for prediction the single environment BLUEs were
-used for prediction to able to gain insights of the structure of $\sigma_{GxE}$ of the
+used for prediction to be able to gain insights of the structure of $\sigma_{GxE}$ of the
 maize traits. This resulted in 2246 genotype x environment combinations for Kemater and
 1975 for Petkuser with at least one data point. This number is lower than the maximum
-number of n DHs per populations times the 6 environments, because naturally not all
+number of DHs per population times the six environments, because naturally not all
 genotypes yielded reliable data in the environments. Each DH x environment was treated as
-an individual in for the across environment prediction. The marker matrix was enhanced
+an individual for the across environment prediction. The marker matrix was enhanced
 with the environmental origin as cofactors as show in table \ref{tab:envmarker} with
 one-hot encoded markers.
 
@@ -177,7 +177,7 @@ The evaluation of the genomic BLUP and the Bayesian methods was performed with t
 R-package BGLR \cite{BGLR}. To allow pairwise comparison of the individual validation runs
 the same validation scheme as for the ANNs was used with the same TST and TRN sets. BGLR
 implements GBLUP as Bayesian ridge regression (BRR), which mathematically has the same
-results as GBLUP, but uses and Bayesian approach \cite{BGLR}. For further comparison of
+results as GBLUP, but uses a Bayesian approach \cite{BGLR}. For further comparison of
 the prediction methods, not only ANN and GBLUP were compared, but also five different
 Bayesian methods were applied to the maize data sets:
 
@@ -667,12 +667,11 @@ traits the increase of predictive ability did not reach a plateau even after mor
 8000 genotypes were included in the training set, while the increase in gain due to adding
 markers to the analysis ceases after 5000 markers have been added.
 
-
 \section{Conclusion}
-Artificial neural networks in many fields of research replaced older methods in a short
-amount of time and even though they present a valuable addition to the toolbox of genomic
-selection in plant and animal breeding
-
+Artificial neural networks in many fields replaced older methods in a short amount of time
+and biological research is now exception \cite{angermueller2016}. Even though neural nets
+present a valuable addition to the toolbox of genomic selection in plant and animal
+breeding they do not perform to the potential they have shown in other fields.
 
 
 %%% Local Variables:

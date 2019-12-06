@@ -716,7 +716,8 @@ the following chapter \cite{gianola2013}.\\
 were not solely benchmarked against each other, but had to compete with the previously
 popular pedigree methods. Quickly in the course of the first decade of this millennium the
 superiority of the genomic methods were elucidated in livestock and plant breeding
-\cite{habier2007impact}; \cite{vanraden2008efficient}; \cite{vanraden2008reliability}; \cite{harris2009genomic}. While the genomic methods are superior to non-genomic methods,
+\cite{habier2007impact}; \cite{vanraden2008efficient}; \cite{vanraden2008reliability};
+\cite{harris2009genomic}. While the genomic methods are superior to non-genomic methods,
 there is no clear evidence that either of the genomic methods are superior to each other
 and there is lack of empirical evidence that the Bayesian methods generally outperform
 GBLUP \cite{moser2009comparison}; \cite{bernardo2010breeding}; \cite{azodi2019}. \\
@@ -725,9 +726,9 @@ for the predictions. In the latter case it is calculated from marker information
 \footnote{In the GWAS terminology the relationship matrix is referred to as $K$ for
   kinship, while in GS circumstances it is called GRM (genomic relationship matrix) or
   abbreviated as $G$. This study will remain consistent with the circumstantial literature
-  and therefore purposely inconsistent within itself. In the chapters addressing GWAS
-  it will be called $K$ for kinship matrix and in the following chapter elucidating GS
-  it will be referred to as $G$.}
+  and therefore purposely inconsistent within itself. In the chapters addressing GWAS it
+  will be called $K$ for kinship matrix and in the following chapter elucidating GS it
+  will be referred to as $G$.}
 \\
 The general genomic prediction model (equation \ref{eqn:blup}) is derived from mixed
 models \cite{henderson1975best}; \cite{vanraden2008efficient} and implemented as:
@@ -806,7 +807,7 @@ $P_i = 2(p_i - 0.5)$ resulting in:
 
 The allele frequencies, as in this simulated example, should be drawn from the entire
 population and not only the subsample used for the calculation
-\cite{vanraden2008efficient}. The final step to obtain the Z matrix for the us in equation
+\cite{vanraden2008efficient}. The final step to obtain the Z matrix for the use in equation
 \ref{eqn:blup} is to subtract the P matrix from the M matrix $Z= M - P$ resulting in:
 
 \begin{equation}
@@ -832,9 +833,9 @@ difference between different genomic BLUP methods, but K is always of size $n\;x
   method becomes computationally intense when the data sets grow larger as common today
   (personal observation).
 \item Probably the most popular method in GS is to obtain $K$ as proposed by
-  \cite{vanraden2008efficient} designed after Wright's \cite{wright1922coefficients}
-  equations for the covariance in structured populations, as described by equation
-  \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
+  \cite{vanraden2008efficient} designed after Wright's equations
+  \cite{wright1922coefficients} for the covariance in structured populations, as described
+  by equation \ref{eqn:vanraden} with $Z$ as in \ref{arr:Z}.
 
 \begin{equation}
  G = \frac{ZZ'}{2 \Sigma p_i (1-p_i)} 
@@ -850,7 +851,7 @@ In the above example this would result in the following kinship matrix:
   0.6 & 1.6 & 1.7  \\
   4.1 & 1.7 & 5.2  \\
  \end{pmatrix}
- \label{arr:Z}
+ \label{arr:Gship}
 \end{equation}
 
 
@@ -879,8 +880,12 @@ $j^{th}$ individual at the $i^th$ locus. Another method also proposed by
   \right.
  \label{eqn:uaradj}
 \end{equation}
+with $\beta$ as $\beta = 1 - \frac{c + 1/N}{var(A_{jk})}$ to adjust for the bias in the
+estimation of the variance components, where $c$ is the constant of a threshold for minor
+allele frequency.
 
-\item Another approach is to weigh marker by the reciprocals of their expected variance
+
+\item Another approach is to weigh markers by the reciprocals of their expected variance
   according to the model \ref{eqn:ZDZ}. This was originally designed to investigate
   population structures in human genomics \cite{leutenegger2003estimation};
   \cite{amin2007genomic}.
@@ -911,7 +916,7 @@ $ x_{ik}(i,j = 1, \dots , n,k = 1, \dots , m)$ and $x_{ik}$ as the $i^{th}$ indi
 \end{enumerate}
 
 The linear model of equation \ref{eqn:blup} $Y = X \beta + Zu + \varepsilon$, with $\beta$
-as the vector fixed effects and $u$ as the vector of additive genetic effects, can be
+as the vector of fixed effects and $u$ as the vector of additive genetic effects, can be
 solved to obtain genomic estimated breeding values as:
 
 \begin{equation}
@@ -948,7 +953,7 @@ This can be algebraically solved to compute the GEBV of the unknown phenotypes $
 GBLUP is fairly easy compared to more complex Bayesian methods and can be quickly implemented in any
 programming language capable of solving liner equations like R or Python \cite{CRAN};
 \cite{van1995python}. Computational as the number of phenotypes in the study increases in numbers
-the timed demand grows exponentially, because the kinship matrix quadruples in size and
+the time demand grows exponentially, because the kinship matrix quadruples in size and
 it becomes more complicated to compute the inverse of $G$ (personal observations). \\
 
 \noindent
@@ -984,7 +989,7 @@ p(a_i| variable ) = P(\dots )
 \end{equation}
 
 with $variable$ standing for the large variety of prior distributions. In total there are
-more than >20 different Bayesian models known to the author. Their main difference
+more than 20 different Bayesian models known to the author. Their main difference
 ``simply'' lies in the \textit{a priori} assumptions of prior distributions. This change
 can make some methods mathematically much more complicated then others. As shown in later
 chapters none of the methods is completely superior over others in terms of
@@ -1027,7 +1032,7 @@ also been shown that using whole-genome information is superior to using only
 feature-selected markers with known QTLs for a given trait \cite{bernardo2007};
 \cite{heffner2011} in most cases. A more recent study \cite{azodi2019} compared 11
 different genomic prediction algorithms with a variety of data sets and found
-contradicting results, indicating that feature selection can be usefull for some cases
+contradicting results, indicating that feature selection can be useful for some cases
 when whole genome regression is performed by neural nets. \\
 While every new method is a valuable addition to the toolbox of genomic selection, some
 fundamental problems remain unsolved and are the same for every algorithm, of which the
@@ -1041,7 +1046,7 @@ quantitative genetics is the almost infinite amount of different marker combinat
 which cannot be represented within the size of TRN in the thousands. The same problems
 arises in GWA studies \cite{korte2013advantages}. With already large $p$ the number of
 possible additive SNP-SNP interactions potentiates to $p^{(p-1)}$. Methods that attempt to
-overcome those issues are EG-BLUP, which us an enhanced epistatic kinship matrix and
+overcome those issues are EG-BLUP, which use an enhanced epistatic kinship matrix and
 reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015}; \cite{martini2017genomic}. \\
 In the past 10 years, due to increasing availability of high performance computational
 hardware with decreasing costs and parallel development of free easy-to-use software, most
@@ -1060,7 +1065,7 @@ A variety of studies assessed the usability of ML in genomic prediction
 is that there is no such thing as a gold standard for genomic prediction. No single
 algorithm was able to outperform all the others tested in a single of those studies, let
 alone in all. While the general aptitude of ML for genomic selection has been repeatedly
-proven, there is no evidence exists that neural networks can generally outperform
+proven, there is no evidence that neural networks can generally outperform
 mixed-model approaches as GBLUP \cite{hayes2001}. \\
 In other fields like image classification neural networks have up to 100s of hidden layers
 \cite{he2016deep}. The commonly used fully-connected networks in genomic prediction tend
@@ -1075,7 +1080,7 @@ natural language processing \cite{dos2014deep} or medical image analysis
 only, as shown in Pook et al 2019, we also propose to use locally-connected layer in
 combination with fully-connected layers. While CL and LCL are closely related they have a
 significant difference. In CL weights are shared between neurons and in LCLs each neuron
-as its own weight. This leads to a reduced number of parameters to be trained in the
+has its own weight. This leads to a reduced number of parameters to be trained in the
 following FCLs and should therefore theoretically lead to a decrease in overfitting. To
 evaluate the usefulness of machine learning in GS the data sets generated in the scope of
 the 1001 genome project of \textit{A. thaliana} \cite{1001genome} and the MAZE project
@@ -1117,7 +1122,7 @@ there are no dominance effects to be accounted for $\sigma_D = 0$ and since all 
 genetic effects are caused by additive effects and there are also no environmental effects
 $\sigma_E$.  The narrow sense heritability $h^2$ - equation \ref{eqn:h2a} - and the broad
 sense heritability $H^2$ - equation \ref{eqn:h2G} - are equally 1. The other three
-phenotypes are base on epistatic effects $\sigma_I$, generated by passing the markers
+phenotypes are based on epistatic effects $\sigma_I$, generated by passing the markers
 $M_1$ and $M_2$ through their respective logic gates. This theoretically results in
 $h^2 = 0$ and $H^2 = 1$ because there should be no additive effects. For $y_{AND}$
 ,however, $h \approx 0.5$ because there is a correlation between $Y_{ADD}$ and
@@ -1155,7 +1160,7 @@ phenotypes accurately. The task was rather easy because the training data set an
 testing data set were the same, but it served the purpose of showing that neural networks
 are generally apt to solve different marker interactions. \\
 \textit{In natura} those interactions and the overall genetic architecture are much more
-complex, of course . Effect sizes are not constant and epistasis may be caused by
+complex. Effect sizes are not constant and epistasis may be caused by
 interactions with more than just two markers. With an increasing number of markers $n$ the
 number of possible two way interactions increases even more to $2^{n-1}$. Smaller
 interaction effects could be obscured under larger additive effects. Gene-environment
