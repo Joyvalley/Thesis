@@ -586,38 +586,33 @@ performing that with just FCL architectures.
 \onehalfspacing
 \begin{table}[H]
  \centering
- \caption[ANN architectures of ANN resulting in highest prediction
- accuracies]{ANN architectures resulting in highest prediction
-  accuracies, with number of hidden layer (HL) and the total count
-  (n)}
+ \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN
+   architectures resulting in highest prediction accuracies, with number of hidden layer
+   (HL) and the total count (n)}
  \begin{tabular}{cccc}
-  \toprule
-  LCL & Architecture & HL & n \\ 
-  \midrule
-  True & 150     & 2 & 56 \\ 
-  True & 50, 30    & 3 & 47 \\ 
-  True & 48      & 2 & 23 \\ 
-  True & 50, 35, 15  & 4 & 11 \\ 
-  True & 20, 10    & 3 & 5 \\ 
-  True & 100     & 2 & 2 \\ 
-  True & 150, 30   & 3 & 1 \\
-  \bottomrule
+   \toprule
+   LCL  & Architecture & HL & n  \\ 
+   \midrule
+   True & 150          & 2  & 56 \\ 
+   True & 50, 30       & 3  & 47 \\ 
+   True & 48           & 2  & 23 \\ 
+   True & 50, 35, 15   & 4  & 11 \\ 
+   True & 20, 10       & 3  & 5  \\ 
+   True & 100          & 2  & 2  \\ 
+   True & 150, 30      & 3  & 1  \\
+   \bottomrule
 \end{tabular}
 \end{table}
 \doublespacing
-
-\subsubsection{Number of phenotypes is the bottleneck}
-
-Design of training populations \cite{akdemir2019design}
-
-
 
 \subsection{GxE interactions have great influence on plant development traits in maize}
 
 \onehalfspacing
 \begin{table}[H]
  \centering
- \caption[Comparison of prediction results of ANN within locations and across locations for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL) and across locations (AL) for Kemater and Petkuser}
+ \caption[Comparison of prediction results of ANN within locations and across locations
+ for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL)
+   and across locations (AL) for Kemater and Petkuser}
  \begin{tabular}{lrrr|rrr}
    \toprule
    & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}}    \\
@@ -634,6 +629,45 @@ Design of training populations \cite{akdemir2019design}
  \end{tabular}
 \end{table}
 \doublespacing
+
+
+\subsection{No algorithm outperforms the others}
+
+In the \textit{A. thaliana} and maize traits, there is no single algorithm that is always
+able to outperform all the others. This holds true for many studies, that compared a
+variety of GP algorithms \cite{dlc2009}; \cite{heslot2012genomic};
+\cite{blondel2015ranking}; \cite{Ramstein_2016}; \cite{roorkiwal2016genome};
+\cite{azodi2019}. More influential on the predictive ability, rather are the size of the
+training set, the number of markers and the overall heritability. As shown in previous
+chapters not only do algorithms do not have the tendency to outperform each other in
+general, even for individual traits there rarely is significant difference between the
+performance of the methods. At first, this might seem surprising because the almost 200
+trait-population combinations tested in the present studies, are unlikely to have the same
+genetic architecture e.g. the distribution of marker effects and they should vary in the
+magnitude of the additive and epistatic variance components of the total genetic
+variance. While the Bayesian methods and GBLUP, as previously thoroughly discussed,
+capture linear effects the ANNs should technically be able to asses non-linear effects in
+the prediction, while this has been shown in the proof of concept in section \ref{POC}
+this is not reflected in the real world examples, which indicates to a the major issue in
+GP that is the size of the training set. Small training sets are unsuited to capture
+epistatic effects with low allele frequencies because the smaller the set the less likely
+it becomes that they are distributed in both the training and the testing
+population. Secondly, even if a given trait biological is epistatic, there might be a
+single marker, which is similar to an interaction pseudo-marker, whose effect size can be
+captured by the linear methods \cite{hill2008data}; \cite{monir2018dominance}. All this
+comes down to the problem of dimensionality due to the $n >> p$ problematic mentioned
+earlier in chapter \ref{ch:gs-ann}, other studies suggest that non-linear methods are
+superior when the number of markers $n$ is smaller compared to the number of phenotypes
+$p$ \cite{azodi2019}, which would allow for epistatic effects to be more likely to appear
+in both TRN and TST and make it less likely that they are obscured behind co-linear
+additive markers.
+
+\section{Conclusion}
+Artificial neural networks in many fields of research replaced older methods in a short
+amount of time and even though they present a valuable addition to the toolbox of genomic
+selection in plant and animal breeding
+
+
 
 %%% Local Variables:
 %%% mode: latex
