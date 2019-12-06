@@ -487,7 +487,7 @@ and plant height traits are closely correlated since they are basically the same
 measured at different time points, it is not surprising that the same algorithm that works
 well on one of those works well on the others as well.
 
-\subsubsection{Number of marker and prediction accuracy}
+\subsubsection{Number of markesr and prediction accuracy}
 
 Marker chips like the ones used to analyze the genomic maize data for this study contain
 hundreds of thousands of SNPs and other polymorphisms \cite{unterseer2014powerful}. Due to
@@ -660,7 +660,13 @@ earlier in chapter \ref{ch:gs-ann}, other studies suggest that non-linear method
 superior when the number of markers $n$ is smaller compared to the number of phenotypes
 $p$ \cite{azodi2019}, which would allow for epistatic effects to be more likely to appear
 in both TRN and TST and make it less likely that they are obscured behind co-linear
-additive markers.
+additive markers.\\
+A study that involved more than 8000 wheat lines conducted by \cite{Norman_2018} found
+similar results to those shown in figure \ref{fig:marker_vs_acc}. For four different wheat
+traits the increase of predictive ability did not reach a plateau even after more than
+8000 genotypes were included in the training set, while the increase in gain due to adding
+markers to the analysis ceases after 5000 markers have been added.
+
 
 \section{Conclusion}
 Artificial neural networks in many fields of research replaced older methods in a short
