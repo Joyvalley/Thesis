@@ -60,7 +60,7 @@ neural network, now harboring three types of layers.
 \begin{enumerate}[(i)]
 \item the input layer
 \item one or more hidden layers
-\item the output layer, which in this case only consists of only one neuron
+\item the output layer, which in this case only consists of one neuron
 \end{enumerate}
 
 \begin{figure}[H]
@@ -113,7 +113,7 @@ Figure \ref{fig:activation} shows six of the most commonly used activation funct
 \cite{warner1996understanding}. The simplest one, the binary step activation was already
 introduced (function \textbf{A} in equation \ref{eqn:binary}), which properties have been
 discussed along the perceptron model. All other activation functions produce continuous outputs from given inputs. \\
-Next to a binary step function any mathematical function is able to serve as an activation
+Next to the binary step function any mathematical function is able to serve as an activation
 function in neural nets, starting with a simple identity function (equation
 \ref{eqn:ident}, figure \ref{fig:activation} \textbf{B}). The sigmoid function (figure
 \ref{fig:activation} \textbf{C}, equation \ref{eqn:sigmoid}) and tanh (figure
@@ -162,7 +162,7 @@ continuous output around threshold values of 0.
 \end{equation}
 
 
-ReLU (equation \ref{eqn:relu}) and the SoftPlus (equation \ref{eqn:softplus}) share
+Rectified linear units (ReLU) (equation \ref{eqn:relu}) and SoftPlus (equation \ref{eqn:softplus}) share
 similar properties as well, the latter one being a smoothed version of ReLU. Rectifiers as
 activation functions have been introduced in the 2000s \cite{hahnloser2000digital} and
 have since then overtaken all others as the most popular activation functions in neural
@@ -180,7 +180,7 @@ $x<0$. This property is, as described below, is an important prerequisite for ne
 \subsubsection{Gradient descent algorithm}
 
 Let a network alike the one shown in figure \ref{fig:nn} be designed for the
-classification of an arbitrary phenotype like blue petals with $x_1 \dots x_4$ on the
+classification of an arbitrary, binaray phenotype like petal color, being blue or not, with $x_1 \dots x_4$ on the
 input layers being genetic markers as features. The output layer displays value from 0 to
 1 giving the probability of the petals being blue or not. To quantify how well the network
 performs on predicting the color of the petals a loss
@@ -191,15 +191,15 @@ others. In general MSE and RMSE are used for regression problems, with the latte
 less popular, and cross-entropy also called log-loss is used for binary or multi-class
 classification settings \cite{janocha2017loss}. Since all problems presented in due course
 are regression problems that use MSE as their loss function this will be the only loss
-function further elaborated upon in. MSE or the quadratic loss function can be written as:
+function further elaborated upon. MSE or the quadratic loss function can be written as:
 
 \begin{equation}
  MSE = \frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_i)^2
  \label{eqn:MSE}
 \end{equation}
 
-Equation \ref{eqn:MSE} shows the MSE function which is the sum of the squares of the
-differences of all the predicted $\hat{y}$ and the real values $y_i$. The same function
+Equation \ref{eqn:MSE} shows the MSE function, which is the sum of the squares of the
+differences of all the predicted $\hat{y}_i$ and the real values $y_i$. The same function
 can be rewritten with the previously used terminology of weights and biases in equation
 \ref{eqn:MSE} with $L(w,b)$ as the loss.
 
@@ -211,10 +211,10 @@ can be rewritten with the previously used terminology of weights and biases in e
 
 With $w$ and $b$ as the collection of all the weights and the biases in the network used
 to optimize the function $y(x)$. Giving the quadratic nature of the function $L(w,b)$ will
-always be non-negative. If $L(w,b) \rightarrow 0$ the loss is minimal, meaning that the
-real and predicted values are close together and the network found weights and biases that approximate the output well. \\
-A widely used function to find the optimum for such a loss function by finding its minimum
-is gradient descent (GD) \cite{bottou1991stochastic}. The idea behind GD or other
+always be non-negative. If $L(w,b) \rightarrow 0$ the loss is minimal, meaning
+that the real and predicted values are close together and the network found weights and biases that approximate the output well. \\
+A widely used algorithm to find the optimum of a loss function by finding its global
+minimum is gradient descent (GD) \cite{bottou1991stochastic}. The idea behind GD or other
 optimization algorithms is to start with randomly initialized weights and biases and
 repeatedly move them in direction $\Delta w$ and $\Delta b$. This results in a change of
 the loss function which can be represented using partial derivatives as shown in equation
@@ -253,16 +253,16 @@ shown in equation \ref{eqn:eta}
 
 Here $\eta$ is a small positive decimal number, commonly referred to as the learning rate,
 which usually, but not exclusively, ranges from 0.1 to 0.001.  Having found a way to
-ensure that $\Delta L$ always is negative according to equation \ref{eqn:eta} it can be
+ensure that $\Delta L$ is always negative according to equation \ref{eqn:eta} it can be
 utilized to repeatedly update the gradient $\nabla L$ over time steps $T$. To make the
 gradient descent algorithm efficient the learning rate $\eta$ has to be chosen
 correctly. If $\eta$ is too large the gradient $\Delta L$ possibly ends up being larger
 than zero leading to an increase of the loss. If the learning rate is too small
 convergence will either take too long or not take place at all
 \cite{bergstra2011algorithms}. In practical machine learning approaches different learning
-rates are tested. There are also algorithmic approaches to select the learning rate
-available. Equation \ref{eqn:nabla} only accounts for two inputs features but it can be
-generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
+rates are tested. There are also a variety of algorithmic approaches available to select
+the learning rate. Equation \ref{eqn:nabla} only accounts for two inputs features but it
+can be generalized to compute $n$ inputs as shown in equation \ref{eqn:gd}.
 
 \begin{eqnarray}
   \nabla L = \left(\frac{\partial L}{\partial w_1}, \ldots ,
@@ -304,7 +304,7 @@ into subsamples called mini batches \cite{bottou-bousquet-2008}. The network is 
 trained iteratively with all mini batches. The batch size has a significant influence on
 the accuracy and the training speed of the network and is a hyperparameter, which has to
 be tuned by iteratively testing different settings. If
-the batch size is one mini batch GD is also referred to as stochastical gradient descent (SGD). \\
+the batch size is one, mini batch GD is also referred to as stochastical gradient descent (SGD). \\
 During the optimization process optimizers can descent into local minima of the cost
 function without being able to overcome them enabling to reach the global minimum. An
 algorithm extending GD to accelerate the search of the global minimum is momentum, which
@@ -322,7 +322,7 @@ update the weights and biases.
 
 Equation \ref{eqn:momentum} shows how the momentum is mathematically represented in GD to
 update the weights $w$ or likewise the biases. The delta of the weights multiplied by an
-coefficient $\alpha$ is the momentum. $\alpha$ is usually ranges from 0.1 to 0.9 and is
+coefficient $\alpha$ is the momentum. $\alpha$ usually ranges from 0.1 to 0.9 and is
 another parameter to be tuned for successful training. If the momentum is too small the GD
 will not be able to overcome local minima and if $\alpha$ is too large the loss functions tends to oscillate without ever finding an optimum \cite{lecun2015deep}. \\
 For both the momentum and the learning rate it is impractical to maintain the same level
@@ -330,33 +330,33 @@ during all training epochs. After each epoch the loss function is either closer 
 away from its global minima and depending on the distance to that minimum it is desirable
 to have larger or smaller learning rates and momenta. This can be achieved with naive
 approaches, for example using a step function to gradually decrease those values after
-each iteration, or to utilize algorithmic approaches \cite{michie1994machine}. There is a
+each iteration or to utilize algorithmic approaches \cite{michie1994machine}. There is a
 large variety of optimizers trying to find optimal values for $\alpha$ and $\eta$ and till
 today this field is under active research \cite{goodfellow2016deep}. Popular among those
 are: RMSprop \cite{hinton2012neural}; Nesterov momentum \cite{dozat2016incorporating};
 Adadelta \cite{zeiler2012adadelta}; Adagrad \cite{ruder2016overview} and Adam
 \cite{kingma2014adam}. With Adam being the most popular
 optimizer today. \\
-Nesterov momentum is a slight change to the normal momentum algorithm, capable of having huge impacts in practical applications, because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
+Nesterov momentum is a slight change to the normal momentum algorithm, capable of having huge impacts in practical applications because it helps avoiding oscillations around the minimum by using intermediate information to adapt the momentum. \\
 RMSProp - root mean square propagation - is a method aiming to adapt the learning rate
-algorithmically, by choosing $\eta$ for each iteration. Lastly, the wide-spread Adam
+algorithmically by choosing $\eta$ for each iteration. Lastly, the wide-spread Adam
 optimizer combines both of the features of momentum and RMSProp and adapts the learning
 rate as well as the momentum iteratively \cite{kingma2014adam}.
 
 \subsubsection{Regularization parameters and overfitting}
 
-A common problem in machine learning is over parameterize the model on the training data
+A common problem in machine learning is to over parameterize the model on the training data
 and losing the ability to generalize on validation data. This issue occurs because neural
 networks have hundreds of thousand of free parameters to be trained. Deeper neural
 networks even have billions or trillions of parameters. If training of the neural net
 continues for enough epochs eventually the loss function will approach a minimum. As
 $ L(w,b) \rightarrow 0 $ the initially drawn conclusion could mislead to assuming that
 training was successful. However, when trying to apply the trained network on the training
-data set (TRN) to a testing data set (TST) the loss of TST is very large and the accuracy
+data set (TRN) to a testing data set (TST) or validation set (VAL) the loss of TST is very large and the accuracy
 of prediction of TST is accordingly small. This phenomenon is known as overfitting and a
 lot of fine tuning of hyperparameters is devoted to minimizing this effect
-\cite{tetko1995neural}. Figure \ref{fig:overfitting} visualizes this effects during
-training \cite{goodfellow2016deep} of a neural networks.
+\cite{tetko1995neural}. Figure \ref{fig:overfitting} visualizes this  during
+training \cite{goodfellow2016deep} of a neural network.
 
 \begin{figure}[H]
   \centering \includegraphics[height=.35\textheight, width=1.0\textwidth]{Figures/overfitting}
@@ -399,7 +399,7 @@ global data or not.
 
 % \textbf{Dropout}
 \newpage
-\section{Introduction to genomic selection}
+\section{Introduction to genomic selection} \label{chap:gs}
 \subsection{On the nature of quantitative traits} \label{quan}
 
 According to the omnigenic model, which is an extension of the polygenic model, proposed
@@ -408,34 +408,34 @@ phenotypic values are influenced by a great number or even all genes in the geno
 therefore results in traits following gradual statistical distributions instead of being
 binned in classes or
 binary.\\
-Intuitively, this might be contradicting to the theoretical foundation of modern genetics -
-Mendel's three laws. They were derived from observations, which were mainly influenced by
-one locus. Using one of Mendel's phenotypes as an example - the round or wrinkled surfaces
-of peas (\textit{Pisum sativum})- an assessment of a couple of thousands peas would
-inevitably lead to the conclusion that from the ``roundest'' to the ``wrinkliest'' pea any
-gradual step between those two classes is
+Intuitively, this might be contradicting to the theoretical foundation of modern genetics
+- Mendel's three laws. They were derived from observations, which were mainly influenced
+by one locus. Using one of Mendel's phenotypes as an example - the round or wrinkled
+surfaces of peas (\textit{Pisum sativum})- an assessment of a couple of thousand peas
+would inevitably lead to the conclusion that from the ``roundest'' to the ``wrinkliest''
+pea any gradual step between those two classes is
 possible and observable. \\
 Mendel's third law of independent segregation also only holds true under certain
-assumptions. The simplest one being that the traits under investigation have to be
-located on different linkage groups. Otherwise the seven traits used in Mendel's initial
-studies would not have segregated independently. The odds of seven randomly selected
-traits being on seven different linkage groups are rather small, especially taking into
-account that the genome of the \textit{P. sativum} consists of only seven chromosomes itself
+assumptions. The simplest one being that the traits under investigation have to be located
+on different linkage groups, otherwise the seven traits used in Mendel's initial studies
+would not have segregated independently. The odds of seven randomly selected traits being
+on seven different linkage groups are rather small, especially taking into account that
+the genome of the \textit{P. sativum} consists of only seven chromosomes itself
 \cite{kalo2004}. Mendel most likely knew about traits not following his own laws, as well
 as being aware of the quantitative nature of traits such as the constitution of pea's
 surface or the color of its petals. However, being the pioneer of a then rather unexplored
-field of science, some of which big questions we fail to satisfactory answer today, he did
+field of science, some of whose big questions we fail to satisfactory answer today, he did
 not have
 the resources or the knowledge to explain traits that were not ``mendeling''. \\
 Initially thought to be contradicting to Mendel's ideas, Darwin proposed the concept of
-evolution due to natural selection, which introduced the idea of traits following a
-gradual distributions \cite{darwin1859}. This contrast led to a long lasting debate in the
+evolution due to natural selection, which introduced the idea of traits following gradual
+distributions \cite{darwin1859}. This contrast led to a long lasting debate in the
 scientific community in the early 1900s between the Mendelians and the biometricians, who
 believed in the quantitative nature of continuous traits. This conflict has eventually
 been solved by Fisher's fundamental work published in 1919 \cite{fisher1919xv}. His
 theories combined the then in all fields of science popular research on statistical
 distributions and genomics. He mathematically proved that traits influenced by many genes,
-with randomly-sampled alleles follow a continuous normal distribution in a
+with randomly-sampled alleles, follow a continuous normal distribution in a
 population. \\
 While this combined the ideas of Mendel and of the biometricians it opened another long
 debated question of effect sizes and the overall genetic architecture of complex
@@ -449,7 +449,7 @@ With the upcoming popularity of GWAS as the favored method to decipher genetic
 architectures of traits, having pioneered in human genetics, it became clear that the
 majority of effect sizes are tiny (< 1\%), while there are very few loci which have a
 moderate effect on the phenotypic variance of a population with around 10\% or less
-\cite{korte2013advantages}; \cite{stringer2011}. This nature of quantitative traits
+\cite{stringer2011}; \cite{korte2013advantages}. This nature of quantitative traits
 presents great challenges to animal \cite{goddard2009} and plant breeding
 \cite{wurschum2012} in further improving crop or livestock performances, as well as
 complicating the decomposition of genomic causes for diseases like schizophrenia or autism in human medicine \cite{de2014}; \cite{purcell2014}. \\
@@ -484,7 +484,7 @@ decomposed further in its additive, dominance and epistatic components as in equ
 \end{equation}
 
 The additive effects are caused by single, for this model mostly homozygous, loci while
-the variance caused by dominance effects is caused by heterozygous loci with their
+the variance due to dominance effects is caused by heterozygous loci with their
 resulting interactions being full-, over- , co- or underdominant. Lastly, the interaction
 effects are a result of two or more genes only having an impact if they co-occur in a
 certain state. The resulting variance is commonly known as the gene-gene interaction or epistasis \cite{falconer1996}. \\
@@ -501,11 +501,11 @@ in equation \ref{eqn:IAA}.
 
 Knowledge of the variance components involved in the expression of a trait in a given
 population leads up to the estimation of the total influence of all genetic variances and
-the environmental variance the phenotypic distribution. This concept is called
+the environmental variance on the phenotypic distribution. This concept is called
 heritability. \\
 The heritability of a trait $H^2$ accounts for the proportion of the phenotypic variance
 controlled by the total genetic variance as shown in equation \ref{eqn:h2G}. This is also
-referred to as broad sense heritability, because all genetic effects, including additive,
+referred to as broad sense heritability because all genetic effects, including additive,
 dominance and epistatic effects, are included \cite{brooker1999genetics}.
 
 \begin{equation}
@@ -536,12 +536,12 @@ includes among others: \\
 Alfalfa (\textit{Medicago sativa}) \cite{li2012applied}; \cite{annicchiarico2015accuracy}; \cite{li2015genomical}; \cite{biazzi2017genome}; \cite{hawkins2018recent}. \\
 Barley (\textit{Hordeum vulgare}) \cite{zhong2009factors}; \cite{oakey2016}; \cite{neyhart2019}. \\
 Cassava (\textit{Manihot esculenta}) \cite{elias2018}; \cite{elias2018improving}.
-Cauliflower (\textit{Brassica oleracea spp}) \cite{thorwarth2018genomic}.\\
+Cauliflower (\textit{Brassica oleracea spp.}) \cite{thorwarth2018genomic}.\\
 Cotton (\textit{Gossiypium spp.}) \cite{gapare2018}.\\
 Maize (\textit{Zea mays}) \cite{rincent2012}; \cite{windhausen2012};
 \cite{technow2013genomic}; \cite{riedelsheimer2013genomic}; \cite{guo2013accuracy};
 \cite{peiffer2014genetic}; \cite{technow2014genome}; \cite{lehermeier2014usefulness};
-\cite{owens2014foundation}; \cite{montesinos2015threshold};\cite{bustos2016improvement};
+\cite{owens2014foundation}; \cite{montesinos2015threshold}; \cite{bustos2016improvement};
 \cite{kadam2016genomic}; \cite{schopp2017accuracy};\cite{schopp2017genomic};
 \cite{e2017genomic}; \cite{brauner2018genomic};
 \cite{schrag2018beyond}; \cite{moeinizade2019}; \cite{allier2019usefulness}. \\
@@ -549,7 +549,7 @@ Potato (\textit{Solanum tuberosum}) \cite{enciso2018genomic}; \cite{Endelman2018
 Rape seed (\textit{Brassica napus}) \cite{snowdon2012potential}; \cite{wurschum2014potential}; \cite{qian2014sub}; \cite{jan2016genomic}; \cite{luo2017genomic}; \cite{werner2018effective}.\\
 Rice (\textit{Oryza sativa})  \cite{Xu2013rice}; \cite{Grenier2015}; \cite{BenHassen2018}; \cite{Momen2019}. \\
 Rye (\textit{Secale cerale}) \cite{bernal2014importance}; \cite{wang2014accuracy};
-\cite{auinger2016model}; \cite{marulanda2016optimum}; \cite{bernal2017genomic}.
+\cite{auinger2016model}; \cite{marulanda2016optimum}; \cite{bernal2017genomic}.\\
 Sugar beet (\textit{Beta vulgaris}), \cite{wurschum2013genomic}; \cite{biscarini2014genome}.\\
 Sugar cane (\textit{Saccharum officinarum}) \cite{gouy2013experimental}.\\
 Soybean (\textit{Glycine max}) \cite{Jarquin_2016}; \cite{Xavier_2016}; \cite{Stewart_Brown_2019}.\\
@@ -558,20 +558,22 @@ Wheat (\textit{Triticum aestivum}) \cite{Thavamanikumar_2015}; \cite{Lopez_Cruz_
 \cite{Sukumaran_2016}; \cite{Bustos_Korts_2016}; \cite{Gianola_2016_wheat};
 \cite{Crossa_2016_wheat}; \cite{Rincent_2018}; \cite{Norman_2018}; \cite{Belamkar_2018};
 \cite{Ovenden_2018}; \cite{Cuevas_2019}; \cite{Howard_2019}; \cite{Krause_2019}. \\
-As well as various tree species \cite{Holliday_2012}; \cite{Resende_2012}; \cite{Zapata_Valenzuela_2013};  \cite{Jaramillo_Correa_2014}; \cite{Kumar_2015}; \cite{GamalElDien_2016}; \cite{Rincent_2018}; \cite{Ratcliffe_2017}; \cite{Kainer_2018}; \cite{deAlmeidaFilho2019}. \\
+As well as various tree species \cite{Holliday_2012}; \cite{Resende_2012}; \cite{Zapata_Valenzuela_2013};  \cite{Jaramillo_Correa_2014}; \cite{Kumar_2015}; \cite{GamalElDien_2016}; \cite{Ratcliffe_2017}; \cite{Rincent_2018}; \cite{Kainer_2018}; \cite{deAlmeidaFilho2019}. \\
 Even though GS finds broad application in plant breeding it has been originally developed
 for the use in animal breeding \cite{hayes2010genome}; \cite{goddard2011using}. The gold
 standard is a method known as genomic BLUP \cite{vanraden2008efficient}, which utilizes a
 relationship matrix based on the co-occurrence of genetic markers. This method is derived
 from the pre-genomic era in animal breeding, where the relationship matrix was constructed
-after pedigrees according to the best linear unbiased predictors (BLUP) based on the linear mixed
+after pedigrees according to the best linear unbiased predictors (BLUP) based on the
+linear mixed
 model equations developed by \cite{henderson1975best}. \\
-GBLUP accounts only for additive-genetic effects \cite{vanraden2008efficient}. There are
-other methods that are able to account for more complex genomic effects that are
-non-additive. Popular among those are for example Reproducing Kernel Hilbert Spaces (RKHS)
-\cite{gianola2008reproducing}. Alternatively to Henderson's linear mixed models, a large
-variety of different Bayesian methods became popular \cite{hayes2001}; \cite{gianola2009};
-\cite{habier2011}; \cite{gianola2013}; \cite{crossa2017}.
+Genomic BLUP (GBLUP) accounts only for additive-genetic effects
+\cite{vanraden2008efficient}. There are other methods that are able to account for more
+complex genomic effects that are non-additive. Popular among those are for example
+Reproducing Kernel Hilbert Spaces (RKHS) \cite{gianola2008reproducing}. Alternatively to
+Henderson's linear mixed models, a large variety of different Bayesian methods for genomic
+prediction became popular \cite{hayes2001}; \cite{gianola2009}; \cite{habier2011};
+\cite{gianola2013}; \cite{crossa2017}.
 
 \subsubsection{Genomic prediction in recurrent selection and the breeders equation}
 
@@ -588,12 +590,12 @@ having any wild ancestors with whom they could naturally mate. For example wheat
 scale, underwent multiple hybridization steps \cite{ozkan2001allopolyploidy}. Wheat is a
 hybrid from either the diploid emmer (\textit{T. diccoides}) or durum wheat
 (\textit{T. durum}) and \textit{{Aegilops tauschii}}, while emmer and durum are hybrids
-derived from wild emmer, which is a hybrid of wild grass of the genus of \textit{Aegilops}
+derived from wild emmer, which is a hybrid of a wild grass of the genus of \textit{Aegilops}
 and \textit{T. urata} \cite{friebe2000development}; \cite{feldman2012genome}.\\
 While being ignorant of modern genetics early ``plant breeders'' must have had an
 intuitive, yet naive, understanding of the general concept of heritability in a way that
 they must have comprehended that offsprings share properties with their parents, which
-motivated them to regrow individuals with desired traits generations after
+motivated them to regrow individuals with desired traits generation after
 generation. This induced many changes including that artificial selected plants are
 commonly largely inbred. That process could be considered an early form of recurrent
 truncation selection. Truncation selection on a normal distributed phenotype is shown in
@@ -634,7 +636,7 @@ With recurrent truncation selection over many generations the population mean of
 $\mu$ will change (hopefully in the desired direction) if the heritability (in this case
 the narrow sense heritability) $h^2$ > 0. It is impossible to breed for traits that do not
 contain any genetic components in their architecture \cite{walsh2018}.\\
-Next to $i$ the selection intensity and $h^2$ the accuracy of the selection process
+Next to $i$ the selection intensity and the heritability $h^2$, the accuracy of the selection process
 $r_{uA}$ is important for the success of a breeding program. Those three terms can be
 applied to estimate the gain of selection $R$ over one generation (equation
 \ref{eqn:Breeders}). Due to its importance in the evaluation of breeding schemes it is
@@ -662,27 +664,28 @@ prediction. \\
   different prediction equations and an increase in the accuracy will lead to an
   proportional increase in $R$. For this reason since 2001, in quantitative genetics one
   very active field of research was and still is to find new, better algorithms for GS as
-  presented in the next chapter (\ref{blup:bayes}. As later evaluated on more than 150
-  phenotypes in chapter \ref{gpdis} $h^2$ is always larger than $r_{uA}$. Which if it was
-  the only variable factor in equation \ref{eqn:Breeders}, would make genomic selection
-  inferior to phenotypic selection, which from a certain point of view it is. Phenotypic
-  trials are better approximations for phenotypic appearance as GEBVs. However, as the
-  cost of genotyping has decreased dramatically in the last 20 years, phenotyping with
-  field trials remains tedious, laborious and vastly expensive. Taking into account
-  that field trials have to be repeated in several years and locations to produce reliable
-  accounts it becomes clear that genotyping 10s of thousands of accessions is much
-  cheaper than conducting field trials with 1000 of them.
+  presented in the next chapter (\ref{blup:bayes}). As later evaluated on more than 150
+  phenotypes in chapter \ref{gpdis} $h^2$ is almost always larger than $r_{uA}$. Which if
+  it was the only variable factor in equation \ref{eqn:Breeders}, would make genomic
+  selection inferior to phenotypic selection, which from a certain point of view it
+  is. Phenotypic trials are better approximations for phenotypic appearance as genomic
+  estimated breeding values (GEBVs). However, as the cost of genotyping has decreased
+  dramatically in the last 20 years, phenotyping with field trials remains tedious,
+  laborious and vastly expensive. Taking into account that field trials have to be
+  repeated in several years and locations to produce robust results, it becomes clear
+  that genotyping 10s of thousands of accessions is much cheaper than conducting field
+  trials with 1000 of them.
 \item The selection intensity can be much stricter if the total population that is
-  selected from is larger. In genomic prediction settings they are, because breeders can
+  selected from is larger. In genomic prediction settings they are because breeders can
   select from two pools. First the pool of plants with known phenotypes \underline{and}
-  known genotype information and from those were just genomic data is available. When
+  known genotype information and from those where just genomic data is available. When
   selecting from a pool of 1000 with $p=0.05$ with the goal to keep 50 plants in the next
   breeding cycle, the same goal can be reached when genomically selecting from a pool of
   10000 with and intensity of $p=0.005$.
 \item The decrease in time per generation is probably the largest advantage of genomic
   selection, when applied to breeding. While in field trials it is only possible to have
   one generation per year, genomic selection does not require the plants to be grown in
-  the field. For GS it is only necessary to grow the plants large enough, that DNA can be
+  the field. For GS it is only necessary to grow the plants large enough so that DNA can be
   extracted from the tissues and evaluated. After selection only the ones above the
   threshold are grown until they bear seats (or other reproductive organs) and be used for
   the next selection cycle, allowing up to ten generations per year. This development has
@@ -712,14 +715,15 @@ is the main distinction between the many methods of the Bayesian alphabet introd
 the following chapter \cite{gianola2013}.\\
 
 \noindent
-\textbf{Genomic BLUP} \\ In the early years of research on genomic prediction algorithms
+\textbf{Genomic BLUP} \\ In the early years of research on genomic prediction, algorithms
 were not solely benchmarked against each other, but had to compete with the previously
-popular pedigree methods. Quickly in the course of the first decade of this millennium the
-superiority of the genomic methods were elucidated in livestock and plant breeding
-\cite{habier2007impact}; \cite{vanraden2008efficient}; \cite{vanraden2008reliability};
-\cite{harris2009genomic}. While the genomic methods are superior to non-genomic methods,
-there is no clear evidence that either of the genomic methods are superior to each other
-and there is lack of empirical evidence that the Bayesian methods generally outperform
+popular pedigree-based methods. Quickly in the course of the first decade of this
+millennium the superiority of the genomic methods were elucidated in livestock and plant
+breeding \cite{habier2007impact}; \cite{vanraden2008efficient};
+\cite{vanraden2008reliability}; \cite{harris2009genomic}. While the genomic methods are
+superior to non-genomic methods, there is no clear evidence that either of the genomic
+methods are superior to each other and there is lack of empirical evidence that the
+Bayesian methods generally outperform
 GBLUP \cite{moser2009comparison}; \cite{bernardo2010breeding}; \cite{azodi2019}. \\
 Like pedigree BLUP for genomic BLUP the co-variance between related individuals is used
 for the predictions. In the latter case it is calculated from marker information.
@@ -743,10 +747,10 @@ effects and $\beta$ the vector of the fixed effects. $Z$ is the incidence matrix
 combined marker effects and $u$ is a $n\; x\; 1$ vector of the additive genetic effect
 the vector of the residuals $\varepsilon$.\\
 To construct a GBLUP model lets assume a matrix of size $(n\; x\; m)$ with $n$ individuals
-and $m$ loci $M$ containing marker information for three individuals on four loci, thus being of
-size $3x4$. The four markers of matrix \ref{arr:M} can take values of $-1$, $0$ and $1$,
-translating into minor allele, heterozygous locus and major allele. \footnote{This example
-calculation has been adapted from \cite{isik2013}.}
+and $m$ loci called $M$, containing marker information for three individuals on four loci,
+thus being of size $3x4$. The four markers of matrix \ref{arr:M} can take values of $-1$,
+$0$ and $1$, translating into minor allele, heterozygous locus and major
+allele. \footnote{This example calculation has been adapted from \cite{isik2013}.}
 
 \begin{equation}
  M = 
@@ -791,7 +795,7 @@ individuals per marker.
 
 The next step is to obtain a matrix of the allele frequencies at each locus also of size
 $n\; x\; m$ like matrix $M$. For the design of matrix $P$ (\ref{arr:P}) let the minor
-allele frequencies $p_1 \dots p_4$ be $\{0.3, 0.2, 0.1, 0.15\}$. The allele frequency of
+allele frequencies of the global population $p_1 \dots p_4$ be $\{0.3, 0.2, 0.1, 0.15\}$. The allele frequency of
 the $i^{th}$ column of $P$ is expressed according to the $n^{th}$ marker of matrix $M$ as
 $P_i = 2(p_i - 0.5)$ resulting in:
 
@@ -828,7 +832,7 @@ difference between different genomic BLUP methods, but K is always of size $n\;x
 \begin{enumerate}[(i)]
 \item The naive approach is to iterate over each individual and count the common markers
   with every other individual. This approach is suited for inbred or doubled-haploid
-  populations, less so for outcrossed populations with high degrees of heterozygosity,
+  populations, less so for outcrossed populations with high degrees of heterozygosity
   because as in the sample implementation it does only account for homozygous loci. This
   method becomes computationally intense when the data sets grow larger as common today
   (personal observation).
@@ -899,7 +903,7 @@ allele frequency.
 \end{equation}
 
 \item Other methods like the gaussian kernel compute kinship between individuals by the euclidean distance
-between the respective genotypes \cite{morota2014kernel}.
+between the respective genotypes \cite{morota2014kernel} as in equation \ref{eqn:gauss}.
 
 \begin{equation}
  \!\begin{aligned}
@@ -952,8 +956,8 @@ This can be algebraically solved to compute the GEBV of the unknown phenotypes $
 
 GBLUP is fairly easy compared to more complex Bayesian methods and can be quickly implemented in any
 programming language capable of solving liner equations like R or Python \cite{CRAN};
-\cite{van1995python}. Computational as the number of phenotypes in the study increases in numbers
-the time demand grows exponentially, because the kinship matrix quadruples in size and
+\cite{van1995python}. Computationally, as the number of phenotypes in the study increases in numbers,
+the time demand grows exponentially because the kinship matrix quadruples in size and
 it becomes more complicated to compute the inverse of $G$ (personal observations). \\
 
 \noindent
@@ -973,7 +977,7 @@ as the marginal density of $y$. The prior distribution in GS assume that $y$ was
 from a certain distribution. Infinitesimal models assume that the genetic effects follow a
 normal distribution \cite{legarra2018}, while the Bayesian frameworks, however, will
 assume non-normal distributed marker effects. This can be explained by a two-step
-hierarchical distribution. Stage one assumes that every marker has \textit{a priori} a
+hierarchical model. Stage one assumes that every marker has \textit{a priori} a
 different variance \cite{legarra2018}.
 
 \begin{equation}
@@ -989,10 +993,11 @@ p(a_i| variable ) = P(\dots )
 \end{equation}
 
 with $variable$ standing for the large variety of prior distributions. In total there are
-more than 20 different Bayesian models known to the author. Their main difference
-``simply'' lies in the \textit{a priori} assumptions of prior distributions. This change
-can make some methods mathematically much more complicated then others. As shown in later
-chapters none of the methods is completely superior over others in terms of
+more than 20 different Bayesian models known to the author and probably some more unknown
+ones. Their main difference ``simply'' lies in the \textit{a priori} assumptions of prior
+distributions. This change can make some methods mathematically much more complicated then
+others. As shown in later chapters none of the methods is completely superior over others
+in terms of
 prediction accuracy. \\
 Approximation to the solution of the linear equations is usually performed by Gibb's
 sampling using Markov Chain Monte Carlo (MCMC) simulations \cite{dlc2009}; \cite{BGLR}.
@@ -1023,7 +1028,7 @@ prediction indicating their key differences.
 As mentioned in \ref{intro:gs} genomic selection (GS) has been successfully applied in
 animal \cite{hayes2010genome}; \cite{gianola2015one} and plant breeding \cite{crossa2010};
 \cite{heffner2010plant}; \cite{desta2014genomic}; \cite{crossa2017} as well as in medical
-applications since it was first reported \cite{hayes2001}. Since then the repertoire of
+applications since it was first reported by \cite{hayes2001}. Since then the repertoire of
 methods for predicting phenotypic values has increased rapidly e.g. \cite{dlc2009};
 \cite{habier2011}; \cite{gianola2013}; \cite{crossa2017}. Genomic prediction has
 repeatedly been proven to outperform pedigree-based methods \cite{crossa2010};
@@ -1037,15 +1042,15 @@ when whole genome regression is performed by neural nets. \\
 While every new method is a valuable addition to the toolbox of genomic selection, some
 fundamental problems remain unsolved and are the same for every algorithm, of which the
 $n>>p$ problematic stands out. Usually in genomic selection settings the size of the
-training population (TRN) with $n$ phenotypes is substantially smaller than the number of
-markers $p$ \cite{fan2014challenges}, making the number of trainable features immensely
-large. Furthermore every marker is treated as an independent observation neglecting
+training population (TRN) with $p$ phenotypes is substantially smaller than the number of
+markers $n$ \cite{fan2014challenges}, making the number of trainable features immensely
+large. Furthermore, every marker is treated as an independent observation neglecting
 collinearity and linkage disequilibrium (LD) between them. More difficulties arise through
 non-additive, epistatic and dominance marker effects. The main issue with epistasis in
 quantitative genetics is the almost infinite amount of different marker combinations,
 which cannot be represented within the size of TRN in the thousands. The same problems
-arises in GWA studies \cite{korte2013advantages}. With already large $p$ the number of
-possible additive SNP-SNP interactions potentiates to $p^{(p-1)}$. Methods that attempt to
+arises in GWA studies \cite{korte2013advantages}. With already large $n$ the number of
+possible additive SNP-SNP interactions potentiates to $n^{(n-1)}$. Methods that attempt to
 overcome those issues are EG-BLUP, which use an enhanced epistatic kinship matrix and
 reproducing kernel Hilbert space regression (RKHS) \cite{jiang2015}; \cite{martini2017genomic}. \\
 In the past 10 years, due to increasing availability of high performance computational
@@ -1054,18 +1059,18 @@ prominent being googles library TensorFlow \cite{TF2016} and Keras \cite{keras20
 machine learning (ML) has experienced a renaissance. ML is a set of methods and algorithms
 used widely for regression and classification problems. Popular among those are
 e.g. support vector machines, multi-layer perceptrons (MLP) and convolutional neural
-networks. ML has been widely applied in many biological fields \cite{min2017deep};
-\cite{lan2018survey}; \cite{mamoshina2016applications}; \cite{angermueller2016};
-\cite{webb2018deep}; \cite{rampasek2016tensorflow}. \\
+networks. ML has been widely applied in many biological fields
+\cite{mamoshina2016applications}; \cite{rampasek2016tensorflow}; \cite{angermueller2016};
+\cite{min2017deep}; \cite{lan2018survey}; \cite{webb2018deep}. \\
 A variety of studies assessed the usability of ML in genomic prediction
-\cite{gonzalez2018applications}; \cite{gonza2016}; \cite{ogutu2011comparison};
-\cite{montesinos2019benchmarking}; \cite{grinberg2018evaluation}; \cite{cuevas2019deep};
-\cite{montesinos2019new}; \cite{ma2017deepgs}; \cite{qiu2016application};
-\cite{gonza2012}; \cite{li2018genomic}. Through all those studies the common denominator
-is that there is no such thing as a gold standard for genomic prediction. No single
-algorithm was able to outperform all the others tested in a single of those studies, let
-alone in all. While the general aptitude of ML for genomic selection has been repeatedly
-proven, there is no evidence that neural networks can generally outperform
+\cite{ogutu2011comparison}; \cite{gonza2012}; \cite{gonza2016}; \cite{qiu2016application};
+\cite{ma2017deepgs}; \cite{gonzalez2018applications}; \cite{grinberg2018evaluation};
+\cite{li2018genomic} \cite{montesinos2019benchmarking}; \cite{cuevas2019deep};
+\cite{montesinos2019new}. Through all those studies the common denominator is that there
+is no such thing as a gold standard for genomic prediction. No single algorithm was able
+to outperform all the others tested in a single of those studies, let alone in all. While
+the general aptitude of ML for genomic selection has been repeatedly proven, there is no
+evidence that neural networks can generally outperform
 mixed-model approaches as GBLUP \cite{hayes2001}. \\
 In other fields like image classification neural networks have up to 100s of hidden layers
 \cite{he2016deep}. The commonly used fully-connected networks in genomic prediction tend
@@ -1161,7 +1166,7 @@ testing data set were the same, but it served the purpose of showing that neural
 are generally apt to solve different marker interactions. \\
 \textit{In natura} those interactions and the overall genetic architecture are much more
 complex. Effect sizes are not constant and epistasis may be caused by
-interactions with more than just two markers. With an increasing number of markers $n$ the
+interactions with more than just two markers. With an increasing number of markers the
 number of possible two way interactions increases even more to $2^{n-1}$. Smaller
 interaction effects could be obscured under larger additive effects. Gene-environment
 interactions might have a significant influence resulting in a model that does not

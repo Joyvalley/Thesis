@@ -3,45 +3,88 @@
 \chapter{General introduction} % Main chapter title
 \label{Chapter0} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-
 Plant breeding is a process that started as early as agriculture itself around 10,000
 BC. Even after twelve millennia many of its aspects are still obscured behind complex
 genetics and our lack to thoroughly comprehend them. But never were the challenges the
-vast as today. In the year 2050 this world's agriculture will be responsible for feeding 9
-to 10 billion people \cite{gerland2014world}, next to other inflicted duties of replacing
-fossil fuels with regenerate energy from plants, providing fibers for industrial textile
-production and pharmaceutical applications. \\
+vast as today. In the year 2050 the world's agriculture will be responsible for feeding
+nine to ten billion people \cite{gerland2014world}, next to other inflicted duties of
+replacing fossil fuels with regenerate energy from plants, providing fibers for industrial
+textile production and pharmaceutical applications. \\
 According to \cite{wallace2018road} the history of breeding can be divided into four main
-epochs that always utilized to technologies available to them in a specific era. The
-majority of this time breeding, as a succinct field of science, did not exist and breeding
-was executed by simple phenotypic selection by local farmers leading to dramatic changes
-in ca. 7000 cultivated crop species \cite{khoury2016origins}. The next era in plant
-breeding was sparked by the upcoming of new statistical methods and the rediscovery of
-Mendelian genetics in the late 19th and early 20th century, which combined let the
-development of quantitative genetics \cite{tschermak1900kunstliche}; \cite{fisher1919xv};
-\cite{fisher1923}; \cite{falconer1996}. With it came the discovery of inbreeding and
-inbreeding depression, schematic design of field trials, the concept of variance component analysis, hybrid breeding and others. \\
-The third stage, the genomic era of plant breeding, began with the discovery of molecular
-markers, leading up to marker-assisted breeding, linkage and QTL mapping. As marker arrays
-grew larger and sequencing costs dramatically reduced, they were succeeded by the more
-sophisticated and precise methods of whole genome regression and genome-wide association
+epochs that always utilized the technologies available to them in a specific era. In the
+beginning breeding did not exist as succinct field of science and was accomplished by
+simple phenotypic selection by local farmers leading to dramatic changes
+in ca. 7000 cultivated crop species \cite{khoury2016origins}.\\
+The next era in plant breeding was sparked by the upcoming of new statistical methods and
+the rediscovery of Mendelian genetics in the late 19th and early 20th century, which
+combined let to the development of quantitative genetics \cite{tschermak1900kunstliche};
+\cite{fisher1919xv}; \cite{fisher1923}; \cite{falconer1996}. With it came the discovery of
+inbreeding and inbreeding depression, schematic design of field trials, the concept of variance component analysis, hybrid breeding and others. \\
+The third stage, the genomic era of plant breeding, began with the discovery of
+possibilities to asses polymorphisms in the genomes, leading up to marker-assisted
+breeding, linkage and QTL mapping. As marker arrays grew larger and sequencing costs
+dramatically reduced, they were succeeded by the more sophisticated and precise methods of
+whole genome regression and genome-wide association
 studies (GWAS) with high-density marker maps \cite{hayes2001,korte2013advantages}. \\
 Those technological advances allowed plant breeders to provide farmers with cultivars,
 which were able to feed the exponentially growing world's populations since the
-1950s. However, like any century before the 21th imposes great challenges on
+1950s. However, like any century before, the 21th imposes great challenges on
 humankind. Climate change leads to different stresses in the environments and plant
 breeders need to adapt to the specific requirements on high-yielding cultivars, maybe
 quicker than ever before, as drought and flooding occur more often around the world each
 year. \\
 Artificial selection has similar effects as bottlenecks in natural selection do on
-populations.  Of the 7000 cultivated plants in agricultural history, today only three
-provide the major source of food around the world. All three of them -- maize (\textit{Zea
-  mays}) , wheat \textit{Triticum aestivum} and rice \textit{Oryza sativa} -- are closely
-related from the family of \textit{poaceae}. Furthermore during the course of breeding the
-elite cultivars have lost the majority of the genetic diversity of its ancestral wild
-populations \cite{walsh2018}. To continuously adapt and improve crop plants all the
-methods of quantitative genetics, genomics and genome editing need to be combined in the
-modern age of Breeding 4.0 \cite{wallace2018road}.
+populations. Of the 7000 cultivated plants in agricultural history, today only few provide
+the major source of food around the world, with most important being maize (\textit{Zea
+  mays}) , wheat \textit{Triticum aestivum} and rice \textit{Oryza sativa}.  Furthermore,
+during the course of breeding the elite cultivars have lost the majority of the genetic
+diversity of its ancestral wild populations \cite{walsh2018}. To continuously adapt and
+improve crop plants all the methods of quantitative genetics, genomics and genome editing
+need to be combined in the modern age of Breeding 4.0 \cite{wallace2018road}. \\
+Quantitative genetics is a multi step process and requires high quality data have both
+genomes and traits. Figure \ref{fig:quan_flow1} shows a flow diagram with the major
+processes involved in going from genome assemblies to neural network aided genomic
+prediction of complex traits for plant breeding.
+
+
+
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[node distance=2cm, scale=0.8, transform shape]
+      \node (start0) [startstop] {Selection of suitable candidates};
+      \node (start) [startstop,below of=start0] {DNA extraction};
+      \draw [arrow] (start0) -- (start);
+      \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
+      \draw [arrow] (start) -- (seq);
+      \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
+      \draw [arrow] (start) -- (SNP);
+      \node (ga) [process, below of=seq] {Genome assembly} ;
+      \draw [arrow] (seq) -- (ga);
+      \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
+      \draw [arrow] (ga) -- (snpca);
+      \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
+      \draw [arrow] (snpca) -- (imp) ;
+      \draw [arrow] (SNP) -- (imp) ;
+      \node (LD) [io, below of=imp] {LD pruning} ;
+      \draw [arrow] (imp) -- (LD) ;
+      \node (MAF) [io, below of=LD] {MAF filtering} ;
+      \draw [arrow] (LD) -- (MAF) ;
+      \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
+      \draw [arrow] (MAF) -- (bm) ;
+    \end{tikzpicture}
+    \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps} \label{fig:quan_flow1}
+  \end{center}     
+\end{figure}
+
+Chapter \label{Chapter1} will focus on the first part the assembly of genomes exemplified
+with plastid genomes and will elucidate some of the major obstacles presented, when
+starting with raw DNA reads and going to data which is suitable for quantitative methods
+like GWAS and genomic selection. Section \ref{Chapter3} will introduce a novel tool to
+perform large-scale GWAS using modern software and computing resources. Chapter
+\ref{chap:gs} will give in depth introductions to machine learning and the complex
+architecture of quantitative traits 
+
+
 
 %%% Local Variables:
 %%% mode: latex
