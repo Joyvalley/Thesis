@@ -1,7 +1,7 @@
 % -*- TeX-master: "main.tex" -*-
 % Chapter 1
 
-\chapter{GWAS-Flow a GPU-accelerated Software for large-scale Genome-Wide Association Studies}
+\chapter{GWAS-Flow a GPU-accelerated software for large-scale genome-wide association studies}
 
 \label{Chapter2} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
@@ -50,7 +50,7 @@ easily make the estimation of permutation-based thresholds the default choice.
 
 \section{Methods}
 
-\subsubsection{GWAS Model}
+\subsection{GWAS model}
 The GWAS model used for \texttt{GWAS-Flow} is based on a fast approximation of the
 linear-mixed-model described in \cite{kang2010variance,Zhang2010}, which estimates the
 variance components $\sigma$\textsubscript{g} and $\sigma$\textsubscript{e} only once in a
@@ -63,7 +63,7 @@ now $\sigma$\textsubscript{g} would become smaller compared to the null model. T
 p-values calculated by the approximation might be a little higher (less significant) for
 strongly associated markers.
 
-\subsubsection{The GWAS-Flow Software}
+\subsection{The GWAS-Flow software}
 The \texttt{GWAS-Flow} software was designed to provide a fast and robust GWAS
 implementation that can easily handle large data and allows to perform permutations in a
 reasonable time frame. Traditional GWAS implementations that are implemented using Python
@@ -111,7 +111,7 @@ Apart from the p-values that derive from the F-distribution, \texttt{GWAS-Flow} 
 reports summary statistics, such as the estimated effect size ($\beta_i$) and its standard
 error for each marker.
 
-\subsubsection{Calculation of permutation-based thresholds for GWAS}
+\subsection{Calculation of permutation-based thresholds for GWAS}
 
 To calculate a permutation-based threshold essentially \textit{n} repetitions (\textit{n}
 $\geq$ 100) are computed of the GWAS on the same data with the sole difference that before
@@ -123,7 +123,7 @@ a non-genetic origin and could be caused by e.g. model mis-specifications. Now t
 p-value (after filtering for the desired minor allele count) is taken for each permutation
 and the 5\% lowest value is set as the permutation-based threshold for the GWAS.
 
-\subsubsection{Benchmarking}
+\subsection{Benchmarking}
 
 For benchmarking of \texttt{GWAS-Flow} data from the \textit{Arabidopsis} 1001 Genomes
 Project \cite{1001genome} was used. The genomic data used were subsets of the full data
@@ -168,7 +168,7 @@ clearly outperforms the other implementations if the number of accessions increa
 \centering
 \includegraphics[height=.55\textheight, width=.99\textwidth]{Figures/comp_time_gwas}
 \decoRule
-\caption[Computations time vs accessions]{Computational time as a function of the number
+\caption[Computation time vs accessions]{Computational time as a function of the number
   of accessions with 10000 markers each.}
 \label{fig:time_accessions}
 \end{figure}
@@ -217,8 +217,8 @@ permutation-based threshold can be easily adjusted to different minor allele cou
 generating different significance thresholds depending on the allele count. This could
 help to distinguish false and true associations even for rare alleles.\\
 \texttt{GWAS-Flow} is a versatile and fast software package and currently is and will
-remain under active development to make the software more versatile. This will e.g. to
-include the compatibility with TensorFlow v2.0.0 and to enable data input formats, such as
+remain under active development to make the software more versatile. This includes e.g. to
+reach compatibility with TensorFlow v2.0.0 and to enable more data input formats, such as
 PLINK \cite{purcell2007plink}. The whole framework is flexible, so it is easy to include
 predefined co-factors e.g to enable multi-locus models \cite{segura2012efficient} or
 account for multi-variate models like the multi-trait mixed model

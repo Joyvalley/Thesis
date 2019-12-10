@@ -1,4 +1,4 @@
-\section{Material}
+\section{Data}
 Two different data sets were used for the genomic prediction trials. A set of
 doubled-haploid (DH) populations derived from maize landraces and an \textit{A. thaliana}
 data sets with genomic data procured along the 1001 genomic project \cite{1001genome} and
@@ -66,10 +66,9 @@ Europe. Those traits were:
 \end{enumerate}
 
 To account for GxE best linear unbiased estimators (BLUE) were calculated according to
-Henderson's model \cite{henderson1975best} and used for further prediction. Once the BLUEs
-were calculated across all environments and once they were calculated for the DHs in the
-six environments individually.
-
+Henderson's model \cite{henderson1975best} and used for further prediction. The BLUEs were
+calculated across all environments and for the DHs in the six environments individually,
+as explained by \cite{holker2019european}.
 
 
 \subsection{A. thaliana}
@@ -78,21 +77,24 @@ six environments individually.
 
 The genomic data was generated during the course of the 1001 genome project of
 \textit{A. thaliana} \cite{1001genome} producing completely sequenced and assembled
-genomes for 1035 ecotypes along 600k marker data for 1307 accessions with an overlap
-between those groups resulting in a total of 2029 genotyped accessions, totaling in more
-than 10 mio. SNPs and Indels on the five chromosomes of \textit{A. thaliana}. Imputation of
-missing data and upsampling of the 600k subsets was performed with Beagle3
-\cite{browning2007rapid}. \\
-For every one of the 164 phenotypes used for prediction subsets were sampled, LD pruned
-and MAF filtered. LD pruning was executed with the R-package SNPRelate
+genomes for 1135 ecotypes. Combining them with a 250k marker data set for 1307 accessions
+\cite{horton2012genome}, which partially overlaps with the fully-sequenced accessions resulting
+in a total of 2029 genotyped accessions, totaling in more than 10 mio. SNPs and Indels on
+the five chromosomes of \textit{A. thaliana}. Imputation of missing data and upsampling of
+the 250k subsets was performed with Beagle3
+\cite{browning2007rapid}. Those data sets were published alongside \cite{tong2019}. \\
+
+
+\subsubsection{Phenotypic data}
+A complete list of the 164 phenotypes that are available on AraPheno can be found in
+Appendix \ref{AppendixB} \cite{seren2016arapheno}. The phenotypic trials ranged from 100
+to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014};
+\cite{strauch2015}.\\
+For every one of the 164 phenotypes used for prediction subsets of the marker matrix were
+sampled, LD pruned and MAF filtered. LD pruning was executed with the R-package SNPRelate
 \cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$ and a
 $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
 phenotype.
-
-\subsubsection{Phenotypic data}
-A complete list of the phenotypes used can be found in Appendix \ref{AppendixB} with the
-according study references. The phenotypic trials ranged from 100 to more than 1000
-accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014}; \cite{strauch2015}.
 
 \section{Methods}
 
@@ -103,16 +105,16 @@ implemented for the prediction of maize and \textit{Arabidopsis} traits.
 
 \subsection{Validation scheme} \label{cv}
 
-The validation approach in this study was a little different than common five fold cross
-validation. All predictions were run 50 times with different splits of TST and TRN. For
-the full data sets randomly 20\% were assigned to TST and 80\% to TRN. This process was
-repeated 50 times reducing the chance of biases due to any TST-TRN combination being
-randomly more predictable for one or the other method. The validation scheme was generated
-\textit{a priori} and stored in cross-validation files to allow reusing the validation
-sets.
+The validation approach in this study was a little different than the commonly used five
+fold cross validation. All predictions were run 50 times with different splits of TST and
+TRN. For the full data sets randomly 20\% were assigned to TST and 80\% to TRN. This
+process was repeated 50 times reducing the chance of biases due to any TST-TRN combination
+being randomly more predictable for one or the other method. The validation scheme was
+generated \textit{a priori} and stored in cross-validation files to allow reusing the
+validation sets.
 
 \subsection{ANN}
-The scripts for ANN based GS were written in python using the lower level API TensorFlow
+The scripts for ANN based GP were written in Python using the lower level API TensorFlow
 \cite{TF2016} and the higher level API Keras \cite{keras2015} (appendix
 \ref{AppendixA}. Both are very versatile, well-documented and are capable of performing a
 large variety of machine learning applications. For those reasons they are among the most
@@ -120,7 +122,7 @@ used ML libraries. Another advantage is that they work well on GPUs, which allow
 algorithms to run in a reasonable amount of time compared to CPU-based calculations. \\
 The markers of TRN served as the input layer for the network, while the phenotypes were
 values trained upon in the output node. Preliminary trials showed that Adam is the
-superior optimizer for GS and hence was the only one further used. Likewise ReLu was the
+superior optimizer for GS and hence was the only one further used. Likewise ReLU was the
 activation of choice being superior to sigmoid or other non-rectifiers. All the weights
 and the biases of the kernel were initialized with truncated normal distributed
 values. The loss function used was always MSE. \\
@@ -155,7 +157,7 @@ encoded markers.
 \onehalfspacing
 \begin{table}[H]
  \centering
- \caption{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
+ \caption[Environmentally enhanced marker matrix]{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
  \label{tab:envmarker}
  \begin{tabular}{l|cccc}
  \toprule
@@ -390,8 +392,8 @@ those with low general prediction accuracies, with extreme values of 0.2 and 0.1
 either direction, however, with the majority of those with GBLUP being dominant over
 ANNs. Furthermore, also visible in figure \ref{fig:annblup}, when the predictive abilities
 are high and ANNs perform better, the differences between the methods becomes
-insignificantly small, so that for those data sets the difference is smaller than 0.01.
-\newpage
+insignificantly small.
+
 \subsection{Results of maize prediction}
 \subsubsection{Across environments}
 
@@ -507,7 +509,7 @@ and plant height traits are closely correlated since they are basically the same
 measured at different time points, it is not surprising that the same algorithm that works
 well on one of those works well on the others as well.
 
-\subsubsection{Number of markesr and prediction accuracy}
+\subsubsection{Number of marker and prediction accuracy}
 
 Marker chips like the ones used to analyze the genomic maize data for this study contain
 hundreds of thousands of SNPs and other polymorphisms \cite{unterseer2014powerful}. Due to
@@ -544,8 +546,8 @@ each and again each subset has been split into 80\% TRN and 20\% TRN 50 times.
 \begin{figure}[H]
  \centering \includegraphics[angle=0,height=.55\textheight, width=0.99\textwidth]{phenos_acc}
  \decoRule
- \caption[Predictive ability as a function of the number of markers]{Predictive ability as
-   a function of the number of phenotypes included in the prediction from the Kemater
+ \caption[Predictive ability as a function of the number of DHs]{Predictive ability as
+   a function of the number of DHs included in the prediction from the Kemater
    population. The dots represent the mean prediction accuracies for 10 randomly subsets
    with 50 fold validation each. The pointsize indicates the standard deviation}
 \label{fig:phenos_vs_acc}
@@ -570,7 +572,7 @@ almost 0.9, depending on the trait being assessed. Next to the number for marker
 phenotypes, the architectures of a trait as explained in section \ref{quan} will have an
 definite influence on the ability of prediction algorithms being able to produce
 meaningful results. Plot \ref{fig:herit_gp} compares the heritability with the results of
-GBLUP prediction for the 146 \textit{A. thaliana} traits used for prediction. The
+GBLUP prediction for the 145 \textit{A. thaliana} traits used for prediction. The
 heritability here is the pseudo-heritability as estimated during GWAS using REML
 estimations of the variance components of a trait with given genotypes. 
 
@@ -579,14 +581,14 @@ estimations of the variance components of a trait with given genotypes.
  \decoRule
  \caption[Prediction accuracies of GBLUP compared to the heritability of
  \textit{A. thaliana} traits]{Prediction accuracies of GBLUP compared to the
-   pseudo-heritability of \textit{A. thaliana} traits. The color scale indicates the
+   pseudo-heritability estimate of \textit{A. thaliana} traits. The color scale indicates the
    difference between the accuracy and the pseudo-heritability. The size of the dots
    indicates the absolute difference between ANN and GBLUP prediction. Dots on the
    diagonal line have the same accuracy and heritability}
 \label{fig:herit_gp}
 \end{figure}
 
-The predictive ability and the pseudo-heritability are highly correlated with each other
+The predictive ability and the pseudo-heritability estimate are highly correlated with each other
 and the latter can be used as a valid approximation for the accuracy of prediction. In
 chapter \ref{quan} it was stated that it is theoretically impossible for
 $\rho_{(y,\hat{y})}$ to exceed $H^2$. As figure \ref{fig:herit_gp} shows this assumptions
@@ -649,7 +651,7 @@ Genotype-environment interactions are present in all field trials, which complic
 breeding and selection, as compared to trials with controlled environments. One advantage
 of machine learning, is that environmental information can easily be incorporated into ANN
 models because there are no assumptions prior to the analyses for effect sizes and the
-shrinkage imposed on the markers as in the Bayesian models \cite{gianola2013};
+shrinkage imposed on the markers- as in the Bayesian models \cite{gianola2013};
 \cite{bustos2016improvement}. The maize traits under investigation show that
 $\sigma_{GxE}$ has a great influence. Table \ref{tab:ge_deltas} summarizes the results for
 the GxE predictions and shows that just by adding the environmental markers the prediction
@@ -740,11 +742,17 @@ Artificial neural networks in many fields replaced older methods in a short amou
 and biological research is no exception \cite{angermueller2016}. Even though neural nets
 present a valuable addition to the toolbox of genomic selection in plant and animal
 breeding they do not perform to the potential they have shown in other fields.  Among the
-reasons could be next to the too few phenotypes usually present in the study to capture
+reasons could be, next to the too few phenotypes usually present in the study to capture
 interactions, that neural networks are applied the exact same way as GBLUP or others are
 implemented, which does not allow to use the networks strength. Instead of using imputed
 data neural nets could be fed with raw input data, and utilize multiple data sets at once
-including multiple traits and environments to increase prediction accuracies.
+including multiple traits and environments to increase prediction accuracies. Additionally
+to using the raw genotypic data, it could be promising to use the raw phenotypic data for
+genomic prediction. With the calculation of the BLUEs or means an important feature of the
+traits is lost, which is the variance of the observation between and among environments
+and repetitions. The networks for example could be trained an a multi-dimensional tensor
+containing all the measured values instead of the BLUEs. \\
+
 
 
 %%% Local Variables:

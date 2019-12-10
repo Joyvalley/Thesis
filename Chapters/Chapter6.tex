@@ -1,4 +1,4 @@
-\chapter{General Discussion and further Observations} % Main chapter title
+\chapter{General discussion and further observations} % Main chapter title
 \label{Chapter6}
 \section{Genomic data preparation is error-prone}
 
@@ -9,19 +9,19 @@ of sight. \\
 To perform analyses for quantitative genetics in general there are two types of data
 required: (i) genotypic and (ii) phenotypic data. Both are equally important and take many
 steps to procure. \\
-Figure \ref{fig:quan_flow} schematically displays the key steps involved in obtaining
-genomic marker matrices for downstream analyses as GWAS and GS from selection of candidate
-genotypes to the final numeric marker matrix. Genotyping can either be achieved by whole
-genome sequencing or by SNP analysis with a SNP array.  The first step after sequencing,
-which provides raw reads, is to assemble the genome. As discussed in chapter
-\ref{Chapter1}, genome assembly is a complicated process. This holds true for both the
-assembly of core and plastid genomes. There is a large variety of tools available for core
-genome assemblies and like the ones for plastid genomes they vary in their algorithmic
-approaches and likewise their accuracy \cite{zhang2011practical}, which makes it hard to
-determine whether polymorphisms between individual genomes are due to artifacts in the
-genome assembly pipeline or actually are mirrored in the biological genome. Furthermore,
-genome assemblies result in one dimensional representations of formerly three dimensional
-genomes, losing most of the spatial and epigenetic information.
+Figure \ref{fig:quan_flow}, reintroduced from chapter 1, schematically displays the key
+steps involved in obtaining genomic marker matrices for downstream analyses as GWAS and GS
+from selection of candidate genotypes to the final numeric marker matrix. Genotyping can
+either be achieved by whole genome sequencing or by SNP analysis with a SNP array.  The
+first step after sequencing, which provides raw reads, is to assemble the genome. As
+discussed in chapter \ref{Chapter1}, genome assembly is a complicated process. This holds
+true for both the assembly of core and plastid genomes. There is a large variety of tools
+available for core genome assemblies and like the ones for plastid genomes they vary in
+their algorithmic approaches and likewise their accuracy \cite{zhang2011practical}, which
+makes it hard to determine whether polymorphisms between individual genomes are due to
+artifacts in the genome assembly pipeline or actually are mirrored in the biological
+genome. Furthermore, genome assemblies result in one dimensional representations of
+formerly three dimensional genomes, losing most of the spatial and epigenetic information.
 
 \begin{figure}[H]
   \begin{center}
@@ -64,12 +64,12 @@ vastly depending on the population, LD structure, chromosome region, effective p
 size and the allele frequency, all possibly leading to errors adding up the ones already
 introduced to the upper branches of the entire pipeline.
 
-\subsection{Imputation leads to false positive GWAS results}
+\subsection{Imputation can lead to false positive GWAS results}
 
 Faulty imputation and SNP calling can result in false positive GWAS results as shown in
 the following example. Data from phenotypic trials with 330 fully sequenced
-\textit{A. thaliana} for carbon isotope discrimination were used to perform GWAS with a
-marker matrix containing 10 million SNPs imputed with Beagle 3.0
+\textit{A. thaliana} accessions for carbon isotope discrimination were used to perform
+GWAS with a marker matrix containing 10 million SNPs imputed with Beagle 3.0
 \cite{dittberner2018natural}. This resulted in one marker with a significant p value on
 the fourth chromosome. Upon further investigation of the chromosomal region in question
 using the unimputed data, a complex haplotype structure was revealed as shown in figure
@@ -79,8 +79,8 @@ using the unimputed data, a complex haplotype structure was revealed as shown in
 \centering
 \includegraphics[height=.55\textheight, width=0.99\textwidth]{Figures/plot_NAs_AT}
 \decoRule
-\caption[Haplotype structure on a 1kb window of chromosome 4 of
-\textit{A. thaliana}]{Haplotype structure on a 4 kb window of chromosome five of
+\caption[Haplotype structure on a 1 kbp window of chromosome 4 of
+\textit{A. thaliana}]{Haplotype structure on a 4 kbp window of chromosome five of
   \textit{A. thaliana}. On the vertical axis the number of NAs in the population of 1135
   accessions for a given marker is displayed. The horizontal axis gives the physical
   position on the chromosome. Red markers are located in coding and blue markers in
@@ -127,15 +127,15 @@ disadvantages for those regions being highly polymorphic can only be speculated.
 \centering 
 \includegraphics[height=.55\textheight, width=0.99\textwidth]{Figures/chr1_hap}
 \decoRule
-\caption[Haplotype strutcture of chromosome 1 of \textit{A. thaliana}]{The number of
+\caption[Haplotype structure of chromosome 1 of \textit{A. thaliana}]{The number of
   segregating haplotypes with a polymorphism in at least one position over a stretch of 1
   kbp on chromosome one of \textit{A. thaliana}.}
 \label{fig:chr1}
 \end{figure}
 
 Next to highly polymorphic regions there are regions, which are completely conserved and
-do not have a single polymorphism in a 1 kpb window. Around the centromere there are
-regions longer than 10 kpb with no SNPs. Intuitively one would assume that this would
+do not have a single polymorphism in a 1 kbp window. Around the centromere there are
+regions longer than 10 kbp with no SNPs. Intuitively one would assume that this would
 indicate important household genes that do not allow for any alterations in the amino acid
 sequence, however, the majority, around 75\% of those regions are considered to be
 non-coding. Conserved non-coding sequences (CNS) have been widely studied and shown great
@@ -155,7 +155,13 @@ duplications and consist of many more chromosome. Like the diploid \textit{Z. ma
 10 chromosomes, the allotetraploid \textit{B. napus} a product of hybridization with 19
 chromosomes from the two ancestral species \textit{B. rapa} and \textit{B. oleracea}
 \cite{liu2018brassica}, or the even more complex allohexaploid genome of
-\textit{T. aestivum} \cite{international2018shifting}.
+\textit{T. aestivum} \cite{international2018shifting}. \\
+Haplotypes are also an interesting prospect in genomic selection and GWAS. If the
+algorithms are calculated with haplotypes instead of marker matrices it could potentially
+be possible to reduce the number of features while keeping all information at the same
+time \cite{calus2008accuracy}; \cite{cuyabano2014genomic};
+\cite{bekele2018haplotype}. This could aid in reducing the dimensionality and the demand
+in computational resources alike.
 
 \subsection{Input data for GWAS and GS}
 
@@ -193,10 +199,49 @@ progeny will be used to further elucidate the nature of quantitative traits, gen
 selection and genome editing will allow further improvement of the worlds major crop
 plants \cite{rodriguez2017engineering}, aiming to provide germplasms with the yield
 potential required by the demand of the growing world's population.\\
-Following the current trends in bioinformatics for plant breeding this full lead to a
+Following the current trends in bioinformatics for plant breeding this will lead to a
 further increase in the dimensionality of data, as genotyping costs will further decline
 and modern automated phenotyping techniques allow for larger trials, swallowing less
-resources. 
+resources. \\
+Thus there is an still increasing demand for computational tools and novel algorithms that
+can handle vast amounts of data and extract information in reasonable time
+frames. Therefore, quantitative genetics and genomic selection for plant breeding will
+remain under active research and as this thesis succeeded many studies concerning similar
+topics, it precedes many that will follow.
+
+
+\chapter{Abstract} % Main chapter title
+\textbf{Quantitative genetics - from genome assemblies to neural network aided omics-based prediction of complex traits}\\
+Quantitative genetics is the study of continuously distributed traits and their genetic
+components. Recent developments in DNA sequencing technologies and computational systems
+allow researchers to conduct large scale \textit{in silico} studies. However, going from
+raw DNA reads to genomic prediction of quantitative traits with the help of neural
+networks is a long and error-prone process. In the course of this thesis, many steps
+involved in this process will be assessed in depth. Chapter 2 will feature a study that
+compares the landscape of chloroplast genome assembly tools. Chapter 3 will present a
+software to perform genome-wide association studies using modern tools, which allow
+GWAS-Flow to outperform current state of the art software packages. Chapter 4 will give an
+in depth introduction to machine learning and the nature of quantitative traits and will
+combine those to genomic prediction with artificial neural networks and compares the
+results to those of algorithms based on linear mixed models. Finally, in Chapter 5 the
+results from the previous chapters are summarized and used to elucidate the complex nature
+of studies concerning quantitative genetics.
+
+\chapter{Zusammenfassung} % Main chapter title
+\textbf{Quantitative Genetik - von Genomassemblierungen bis zur Vorhersage von Ph\"{a}notypischen Merkmalen mit Hilfe von Omics unterstüzten Neuronalen Netzwerken} \\
+Quantitative Genetik beschäftigt sich mit kontinuierlich verteilten Merkmalen und deren
+genetischer Komponenten. In den letzten Jahren gab es vielfältige Entwicklungen in der
+Computertechnik und der Genomik, insbesondere der DNA Sequenzierung, was Forschern erlaubt
+großflächig angelegte \textit{in silico} Studien durch- zuführen. Jedoch ist es ein
+komplexer Prozess von rohen Sequenzdaten bis zur genomischen Vorhersage mit Hilfe von
+neuronalen Netzwerken zu kommen. Im Rahmen der vorliegenden Studien werden viele Schritte,
+die an diesem Prozess beteiligt sind beleuchtet. Kapitel 2 wird einen Vergleich zwischen
+einer Vielzahl an Werkzeugen zur Assemblierung von Chloroplasten Genomen ziehen. Kapitel 3
+stellt eine neu entwickelte Software zur genom-weiten Assoziationskartierung vor, die
+bisherigen Programmen überlegen ist. Kapitel 4 stellt maschinelles Lernen und die
+genetischen Komponenten von quantitativen Merkmalen vor und bringt diese im Kontext der
+genomischen Vorhersagen zusammen. Zum Schluss in Kapitel 5 werden die vorherigen
+Ergebnisse im Gesamtkontext der quantitativen Genetik beleuchtet.
 
 
 % Recombination and LD in \textit{A. thaliana} \cite{kim2007recombination}

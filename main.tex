@@ -62,15 +62,20 @@ chapterinoneline, % Uncomment to place the chapter title next to the
 
 \pagenumbering{alph}
 
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+% \definecolor{codegreen}{rgb}{0,0.6,0}
+% \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+% \definecolor{codepurple}{rgb}{0.58,0,0.82}
+% \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{codegreen}{gray}{0.3}
+\definecolor{codegray}{gray}{0.5}
+\definecolor{codepurple}{gray}{0.58}
+\definecolor{backcolour}{gray}{1}
  
 \lstdefinestyle{mystyle}{
   backgroundcolor=\color{backcolour},  
   commentstyle=\color{codegreen},
-  keywordstyle=\color{magenta},
+  keywordstyle=\color{codegreen},
   numberstyle=\tiny\color{codegray},
   stringstyle=\color{codepurple},
   basicstyle=\ttfamily\footnotesize,
@@ -102,7 +107,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the
 %----------------------------------------------------------------------------------------
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
-\thesistitle{Quantitative Genetics: \\ From Genome Assemblies to Neural Network aided Omics Based Prediction of Complex Traits} % Your thesis title 
+\thesistitle{Quantitative genetics: \\ from genome assemblies to neural network aided omics-based prediction of complex traits} % Your thesis title 
 
 \author{Jan Alexander \textsc{Freudenthal}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
 \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
@@ -131,7 +136,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the
     {\color{mdtRed}\LARGE \ttitle\par}
     \vspace{1.0cm}
     
-    Doctoral thesis at the Graduate School of Life Sciences \\
+    Doctoral Thesis at the Graduate School of Life Sciences \\
     Section Integrative Biology \\
     submitted by \\
     \vspace{1.0cm}
@@ -160,7 +165,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the
     \end{centering}
     \vspace{0.2\textheight}
     \noindent
-    \textbf{Date of Pupblic Defence:} \dotfill \\
+    \textbf{Date of Public Defence:} \dotfill \\
     \textbf{Date of Receipt of Certificates:}\dotfill
   
   
@@ -187,9 +192,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the
   \noindent
   {\LARGE\textbf{Eidesstattliche Erkl\"{a}rung}}\\
   \noindent
-  Hiermit erkläre ich an Eides statt, die Dissertation mit dem Titel \textit{``Quantitative genetics -
-  from genome assemblies to neural network aided omics based
-  prediction of complex traits''} 
+  Hiermit erkläre ich an Eides statt, die Dissertation mit dem Titel \textit{``Quantitative Genetik - von Genomassemblierungen bis zur Vorhersage von Ph\"{a}notypischen Merkmalen mit Hilfe von Omics unterstüzten Neuronalen Netzwerken''} 
   eigenst\"{a}ndig, d.h. insbesondere selbst\"{a}ndig und ohne Hilfe eines
   kommerziellen Promotionsberaters, angefertigt und keine anderen als
   die von mir angegebenen Quellen und Hilfsmittel verwendet zu haben.
@@ -213,7 +216,7 @@ chapterinoneline, % Uncomment to place the chapter title next to the
 \hfill Rowena Rawenclaw
 
 %----------------------------------------------------------------------------------------
-%	ABSTRACT PAGE
+% ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------------------
@@ -221,14 +224,14 @@ chapterinoneline, % Uncomment to place the chapter title next to the
 %----------------------------------------------------------------------------------------
 
 \begin{acknowledgements}
-   \addchaptertocentry{Acknowledgements} % Add the acknowledgements to the table of contents
+   \addchaptertocentry{Acknowledgments} % Add the acknowledgements to the table of contents
    \noindent
    Thanks, to Prof. Arthur Korte for hiring me and the opportunity to conduct research and write this thesis in his group, as well as the invaluable help. \\
    Thanks, to Arthur, Prof. Jörg Schultz and Prof. Thomas Dandekar for the supervision and being part of the thesis committee. \\
    Thanks, to Prof. Thomas Schmitt for being the chairperson of the thesis committee. \\
    Thanks, to the co-authors of the chloroplast benchmarking project: Niklas Terhoeven, Simon Pfaff, Markus Ankenbrand and Frank Förster. \\
-   Thanks, to the co-authors of the GWAS-Flow project: Markus Ankendbrand, Dominik Grimm and of course Arthur. \\
-   Thanks, to the students who assisted in the genomic selection projects: Laura Steinmann, Roman Saiz and Florens Fischer as well as the other collaborators Markus Ankendbrand and Torsten Pook. \\
+   Thanks, to the co-authors of the GWAS-Flow project: Markus Ankenbrand, Dominik Grimm and of course Arthur. \\
+   Thanks, to the students who assisted in the genomic selection projects: Laura Steinmann, Roman Saiz and Florens Fischer as well as the other collaborators Markus Ankenbrand and Torsten Pook. \\
    Thanks, to the German Federal Ministry of Education and Research (BMBF) and the German
    tax payers for funding the MAZE project within the scope of the funding initiative
    “Plant Breeding Research for the Bioeconomy” (Funding ID: 031B0195). \\
@@ -237,59 +240,29 @@ chapterinoneline, % Uncomment to place the chapter title next to the
 \end{acknowledgements}
 
 
-\begin{abstract}
-  \addchaptertocentry{Abstract} % Add the abstract to the table of contents
-  \noindent
-  \textbf{Quantitative genetics - from genome assemblies to neural network aided omics
-    based prediction of complex traits}\\
-  Quantitative genetics is study of continuously
-  distributed phenotypes and their genetic components. Recent developments in DNA
-  sequencing technologies and computational systems allow researchers to conduct large
-  scale \textit{in silico} studies. However, going from raw DNA reads to genomic
-  prediction of quantitative traits with the help of neural networks is a long and
-  error-prone process. In the course of this thesis, many steps involved will be assessed
-  in depth. Chapter 2 will feature a study that compares the landscape of chloroplast
-  genome assembly tools. In Chapter 3 will present a software to perform genome-wide
-  association studies using modern tools, which allow GWAS-Flow to outperform current
-  state of the art software packages. Chapter 4 will give an in depth introduction to
-  machine learning and the nature of quantitative traits and will combine those to genomic
-  prediction with artificial neural networks and compares the results to those of
-  algorithms based on linear mixed models. Finally, in Chapter 5 the results from the
-  previous chapters are summarized and used to elucidate the complex nature of studies
-  concerning quantitative genetics.
-  \vspace{10em}
+% \begin{abstract}
+%   \addchaptertocentry{Abstract} % Add the abstract to the table of contents
+%   \noindent
+%    \vspace{10em}
 
-\newpage
-\noindent
-\textbf{Quantitative Genetik - von Genom Assemblierung bis zur Vorhersage von Ph\"{a}notypischen Merkmalen mit Hilfe von omics unterstüzten Neuronalen Netzwerken} \\  
-Quantitative Genetik beschäftigt sich mit kontinuierlich verteilten Merkmalen und deren
-genetischer Komponenten. In den letzten Jahren gab es vielfältige Entwicklungen in der
-Computertechnik und der Genomik, insbesondere der DNA Sequenzierung, was Forschern erlaubt
-großflächig angelegte \textit{in silico} Studien durch- zuführen. Jeden ist es ein
-komplexer Prozess um von rohen Sequenzdaten bis zum genomischen Vorhersage mit neuronalen
-Netzwerken zu kommen. Im Rahmen der vorliegenden Studien werden viele Schritte, die an
-diesem Prozess beteiligt sind beleuchtet. Kapitel 2 wird einen Vergleich zwischen einer
-Vielzahl an Werkzeugen zur Assemblierung von Chloroplasten Genomen ziehen. Kapitel 3
-stellt eine neu entwickelte Software zur genom-weiten Assoziationskartierung vor, die
-bisherigen Programmen überlegen ist. Kapitel 4 stellt maschinelles Lernen und die
-genetischen Komponenten von quantitativen Merkmalen vor und bringt diese im Kontext der
-genomischen Vorhersagen zusammen. Zum Schluss in Kapitel 4 werden die vorherigen
-Ergebnisse im Gesamtkontext der quantitativen Genetik beleuchtet.
+% \newpage
+% \noindent
+% bnisse im Gesamtkontext der quantitativen Genetik beleuchtet.
 
-\end{abstract}
+% \end{abstract}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %----------------------------------------------------------------------------------------
 
 \tableofcontents % Prints the main table of contents
-\addcontentsline{toc}{chapter}{Table of Contents}
+\addcontentsline{toc}{chapter}{Table of contents}
 
 \listoffigures % Prints the list of figures
-\addcontentsline{toc}{chapter}{List of Figures}
+\addcontentsline{toc}{chapter}{List of figures}
 
 \listoftables % Prints the list of tables
-\addcontentsline{toc}{chapter}{List of Tables}
+\addcontentsline{toc}{chapter}{List of tables}
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
