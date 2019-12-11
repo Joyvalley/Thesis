@@ -439,19 +439,19 @@ with randomly-sampled alleles, follow a continuous normal distribution in a
 population. \\
 While this combined the ideas of Mendel and of the biometricians it opened another long
 debated question of effect sizes and the overall genetic architecture of complex
-traits. While in the theory of monogenic traits the effect size of the single gene on the
+traits. While in the theory of monogenic traits the effect size of a single gene on the
 trait is 100\%, with an increasing number of genes influencing a complex trait the
 \textit{per se} contribution of single genes has to decrease with an increasing number of
 loci determining the value of a given trait. Until the 1990s it has been believed that
 complex traits are predominantly controlled by few genes with a
 large to medium effect size, while others supposedly have a minimal influences \cite{zhang2018esti}. \\
 With the upcoming popularity of GWAS as the favored method to decipher genetic
-architectures of traits, it became clear that the
-majority of effect sizes are tiny (< 1\%), while there are very few loci which have a
-moderate effect on the phenotypic variance of a population with around 10\% or less
-\cite{stringer2011}; \cite{korte2013advantages}. This nature of quantitative traits
-presents great challenges to animal \cite{goddard2009} and plant breeding
-\cite{wurschum2012} in further improving crop or livestock performances, as well as
+architectures of traits, it became clear that the majority of effect sizes are tiny (<
+1\%), while there are very few loci, which have a moderate effect on the phenotypic
+variance of a population with around 10\% or less \cite{stringer2011};
+\cite{korte2013advantages}. This nature of quantitative traits presents great challenges
+to animal \cite{goddard2009} and plant breeding \cite{wurschum2012} in further improving
+crop or livestock performances, as well as
 complicating the decomposition of genomic causes for diseases like schizophrenia or autism in human medicine \cite{de2014}; \cite{purcell2014}. \\
 While the complex nature of the architecture of quantitative traits provides enough
 challenges as is, all traits are also influenced by the environment surrounding the individual.\\
@@ -505,8 +505,8 @@ the environmental variance on the phenotypic distribution. This concept is calle
 heritability. \\
 The heritability of a trait $H^2$ accounts for the proportion of the phenotypic variance
 controlled by the total genetic variance as shown in equation \ref{eqn:h2G}. This is also
-referred to as broad sense heritability because all genetic effects, including additive,
-dominance and epistatic effects, are included \cite{brooker1999genetics}.
+referred to as the broad sense heritability because all genetic effects, including additive,
+dominance and epistatic effects, are considered \cite{brooker1999genetics}.
 
 \begin{equation}
  H^2 = \frac{\sigma_{A} + \sigma_{D} + \sigma_{I}}{\sigma_{P}}
@@ -604,7 +604,7 @@ figure \ref{fig:trunSel}.
 \begin{figure}[H]
   \centering \includegraphics[height=.25\textheight, width=0.6\textwidth]{Figures/truncSel} \decoRule
   \caption[Truncation selection of a normal distributed phenotype]{Truncation selection
-    from a normal distributed phenotype with selection a threshold value of $T$, $\mu$ as
+    from a normal distributed phenotype with a selection threshold value of $T$, $\mu$ as
     the mean of the total population and $\mu^{\ast}$ as the mean of the selected
     phenotypes. Graphic from \cite{walsh2018short}}
  \label{fig:trunSel}
@@ -955,7 +955,7 @@ This can be algebraically solved to compute the GEBV of the unknown phenotypes $
 \end{equation}
 
 GBLUP is fairly easy compared to more complex Bayesian methods and can be quickly implemented in any
-programming language capable of solving liner equations like R or Python \cite{CRAN};
+programming language capable of solving linear equations like R or Python \cite{CRAN};
 \cite{van1995python}. Computationally, as the number of phenotypes in the study increases in numbers,
 the time demand grows exponentially because the kinship matrix quadruples in size and
 it becomes more complicated to compute the inverse of $G$ (personal observations). \\
@@ -1169,7 +1169,7 @@ complex. Effect sizes are not constant and epistasis may be caused by
 interactions with more than just two markers. With an increasing number of markers the
 number of possible two way interactions increases even more to $2^{n-1}$. Smaller
 interaction effects could be obscured under larger additive effects. Gene-environment
-interactions might have a significant influence resulting in a model that does not
+interactions might have a significant influence, resulting in a model that does not
 converge.
 
 %%% Local Variables:

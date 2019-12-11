@@ -47,7 +47,7 @@ The genomic maize data was provided by the TUM as described by \cite{holker2019e
 Genotyping was performed with the 600k Affymetrix\textsuperscript{\textregistered}
 Axiom\textsuperscript{\textregistered} Maize array \cite{unterseer2014powerful}. The
 markers were quality filtered and missing values were imputed individually for each
-landrace population using Beagle 5.0 \cite{browning2007rapid};
+landrace population using \texttt{Beagle 5.0} \cite{browning2007rapid};
 \cite{browning2018one}. After LD pruning and further quality control 29833 markers
 remained for 471 Kemater and 403 PE DHs. LL was excluded from further analyses due to
 insufficient amounts of genotypes.
@@ -81,16 +81,17 @@ genomes for 1135 ecotypes. Combining them with a 250k marker data set for 1307 a
 \cite{horton2012genome}, which partially overlaps with the fully-sequenced accessions resulting
 in a total of 2029 genotyped accessions, totaling in more than 10 mio. SNPs and Indels on
 the five chromosomes of \textit{A. thaliana}. Imputation of missing data and upsampling of
-the 250k subsets was performed with Beagle3
+the 250k subsets was performed with \texttt{Beagle3}
 \cite{browning2007rapid}. Those data sets were published alongside \cite{tong2019}. \\
 
 
 \subsubsection{Phenotypic data}
 A complete list of the 164 phenotypes that are available on AraPheno can be found in
-Appendix \ref{AppendixB} \cite{seren2016arapheno}. The phenotypic trials ranged from 100
-to more than 1000 accessions per data set \cite{atwell2010}; \cite{li2010}; \cite{me2014};
+Appendix \ref{AppendixB} \cite{seren2016arapheno} of those 145 were included in this
+study. The phenotypic trials ranged from 100 to more than 1000 accessions per data set
+\cite{atwell2010}; \cite{li2010}; \cite{me2014};
 \cite{strauch2015}.\\
-For every one of the 164 phenotypes used for prediction subsets of the marker matrix were
+For every one of the 145 phenotypes used for prediction, subsets of the marker matrix were
 sampled, LD pruned and MAF filtered. LD pruning was executed with the R-package SNPRelate
 \cite{zheng2013tutorial} with a relatively strict LD threshold of $0.65$ and a
 $MAF > 10 $. This resulted in data sets with approximately 150.000 markers for each
@@ -101,7 +102,7 @@ phenotype.
 The theoretical backgrounds of the methods used for genomic prediction were described in
 section \ref{introml} for the ANNs and section \ref{blup:bayes} for the Bayesian methods
 and GBLUP. The next sections are devoted to explaining how those methods were adapted and
-implemented for the prediction of maize and \textit{Arabidopsis} traits.
+implemented for the prediction of the maize and \textit{Arabidopsis} traits.
 
 \subsection{Validation scheme} \label{cv}
 
@@ -120,7 +121,7 @@ The scripts for ANN based GP were written in Python using the lower level API Te
 large variety of machine learning applications. For those reasons they are among the most
 used ML libraries. Another advantage is that they work well on GPUs, which allows ML
 algorithms to run in a reasonable amount of time compared to CPU-based calculations. \\
-The markers of TRN served as the input layer for the network, while the phenotypes were
+The markers of TRN served as the input layer for the network, while the phenotypes were the
 values trained upon in the output node. Preliminary trials showed that Adam is the
 superior optimizer for GS and hence was the only one further used. Likewise ReLU was the
 activation of choice being superior to sigmoid or other non-rectifiers. All the weights
@@ -140,7 +141,7 @@ this case markers, are combined in the first hidden layer. The type of drop out 
 normal dropout function was used further. The network's training was iterated over the
 different number of epochs, architectures, drop out values and the cross validation
 cycles, thus explaining the tremendous amount of total networks trained. Epochs from $5$
-to $60$ in steps $5$ and several 1, 2 or 3 Layer architectures, following the
+to $60$ in steps of $5$ and several 1, 2 or 3 Layer architectures, following the
 locally-connected layer, were tested.
 
 \subsubsection{Single environment prediction}
@@ -149,8 +150,8 @@ to be able to gain insights into the structure of $\sigma_{GxE}$ of the maize tr
 resulted in 2246 genotype x environment combinations for Kemater and 1975 for Petkuser
 with at least one data point. This number is lower than the maximum number of DHs per
 population times the six environments because, naturally, not all genotypes yielded
-reliable data in all the environments. Each DH x environment was treated as an individual
-for the across environment prediction. The marker matrix was enhanced with the
+reliable data in all the environments. Each DH x environment combination was treated as an
+individual for the across environment prediction. The marker matrix was enhanced with the
 environmental origin as cofactors as show in table \ref{tab:envmarker} with one-hot
 encoded markers.
 
@@ -391,7 +392,7 @@ smaller than 0.03. The ones with a difference in accuracies larger than 0.05 are
 those with low general prediction accuracies, with extreme values of 0.2 and 0.15 going in
 either direction, however, with the majority of those with GBLUP being dominant over
 ANNs. Furthermore, also visible in figure \ref{fig:annblup}, when the predictive abilities
-are high and ANNs perform better, the differences between the methods becomes
+are high and ANNs perform better, the differences between the methods become
 insignificantly small.
 
 \subsection{Results of maize prediction}
@@ -480,7 +481,7 @@ have been smaller.
  \decoRule
  \caption[Results of genomic prediction for single environments for Kemater and
  Petkuser DH populations]{Results of genomic prediction for single environments for
-   \textbf{A} Kemater and \textbf{B} Petkuser DH populations}
+   \textbf{A} Kemater and \textbf{B} Petkuser DH populations. With the prediction accuracies of the across location BLUEs (AL) and the single location BLUEs (SL) }
 \label{fig:sl_pred}
 \end{figure}
 
@@ -538,7 +539,7 @@ does not increase or decrease as the overall predictive ability grows larger.
 
 \subsubsection{Number of DHs and prediction accuracy}
 
-Figure \ref{fig:phenos_vs_acc} shows the prediction accuracy as a function as the number
+Figure \ref{fig:phenos_vs_acc} shows the prediction accuracy as a function of the number
 of Kemater DHs in the prediction set. As explained in section \ref{met:blup:bayes}, the
 full 471 Kemater DH library was subsampled in 50, 100, 200, 300 and 400 DH subsets 10 times
 each and again each subset has been split into 80\% TRN and 20\% TRN 50 times.
@@ -554,7 +555,7 @@ each and again each subset has been split into 80\% TRN and 20\% TRN 50 times.
 \end{figure}
 
 Figure \ref{fig:phenos_vs_acc} shows similar behaviors for all the eight different
-phenotypes assessed. With increasing number of DH the prediction accuracy will gradually
+phenotypes assessed. With increasing number of DHs the prediction accuracy will gradually
 increase, while the standard deviation of a total of 500 predictions for each subset and
 phenotype decreases. Figure \ref{fig:marker_vs_acc}, addressing $\rho_{(y,\hat{y})}$ as a
 function as the number of markers shows a plateau just after a couple of thousand
@@ -568,7 +569,7 @@ does not cease yet.
 
 The results in section \ref{res:gp:at} and table \ref{tab:at_res} show that for a large
 variety of different \textit{A. thaliana} traits prediction accuracies vary from 0 to
-almost 0.9, depending on the trait being assessed. Next to the number for markers and
+almost 0.9, depending on the trait being assessed. Next to the number of markers and
 phenotypes, the architectures of a trait as explained in section \ref{quan} will have an
 definite influence on the ability of prediction algorithms being able to produce
 meaningful results. Plot \ref{fig:herit_gp} compares the heritability with the results of
@@ -591,7 +592,7 @@ estimations of the variance components of a trait with given genotypes.
 The predictive ability and the pseudo-heritability estimate are highly correlated with each other
 and the latter can be used as a valid approximation for the accuracy of prediction. In
 chapter \ref{quan} it was stated that it is theoretically impossible for
-$\rho_{(y,\hat{y})}$ to exceed $H^2$. As figure \ref{fig:herit_gp} shows this assumptions
+$\rho_{(y,\hat{y})}$ to exceed $H^2$. As figure \ref{fig:herit_gp} shows this assumption
 holds almost completely true. Only a few points are slightly above the diagonal and are
 either close to 0 for both $\rho_{(y,\hat{y})}$ and the pseudo-heritability or might be
 due to over- or under inflation of the REML model. Many published studies found similar
@@ -600,7 +601,7 @@ results concerning the comparison of the two metrics e.g \cite{kwong2017genomic}
 
 \subsection{Two or three layer networks outperform deeper ANNs}
 
-While different network architectures were tested the ones with LCL were better performing
+While different network architectures were tested, the ones with LCL were better performing
 than with just FCL architectures. Table \ref{tab:ann_res} summarizes the success rates of
 different network architectures used for the prediction of the \textit{A. thaliana}
 traits, whose results have been presented in section \ref{res:gp}. The most successful
@@ -615,13 +616,13 @@ highly unbiased, the genetic architecture will have an influence on the success 
 features increases much faster, than if the number of nodes per layer is increased with a
 constant number of layers. Therefore those networks, hypothetically, should be better
 suited to connect complex gene interaction networks, while shallower networks should
-capture all the additive signal.
+capture all the additive signals.
 
 \onehalfspacing
 \begin{table}[H]
  \centering
  \caption[ANN architectures of ANN resulting in highest prediction accuracies]{ANN
-   architectures resulting in highest prediction accuracies, with number of hidden layer
+   architectures resulting in highest prediction accuracies, with the number of hidden layer
    (HL) and the total count (n)}
  \begin{tabular}{cccc}
    \toprule
@@ -641,9 +642,8 @@ capture all the additive signal.
 \doublespacing
 
 The constant problem remains, which is the dimensionality of the data. Even if epistatic
-interactions are present, their signal is mostly likely too weak with small populations
-size and becomes obscured by the immense number of trainable features in deeper networks.
-
+interactions are present, their signal is mostly likely too weak within small populations
+and becomes obscured by the immense number of trainable features in deeper networks.
 
 \subsection{GxE interactions have great influence on plant development traits in maize}
 
@@ -651,7 +651,7 @@ Genotype-environment interactions are present in all field trials, which complic
 breeding and selection, as compared to trials with controlled environments. One advantage
 of machine learning, is that environmental information can easily be incorporated into ANN
 models because there are no assumptions prior to the analyses for effect sizes and the
-shrinkage imposed on the markers- as in the Bayesian models \cite{gianola2013};
+shrinkage imposed on the markers, as in the Bayesian models \cite{gianola2013};
 \cite{bustos2016improvement}. The maize traits under investigation show that
 $\sigma_{GxE}$ has a great influence. Table \ref{tab:ge_deltas} summarizes the results for
 the GxE predictions and shows that just by adding the environmental markers the prediction
@@ -662,12 +662,12 @@ accuracies increase significantly for all traits.
 \begin{table}[H] 
  \centering
  \caption[Comparison of prediction results of ANN within locations and across locations
- for Kemater and Petkuser]{Comparison of prediction results of ANN within locations (WL)
-   and across locations (AL) for Kemater and Petkuser}
+ for Kemater and Petkuser]{Comparison of prediction results of ANN with the single location (SL) 
+   and the across location (AL) BLUEs for Kemater and Petkuser}
  \begin{tabular}{lrrr|rrr}
    \toprule
    & \multicolumn{3}{c}{\textbf{Kemater}} & \multicolumn{3}{c}{\textbf{Petkuser}}    \\
-   Phenotype & AL                                   & WL   & $\Delta$ & AL   & WL   & $\Delta$ \\ 
+   Phenotype & SL                                   & AL   & $\Delta$ & SL   & AL   & $\Delta$ \\ 
    \midrule
    EV\_V3    & 0.73                                 & 0.46 & 0.27     & 0.72 & 0.25 & 0.47     \\ 
    EV\_V4    & 0.72                                 & 0.49 & 0.23     & 0.66 & 0.25 & 0.40     \\ 
@@ -692,10 +692,10 @@ are also Bayesian approaches to include GxE in the prediction equations availabl
 \cite{cuevas2017bayesian}; \cite{crossa2019deep}, however, they are less straight forward
 to implement. \\
 The future goal of research in GxE predictions, should be to predict the phenotypic of
-value of traits of unknown genotypes in unknown environments, to achieve this environments,
+values traits of unknown genotypes in unknown environments. To achieve this environments,
 like genotypes need to be described by features or markers. In the case of the
 environments those are traits like soil constitution, whether and climate data etc. This
-field of enviromics or envirotyping is hitherto not very advanced but certainly will
+field of enviromics or envirotyping is hitherto not very advanced, but certainly will
 receive more attention in the coming years due to its potential gains for breeding and
 medical applications alike \cite{resende2019enviromics}; \cite{chang2019envirotyping}.
 
@@ -706,21 +706,21 @@ In the \textit{A. thaliana} and maize traits, there is no single algorithm that 
 able to outperform all the others. This holds true for many studies, that compared a
 variety of GP algorithms \cite{dlc2009}; \cite{heslot2012genomic};
 \cite{blondel2015ranking}; \cite{Ramstein_2016}; \cite{roorkiwal2016genome};
-\cite{azodi2019}. More influential on the predictive ability is the size of the training
-set, the number of markers and the overall heritability. As shown in previous chapters not
-only do algorithms do not have the tendency to outperform each other in general, even for
-individual traits there rarely is significant difference between the performance of the
-methods. At first, this might seem surprising because the almost 200 trait-population
-combinations tested in the present studies, are unlikely to have the same genetic
-architecture, e.g. the distribution of marker effects, and they should vary in the
+\cite{azodi2019}. More influential the GP method on the predictive ability is the size of
+the training set, the number of markers and the overall heritability. As shown in previous
+chapters not only do algorithms do not have the tendency to outperform each other in
+general, even for individual traits there rarely is a significant difference between the
+performance of the methods. At first, this might seem surprising because the almost 200
+trait-population combinations tested in the present studies, are unlikely to have the same
+genetic architecture, e.g. the distribution of marker effects, and they should vary in the
 magnitude of the additive and epistatic variance components of the total genetic
 variance. While the Bayesian methods and GBLUP, as previously thoroughly discussed,
 capture linear effects the ANNs should technically be able to asses non-linear effects in
-the prediction, while this has been shown in the proof of concept in section \ref{POC}
-this is not reflected in the real world examples, which points to the major issue in GP
-that is the size of the training set. Small training sets are unsuited to capture
-epistatic effects with low allele frequencies because the smaller the set the less likely
-it becomes that they are distributed in both the training and the testing
+the prediction. While this has been shown in the proof of concept in section \ref{POC}, it
+is not reflected in the real world examples, which points to the major issue in GP that is
+the size of the training set. Small training sets are unsuited to capture epistatic
+effects with low allele frequencies because the smaller the set is, the less likely it
+becomes that epistatic effects are distributed evenly in both the training and the testing
 population.\\
 Secondly, even if a given trait biological is epistatic there might be a single marker,
 which is similar to an interaction pseudo-marker, whose effect size can be captured by the
@@ -731,27 +731,29 @@ number of markers $n$ is smaller compared to the number of phenotypes $p$
 \cite{azodi2019}, which would allow for epistatic effects to be more likely to appear in
 both TRN and TST and make it less likely that they are obscured behind co-linear
 additive markers.\\
-A study that involved more than 8000 wheat lines conducted by \cite{Norman_2018} found
+A study that included more than 8000 wheat lines conducted by \cite{Norman_2018} found
 similar results to those shown in figure \ref{fig:marker_vs_acc}. For four different wheat
-traits the increase of the predictive ability did not reach a plateau even after more than
+traits the increase of the predictive ability did not reach a plateau, even after more than
 8000 genotypes were included in the training set, while the increase in gain due to adding
-markers to the analysis ceases after 5000 markers have been added.
+markers to the analysis ceases after 5000 markers.
 
 \section{Conclusion}
-Artificial neural networks in many fields replaced older methods in a short amount of time
+Artificial neural networks replaced older methods in many fields in a short amount of time
 and biological research is no exception \cite{angermueller2016}. Even though neural nets
 present a valuable addition to the toolbox of genomic selection in plant and animal
 breeding they do not perform to the potential they have shown in other fields.  Among the
 reasons could be, next to the too few phenotypes usually present in the study to capture
-interactions, that neural networks are applied the exact same way as GBLUP or others are
-implemented, which does not allow to use the networks strength. Instead of using imputed
-data neural nets could be fed with raw input data, and utilize multiple data sets at once
-including multiple traits and environments to increase prediction accuracies. Additionally
-to using the raw genotypic data, it could be promising to use the raw phenotypic data for
-genomic prediction. With the calculation of the BLUEs or means an important feature of the
-traits is lost, which is the variance of the observation between and among environments
-and repetitions. The networks for example could be trained an a multi-dimensional tensor
-containing all the measured values instead of the BLUEs. \\
+interactions, that neural networks are applied the exact same way as GBLUP or as the
+Bayesian methods are implemented, which does not allow to use the networks
+strength. Instead of using imputed data neural nets could be fed with raw input data and
+utilize multiple data sets at once including multiple traits and environments to increase
+prediction accuracies. Additionally to using the raw genotypic data, it could be promising
+to use the raw phenotypic data for genomic prediction. With the calculation of the BLUEs
+or means an important feature of the traits is lost, which is the variance of the
+observation between and among environments and repetitions. The networks for example could
+be trained an a multi-dimensional tensor containing all the measured values instead of the BLUEs. \\
+Concluding, there is still a need to further assess the possibilities of machine learning
+and neural networks in quantitative genetics in general and especially genomic prediction.
 
 
 
