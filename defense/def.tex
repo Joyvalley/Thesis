@@ -18,6 +18,15 @@
 \useinnertheme{rectangles}
 \setbeamercovered{transparent} 
 \colorlet{mdtRed}{red!50!black}
+\beamertemplatenavigationsymbolsempty 
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
 
 
 
@@ -49,5 +58,131 @@
 \end{frame}
 
 
+\begin{frame}
+    \frametitle{Quantitative genetics}
+    \includegraphics[width=.98\textwidth, height=.8\textheight]{../Figures/gxe.png}
+\end{frame}
 
-\end{document}
+\begin{frame}
+    \frametitle{Quantitative genetics}
+    \includegraphics[width=.98\textwidth, height=.8\textheight]{../Figures/athal.png}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \begin{huge}
+    \frametitle{Decomposition of phenotypic variance} \vspace{-2ex}
+    \begin{itemize}[<+->]
+    \item[] \[\sigma_P = \sigma_G + \sigma_E + \sigma_{GxE}\]
+    \item[] \[\sigma_G = \sigma_A + \sigma_D + \sigma_I\]
+    \item[] \[\sigma_I = \sigma_{AA} + \sigma_{AD} + \sigma_{DD}\]
+    \item[] \[h^2 = \frac{\sigma_A}{\sigma_P} \]
+    \end{itemize}
+  \end{huge}
+\end{frame}
+ 
+
+
+
+\begin{frame}
+  \frametitle{Workflow in quantitative Genetics}
+  
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[node distance=2cm, scale=0.8, transform shape]
+      \node (start0) [startstop] {Selection of suitable candidates};
+      \node (start) [startstop,below of=start0] {DNA extraction};
+      \draw [arrow] (start0) -- (start);
+      \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
+      \draw [arrow] (start) -- (seq);
+      \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
+      \draw [arrow] (start) -- (SNP);
+      \node (ga) [process, below of=seq] {Genome assembly} ;
+      \draw [arrow] (seq) -- (ga);
+      \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
+      \draw [arrow] (ga) -- (snpca);
+      \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
+      \draw [arrow] (snpca) -- (imp) ;
+      \draw [arrow] (SNP) -- (imp) ;
+      \node (LD) [io, below of=imp] {LD pruning} ;
+      \draw [arrow] (imp) -- (LD) ;
+      \node (MAF) [io, below of=LD] {MAF filtering} ;
+      \draw [arrow] (LD) -- (MAF) ;
+      \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
+      \draw [arrow] (MAF) -- (bm) ;
+    \end{tikzpicture}
+    \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps} \label{fig:quan_flow1}
+  \end{center}     
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\vspace{-22em}
+\begin{figure}[H]
+  \begin{center}
+    \begin{tikzpicture}[node distance=2cm, scale=0.8, transform shape]
+      \node (start0) [startstop] {Selection of suitable candidates};
+      \node (start) [startstop,below of=start0] {DNA extraction};
+      \draw [arrow] (start0) -- (start);
+      \node (seq) [process, below of=start, xshift=-3cm] {Sequencing} ;
+      \draw [arrow] (start) -- (seq);
+      \node (SNP) [process, below of=start, xshift=3cm, yshift=-2cm] {SNP array} ;
+      \draw [arrow] (start) -- (SNP);
+      \node (ga) [process, below of=seq] {Genome assembly} ;
+      \draw [arrow] (seq) -- (ga);
+      \node (snpca) [process, below of=ga] {Alignment \& SNP calling} ;
+      \draw [arrow] (ga) -- (snpca);
+      \node (imp) [io, below of=snpca, xshift=3cm] {Imputation of missing values};
+      \draw [arrow] (snpca) -- (imp) ;
+      \draw [arrow] (SNP) -- (imp) ;
+      \node (LD) [io, below of=imp] {LD pruning} ;
+      \draw [arrow] (imp) -- (LD) ;
+      \node (MAF) [io, below of=LD] {MAF filtering} ;
+      \draw [arrow] (LD) -- (MAF) ;
+      \node (bm) [startstop, below of=MAF] {Numeric marker matrix} ;
+      \draw [arrow] (MAF) -- (bm) ;
+    \end{tikzpicture}
+    \caption[Schematic process of genotyping for quantitative genetics]{Schematic process of genotyping for quantitative genetics analyses with its crucial steps} \label{fig:quan_flow1}
+  \end{center}     
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Numeric marker matricies}
+  \includegraphics[height=.8\textheight,width=.98\textwidth]{../Figures/chr1_hap}
+\end{frame}
+
+\begin{frame}
+\begin{table}[H]
+ \centering
+ \caption[Environmentally enhanced marker matrix]{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
+ \label{tab:envmarker}
+ \begin{tabular}{l|cccc}
+   \hline
+        & M-1 & M-2 & M-3 & M-4 \\
+   \hline
+   Acc1 & 0   & 1   & 1   & 0   \\
+   Acc2 & 1   & 0   & 1   & 0   \\
+   Acc3 & 0   & 1   & 0   & 1   \\
+   Acc4 & 1   & 0   & 0   & 1   \\
+   \hline
+ \end{tabular}
+\end{table}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Methods in quantitative genetics}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{bla.pdf}
+\end{frame}
+
+
+
+ \end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
