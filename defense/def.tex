@@ -64,10 +64,14 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Complex trait}
+    \includegraphics[width=.98\textwidth, height=.8\textheight]{../Figures/complex_trait.png}
+\end{frame}
+
+\begin{frame}
     \frametitle{Quantitative genetics}
     \includegraphics[width=.98\textwidth, height=.8\textheight]{../Figures/athal.png}
 \end{frame}
-
 
 
 
@@ -178,6 +182,50 @@
   \frametitle{Methods in quantitative genetics}
   \includegraphics[height=.8\textheight,width=.9\textwidth]{bla.pdf}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Objectives}
+  \begin{enumerate} [<+->]
+  \item Improve GWAS methodology 
+  \item Apply non-parametric statistical methods to genomic selection
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{GWAS}
+  \begin{itemize}[<+->]
+  \item GWAS is the main method used to link traits/phenotypes to genetic polymorphisms
+  \item GWAS utilizes mixed-model linear equations to account for structured populations
+  \item Significant testing is commonly done with bonferroni thresholds 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problems with GWAS and bonferroni correction}
+  \begin{itemize}[<+->]
+  \item With increasing phenotypes and markers the computational time increases exponentially
+  \item Bonferroni assumes independent testing
+  \item Due to LD markers are not independent from each other
+  \item Permutation based thresholds are better suited to account for LD and structured population
+  \item Permutations have to be repeated 100 times with shuffled phenotypes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{GWAS Flow}
+  \begin{itemize}[<+->]
+  \item GWAS consists of a series of matrix operations that can be highly parallelized
+  \item GWAS Flow uses the TensorFlow's Python API 
+  \item The calculations can be run on both GPU and CPU 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Performance of GWAS-FLow }
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{final_plot2.pdf}
+\end{frame}
+
+
 
 
 
