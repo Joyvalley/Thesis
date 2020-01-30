@@ -156,15 +156,14 @@
 
 \begin{frame}
   \frametitle{Numeric marker matricies}
-  \includegraphics[height=.8\textheight,width=.98\textwidth]{../Figures/chr1_hap}
+   \includegraphics[height=.8\textheight,width=.98\textwidth]{../Figures/chr1_hap}
 \end{frame}
 
 \begin{frame}
+  Schematic representation of a genotype matrix as used in genetic analysis like GWAS and genomic prediction \\
 \begin{table}[H]
  \centering
- \caption[Environmentally enhanced marker matrix]{Schematic representation of the enhanced genotype matrix for across environment prediction of maize phenotypes with DHs 1-2 with markers M 1-2 in environments E1-2}
- \label{tab:envmarker}
- \begin{tabular}{l|cccc}
+ \begin{tabular}{l|cccc} 
    \hline
         & M-1 & M-2 & M-3 & M-4 \\
    \hline
@@ -257,7 +256,10 @@
    \frametitle{Neural networks in genomic prediction}
    \begin{columns}
      \begin{column}{0.5\textwidth}
-       bla
+       \begin{itemize}
+       \item With the advent of high performing GPUs neural networks become popular in all branches
+         \item In the scope of the present study the usability of neural networks for genomic selection was assessed 
+       \end{itemize}
      \end{column}
      \begin{column}{0.5\textwidth}
         \includegraphics[height=.6\textheight,width=.9\textwidth]{neuralnet}
@@ -265,10 +267,29 @@
    \end{columns}
 \end{frame}
  
+\begin{frame}
+  \frametitle{Genomic selection}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{ann_vs_gblup}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Genomic selection}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{gp_kemater}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Number of markers versus prediction accuracy}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{marker_vs_acc}
+\end{frame}
+
+\begin{frame}
+\frametitle{Number of phenotypes versus prediction accuracy}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{phenos_acc}
+\end{frame}
 
 
 \end{document}
-
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
