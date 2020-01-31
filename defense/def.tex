@@ -44,6 +44,7 @@
   Evolutionary genomics \\
   Julius-Maximilians-Universität Würzburg
 }
+
  
 \date{31. Jan 2020}
  
@@ -212,11 +213,19 @@
 
 \begin{frame}
   \frametitle{GWAS Flow}
-  \begin{itemize}[<+->]
-  \item GWAS consists of a series of matrix operations that can be highly parallelized
-  \item GWAS Flow uses the TensorFlow's Python API 
-  \item The calculations can be run on both GPU and CPU 
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}[<+->]
+      \item GWAS consists of a series of matrix operations that can be highly parallelized
+      \item GWAS Flow uses the TensorFlow's Python API 
+      \item The calculations can be run on both GPU and CPU
+      \item GWAS Flow is free open source software published on github
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[height=.8\textheight,width=.9\textwidth]{gwas_flow}
+        \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -240,13 +249,18 @@
   \end{enumerate}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Genomic selection and the breeders equation}
+  \includegraphics[height=.8\textheight,width=.9\textwidth]{breeders_equation}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Prediction methods in genomic selection}
   \begin{enumerate}[<+->]
   \item GBLUP - the gold-standard in genomic selection
   \item Bayesian methods
-  \item Bayesian methods differ in the a prior assumptions on marker effect sizes
+  \item Bayesian methods differ in the a priori assumptions on marker effect sizes
   \item RHKS, random forest, support vector machines etc.
   \end{enumerate}    
 \end{frame}
@@ -256,7 +270,7 @@
    \begin{columns}
      \begin{column}{0.5\textwidth}
        \begin{itemize}
-       \item With the advent of high performing GPUs neural networks become popular in all branches
+       \item With the advent of high performing GPUs neural networks became popular in many branches of biology
          \item In the scope of the present study the usability of neural networks for genomic selection was assessed 
        \end{itemize}
      \end{column}
